@@ -1,0 +1,3250 @@
+{
+  "modules": [
+    {
+      "file": "address.wasm",
+      "funcs": [
+        {
+          "name": "good1",
+          "tests": [{"in": [{"i32": 0}], "out": [{"i32": 97}]}]
+        },
+        {
+          "name": "good2",
+          "tests": [{"in": [{"i32": 0}], "out": [{"i32": 98}]}]
+        },
+        {
+          "name": "good3",
+          "tests": [{"in": [{"i32": 0}], "out": [{"i32": 99}]}]
+        },
+        {
+          "name": "good4",
+          "tests": [{"in": [{"i32": 0}], "out": [{"i32": 122}]}]
+        },
+        {
+          "name": "good5",
+          "tests": [{"in": [{"i32": 0}], "out": [{"i32": 25185}]}]
+        },
+        {
+          "name": "good6",
+          "tests": [{"in": [{"i32": 0}], "out": [{"i32": 25185}]}]
+        },
+        {
+          "name": "good7",
+          "tests": [{"in": [{"i32": 0}], "out": [{"i32": 25442}]}]
+        },
+        {
+          "name": "good8",
+          "tests": [{"in": [{"i32": 0}], "out": [{"i32": 25699}]}]
+        },
+        {
+          "name": "good9",
+          "tests": [{"in": [{"i32": 0}], "out": [{"i32": 122}]}]
+        },
+        {
+          "name": "good10",
+          "tests": [{"in": [{"i32": 0}], "out": [{"i32": 1684234849}]}]
+        },
+        {
+          "name": "good11",
+          "tests": [{"in": [{"i32": 0}], "out": [{"i32": 1701077858}]}]
+        },
+        {
+          "name": "good12",
+          "tests": [{"in": [{"i32": 0}], "out": [{"i32": 1717920867}]}]
+        },
+        {
+          "name": "good13",
+          "tests": [{"in": [{"i32": 0}], "out": [{"i32": 122}]}]
+        },
+        {
+          "name": "good1",
+          "tests": [{"in": [{"i32": 65507}], "out": [{"i32": 0}]}]
+        },
+        {
+          "name": "good2",
+          "tests": [{"in": [{"i32": 65507}], "out": [{"i32": 0}]}]
+        },
+        {
+          "name": "good3",
+          "tests": [{"in": [{"i32": 65507}], "out": [{"i32": 0}]}]
+        },
+        {
+          "name": "good4",
+          "tests": [{"in": [{"i32": 65507}], "out": [{"i32": 0}]}]
+        },
+        {
+          "name": "good5",
+          "tests": [{"in": [{"i32": 65507}], "out": [{"i32": 0}]}]
+        },
+        {
+          "name": "good6",
+          "tests": [{"in": [{"i32": 65507}], "out": [{"i32": 0}]}]
+        },
+        {
+          "name": "good7",
+          "tests": [{"in": [{"i32": 65507}], "out": [{"i32": 0}]}]
+        },
+        {
+          "name": "good8",
+          "tests": [{"in": [{"i32": 65507}], "out": [{"i32": 0}]}]
+        },
+        {
+          "name": "good9",
+          "tests": [{"in": [{"i32": 65507}], "out": [{"i32": 0}]}]
+        },
+        {
+          "name": "good10",
+          "tests": [{"in": [{"i32": 65507}], "out": [{"i32": 0}]}]
+        },
+        {
+          "name": "good11",
+          "tests": [{"in": [{"i32": 65507}], "out": [{"i32": 0}]}]
+        },
+        {
+          "name": "good12",
+          "tests": [{"in": [{"i32": 65507}], "out": [{"i32": 0}]}]
+        },
+        {
+          "name": "good13",
+          "tests": [{"in": [{"i32": 65507}], "out": [{"i32": 0}]}]
+        },
+        {
+          "name": "good1",
+          "tests": [{"in": [{"i32": 65508}], "out": [{"i32": 0}]}]
+        },
+        {
+          "name": "good2",
+          "tests": [{"in": [{"i32": 65508}], "out": [{"i32": 0}]}]
+        },
+        {
+          "name": "good3",
+          "tests": [{"in": [{"i32": 65508}], "out": [{"i32": 0}]}]
+        },
+        {
+          "name": "good4",
+          "tests": [{"in": [{"i32": 65508}], "out": [{"i32": 0}]}]
+        },
+        {
+          "name": "good5",
+          "tests": [{"in": [{"i32": 65508}], "out": [{"i32": 0}]}]
+        },
+        {
+          "name": "good6",
+          "tests": [{"in": [{"i32": 65508}], "out": [{"i32": 0}]}]
+        },
+        {
+          "name": "good7",
+          "tests": [{"in": [{"i32": 65508}], "out": [{"i32": 0}]}]
+        },
+        {
+          "name": "good8",
+          "tests": [{"in": [{"i32": 65508}], "out": [{"i32": 0}]}]
+        },
+        {
+          "name": "good9",
+          "tests": [{"in": [{"i32": 65508}], "out": [{"i32": 0}]}]
+        },
+        {
+          "name": "good10",
+          "tests": [{"in": [{"i32": 65508}], "out": [{"i32": 0}]}]
+        },
+        {
+          "name": "good11",
+          "tests": [{"in": [{"i32": 65508}], "out": [{"i32": 0}]}]
+        },
+        {
+          "name": "good12",
+          "tests": [{"in": [{"i32": 65508}], "out": [{"i32": 0}]}]
+        },
+        {
+          "name": "good13",
+          "tests": [{"in": [{"i32": 65508}], "err": "out of bounds memory access"}]
+        },
+        {
+          "name": "bad",
+          "tests": [{"in": [{"i32": 0}], "err": "out of bounds memory access"}]
+        },
+        {
+          "name": "bad",
+          "tests": [{"in": [{"i32": 1}], "err": "out of bounds memory access"}]
+        }
+      ]
+    },
+    {
+      "file": "block.wasm",
+      "funcs": [
+        {
+          "name": "empty",
+          "tests": [{"in": [], "out": null}]
+        },
+        {
+          "name": "singular",
+          "tests": [{"in": [], "out": [{"i32": 7}]}]
+        },
+        {
+          "name": "multi",
+          "tests": [{"in": [], "out": [{"i32": 8}]}]
+        },
+        {
+          "name": "nested",
+          "tests": [{"in": [], "out": [{"i32": 9}]}]
+        },
+        {
+          "name": "deep",
+          "tests": [{"in": [], "out": [{"i32": 150}]}]
+        },
+        {
+          "name": "as-unary-operand",
+          "tests": [{"in": [], "out": [{"i32": 0}]}]
+        },
+        {
+          "name": "as-binary-operand",
+          "tests": [{"in": [], "out": [{"i32": 12}]}]
+        },
+        {
+          "name": "as-test-operand",
+          "tests": [{"in": [], "out": [{"i32": 0}]}]
+        },
+        {
+          "name": "as-compare-operand",
+          "tests": [{"in": [], "out": [{"i32": 0}]}]
+        },
+        {
+          "name": "break-bare",
+          "tests": [{"in": [], "out": [{"i32": 19}]}]
+        },
+        {
+          "name": "break-value",
+          "tests": [{"in": [], "out": [{"i32": 18}]}]
+        },
+        {
+          "name": "break-repeated",
+          "tests": [{"in": [], "out": [{"i32": 18}]}]
+        },
+        {
+          "name": "break-inner",
+          "tests": [{"in": [], "out": [{"i32": 15}]}]
+        },
+        {
+          "name": "effects",
+          "tests": [{"in": [], "out": [{"i32": 1}]}]
+        }
+      ]
+    },
+    {
+      "file": "fac.wasm",
+      "funcs": [
+        {
+          "name": "fac-rec",
+          "tests": [
+            {"in": [{"i64": 0}], "out": [{"i64": 1}]},
+            {"in": [{"i64": 1}], "out": [{"i64": 1}]},
+            {"in": [{"i64": 2}], "out": [{"i64": 2}]},
+            {"in": [{"i64": 3}], "out": [{"i64": 6}]},
+            {"in": [{"i64": 4}], "out": [{"i64": 24}]},
+            {"in": [{"i64": 5}], "out": [{"i64": 120}]},
+            {"in": [{"i64": 25}], "out": [{"i64": 7034535277573963776}]}
+          ]
+        },
+        {
+          "name": "fac-iter",
+          "tests": [
+            {"in": [{"i64": 0}], "out": [{"i64": 1}]},
+            {"in": [{"i64": 1}], "out": [{"i64": 1}]},
+            {"in": [{"i64": 2}], "out": [{"i64": 2}]},
+            {"in": [{"i64": 3}], "out": [{"i64": 6}]},
+            {"in": [{"i64": 4}], "out": [{"i64": 24}]},
+            {"in": [{"i64": 5}], "out": [{"i64": 120}]},
+            {"in": [{"i64": 25}], "out": [{"i64": 7034535277573963776}]}
+          ]
+        },
+        {
+          "name": "fac-rec-named",
+          "tests": [{"in": [{"i64": 25}], "out": [{"i64": 7034535277573963776}]}]
+        },
+        {
+          "name": "fac-iter-named",
+          "tests": [{"in": [{"i64": 25}], "out": [{"i64": 7034535277573963776}]}]
+        },
+        {
+          "name": "fac-opt",
+          "tests": [
+            {"in": [{"i64": 0}], "out": [{"i64": 1}]},
+            {"in": [{"i64": 1}], "out": [{"i64": 1}]},
+            {"in": [{"i64": 2}], "out": [{"i64": 2}]},
+            {"in": [{"i64": 3}], "out": [{"i64": 6}]},
+            {"in": [{"i64": 4}], "out": [{"i64": 24}]},
+            {"in": [{"i64": 5}], "out": [{"i64": 120}]},
+            {"in": [{"i64": 25}], "out": [{"i64": 7034535277573963776}]}
+          ]
+        }
+      ]
+    },
+    {
+      "file": "br.wasm",
+      "funcs": [
+        {
+          "name": "type-i32",
+          "tests": [{"in": [], "out": null}]
+        },
+        {
+          "name": "type-i64",
+          "tests": [{"in": [], "out": null}]
+        },
+        {
+          "name": "type-f32",
+          "tests": [{"in": [], "out": null}]
+        },
+        {
+          "name": "type-f64",
+          "tests": [{"in": [], "out": null}]
+        },
+        {
+          "name": "type-i32-value",
+          "tests": [{"in": [], "out": [{"i32": 1}]}]
+        },
+        {
+          "name": "type-i64-value",
+          "tests": [{"in": [], "out": [{"i64": 2}]}]
+        },
+        {
+          "name": "type-f32-value",
+          "tests": [{"in": [], "out": [{"f32": 3}]}]
+        },
+        {
+          "name": "type-f64-value",
+          "tests": [{"in": [], "out": [{"f64": 4}]}]
+        },
+        {
+          "name": "as-block-first",
+          "tests": [{"in": [], "out": null}]
+        },
+        {
+          "name": "as-block-mid",
+          "tests": [{"in": [], "out": null}]
+        },
+        {
+          "name": "as-block-last",
+          "tests": [{"in": [], "out": null}]
+        },
+        {
+          "name": "as-block-value",
+          "tests": [{"in": [], "out": [{"i32": 2}]}]
+        },
+        {
+          "name": "as-loop-first",
+          "tests": [{"in": [], "out": [{"i32": 3}]}]
+        },
+        {
+          "name": "as-loop-mid",
+          "tests": [{"in": [], "out": [{"i32": 4}]}]
+        },
+        {
+          "name": "as-loop-last",
+          "tests": [{"in": [], "out": [{"i32": 5}]}]
+        },
+        {
+          "name": "as-br-value",
+          "tests": [{"in": [], "out": [{"i32": 9}]}]
+        },
+        {
+          "name": "as-br_if-cond",
+          "tests": [{"in": [], "out": null}]
+        },
+        {
+          "name": "as-br_if-value",
+          "tests": [{"in": [], "out": [{"i32": 8}]}]
+        },
+        {
+          "name": "as-br_if-value-cond",
+          "tests": [{"in": [], "out": [{"i32": 9}]}]
+        },
+        {
+          "name": "as-br_table-index",
+          "tests": [{"in": [], "out": null}]
+        },
+        {
+          "name": "as-br_table-value",
+          "tests": [{"in": [], "out": [{"i32": 10}]}]
+        },
+        {
+          "name": "as-br_table-value-index",
+          "tests": [{"in": [], "out": [{"i32": 11}]}]
+        },
+        {
+          "name": "as-return-value",
+          "tests": [{"in": [], "out": [{"i64": 7}]}]
+        },
+        {
+          "name": "as-if-cond",
+          "tests": [{"in": [], "out": [{"i32": 2}]}]
+        },
+        {
+          "name": "as-if-then",
+          "tests": [{"in": [{"i32": 1}, {"i32": 6}], "out": [{"i32": 3}]}]
+        },
+        {
+          "name": "as-if-then",
+          "tests": [{"in": [{"i32": 0}, {"i32": 6}], "out": [{"i32": 6}]}]
+        },
+        {
+          "name": "as-if-else",
+          "tests": [{"in": [{"i32": 0}, {"i32": 6}], "out": [{"i32": 4}]}]
+        },
+        {
+          "name": "as-if-else",
+          "tests": [{"in": [{"i32": 1}, {"i32": 6}], "out": [{"i32": 6}]}]
+        },
+        {
+          "name": "as-select-first",
+          "tests": [{"in": [{"i32": 0}, {"i32": 6}], "out": [{"i32": 5}]}]
+        },
+        {
+          "name": "as-select-first",
+          "tests": [{"in": [{"i32": 1}, {"i32": 6}], "out": [{"i32": 5}]}]
+        },
+        {
+          "name": "as-select-second",
+          "tests": [{"in": [{"i32": 0}, {"i32": 6}], "out": [{"i32": 6}]}]
+        },
+        {
+          "name": "as-select-second",
+          "tests": [{"in": [{"i32": 1}, {"i32": 6}], "out": [{"i32": 6}]}]
+        },
+        {
+          "name": "as-select-cond",
+          "tests": [{"in": [], "out": [{"i32": 7}]}]
+        },
+        {
+          "name": "as-call-first",
+          "tests": [{"in": [], "out": [{"i32": 12}]}]
+        },
+        {
+          "name": "as-call-mid",
+          "tests": [{"in": [], "out": [{"i32": 13}]}]
+        },
+        {
+          "name": "as-call-last",
+          "tests": [{"in": [], "out": [{"i32": 14}]}]
+        },
+        {
+          "name": "as-call_indirect-func",
+          "tests": [{"in": [], "out": [{"i32": 20}]}]
+        },
+        {
+          "name": "as-call_indirect-first",
+          "tests": [{"in": [], "out": [{"i32": 21}]}]
+        },
+        {
+          "name": "as-call_indirect-mid",
+          "tests": [{"in": [], "out": [{"i32": 22}]}]
+        },
+        {
+          "name": "as-call_indirect-last",
+          "tests": [{"in": [], "out": [{"i32": 23}]}]
+        },
+        {
+          "name": "as-set_local-value",
+          "tests": [{"in": [], "out": [{"i32": 17}]}]
+        },
+        {
+          "name": "as-load-address",
+          "tests": [{"in": [], "out": [{"f32": 1.7}]}]
+        },
+        {
+          "name": "as-loadN-address",
+          "tests": [{"in": [], "out": [{"i64": 30}]}]
+        },
+        {
+          "name": "as-store-address",
+          "tests": [{"in": [], "out": [{"i32": 30}]}]
+        },
+        {
+          "name": "as-store-value",
+          "tests": [{"in": [], "out": [{"i32": 31}]}]
+        },
+        {
+          "name": "as-storeN-address",
+          "tests": [{"in": [], "out": [{"i32": 32}]}]
+        },
+        {
+          "name": "as-storeN-value",
+          "tests": [{"in": [], "out": [{"i32": 33}]}]
+        },
+        {
+          "name": "as-unary-operand",
+          "tests": [{"in": [], "out": [{"f32": 3.4}]}]
+        },
+        {
+          "name": "as-binary-left",
+          "tests": [{"in": [], "out": [{"i32": 3}]}]
+        },
+        {
+          "name": "as-binary-right",
+          "tests": [{"in": [], "out": [{"i64": 45}]}]
+        },
+        {
+          "name": "as-test-operand",
+          "tests": [{"in": [], "out": [{"i32": 44}]}]
+        },
+        {
+          "name": "as-compare-left",
+          "tests": [{"in": [], "out": [{"i32": 43}]}]
+        },
+        {
+          "name": "as-compare-right",
+          "tests": [{"in": [], "out": [{"i32": 42}]}]
+        },
+        {
+          "name": "as-convert-operand",
+          "tests": [{"in": [], "out": [{"i32": 41}]}]
+        },
+        {
+          "name": "as-grow_memory-size",
+          "tests": [{"in": [], "out": [{"i32": 40}]}]
+        },
+        {
+          "name": "nested-block-value",
+          "tests": [{"in": [], "out": [{"i32": 9}]}]
+        },
+        {
+          "name": "nested-br-value",
+          "tests": [{"in": [], "out": [{"i32": 9}]}]
+        },
+        {
+          "name": "nested-br_if-value",
+          "tests": [{"in": [], "out": [{"i32": 9}]}]
+        },
+        {
+          "name": "nested-br_table-value",
+          "tests": [{"in": [], "out": [{"i32": 9}]}]
+        }
+      ]
+    },
+    {
+      "file": "br_if.wasm",
+      "funcs": [
+        {
+          "name": "as-block-first",
+          "tests": [{"in": [{"i32": 0}], "out": [{"i32": 2}]}]
+        },
+        {
+          "name": "as-block-first",
+          "tests": [{"in": [{"i32": 1}], "out": [{"i32": 3}]}]
+        },
+        {
+          "name": "as-block-mid",
+          "tests": [{"in": [{"i32": 0}], "out": [{"i32": 2}]}]
+        },
+        {
+          "name": "as-block-mid",
+          "tests": [{"in": [{"i32": 1}], "out": [{"i32": 3}]}]
+        },
+        {
+          "name": "as-block-last",
+          "tests": [{"in": [{"i32": 0}], "out": null}]
+        },
+        {
+          "name": "as-block-last",
+          "tests": [{"in": [{"i32": 1}], "out": null}]
+        },
+        {
+          "name": "as-block-last-value",
+          "tests": [{"in": [{"i32": 0}], "out": [{"i32": 11}]}]
+        },
+        {
+          "name": "as-block-last-value",
+          "tests": [{"in": [{"i32": 1}], "out": [{"i32": 11}]}]
+        },
+        {
+          "name": "as-loop-first",
+          "tests": [{"in": [{"i32": 0}], "out": [{"i32": 2}]}]
+        },
+        {
+          "name": "as-loop-first",
+          "tests": [{"in": [{"i32": 1}], "out": [{"i32": 3}]}]
+        },
+        {
+          "name": "as-loop-mid",
+          "tests": [{"in": [{"i32": 0}], "out": [{"i32": 2}]}]
+        },
+        {
+          "name": "as-loop-mid",
+          "tests": [{"in": [{"i32": 1}], "out": [{"i32": 4}]}]
+        },
+        {
+          "name": "as-loop-last",
+          "tests": [{"in": [{"i32": 0}], "out": null}]
+        },
+        {
+          "name": "as-loop-last",
+          "tests": [{"in": [{"i32": 1}], "out": null}]
+        },
+        {
+          "name": "as-if-then",
+          "tests": [{"in": [{"i32": 0}, {"i32": 0}], "out": null}]
+        },
+        {
+          "name": "as-if-then",
+          "tests": [{"in": [{"i32": 4}, {"i32": 0}], "out": null}]
+        },
+        {
+          "name": "as-if-then",
+          "tests": [{"in": [{"i32": 0}, {"i32": 1}], "out": null}]
+        },
+        {
+          "name": "as-if-then",
+          "tests": [{"in": [{"i32": 4}, {"i32": 1}], "out": null}]
+        },
+        {
+          "name": "as-if-else",
+          "tests": [{"in": [{"i32": 0}, {"i32": 0}], "out": null}]
+        },
+        {
+          "name": "as-if-else",
+          "tests": [{"in": [{"i32": 3}, {"i32": 0}], "out": null}]
+        },
+        {
+          "name": "as-if-else",
+          "tests": [{"in": [{"i32": 0}, {"i32": 1}], "out": null}]
+        },
+        {
+          "name": "as-if-else",
+          "tests": [{"in": [{"i32": 3}, {"i32": 1}], "out": null}]
+        },
+        {
+          "name": "nested-block-value",
+          "tests": [{"in": [{"i32": 1}], "out": [{"i32": 9}]}]
+        },
+        {
+          "name": "nested-br-value",
+          "tests": [{"in": [{"i32": 0}], "out": [{"i32": 5}]}]
+        },
+        {
+          "name": "nested-br-value",
+          "tests": [{"in": [{"i32": 1}], "out": [{"i32": 9}]}]
+        },
+        {
+          "name": "nested-br_if-value",
+          "tests": [{"in": [{"i32": 0}], "out": [{"i32": 5}]}]
+        },
+        {
+          "name": "nested-br_if-value",
+          "tests": [{"in": [{"i32": 1}], "out": [{"i32": 9}]}]
+        },
+        {
+          "name": "nested-br_if-value-cond",
+          "tests": [{"in": [{"i32": 0}], "out": [{"i32": 5}]}]
+        },
+        {
+          "name": "nested-br_if-value-cond",
+          "tests": [{"in": [{"i32": 1}], "out": [{"i32": 9}]}]
+        },
+        {
+          "name": "nested-br_table-value",
+          "tests": [{"in": [{"i32": 0}], "out": [{"i32": 5}]}]
+        },
+        {
+          "name": "nested-br_table-value",
+          "tests": [{"in": [{"i32": 1}], "out": [{"i32": 9}]}]
+        },
+        {
+          "name": "nested-br_table-value-index",
+          "tests": [{"in": [{"i32": 0}], "out": [{"i32": 5}]}]
+        },
+        {
+          "name": "nested-br_table-value-index",
+          "tests": [{"in": [{"i32": 1}], "out": [{"i32": 9}]}]
+        }
+      ]
+    },
+    {
+      "file": "br_table.wasm",
+      "funcs": [
+        {
+          "name": "type-i32",
+          "tests": [{"in": [], "out": null}]
+        },
+        {
+          "name": "type-i64",
+          "tests": [{"in": [], "out": null}]
+        },
+        {
+          "name": "type-f32",
+          "tests": [{"in": [], "out": null}]
+        },
+        {
+          "name": "type-f64",
+          "tests": [{"in": [], "out": null}]
+        },
+        {
+          "name": "type-i32-value",
+          "tests": [{"in": [], "out": [{"i32": 1}]}]
+        },
+        {
+          "name": "type-i64-value",
+          "tests": [{"in": [], "out": [{"i64": 2}]}]
+        },
+        {
+          "name": "type-f32-value",
+          "tests": [{"in": [], "out": [{"f32": 3}]}]
+        },
+        {
+          "name": "type-f64-value",
+          "tests": [{"in": [], "out": [{"f64": 4}]}]
+        },
+        {
+          "name": "empty",
+          "tests": [{"in": [{"i32": 0}], "out": [{"i32": 22}]}]
+        },
+        {
+          "name": "empty",
+          "tests": [{"in": [{"i32": 1}], "out": [{"i32": 22}]}]
+        },
+        {
+          "name": "empty",
+          "tests": [{"in": [{"i32": 11}], "out": [{"i32": 22}]}]
+        },
+        {
+          "name": "empty",
+          "tests": [{"in": [{"i32": -1}], "out": [{"i32": 22}]}]
+        },
+        {
+          "name": "empty",
+          "tests": [{"in": [{"i32": -100}], "out": [{"i32": 22}]}]
+        },
+        {
+          "name": "empty",
+          "tests": [{"in": [{"i32": -1}], "out": [{"i32": 22}]}]
+        },
+        {
+          "name": "empty-value",
+          "tests": [{"in": [{"i32": 0}], "out": [{"i32": 33}]}]
+        },
+        {
+          "name": "empty-value",
+          "tests": [{"in": [{"i32": 1}], "out": [{"i32": 33}]}]
+        },
+        {
+          "name": "empty-value",
+          "tests": [{"in": [{"i32": 11}], "out": [{"i32": 33}]}]
+        },
+        {
+          "name": "empty-value",
+          "tests": [{"in": [{"i32": -1}], "out": [{"i32": 33}]}]
+        },
+        {
+          "name": "empty-value",
+          "tests": [{"in": [{"i32": -100}], "out": [{"i32": 33}]}]
+        },
+        {
+          "name": "empty-value",
+          "tests": [{"in": [{"i32": -1}], "out": [{"i32": 33}]}]
+        },
+        {
+          "name": "singleton",
+          "tests": [{"in": [{"i32": 0}], "out": [{"i32": 22}]}]
+        },
+        {
+          "name": "singleton",
+          "tests": [{"in": [{"i32": 1}], "out": [{"i32": 20}]}]
+        },
+        {
+          "name": "singleton",
+          "tests": [{"in": [{"i32": 11}], "out": [{"i32": 20}]}]
+        },
+        {
+          "name": "singleton",
+          "tests": [{"in": [{"i32": -1}], "out": [{"i32": 20}]}]
+        },
+        {
+          "name": "singleton",
+          "tests": [{"in": [{"i32": -100}], "out": [{"i32": 20}]}]
+        },
+        {
+          "name": "singleton",
+          "tests": [{"in": [{"i32": -1}], "out": [{"i32": 20}]}]
+        },
+        {
+          "name": "singleton-value",
+          "tests": [{"in": [{"i32": 0}], "out": [{"i32": 32}]}]
+        },
+        {
+          "name": "singleton-value",
+          "tests": [{"in": [{"i32": 1}], "out": [{"i32": 33}]}]
+        },
+        {
+          "name": "singleton-value",
+          "tests": [{"in": [{"i32": 11}], "out": [{"i32": 33}]}]
+        },
+        {
+          "name": "singleton-value",
+          "tests": [{"in": [{"i32": -1}], "out": [{"i32": 33}]}]
+        },
+        {
+          "name": "singleton-value",
+          "tests": [{"in": [{"i32": -100}], "out": [{"i32": 33}]}]
+        },
+        {
+          "name": "singleton-value",
+          "tests": [{"in": [{"i32": -1}], "out": [{"i32": 33}]}]
+        },
+        {
+          "name": "multiple",
+          "tests": [{"in": [{"i32": 0}], "out": [{"i32": 103}]}]
+        },
+        {
+          "name": "multiple",
+          "tests": [{"in": [{"i32": 1}], "out": [{"i32": 102}]}]
+        },
+        {
+          "name": "multiple",
+          "tests": [{"in": [{"i32": 2}], "out": [{"i32": 101}]}]
+        },
+        {
+          "name": "multiple",
+          "tests": [{"in": [{"i32": 3}], "out": [{"i32": 100}]}]
+        },
+        {
+          "name": "multiple",
+          "tests": [{"in": [{"i32": 4}], "out": [{"i32": 104}]}]
+        },
+        {
+          "name": "multiple",
+          "tests": [{"in": [{"i32": 5}], "out": [{"i32": 104}]}]
+        },
+        {
+          "name": "multiple",
+          "tests": [{"in": [{"i32": 6}], "out": [{"i32": 104}]}]
+        },
+        {
+          "name": "multiple",
+          "tests": [{"in": [{"i32": 10}], "out": [{"i32": 104}]}]
+        },
+        {
+          "name": "multiple",
+          "tests": [{"in": [{"i32": -1}], "out": [{"i32": 104}]}]
+        },
+        {
+          "name": "multiple",
+          "tests": [{"in": [{"i32": -1}], "out": [{"i32": 104}]}]
+        },
+        {
+          "name": "multiple-value",
+          "tests": [{"in": [{"i32": 0}], "out": [{"i32": 213}]}]
+        },
+        {
+          "name": "multiple-value",
+          "tests": [{"in": [{"i32": 1}], "out": [{"i32": 212}]}]
+        },
+        {
+          "name": "multiple-value",
+          "tests": [{"in": [{"i32": 2}], "out": [{"i32": 211}]}]
+        },
+        {
+          "name": "multiple-value",
+          "tests": [{"in": [{"i32": 3}], "out": [{"i32": 210}]}]
+        },
+        {
+          "name": "multiple-value",
+          "tests": [{"in": [{"i32": 4}], "out": [{"i32": 214}]}]
+        },
+        {
+          "name": "multiple-value",
+          "tests": [{"in": [{"i32": 5}], "out": [{"i32": 214}]}]
+        },
+        {
+          "name": "multiple-value",
+          "tests": [{"in": [{"i32": 6}], "out": [{"i32": 214}]}]
+        },
+        {
+          "name": "multiple-value",
+          "tests": [{"in": [{"i32": 10}], "out": [{"i32": 214}]}]
+        },
+        {
+          "name": "multiple-value",
+          "tests": [{"in": [{"i32": -1}], "out": [{"i32": 214}]}]
+        },
+        {
+          "name": "multiple-value",
+          "tests": [{"in": [{"i32": -1}], "out": [{"i32": 214}]}]
+        },
+        {
+          "name": "large",
+          "tests": [{"in": [{"i32": 0}], "out": [{"i32": 0}]}]
+        },
+        {
+          "name": "large",
+          "tests": [{"in": [{"i32": 1}], "out": [{"i32": 1}]}]
+        },
+        {
+          "name": "large",
+          "tests": [{"in": [{"i32": 100}], "out": [{"i32": 0}]}]
+        },
+        {
+          "name": "large",
+          "tests": [{"in": [{"i32": 101}], "out": [{"i32": 1}]}]
+        },
+        {
+          "name": "large",
+          "tests": [{"in": [{"i32": 10000}], "out": [{"i32": 0}]}]
+        },
+        {
+          "name": "large",
+          "tests": [{"in": [{"i32": 10001}], "out": [{"i32": 1}]}]
+        },
+        {
+          "name": "large",
+          "tests": [{"in": [{"i32": 1000000}], "out": [{"i32": 1}]}]
+        },
+        {
+          "name": "large",
+          "tests": [{"in": [{"i32": 1000001}], "out": [{"i32": 1}]}]
+        },
+        {
+          "name": "as-block-first",
+          "tests": [{"in": [], "out": null}]
+        },
+        {
+          "name": "as-block-mid",
+          "tests": [{"in": [], "out": null}]
+        },
+        {
+          "name": "as-block-last",
+          "tests": [{"in": [], "out": null}]
+        },
+        {
+          "name": "as-block-value",
+          "tests": [{"in": [], "out": [{"i32": 2}]}]
+        },
+        {
+          "name": "as-loop-first",
+          "tests": [{"in": [], "out": [{"i32": 3}]}]
+        },
+        {
+          "name": "as-loop-mid",
+          "tests": [{"in": [], "out": [{"i32": 4}]}]
+        },
+        {
+          "name": "as-loop-last",
+          "tests": [{"in": [], "out": [{"i32": 5}]}]
+        },
+        {
+          "name": "as-br-value",
+          "tests": [{"in": [], "out": [{"i32": 9}]}]
+        },
+        {
+          "name": "as-br_if-cond",
+          "tests": [{"in": [], "out": null}]
+        },
+        {
+          "name": "as-br_if-value",
+          "tests": [{"in": [], "out": [{"i32": 8}]}]
+        },
+        {
+          "name": "as-br_if-value-cond",
+          "tests": [{"in": [], "out": [{"i32": 9}]}]
+        },
+        {
+          "name": "as-br_table-index",
+          "tests": [{"in": [], "out": null}]
+        },
+        {
+          "name": "as-br_table-value",
+          "tests": [{"in": [], "out": [{"i32": 10}]}]
+        },
+        {
+          "name": "as-br_table-value-index",
+          "tests": [{"in": [], "out": [{"i32": 11}]}]
+        },
+        {
+          "name": "as-return-value",
+          "tests": [{"in": [], "out": [{"i64": 7}]}]
+        },
+        {
+          "name": "as-if-cond",
+          "tests": [{"in": [], "out": [{"i32": 2}]}]
+        },
+        {
+          "name": "as-if-then",
+          "tests": [{"in": [{"i32": 1}, {"i32": 6}], "out": [{"i32": 3}]}]
+        },
+        {
+          "name": "as-if-then",
+          "tests": [{"in": [{"i32": 0}, {"i32": 6}], "out": [{"i32": 6}]}]
+        },
+        {
+          "name": "as-if-else",
+          "tests": [{"in": [{"i32": 0}, {"i32": 6}], "out": [{"i32": 4}]}]
+        },
+        {
+          "name": "as-if-else",
+          "tests": [{"in": [{"i32": 1}, {"i32": 6}], "out": [{"i32": 6}]}]
+        },
+        {
+          "name": "as-select-first",
+          "tests": [{"in": [{"i32": 0}, {"i32": 6}], "out": [{"i32": 5}]}]
+        },
+        {
+          "name": "as-select-first",
+          "tests": [{"in": [{"i32": 1}, {"i32": 6}], "out": [{"i32": 5}]}]
+        },
+        {
+          "name": "as-select-second",
+          "tests": [{"in": [{"i32": 0}, {"i32": 6}], "out": [{"i32": 6}]}]
+        },
+        {
+          "name": "as-select-second",
+          "tests": [{"in": [{"i32": 1}, {"i32": 6}], "out": [{"i32": 6}]}]
+        },
+        {
+          "name": "as-select-cond",
+          "tests": [{"in": [], "out": [{"i32": 7}]}]
+        },
+        {
+          "name": "as-call-first",
+          "tests": [{"in": [], "out": [{"i32": 12}]}]
+        },
+        {
+          "name": "as-call-mid",
+          "tests": [{"in": [], "out": [{"i32": 13}]}]
+        },
+        {
+          "name": "as-call-last",
+          "tests": [{"in": [], "out": [{"i32": 14}]}]
+        },
+        {
+          "name": "as-call_indirect-first",
+          "tests": [{"in": [], "out": [{"i32": 20}]}]
+        },
+        {
+          "name": "as-call_indirect-mid",
+          "tests": [{"in": [], "out": [{"i32": 21}]}]
+        },
+        {
+          "name": "as-call_indirect-last",
+          "tests": [{"in": [], "out": [{"i32": 22}]}]
+        },
+        {
+          "name": "as-call_indirect-func",
+          "tests": [{"in": [], "out": [{"i32": 23}]}]
+        },
+        {
+          "name": "as-set_local-value",
+          "tests": [{"in": [], "out": [{"i32": 17}]}]
+        },
+        {
+          "name": "as-load-address",
+          "tests": [{"in": [], "out": [{"f32": 1.7}]}]
+        },
+        {
+          "name": "as-loadN-address",
+          "tests": [{"in": [], "out": [{"i64": 30}]}]
+        },
+        {
+          "name": "as-store-address",
+          "tests": [{"in": [], "out": [{"i32": 30}]}]
+        },
+        {
+          "name": "as-store-value",
+          "tests": [{"in": [], "out": [{"i32": 31}]}]
+        },
+        {
+          "name": "as-storeN-address",
+          "tests": [{"in": [], "out": [{"i32": 32}]}]
+        },
+        {
+          "name": "as-storeN-value",
+          "tests": [{"in": [], "out": [{"i32": 33}]}]
+        },
+        {
+          "name": "as-unary-operand",
+          "tests": [{"in": [], "out": [{"f32": 3.4}]}]
+        },
+        {
+          "name": "as-binary-left",
+          "tests": [{"in": [], "out": [{"i32": 3}]}]
+        },
+        {
+          "name": "as-binary-right",
+          "tests": [{"in": [], "out": [{"i64": 45}]}]
+        },
+        {
+          "name": "as-test-operand",
+          "tests": [{"in": [], "out": [{"i32": 44}]}]
+        },
+        {
+          "name": "as-compare-left",
+          "tests": [{"in": [], "out": [{"i32": 43}]}]
+        },
+        {
+          "name": "as-compare-right",
+          "tests": [{"in": [], "out": [{"i32": 42}]}]
+        },
+        {
+          "name": "as-convert-operand",
+          "tests": [{"in": [], "out": [{"i32": 41}]}]
+        },
+        {
+          "name": "as-grow_memory-size",
+          "tests": [{"in": [], "out": [{"i32": 40}]}]
+        },
+        {
+          "name": "nested-block-value",
+          "tests": [{"in": [{"i32": 0}], "out": [{"i32": 19}]}]
+        },
+        {
+          "name": "nested-block-value",
+          "tests": [{"in": [{"i32": 1}], "out": [{"i32": 17}]}]
+        },
+        {
+          "name": "nested-block-value",
+          "tests": [{"in": [{"i32": 2}], "out": [{"i32": 16}]}]
+        },
+        {
+          "name": "nested-block-value",
+          "tests": [{"in": [{"i32": 10}], "out": [{"i32": 16}]}]
+        },
+        {
+          "name": "nested-block-value",
+          "tests": [{"in": [{"i32": -1}], "out": [{"i32": 16}]}]
+        },
+        {
+          "name": "nested-block-value",
+          "tests": [{"in": [{"i32": 100000}], "out": [{"i32": 16}]}]
+        },
+        {
+          "name": "nested-br-value",
+          "tests": [{"in": [{"i32": 0}], "out": [{"i32": 8}]}]
+        },
+        {
+          "name": "nested-br-value",
+          "tests": [{"in": [{"i32": 1}], "out": [{"i32": 9}]}]
+        },
+        {
+          "name": "nested-br-value",
+          "tests": [{"in": [{"i32": 2}], "out": [{"i32": 17}]}]
+        },
+        {
+          "name": "nested-br-value",
+          "tests": [{"in": [{"i32": 11}], "out": [{"i32": 17}]}]
+        },
+        {
+          "name": "nested-br-value",
+          "tests": [{"in": [{"i32": -4}], "out": [{"i32": 17}]}]
+        },
+        {
+          "name": "nested-br-value",
+          "tests": [{"in": [{"i32": 10213210}], "out": [{"i32": 17}]}]
+        },
+        {
+          "name": "nested-br_if-value",
+          "tests": [{"in": [{"i32": 0}], "out": [{"i32": 17}]}]
+        },
+        {
+          "name": "nested-br_if-value",
+          "tests": [{"in": [{"i32": 1}], "out": [{"i32": 9}]}]
+        },
+        {
+          "name": "nested-br_if-value",
+          "tests": [{"in": [{"i32": 2}], "out": [{"i32": 8}]}]
+        },
+        {
+          "name": "nested-br_if-value",
+          "tests": [{"in": [{"i32": 9}], "out": [{"i32": 8}]}]
+        },
+        {
+          "name": "nested-br_if-value",
+          "tests": [{"in": [{"i32": -9}], "out": [{"i32": 8}]}]
+        },
+        {
+          "name": "nested-br_if-value",
+          "tests": [{"in": [{"i32": 999999}], "out": [{"i32": 8}]}]
+        },
+        {
+          "name": "nested-br_if-value-cond",
+          "tests": [{"in": [{"i32": 0}], "out": [{"i32": 9}]}]
+        },
+        {
+          "name": "nested-br_if-value-cond",
+          "tests": [{"in": [{"i32": 1}], "out": [{"i32": 8}]}]
+        },
+        {
+          "name": "nested-br_if-value-cond",
+          "tests": [{"in": [{"i32": 2}], "out": [{"i32": 9}]}]
+        },
+        {
+          "name": "nested-br_if-value-cond",
+          "tests": [{"in": [{"i32": 3}], "out": [{"i32": 9}]}]
+        },
+        {
+          "name": "nested-br_if-value-cond",
+          "tests": [{"in": [{"i32": -1000000}], "out": [{"i32": 9}]}]
+        },
+        {
+          "name": "nested-br_if-value-cond",
+          "tests": [{"in": [{"i32": 9423975}], "out": [{"i32": 9}]}]
+        },
+        {
+          "name": "nested-br_table-value",
+          "tests": [{"in": [{"i32": 0}], "out": [{"i32": 17}]}]
+        },
+        {
+          "name": "nested-br_table-value",
+          "tests": [{"in": [{"i32": 1}], "out": [{"i32": 9}]}]
+        },
+        {
+          "name": "nested-br_table-value",
+          "tests": [{"in": [{"i32": 2}], "out": [{"i32": 8}]}]
+        },
+        {
+          "name": "nested-br_table-value",
+          "tests": [{"in": [{"i32": 9}], "out": [{"i32": 8}]}]
+        },
+        {
+          "name": "nested-br_table-value",
+          "tests": [{"in": [{"i32": -9}], "out": [{"i32": 8}]}]
+        },
+        {
+          "name": "nested-br_table-value",
+          "tests": [{"in": [{"i32": 999999}], "out": [{"i32": 8}]}]
+        },
+        {
+          "name": "nested-br_table-value-index",
+          "tests": [{"in": [{"i32": 0}], "out": [{"i32": 9}]}]
+        },
+        {
+          "name": "nested-br_table-value-index",
+          "tests": [{"in": [{"i32": 1}], "out": [{"i32": 8}]}]
+        },
+        {
+          "name": "nested-br_table-value-index",
+          "tests": [{"in": [{"i32": 2}], "out": [{"i32": 9}]}]
+        },
+        {
+          "name": "nested-br_table-value-index",
+          "tests": [{"in": [{"i32": 3}], "out": [{"i32": 9}]}]
+        },
+        {
+          "name": "nested-br_table-value-index",
+          "tests": [{"in": [{"i32": -1000000}], "out": [{"i32": 9}]}]
+        },
+        {
+          "name": "nested-br_table-value-index",
+          "tests": [{"in": [{"i32": 9423975}], "out": [{"i32": 9}]}]
+        },
+        {
+          "name": "nested-br_table-loop-block",
+          "tests": [{"in": [{"i32": 1}], "out": [{"i32": 3}]}]
+        }
+      ]
+    },
+    {
+      "file": "break-drop.wasm",
+      "funcs": [
+        {
+          "name": "br",
+          "tests": [{"in": [], "out": null}]
+        },
+        {
+          "name": "br_if",
+          "tests": [{"in": [], "out": null}]
+        },
+        {
+          "name": "br_table",
+          "tests": [{"in": [], "out": null}]
+        }
+      ]
+    },
+    {
+      "file": "call_indirect.wasm",
+      "funcs": [
+        {
+          "name": "type-i32",
+          "tests": [{"in": [], "out": [{"i32": 306}]}]
+        },
+        {
+          "name": "type-i64",
+          "tests": [{"in": [], "out": [{"i64": 356}]}]
+        },
+        {
+          "name": "type-f32",
+          "tests": [{"in": [], "out": [{"f32": 3890}]}]
+        },
+        {
+          "name": "type-f64",
+          "tests": [{"in": [], "out": [{"f64": 3940}]}]
+        },
+        {
+          "name": "type-index",
+          "tests": [{"in": [], "out": [{"i64": 100}]}]
+        },
+        {
+          "name": "type-first-i32",
+          "tests": [{"in": [], "out": [{"i32": 32}]}]
+        },
+        {
+          "name": "type-first-i64",
+          "tests": [{"in": [], "out": [{"i64": 64}]}]
+        },
+        {
+          "name": "type-first-f32",
+          "tests": [{"in": [], "out": [{"f32": 1.32}]}]
+        },
+        {
+          "name": "type-first-f64",
+          "tests": [{"in": [], "out": [{"f64": 1.64}]}]
+        },
+        {
+          "name": "type-second-i32",
+          "tests": [{"in": [], "out": [{"i32": 32}]}]
+        },
+        {
+          "name": "type-second-i64",
+          "tests": [{"in": [], "out": [{"i64": 64}]}]
+        },
+        {
+          "name": "type-second-f32",
+          "tests": [{"in": [], "out": [{"f32": 32}]}]
+        },
+        {
+          "name": "type-second-f64",
+          "tests": [{"in": [], "out": [{"f64": 64.1}]}]
+        },
+        {
+          "name": "dispatch",
+          "tests": [{"in": [{"i32": 5}, {"i64": 2}], "out": [{"i64": 2}]}]
+        },
+        {
+          "name": "dispatch",
+          "tests": [{"in": [{"i32": 5}, {"i64": 5}], "out": [{"i64": 5}]}]
+        },
+        {
+          "name": "dispatch",
+          "tests": [{"in": [{"i32": 12}, {"i64": 5}], "out": [{"i64": 120}]}]
+        },
+        {
+          "name": "dispatch",
+          "tests": [{"in": [{"i32": 13}, {"i64": 5}], "out": [{"i64": 8}]}]
+        },
+        {
+          "name": "dispatch",
+          "tests": [{"in": [{"i32": 20}, {"i64": 2}], "out": [{"i64": 2}]}]
+        },
+        {
+          "name": "dispatch",
+          "tests": [{"in": [{"i32": 0}, {"i64": 2}], "err": "indirect call type mismatch"}]
+        },
+        {
+          "name": "dispatch",
+          "tests": [{"in": [{"i32": 15}, {"i64": 2}], "err": "indirect call type mismatch"}]
+        },
+        {
+          "name": "dispatch",
+          "tests": [{"in": [{"i32": 23}, {"i64": 2}], "err": "undefined element"}]
+        },
+        {
+          "name": "dispatch",
+          "tests": [{"in": [{"i32": -1}, {"i64": 2}], "err": "undefined element"}]
+        },
+        {
+          "name": "dispatch",
+          "tests": [{"in": [{"i32": 1213432423}, {"i64": 2}], "err": "undefined element"}]
+        },
+        {
+          "name": "dispatch-structural",
+          "tests": [{"in": [{"i32": 5}], "out": [{"i64": 9}]}]
+        },
+        {
+          "name": "dispatch-structural",
+          "tests": [{"in": [{"i32": 5}], "out": [{"i64": 9}]}]
+        },
+        {
+          "name": "dispatch-structural",
+          "tests": [{"in": [{"i32": 12}], "out": [{"i64": 362880}]}]
+        },
+        {
+          "name": "dispatch-structural",
+          "tests": [{"in": [{"i32": 20}], "out": [{"i64": 9}]}]
+        },
+        {
+          "name": "dispatch-structural",
+          "tests": [{"in": [{"i32": 11}], "err": "indirect call type mismatch"}]
+        },
+        {
+          "name": "dispatch-structural",
+          "tests": [{"in": [{"i32": 22}], "err": "indirect call type mismatch"}]
+        },
+        {
+          "name": "fac",
+          "tests": [{"in": [{"i64": 0}], "out": [{"i64": 1}]}]
+        },
+        {
+          "name": "fac",
+          "tests": [{"in": [{"i64": 1}], "out": [{"i64": 1}]}]
+        },
+        {
+          "name": "fac",
+          "tests": [{"in": [{"i64": 5}], "out": [{"i64": 120}]}]
+        },
+        {
+          "name": "fac",
+          "tests": [{"in": [{"i64": 25}], "out": [{"i64": 7034535277573963776}]}]
+        },
+        {
+          "name": "fib",
+          "tests": [{"in": [{"i64": 0}], "out": [{"i64": 1}]}]
+        },
+        {
+          "name": "fib",
+          "tests": [{"in": [{"i64": 1}], "out": [{"i64": 1}]}]
+        },
+        {
+          "name": "fib",
+          "tests": [{"in": [{"i64": 2}], "out": [{"i64": 2}]}]
+        },
+        {
+          "name": "fib",
+          "tests": [{"in": [{"i64": 5}], "out": [{"i64": 8}]}]
+        },
+        {
+          "name": "fib",
+          "tests": [{"in": [{"i64": 20}], "out": [{"i64": 10946}]}]
+        },
+        {
+          "name": "even",
+          "tests": [{"in": [{"i32": 0}], "out": [{"i32": 44}]}]
+        },
+        {
+          "name": "even",
+          "tests": [{"in": [{"i32": 1}], "out": [{"i32": 99}]}]
+        },
+        {
+          "name": "even",
+          "tests": [{"in": [{"i32": 100}], "out": [{"i32": 44}]}]
+        },
+        {
+          "name": "even",
+          "tests": [{"in": [{"i32": 77}], "out": [{"i32": 99}]}]
+        },
+        {
+          "name": "odd",
+          "tests": [{"in": [{"i32": 0}], "out": [{"i32": 99}]}]
+        },
+        {
+          "name": "odd",
+          "tests": [{"in": [{"i32": 1}], "out": [{"i32": 44}]}]
+        },
+        {
+          "name": "odd",
+          "tests": [{"in": [{"i32": 200}], "out": [{"i32": 99}]}]
+        },
+        {
+          "name": "odd",
+          "tests": [{"in": [{"i32": 77}], "out": [{"i32": 44}]}]
+        }
+      ]
+    },
+    {
+      "file": "switch.wasm",
+      "funcs": [
+        {
+          "name": "stmt",
+          "tests": [{"in": [{"i32": 0}], "out": [{"i32": 0}]}]
+        },
+        {
+          "name": "stmt",
+          "tests": [{"in": [{"i32": 1}], "out": [{"i32": -1}]}]
+        },
+        {
+          "name": "stmt",
+          "tests": [{"in": [{"i32": 2}], "out": [{"i32": -2}]}]
+        },
+        {
+          "name": "stmt",
+          "tests": [{"in": [{"i32": 3}], "out": [{"i32": -3}]}]
+        },
+        {
+          "name": "stmt",
+          "tests": [{"in": [{"i32": 4}], "out": [{"i32": 100}]}]
+        },
+        {
+          "name": "stmt",
+          "tests": [{"in": [{"i32": 5}], "out": [{"i32": 101}]}]
+        },
+        {
+          "name": "stmt",
+          "tests": [{"in": [{"i32": 6}], "out": [{"i32": 102}]}]
+        },
+        {
+          "name": "stmt",
+          "tests": [{"in": [{"i32": 7}], "out": [{"i32": 100}]}]
+        },
+        {
+          "name": "stmt",
+          "tests": [{"in": [{"i32": -10}], "out": [{"i32": 102}]}]
+        },
+        {
+          "name": "expr",
+          "tests": [{"in": [{"i64": 0}], "out": [{"i64": 0}]}]
+        },
+        {
+          "name": "expr",
+          "tests": [{"in": [{"i64": 1}], "out": [{"i64": -1}]}]
+        },
+        {
+          "name": "expr",
+          "tests": [{"in": [{"i64": 2}], "out": [{"i64": -2}]}]
+        },
+        {
+          "name": "expr",
+          "tests": [{"in": [{"i64": 3}], "out": [{"i64": -3}]}]
+        },
+        {
+          "name": "expr",
+          "tests": [{"in": [{"i64": 6}], "out": [{"i64": 101}]}]
+        },
+        {
+          "name": "expr",
+          "tests": [{"in": [{"i64": 7}], "out": [{"i64": -5}]}]
+        },
+        {
+          "name": "expr",
+          "tests": [{"in": [{"i64": -10}], "out": [{"i64": 100}]}]
+        },
+        {
+          "name": "arg",
+          "tests": [{"in": [{"i32": 0}], "out": [{"i32": 110}]}]
+        },
+        {
+          "name": "arg",
+          "tests": [{"in": [{"i32": 1}], "out": [{"i32": 12}]}]
+        },
+        {
+          "name": "arg",
+          "tests": [{"in": [{"i32": 2}], "out": [{"i32": 4}]}]
+        },
+        {
+          "name": "arg",
+          "tests": [{"in": [{"i32": 3}], "out": [{"i32": 1116}]}]
+        },
+        {
+          "name": "arg",
+          "tests": [{"in": [{"i32": 4}], "out": [{"i32": 118}]}]
+        },
+        {
+          "name": "arg",
+          "tests": [{"in": [{"i32": 5}], "out": [{"i32": 20}]}]
+        },
+        {
+          "name": "arg",
+          "tests": [{"in": [{"i32": 6}], "out": [{"i32": 12}]}]
+        },
+        {
+          "name": "arg",
+          "tests": [{"in": [{"i32": 7}], "out": [{"i32": 1124}]}]
+        },
+        {
+          "name": "arg",
+          "tests": [{"in": [{"i32": 8}], "out": [{"i32": 126}]}]
+        },
+        {
+          "name": "corner",
+          "tests": [{"in": [], "out": [{"i32": 1}]}]
+        }
+      ]
+    },
+    {
+      "file": "unreachable.wasm",
+      "funcs": [
+        {
+          "name": "main",
+          "tests": [{"in": [], "err": "Unreachable"}]
+        },
+        {
+          "name": "main",
+          "tests": [{"in": [], "err": "Unreachable"}]
+        }
+      ]
+    },
+    {
+      "file": "unwind.wasm",
+      "funcs": [
+        {
+          "name": "func-unwind-by-unreachable",
+          "tests": [{"in": [], "err": "Unreachable"}]
+        },
+        {
+          "name": "func-unwind-by-br",
+          "tests": [{"in": [], "out": null}]
+        },
+        {
+          "name": "func-unwind-by-br-value",
+          "tests": [{"in": [], "out": [{"i32": 9}]}]
+        },
+        {
+          "name": "func-unwind-by-br_table",
+          "tests": [{"in": [], "out": null}]
+        },
+        {
+          "name": "func-unwind-by-br_table-value",
+          "tests": [{"in": [], "out": [{"i32": 9}]}]
+        },
+        {
+          "name": "func-unwind-by-return",
+          "tests": [{"in": [], "out": [{"i32": 9}]}]
+        },
+        {
+          "name": "block-unwind-by-unreachable",
+          "tests": [{"in": [], "err": "Unreachable"}]
+        },
+        {
+          "name": "block-unwind-by-br",
+          "tests": [{"in": [], "out": [{"i32": 9}]}]
+        },
+        {
+          "name": "block-unwind-by-br-value",
+          "tests": [{"in": [], "out": [{"i32": 9}]}]
+        },
+        {
+          "name": "block-unwind-by-br_table",
+          "tests": [{"in": [], "out": [{"i32": 9}]}]
+        },
+        {
+          "name": "block-unwind-by-br_table-value",
+          "tests": [{"in": [], "out": [{"i32": 9}]}]
+        },
+        {
+          "name": "block-unwind-by-return",
+          "tests": [{"in": [], "out": [{"i32": 9}]}]
+        },
+        {
+          "name": "block-nested-unwind-by-unreachable",
+          "tests": [{"in": [], "err": "Unreachable"}]
+        },
+        {
+          "name": "block-nested-unwind-by-br",
+          "tests": [{"in": [], "out": [{"i32": 9}]}]
+        },
+        {
+          "name": "block-nested-unwind-by-br-value",
+          "tests": [{"in": [], "out": [{"i32": 9}]}]
+        },
+        {
+          "name": "block-nested-unwind-by-br_table",
+          "tests": [{"in": [], "out": [{"i32": 9}]}]
+        },
+        {
+          "name": "block-nested-unwind-by-br_table-value",
+          "tests": [{"in": [], "out": [{"i32": 9}]}]
+        },
+        {
+          "name": "block-nested-unwind-by-return",
+          "tests": [{"in": [], "out": [{"i32": 9}]}]
+        },
+        {
+          "name": "unary-after-unreachable",
+          "tests": [{"in": [], "err": "Unreachable"}]
+        },
+        {
+          "name": "unary-after-br",
+          "tests": [{"in": [], "out": [{"i32": 9}]}]
+        },
+        {
+          "name": "unary-after-br_table",
+          "tests": [{"in": [], "out": [{"i32": 9}]}]
+        },
+        {
+          "name": "unary-after-return",
+          "tests": [{"in": [], "out": [{"i32": 9}]}]
+        },
+        {
+          "name": "binary-after-unreachable",
+          "tests": [{"in": [], "err": "Unreachable"}]
+        },
+        {
+          "name": "binary-after-br",
+          "tests": [{"in": [], "out": [{"i32": 9}]}]
+        },
+        {
+          "name": "binary-after-br_table",
+          "tests": [{"in": [], "out": [{"i32": 9}]}]
+        },
+        {
+          "name": "binary-after-return",
+          "tests": [{"in": [], "out": [{"i32": 9}]}]
+        },
+        {
+          "name": "select-after-unreachable",
+          "tests": [{"in": [], "err": "Unreachable"}]
+        },
+        {
+          "name": "select-after-br",
+          "tests": [{"in": [], "out": [{"i32": 9}]}]
+        },
+        {
+          "name": "select-after-br_table",
+          "tests": [{"in": [], "out": [{"i32": 9}]}]
+        },
+        {
+          "name": "select-after-return",
+          "tests": [{"in": [], "out": [{"i32": 9}]}]
+        },
+        {
+          "name": "block-value-after-unreachable",
+          "tests": [{"in": [], "err": "Unreachable"}]
+        },
+        {
+          "name": "block-value-after-br",
+          "tests": [{"in": [], "out": [{"i32": 9}]}]
+        },
+        {
+          "name": "block-value-after-br_table",
+          "tests": [{"in": [], "out": [{"i32": 9}]}]
+        },
+        {
+          "name": "block-value-after-return",
+          "tests": [{"in": [], "out": [{"i32": 9}]}]
+        },
+        {
+          "name": "loop-value-after-unreachable",
+          "tests": [{"in": [], "err": "Unreachable"}]
+        },
+        {
+          "name": "loop-value-after-br",
+          "tests": [{"in": [], "out": [{"i32": 9}]}]
+        },
+        {
+          "name": "loop-value-after-br_table",
+          "tests": [{"in": [], "out": [{"i32": 9}]}]
+        },
+        {
+          "name": "loop-value-after-return",
+          "tests": [{"in": [], "out": [{"i32": 9}]}]
+        }
+      ]
+    },
+    {
+      "file": "traps_mem.wasm",
+      "funcs": [
+        {
+          "name": "no_dce.i32.load",
+          "tests": [{"in": [{"i32": 65536}], "err": "out of bounds memory access"}]
+        },
+        {
+          "name": "no_dce.i32.load16_s",
+          "tests": [{"in": [{"i32": 65536}], "err": "out of bounds memory access"}]
+        },
+        {
+          "name": "no_dce.i32.load16_u",
+          "tests": [{"in": [{"i32": 65536}], "err": "out of bounds memory access"}]
+        },
+        {
+          "name": "no_dce.i32.load8_s",
+          "tests": [{"in": [{"i32": 65536}], "err": "out of bounds memory access"}]
+        },
+        {
+          "name": "no_dce.i32.load8_u",
+          "tests": [{"in": [{"i32": 65536}], "err": "out of bounds memory access"}]
+        },
+        {
+          "name": "no_dce.i64.load",
+          "tests": [{"in": [{"i32": 65536}], "err": "out of bounds memory access"}]
+        },
+        {
+          "name": "no_dce.i64.load32_s",
+          "tests": [{"in": [{"i32": 65536}], "err": "out of bounds memory access"}]
+        },
+        {
+          "name": "no_dce.i64.load32_u",
+          "tests": [{"in": [{"i32": 65536}], "err": "out of bounds memory access"}]
+        },
+        {
+          "name": "no_dce.i64.load16_s",
+          "tests": [{"in": [{"i32": 65536}], "err": "out of bounds memory access"}]
+        },
+        {
+          "name": "no_dce.i64.load16_u",
+          "tests": [{"in": [{"i32": 65536}], "err": "out of bounds memory access"}]
+        },
+        {
+          "name": "no_dce.i64.load8_s",
+          "tests": [{"in": [{"i32": 65536}], "err": "out of bounds memory access"}]
+        },
+        {
+          "name": "no_dce.i64.load8_u",
+          "tests": [{"in": [{"i32": 65536}], "err": "out of bounds memory access"}]
+        },
+        {
+          "name": "no_dce.f32.load",
+          "tests": [{"in": [{"i32": 65536}], "err": "out of bounds memory access"}]
+        },
+        {
+          "name": "no_dce.f64.load",
+          "tests": [{"in": [{"i32": 65536}], "err": "out of bounds memory access"}]
+        }
+      ]
+    },
+    {
+      "file": "traps_int_div.wasm",
+      "funcs": [
+        {
+          "name": "no_dce.i32.div_s",
+          "tests": [{"in": [{"i32": 1}, {"i32": 0}], "err": "integer divide by zero"}]
+        },
+        {
+          "name": "no_dce.i32.div_u",
+          "tests": [{"in": [{"i32": 1}, {"i32": 0}], "err": "integer divide by zero"}]
+        },
+        {
+          "name": "no_dce.i64.div_s",
+          "tests": [{"in": [{"i64": 1}, {"i64": 0}], "err": "integer divide by zero"}]
+        },
+        {
+          "name": "no_dce.i64.div_u",
+          "tests": [{"in": [{"i64": 1}, {"i64": 0}], "err": "integer divide by zero"}]
+        }
+      ]
+    },
+    {
+      "file": "traps_int_rem.wasm",
+      "funcs": [
+        {
+          "name": "no_dce.i32.rem_s",
+          "tests": [{"in": [{"i32": 1}, {"i32": 0}], "err": "integer divide by zero"}]
+        },
+        {
+          "name": "no_dce.i32.rem_u",
+          "tests": [{"in": [{"i32": 1}, {"i32": 0}], "err": "integer divide by zero"}]
+        },
+        {
+          "name": "no_dce.i64.rem_s",
+          "tests": [{"in": [{"i64": 1}, {"i64": 0}], "err": "integer divide by zero"}]
+        },
+        {
+          "name": "no_dce.i64.rem_u",
+          "tests": [{"in": [{"i64": 1}, {"i64": 0}], "err": "integer divide by zero"}]
+        }
+      ]
+    },
+    {
+      "file": "if.wasm",
+      "funcs": [
+        {
+          "name": "empty",
+          "tests": [{"in": [{"i32": 0}], "out": null}]
+        },
+        {
+          "name": "empty",
+          "tests": [{"in": [{"i32": 1}], "out": null}]
+        },
+        {
+          "name": "empty",
+          "tests": [{"in": [{"i32": 100}], "out": null}]
+        },
+        {
+          "name": "empty",
+          "tests": [{"in": [{"i32": -2}], "out": null}]
+        },
+        {
+          "name": "singular",
+          "tests": [{"in": [{"i32": 0}], "out": [{"i32": 8}]}]
+        },
+        {
+          "name": "singular",
+          "tests": [{"in": [{"i32": 1}], "out": [{"i32": 7}]}]
+        },
+        {
+          "name": "singular",
+          "tests": [{"in": [{"i32": 10}], "out": [{"i32": 7}]}]
+        },
+        {
+          "name": "singular",
+          "tests": [{"in": [{"i32": -10}], "out": [{"i32": 7}]}]
+        },
+        {
+          "name": "multi",
+          "tests": [{"in": [{"i32": 0}], "out": [{"i32": 9}]}]
+        },
+        {
+          "name": "multi",
+          "tests": [{"in": [{"i32": 1}], "out": [{"i32": 8}]}]
+        },
+        {
+          "name": "multi",
+          "tests": [{"in": [{"i32": 13}], "out": [{"i32": 8}]}]
+        },
+        {
+          "name": "multi",
+          "tests": [{"in": [{"i32": -5}], "out": [{"i32": 8}]}]
+        },
+        {
+          "name": "nested",
+          "tests": [{"in": [{"i32": 0}, {"i32": 0}], "out": [{"i32": 11}]}]
+        },
+        {
+          "name": "nested",
+          "tests": [{"in": [{"i32": 1}, {"i32": 0}], "out": [{"i32": 10}]}]
+        },
+        {
+          "name": "nested",
+          "tests": [{"in": [{"i32": 0}, {"i32": 1}], "out": [{"i32": 10}]}]
+        },
+        {
+          "name": "nested",
+          "tests": [{"in": [{"i32": 3}, {"i32": 2}], "out": [{"i32": 9}]}]
+        },
+        {
+          "name": "nested",
+          "tests": [{"in": [{"i32": 0}, {"i32": -100}], "out": [{"i32": 10}]}]
+        },
+        {
+          "name": "nested",
+          "tests": [{"in": [{"i32": 10}, {"i32": 10}], "out": [{"i32": 9}]}]
+        },
+        {
+          "name": "nested",
+          "tests": [{"in": [{"i32": 0}, {"i32": -1}], "out": [{"i32": 10}]}]
+        },
+        {
+          "name": "nested",
+          "tests": [{"in": [{"i32": -111}, {"i32": -2}], "out": [{"i32": 9}]}]
+        },
+        {
+          "name": "as-unary-operand",
+          "tests": [{"in": [{"i32": 0}], "out": [{"i32": 0}]}]
+        },
+        {
+          "name": "as-unary-operand",
+          "tests": [{"in": [{"i32": 1}], "out": [{"i32": 0}]}]
+        },
+        {
+          "name": "as-unary-operand",
+          "tests": [{"in": [{"i32": -1}], "out": [{"i32": 0}]}]
+        },
+        {
+          "name": "as-binary-operand",
+          "tests": [{"in": [{"i32": 0}, {"i32": 0}], "out": [{"i32": 15}]}]
+        },
+        {
+          "name": "as-binary-operand",
+          "tests": [{"in": [{"i32": 0}, {"i32": 1}], "out": [{"i32": -12}]}]
+        },
+        {
+          "name": "as-binary-operand",
+          "tests": [{"in": [{"i32": 1}, {"i32": 0}], "out": [{"i32": -15}]}]
+        },
+        {
+          "name": "as-binary-operand",
+          "tests": [{"in": [{"i32": 1}, {"i32": 1}], "out": [{"i32": 12}]}]
+        },
+        {
+          "name": "as-test-operand",
+          "tests": [{"in": [{"i32": 0}], "out": [{"i32": 1}]}]
+        },
+        {
+          "name": "as-test-operand",
+          "tests": [{"in": [{"i32": 1}], "out": [{"i32": 0}]}]
+        },
+        {
+          "name": "as-compare-operand",
+          "tests": [{"in": [{"i32": 0}, {"i32": 0}], "out": [{"i32": 1}]}]
+        },
+        {
+          "name": "as-compare-operand",
+          "tests": [{"in": [{"i32": 0}, {"i32": 1}], "out": [{"i32": 0}]}]
+        },
+        {
+          "name": "as-compare-operand",
+          "tests": [{"in": [{"i32": 1}, {"i32": 0}], "out": [{"i32": 1}]}]
+        },
+        {
+          "name": "as-compare-operand",
+          "tests": [{"in": [{"i32": 1}, {"i32": 1}], "out": [{"i32": 0}]}]
+        },
+        {
+          "name": "break-bare",
+          "tests": [{"in": [], "out": [{"i32": 19}]}]
+        },
+        {
+          "name": "break-value",
+          "tests": [{"in": [{"i32": 1}], "out": [{"i32": 18}]}]
+        },
+        {
+          "name": "break-value",
+          "tests": [{"in": [{"i32": 0}], "out": [{"i32": 21}]}]
+        },
+        {
+          "name": "effects",
+          "tests": [{"in": [{"i32": 1}], "out": [{"i32": -14}]}]
+        },
+        {
+          "name": "effects",
+          "tests": [{"in": [{"i32": 0}], "out": [{"i32": -6}]}]
+        }
+      ]
+    },
+    {
+      "file": "globals.wasm",
+      "funcs": [
+        {
+          "name": "get-a",
+          "tests": [{"in": [], "out": [{"i32": -2}]}]
+        },
+        {
+          "name": "get-b",
+          "tests": [{"in": [], "out": [{"i64": -5}]}]
+        },
+        {
+          "name": "get-x",
+          "tests": [{"in": [], "out": [{"i32": -12}]}]
+        },
+        {
+          "name": "get-y",
+          "tests": [{"in": [], "out": [{"i64": -15}]}]
+        },
+        {
+          "name": "get-1",
+          "tests": [{"in": [], "out": [{"f32": -3}]}]
+        },
+        {
+          "name": "get-2",
+          "tests": [{"in": [], "out": [{"f64": -4}]}]
+        },
+        {
+          "name": "get-5",
+          "tests": [{"in": [], "out": [{"f32": -13}]}]
+        },
+        {
+          "name": "get-6",
+          "tests": [{"in": [], "out": [{"f64": -14}]}]
+        },
+        {
+          "name": "set-x",
+          "tests": [{"in": [{"i32": 6}], "out": null}]
+        },
+        {
+          "name": "set-y",
+          "tests": [{"in": [{"i64": 7}], "out": null}]
+        },
+        {
+          "name": "set-5",
+          "tests": [{"in": [{"f32": 8}], "out": null}]
+        },
+        {
+          "name": "set-6",
+          "tests": [{"in": [{"f64": 9}], "out": null}]
+        },
+        {
+          "name": "get-x",
+          "tests": [{"in": [], "out": [{"i32": 6}]}]
+        },
+        {
+          "name": "get-y",
+          "tests": [{"in": [], "out": [{"i64": 7}]}]
+        },
+        {
+          "name": "get-5",
+          "tests": [{"in": [], "out": [{"f32": 8}]}]
+        },
+        {
+          "name": "get-6",
+          "tests": [{"in": [], "out": [{"f64": 9}]}]
+        }
+      ]
+    },
+    {
+      "file": "loop.wasm",
+      "funcs": [
+        {
+          "name": "empty",
+          "tests": [{"in": [], "out": null}]
+        },
+        {
+          "name": "singular",
+          "tests": [{"in": [], "out": [{"i32": 7}]}]
+        },
+        {
+          "name": "multi",
+          "tests": [{"in": [], "out": [{"i32": 8}]}]
+        },
+        {
+          "name": "nested",
+          "tests": [{"in": [], "out": [{"i32": 9}]}]
+        },
+        {
+          "name": "deep",
+          "tests": [{"in": [], "out": [{"i32": 150}]}]
+        },
+        {
+          "name": "as-unary-operand",
+          "tests": [{"in": [], "out": [{"i32": 0}]}]
+        },
+        {
+          "name": "as-binary-operand",
+          "tests": [{"in": [], "out": [{"i32": 12}]}]
+        },
+        {
+          "name": "as-test-operand",
+          "tests": [{"in": [], "out": [{"i32": 0}]}]
+        },
+        {
+          "name": "as-compare-operand",
+          "tests": [{"in": [], "out": [{"i32": 0}]}]
+        },
+        {
+          "name": "break-bare",
+          "tests": [{"in": [], "out": [{"i32": 19}]}]
+        },
+        {
+          "name": "break-value",
+          "tests": [{"in": [], "out": [{"i32": 18}]}]
+        },
+        {
+          "name": "break-repeated",
+          "tests": [{"in": [], "out": [{"i32": 18}]}]
+        },
+        {
+          "name": "break-inner",
+          "tests": [{"in": [], "out": [{"i32": 31}]}]
+        },
+        {
+          "name": "effects",
+          "tests": [{"in": [], "out": [{"i32": 1}]}]
+        },
+        {
+          "name": "while",
+          "tests": [{"in": [{"i64": 0}], "out": [{"i64": 1}]}]
+        },
+        {
+          "name": "while",
+          "tests": [{"in": [{"i64": 1}], "out": [{"i64": 1}]}]
+        },
+        {
+          "name": "while",
+          "tests": [{"in": [{"i64": 2}], "out": [{"i64": 2}]}]
+        },
+        {
+          "name": "while",
+          "tests": [{"in": [{"i64": 3}], "out": [{"i64": 6}]}]
+        },
+        {
+          "name": "while",
+          "tests": [{"in": [{"i64": 5}], "out": [{"i64": 120}]}]
+        },
+        {
+          "name": "while",
+          "tests": [{"in": [{"i64": 20}], "out": [{"i64": 2432902008176640000}]}]
+        },
+        {
+          "name": "for",
+          "tests": [{"in": [{"i64": 0}], "out": [{"i64": 1}]}]
+        },
+        {
+          "name": "for",
+          "tests": [{"in": [{"i64": 1}], "out": [{"i64": 1}]}]
+        },
+        {
+          "name": "for",
+          "tests": [{"in": [{"i64": 2}], "out": [{"i64": 2}]}]
+        },
+        {
+          "name": "for",
+          "tests": [{"in": [{"i64": 3}], "out": [{"i64": 6}]}]
+        },
+        {
+          "name": "for",
+          "tests": [{"in": [{"i64": 5}], "out": [{"i64": 120}]}]
+        },
+        {
+          "name": "for",
+          "tests": [{"in": [{"i64": 20}], "out": [{"i64": 2432902008176640000}]}]
+        },
+        {
+          "name": "nesting",
+          "tests": [{"in": [{"f32": 0}, {"f32": 7}], "out": [{"f32": 0}]}]
+        },
+        {
+          "name": "nesting",
+          "tests": [{"in": [{"f32": 7}, {"f32": 0}], "out": [{"f32": 0}]}]
+        },
+        {
+          "name": "nesting",
+          "tests": [{"in": [{"f32": 1}, {"f32": 1}], "out": [{"f32": 1}]}]
+        },
+        {
+          "name": "nesting",
+          "tests": [{"in": [{"f32": 1}, {"f32": 2}], "out": [{"f32": 2}]}]
+        },
+        {
+          "name": "nesting",
+          "tests": [{"in": [{"f32": 1}, {"f32": 3}], "out": [{"f32": 4}]}]
+        },
+        {
+          "name": "nesting",
+          "tests": [{"in": [{"f32": 1}, {"f32": 4}], "out": [{"f32": 6}]}]
+        },
+        {
+          "name": "nesting",
+          "tests": [{"in": [{"f32": 1}, {"f32": 100}], "out": [{"f32": 2550}]}]
+        },
+        {
+          "name": "nesting",
+          "tests": [{"in": [{"f32": 1}, {"f32": 101}], "out": [{"f32": 2601}]}]
+        },
+        {
+          "name": "nesting",
+          "tests": [{"in": [{"f32": 2}, {"f32": 1}], "out": [{"f32": 1}]}]
+        },
+        {
+          "name": "nesting",
+          "tests": [{"in": [{"f32": 3}, {"f32": 1}], "out": [{"f32": 1}]}]
+        },
+        {
+          "name": "nesting",
+          "tests": [{"in": [{"f32": 10}, {"f32": 1}], "out": [{"f32": 1}]}]
+        },
+        {
+          "name": "nesting",
+          "tests": [{"in": [{"f32": 2}, {"f32": 2}], "out": [{"f32": 3}]}]
+        },
+        {
+          "name": "nesting",
+          "tests": [{"in": [{"f32": 2}, {"f32": 3}], "out": [{"f32": 4}]}]
+        },
+        {
+          "name": "nesting",
+          "tests": [{"in": [{"f32": 7}, {"f32": 4}], "out": [{"f32": 10.3095235825}]}]
+        },
+        {
+          "name": "nesting",
+          "tests": [{"in": [{"f32": 7}, {"f32": 100}], "out": [{"f32": 4381.54785156}]}]
+        },
+        {
+          "name": "nesting",
+          "tests": [{"in": [{"f32": 7}, {"f32": 101}], "out": [{"f32": 2601}]}]
+        }
+      ]
+    },
+    {
+      "file": "nop.wasm",
+      "funcs": [
+        {
+          "name": "as-func-first",
+          "tests": [{"in": [], "out": [{"i32": 1}]}]
+        },
+        {
+          "name": "as-func-mid",
+          "tests": [{"in": [], "out": [{"i32": 2}]}]
+        },
+        {
+          "name": "as-func-last",
+          "tests": [{"in": [], "out": [{"i32": 3}]}]
+        },
+        {
+          "name": "as-func-everywhere",
+          "tests": [{"in": [], "out": [{"i32": 4}]}]
+        },
+        {
+          "name": "as-drop-last",
+          "tests": [{"in": [{"i32": 0}], "out": null}]
+        },
+        {
+          "name": "as-drop-everywhere",
+          "tests": [{"in": [{"i32": 0}], "out": null}]
+        },
+        {
+          "name": "as-select-mid1",
+          "tests": [{"in": [{"i32": 3}], "out": [{"i32": 3}]}]
+        },
+        {
+          "name": "as-select-mid2",
+          "tests": [{"in": [{"i32": 3}], "out": [{"i32": 3}]}]
+        },
+        {
+          "name": "as-select-last",
+          "tests": [{"in": [{"i32": 3}], "out": [{"i32": 3}]}]
+        },
+        {
+          "name": "as-select-everywhere",
+          "tests": [{"in": [{"i32": 3}], "out": [{"i32": 3}]}]
+        },
+        {
+          "name": "as-block-first",
+          "tests": [{"in": [], "out": [{"i32": 2}]}]
+        },
+        {
+          "name": "as-block-mid",
+          "tests": [{"in": [], "out": [{"i32": 2}]}]
+        },
+        {
+          "name": "as-block-last",
+          "tests": [{"in": [], "out": [{"i32": 3}]}]
+        },
+        {
+          "name": "as-block-everywhere",
+          "tests": [{"in": [], "out": [{"i32": 4}]}]
+        },
+        {
+          "name": "as-loop-first",
+          "tests": [{"in": [], "out": [{"i32": 2}]}]
+        },
+        {
+          "name": "as-loop-mid",
+          "tests": [{"in": [], "out": [{"i32": 2}]}]
+        },
+        {
+          "name": "as-loop-last",
+          "tests": [{"in": [], "out": [{"i32": 3}]}]
+        },
+        {
+          "name": "as-loop-everywhere",
+          "tests": [{"in": [], "out": [{"i32": 4}]}]
+        },
+        {
+          "name": "as-if-condition",
+          "tests": [{"in": [{"i32": 0}], "out": null}]
+        },
+        {
+          "name": "as-if-condition",
+          "tests": [{"in": [{"i32": -1}], "out": null}]
+        },
+        {
+          "name": "as-if-then",
+          "tests": [{"in": [{"i32": 0}], "out": null}]
+        },
+        {
+          "name": "as-if-then",
+          "tests": [{"in": [{"i32": 4}], "out": null}]
+        },
+        {
+          "name": "as-if-else",
+          "tests": [{"in": [{"i32": 0}], "out": null}]
+        },
+        {
+          "name": "as-if-else",
+          "tests": [{"in": [{"i32": 3}], "out": null}]
+        },
+        {
+          "name": "as-br-last",
+          "tests": [{"in": [{"i32": 6}], "out": [{"i32": 6}]}]
+        },
+        {
+          "name": "as-br-everywhere",
+          "tests": [{"in": [{"i32": 7}], "out": [{"i32": 7}]}]
+        },
+        {
+          "name": "as-br_if-mid",
+          "tests": [{"in": [{"i32": 5}], "out": [{"i32": 5}]}]
+        },
+        {
+          "name": "as-br_if-last",
+          "tests": [{"in": [{"i32": 6}], "out": [{"i32": 6}]}]
+        },
+        {
+          "name": "as-br_if-everywhere",
+          "tests": [{"in": [{"i32": 7}], "out": [{"i32": 7}]}]
+        },
+        {
+          "name": "as-br_table-mid",
+          "tests": [{"in": [{"i32": 5}], "out": [{"i32": 5}]}]
+        },
+        {
+          "name": "as-br_table-last",
+          "tests": [{"in": [{"i32": 6}], "out": [{"i32": 6}]}]
+        },
+        {
+          "name": "as-br_table-everywhere",
+          "tests": [{"in": [{"i32": 7}], "out": [{"i32": 7}]}]
+        },
+        {
+          "name": "as-return-last",
+          "tests": [{"in": [{"i32": 6}], "out": [{"i32": 6}]}]
+        },
+        {
+          "name": "as-return-everywhere",
+          "tests": [{"in": [{"i32": 7}], "out": [{"i32": 7}]}]
+        },
+        {
+          "name": "as-call-mid1",
+          "tests": [{"in": [{"i32": 3}, {"i32": 1}, {"i32": 2}], "out": [{"i32": 2}]}]
+        },
+        {
+          "name": "as-call-mid2",
+          "tests": [{"in": [{"i32": 0}, {"i32": 3}, {"i32": 1}], "out": [{"i32": 2}]}]
+        },
+        {
+          "name": "as-call-last",
+          "tests": [{"in": [{"i32": 10}, {"i32": 9}, {"i32": -1}], "out": [{"i32": 20}]}]
+        },
+        {
+          "name": "as-call-everywhere",
+          "tests": [{"in": [{"i32": 2}, {"i32": 1}, {"i32": 5}], "out": [{"i32": -2}]}]
+        },
+        {
+          "name": "as-unary-last",
+          "tests": [{"in": [{"i32": 30}], "out": [{"i32": 1}]}]
+        },
+        {
+          "name": "as-unary-everywhere",
+          "tests": [{"in": [{"i32": 12}], "out": [{"i32": 2}]}]
+        },
+        {
+          "name": "as-binary-mid",
+          "tests": [{"in": [{"i32": 3}], "out": [{"i32": 6}]}]
+        },
+        {
+          "name": "as-binary-last",
+          "tests": [{"in": [{"i32": 3}], "out": [{"i32": 6}]}]
+        },
+        {
+          "name": "as-binary-everywhere",
+          "tests": [{"in": [{"i32": 3}], "out": [{"i32": 6}]}]
+        },
+        {
+          "name": "as-test-last",
+          "tests": [{"in": [{"i32": 0}], "out": [{"i32": 1}]}]
+        },
+        {
+          "name": "as-test-everywhere",
+          "tests": [{"in": [{"i32": 0}], "out": [{"i32": 1}]}]
+        },
+        {
+          "name": "as-compare-mid",
+          "tests": [{"in": [{"i32": 3}], "out": [{"i32": 0}]}]
+        },
+        {
+          "name": "as-compare-last",
+          "tests": [{"in": [{"i32": 3}], "out": [{"i32": 0}]}]
+        },
+        {
+          "name": "as-compare-everywhere",
+          "tests": [{"in": [{"i32": 3}], "out": [{"i32": 1}]}]
+        },
+        {
+          "name": "as-grow_memory-last",
+          "tests": [{"in": [{"i32": 2}], "out": [{"i32": 1}]}]
+        },
+        {
+          "name": "as-grow_memory-everywhere",
+          "tests": [{"in": [{"i32": 12}], "out": [{"i32": 3}]}]
+        }
+      ]
+    },
+    {
+      "file": "tee_local.wasm",
+      "funcs": [
+        {
+          "name": "type-local-i32",
+          "tests": [{"in": [], "out": [{"i32": 0}]}]
+        },
+        {
+          "name": "type-local-i64",
+          "tests": [{"in": [], "out": [{"i64": 0}]}]
+        },
+        {
+          "name": "type-local-f32",
+          "tests": [{"in": [], "out": [{"f32": 0}]}]
+        },
+        {
+          "name": "type-local-f64",
+          "tests": [{"in": [], "out": [{"f64": 0}]}]
+        },
+        {
+          "name": "type-param-i32",
+          "tests": [{"in": [{"i32": 2}], "out": [{"i32": 10}]}]
+        },
+        {
+          "name": "type-param-i64",
+          "tests": [{"in": [{"i64": 3}], "out": [{"i64": 11}]}]
+        },
+        {
+          "name": "type-param-f32",
+          "tests": [{"in": [{"f32": 4.4}], "out": [{"f32": 11.1}]}]
+        },
+        {
+          "name": "type-param-f64",
+          "tests": [{"in": [{"f64": 5.5}], "out": [{"f64": 12.2}]}]
+        },
+        {
+          "name": "type-mixed",
+          "tests": [{"in": [{"i64": 1}, {"f32": 2.2}, {"f64": 3.3}, {"i32": 4}, {"i32": 5}], "out": null}]
+        },
+        {
+          "name": "write",
+          "tests": [{"in": [{"i64": 1}, {"f32": 2}, {"f64": 3.3}, {"i32": 4}, {"i32": 5}], "out": [{"i64": 56}]}]
+        },
+        {
+          "name": "result",
+          "tests": [{"in": [{"i64": -1}, {"f32": -2}, {"f64": -3.3}, {"i32": -4}, {"i32": -5}], "out": [{"f64": 34.8}]}]
+        }
+      ]
+    },
+    {
+      "file": "forward.wasm",
+      "funcs": [
+        {
+          "name": "even",
+          "tests": [{"in": [{"i32": 13}], "out": [{"i32": 0}]}]
+        },
+        {
+          "name": "even",
+          "tests": [{"in": [{"i32": 20}], "out": [{"i32": 1}]}]
+        },
+        {
+          "name": "odd",
+          "tests": [{"in": [{"i32": 13}], "out": [{"i32": 1}]}]
+        },
+        {
+          "name": "odd",
+          "tests": [{"in": [{"i32": 20}], "out": [{"i32": 0}]}]
+        }
+      ]
+    },
+    {
+      "file": "get_local.wasm",
+      "funcs": [
+        {
+          "name": "type-local-i32",
+          "tests": [{"in": [], "out": [{"i32": 0}]}]
+        },
+        {
+          "name": "type-local-i64",
+          "tests": [{"in": [], "out": [{"i64": 0}]}]
+        },
+        {
+          "name": "type-local-f32",
+          "tests": [{"in": [], "out": [{"f32": 0}]}]
+        },
+        {
+          "name": "type-local-f64",
+          "tests": [{"in": [], "out": [{"f64": 0}]}]
+        },
+        {
+          "name": "type-param-i32",
+          "tests": [{"in": [{"i32": 2}], "out": [{"i32": 2}]}]
+        },
+        {
+          "name": "type-param-i64",
+          "tests": [{"in": [{"i64": 3}], "out": [{"i64": 3}]}]
+        },
+        {
+          "name": "type-param-f32",
+          "tests": [{"in": [{"f32": 4.4}], "out": [{"f32": 4.4}]}]
+        },
+        {
+          "name": "type-param-f64",
+          "tests": [{"in": [{"f64": 5.5}], "out": [{"f64": 5.5}]}]
+        }
+      ]
+    },
+    {
+      "file": "resizing.wasm",
+      "funcs": [
+        {
+          "name": "size",
+          "tests": [{"in": [], "out": [{"i32": 0}]}]
+        },
+        {
+          "name": "store_at_zero",
+          "tests": [{"in": [], "err": "out of bounds memory access"}]
+        },
+        {
+          "name": "load_at_zero",
+          "tests": [{"in": [], "err": "out of bounds memory access"}]
+        },
+        {
+          "name": "store_at_page_size",
+          "tests": [{"in": [], "err": "out of bounds memory access"}]
+        },
+        {
+          "name": "load_at_page_size",
+          "tests": [{"in": [], "err": "out of bounds memory access"}]
+        },
+        {
+          "name": "grow",
+          "tests": [{"in": [{"i32": 1}], "out": [{"i32": 0}]}]
+        },
+        {
+          "name": "size",
+          "tests": [{"in": [], "out": [{"i32": 1}]}]
+        },
+        {
+          "name": "load_at_zero",
+          "tests": [{"in": [], "out": [{"i32": 0}]}]
+        },
+        {
+          "name": "store_at_zero",
+          "tests": [{"in": [], "out": null}]
+        },
+        {
+          "name": "load_at_zero",
+          "tests": [{"in": [], "out": [{"i32": 2}]}]
+        },
+        {
+          "name": "store_at_page_size",
+          "tests": [{"in": [], "err": "out of bounds memory access"}]
+        },
+        {
+          "name": "load_at_page_size",
+          "tests": [{"in": [], "err": "out of bounds memory access"}]
+        },
+        {
+          "name": "grow",
+          "tests": [{"in": [{"i32": 4}], "out": [{"i32": 1}]}]
+        },
+        {
+          "name": "size",
+          "tests": [{"in": [], "out": [{"i32": 5}]}]
+        },
+        {
+          "name": "load_at_zero",
+          "tests": [{"in": [], "out": [{"i32": 2}]}]
+        },
+        {
+          "name": "store_at_zero",
+          "tests": [{"in": [], "out": null}]
+        },
+        {
+          "name": "load_at_zero",
+          "tests": [{"in": [], "out": [{"i32": 2}]}]
+        },
+        {
+          "name": "load_at_page_size",
+          "tests": [{"in": [], "out": [{"i32": 0}]}]
+        },
+        {
+          "name": "store_at_page_size",
+          "tests": [{"in": [], "out": null}]
+        },
+        {
+          "name": "load_at_page_size",
+          "tests": [{"in": [], "out": [{"i32": 3}]}]
+        }
+      ]
+    },
+    {
+      "file": "select.wasm",
+      "funcs": [
+        {
+          "name": "select_i32",
+          "tests": [{"in": [{"i32": 1}, {"i32": 2}, {"i32": 1}], "out": [{"i32": 1}]}]
+        },
+        {
+          "name": "select_i64",
+          "tests": [{"in": [{"i64": 2}, {"i64": 1}, {"i32": 1}], "out": [{"i64": 2}]}]
+        },
+        {
+          "name": "select_f64",
+          "tests": [{"in": [{"f64": 1}, {"f64": 2}, {"i32": 1}], "out": [{"f64": 1}]}]
+        },
+        {
+          "name": "select_i32",
+          "tests": [{"in": [{"i32": 1}, {"i32": 2}, {"i32": 0}], "out": [{"i32": 2}]}]
+        },
+        {
+          "name": "select_i32",
+          "tests": [{"in": [{"i32": 2}, {"i32": 1}, {"i32": 0}], "out": [{"i32": 1}]}]
+        },
+        {
+          "name": "select_i64",
+          "tests": [{"in": [{"i64": 2}, {"i64": 1}, {"i32": -1}], "out": [{"i64": 2}]}]
+        },
+        {
+          "name": "select_i64",
+          "tests": [{"in": [{"i64": 2}, {"i64": 1}, {"i32": -252645136}], "out": [{"i64": 2}]}]
+        },
+        {
+          "name": "select_f32",
+          "tests": [{"in": [{"use": "f32.NaN"}, {"f32": 1}, {"i32": 1}], "out": [{"use": "f32.NaN"}]}]
+        },
+        {
+          "name": "select_f64",
+          "tests": [{"in": [{"use": "f64.NaN"}, {"f64": 1}, {"i32": 1}], "out": [{"use": "f64.NaN"}]}]
+        },
+        {
+          "name": "select_f64",
+          "tests": [{"in": [{"use": "f64.NaN"}, {"f64": 1}, {"i32": 0}], "out": [{"f64": 1}]}]
+        },
+        {
+          "name": "select_f64",
+          "tests": [{"in": [{"use": "f64.NaN"}, {"f64": 1}, {"i32": 0}], "out": [{"f64": 1}]}]
+        },
+        {
+          "name": "select_f64",
+          "tests": [{"in": [{"f64": 2}, {"use": "f64.NaN"}, {"i32": 1}], "out": [{"f64": 2}]}]
+        },
+        {
+          "name": "select_f64",
+          "tests": [{"in": [{"f64": 2}, {"use": "f64.NaN"}, {"i32": 1}], "out": [{"f64": 2}]}]
+        },
+        {
+          "name": "select_f64",
+          "tests": [{"in": [{"f64": 2}, {"use": "f64.NaN"}, {"i32": 0}], "out": [{"use": "f64.NaN"}]}]
+        },
+        {
+          "name": "select_f64",
+          "tests": [{"in": [{"f64": 2}, {"use": "f64.NaN"}, {"i32": 0}], "out": [{"use": "f64.NaN"}]}]
+        },
+        {
+          "name": "select_trap_l",
+          "tests": [{"in": [{"i32": 1}], "err": "Unreachable"}]
+        },
+        {
+          "name": "select_trap_l",
+          "tests": [{"in": [{"i32": 0}], "err": "Unreachable"}]
+        },
+        {
+          "name": "select_trap_r",
+          "tests": [{"in": [{"i32": 1}], "err": "Unreachable"}]
+        },
+        {
+          "name": "select_trap_r",
+          "tests": [{"in": [{"i32": 0}], "err": "Unreachable"}]
+        }
+      ]
+    },
+    {
+      "file": "memory_redundancy.wasm",
+      "funcs": [
+        {
+          "name": "test_store_to_load",
+          "tests": [{"in": [], "out": [{"i32": 128}]}]
+        },
+        {
+          "name": "zero_everything",
+          "tests": [{"in": [], "out": null}]
+        },
+        {
+          "name": "test_redundant_load",
+          "tests": [{"in": [], "out": [{"i32": 128}]}]
+        },
+        {
+          "name": "zero_everything",
+          "tests": [{"in": [], "out": null}]
+        },
+        {
+          "name": "test_dead_store",
+          "tests": [{"in": [], "out": [{"f32": 4.9e-44}]}]
+        },
+        {
+          "name": "zero_everything",
+          "tests": [{"in": [], "out": null}]
+        },
+        {
+          "name": "malloc_aliasing",
+          "tests": [{"in": [], "out": [{"i32": 43}]}]
+        }
+      ]
+    },
+    {
+      "file": "endianness.wasm",
+      "funcs": [
+        {
+          "name": "i32_load16_s",
+          "tests": [{"in": [{"i32": -1}], "out": [{"i32": -1}]}]
+        },
+        {
+          "name": "i32_load16_s",
+          "tests": [{"in": [{"i32": -4242}], "out": [{"i32": -4242}]}]
+        },
+        {
+          "name": "i32_load16_s",
+          "tests": [{"in": [{"i32": 42}], "out": [{"i32": 42}]}]
+        },
+        {
+          "name": "i32_load16_s",
+          "tests": [{"in": [{"i32": 12816}], "out": [{"i32": 12816}]}]
+        },
+        {
+          "name": "i32_load16_u",
+          "tests": [{"in": [{"i32": -1}], "out": [{"i32": 65535}]}]
+        },
+        {
+          "name": "i32_load16_u",
+          "tests": [{"in": [{"i32": -4242}], "out": [{"i32": 61294}]}]
+        },
+        {
+          "name": "i32_load16_u",
+          "tests": [{"in": [{"i32": 42}], "out": [{"i32": 42}]}]
+        },
+        {
+          "name": "i32_load16_u",
+          "tests": [{"in": [{"i32": 51966}], "out": [{"i32": 51966}]}]
+        },
+        {
+          "name": "i32_load",
+          "tests": [{"in": [{"i32": -1}], "out": [{"i32": -1}]}]
+        },
+        {
+          "name": "i32_load",
+          "tests": [{"in": [{"i32": -42424242}], "out": [{"i32": -42424242}]}]
+        },
+        {
+          "name": "i32_load",
+          "tests": [{"in": [{"i32": 42424242}], "out": [{"i32": 42424242}]}]
+        },
+        {
+          "name": "i32_load",
+          "tests": [{"in": [{"i32": -1414717974}], "out": [{"i32": -1414717974}]}]
+        },
+        {
+          "name": "i64_load16_s",
+          "tests": [{"in": [{"i64": -1}], "out": [{"i64": -1}]}]
+        },
+        {
+          "name": "i64_load16_s",
+          "tests": [{"in": [{"i64": -4242}], "out": [{"i64": -4242}]}]
+        },
+        {
+          "name": "i64_load16_s",
+          "tests": [{"in": [{"i64": 42}], "out": [{"i64": 42}]}]
+        },
+        {
+          "name": "i64_load16_s",
+          "tests": [{"in": [{"i64": 12816}], "out": [{"i64": 12816}]}]
+        },
+        {
+          "name": "i64_load16_u",
+          "tests": [{"in": [{"i64": -1}], "out": [{"i64": 65535}]}]
+        },
+        {
+          "name": "i64_load16_u",
+          "tests": [{"in": [{"i64": -4242}], "out": [{"i64": 61294}]}]
+        },
+        {
+          "name": "i64_load16_u",
+          "tests": [{"in": [{"i64": 42}], "out": [{"i64": 42}]}]
+        },
+        {
+          "name": "i64_load16_u",
+          "tests": [{"in": [{"i64": 51966}], "out": [{"i64": 51966}]}]
+        },
+        {
+          "name": "i64_load32_s",
+          "tests": [{"in": [{"i64": -1}], "out": [{"i64": -1}]}]
+        },
+        {
+          "name": "i64_load32_s",
+          "tests": [{"in": [{"i64": -42424242}], "out": [{"i64": -42424242}]}]
+        },
+        {
+          "name": "i64_load32_s",
+          "tests": [{"in": [{"i64": 42424242}], "out": [{"i64": 42424242}]}]
+        },
+        {
+          "name": "i64_load32_s",
+          "tests": [{"in": [{"i64": 305419896}], "out": [{"i64": 305419896}]}]
+        },
+        {
+          "name": "i64_load32_u",
+          "tests": [{"in": [{"i64": -1}], "out": [{"i64": 4294967295}]}]
+        },
+        {
+          "name": "i64_load32_u",
+          "tests": [{"in": [{"i64": -42424242}], "out": [{"i64": 4252543054}]}]
+        },
+        {
+          "name": "i64_load32_u",
+          "tests": [{"in": [{"i64": 42424242}], "out": [{"i64": 42424242}]}]
+        },
+        {
+          "name": "i64_load32_u",
+          "tests": [{"in": [{"i32": -1414717974}], "out": [{"i32": -1414717974}]}]
+        },
+        {
+          "name": "i64_load",
+          "tests": [{"in": [{"i64": -1}], "out": [{"i64": -1}]}]
+        },
+        {
+          "name": "i64_load",
+          "tests": [{"in": [{"i64": -42424242}], "out": [{"i64": -42424242}]}]
+        },
+        {
+          "name": "i64_load",
+          "tests": [{"in": [{"i32": -1414717974}], "out": [{"i32": -1414717974}]}]
+        },
+        {
+          "name": "i64_load",
+          "tests": [{"in": [{"i64": -6075977126246539798}], "out": [{"i64": -6075977126246539798}]}]
+        },
+        {
+          "name": "f32_load",
+          "tests": [{"in": [{"f32": -1}], "out": [{"f32": -1}]}]
+        },
+        {
+          "name": "f32_load",
+          "tests": [{"in": [{"f32": 0.01234}], "out": [{"f32": 0.01234}]}]
+        },
+        {
+          "name": "f32_load",
+          "tests": [{"in": [{"f32": 4242.4242}], "out": [{"f32": 4242.4242}]}]
+        },
+        {
+          "name": "f32_load",
+          "tests": [{"in": [{"use": "f32.Max"}], "out": [{"use": "f32.Max"}]}]
+        },
+        {
+          "name": "f64_load",
+          "tests": [{"in": [{"f64": -1}], "out": [{"f64": -1}]}]
+        },
+        {
+          "name": "f64_load",
+          "tests": [{"in": [{"f64": 1234.56789}], "out": [{"f64": 1234.56789}]}]
+        },
+        {
+          "name": "f64_load",
+          "tests": [{"in": [{"f64": 424242.424242}], "out": [{"f64": 424242.424242}]}]
+        },
+        {
+          "name": "f64_load",
+          "tests": [{"in": [{"use": "f64.Max"}], "out": [{"use": "f64.Max"}]}]
+        },
+        {
+          "name": "i32_store16",
+          "tests": [{"in": [{"i32": -1}], "out": [{"i32": 65535}]}]
+        },
+        {
+          "name": "i32_store16",
+          "tests": [{"in": [{"i32": -4242}], "out": [{"i32": 61294}]}]
+        },
+        {
+          "name": "i32_store16",
+          "tests": [{"in": [{"i32": 42}], "out": [{"i32": 42}]}]
+        },
+        {
+          "name": "i32_store16",
+          "tests": [{"in": [{"i32": 51966}], "out": [{"i32": 51966}]}]
+        },
+        {
+          "name": "i32_store",
+          "tests": [{"in": [{"i32": -1}], "out": [{"i32": -1}]}]
+        },
+        {
+          "name": "i32_store",
+          "tests": [{"in": [{"i32": -4242}], "out": [{"i32": -4242}]}]
+        },
+        {
+          "name": "i32_store",
+          "tests": [{"in": [{"i32": 42424242}], "out": [{"i32": 42424242}]}]
+        },
+        {
+          "name": "i32_store",
+          "tests": [{"in": [{"i32": -559035650}], "out": [{"i32": -559035650}]}]
+        },
+        {
+          "name": "i64_store16",
+          "tests": [{"in": [{"i64": -1}], "out": [{"i64": 65535}]}]
+        },
+        {
+          "name": "i64_store16",
+          "tests": [{"in": [{"i64": -4242}], "out": [{"i64": 61294}]}]
+        },
+        {
+          "name": "i64_store16",
+          "tests": [{"in": [{"i64": 42}], "out": [{"i64": 42}]}]
+        },
+        {
+          "name": "i64_store16",
+          "tests": [{"in": [{"i64": 51966}], "out": [{"i64": 51966}]}]
+        },
+        {
+          "name": "i64_store32",
+          "tests": [{"in": [{"i64": -1}], "out": [{"i64": 4294967295}]}]
+        },
+        {
+          "name": "i64_store32",
+          "tests": [{"in": [{"i64": -4242}], "out": [{"i64": 4294963054}]}]
+        },
+        {
+          "name": "i64_store32",
+          "tests": [{"in": [{"i64": 42424242}], "out": [{"i64": 42424242}]}]
+        },
+        {
+          "name": "i64_store32",
+          "tests": [{"in": [{"i64": 3735931646}], "out": [{"i64": 3735931646}]}]
+        },
+        {
+          "name": "i64_store",
+          "tests": [{"in": [{"i64": -1}], "out": [{"i64": -1}]}]
+        },
+        {
+          "name": "i64_store",
+          "tests": [{"in": [{"i64": -42424242}], "out": [{"i64": -42424242}]}]
+        },
+        {
+          "name": "i64_store",
+          "tests": [{"in": [{"i32": -1414717974}], "out": [{"i32": -1414717974}]}]
+        },
+        {
+          "name": "i64_store",
+          "tests": [{"in": [{"i64": -6075977126246539798}], "out": [{"i64": -6075977126246539798}]}]
+        },
+        {
+          "name": "f32_store",
+          "tests": [{"in": [{"f32": -1}], "out": [{"f32": -1}]}]
+        },
+        {
+          "name": "f32_store",
+          "tests": [{"in": [{"f32": 0.01234}], "out": [{"f32": 0.01234}]}]
+        },
+        {
+          "name": "f32_store",
+          "tests": [{"in": [{"f32": 4242.4242}], "out": [{"f32": 4242.4242}]}]
+        },
+        {
+          "name": "f32_store",
+          "tests": [{"in": [{"use": "f32.Max"}], "out": [{"use": "f32.Max"}]}]
+        },
+        {
+          "name": "f64_store",
+          "tests": [{"in": [{"f64": -1}], "out": [{"f64": -1}]}]
+        },
+        {
+          "name": "f64_store",
+          "tests": [{"in": [{"f64": 1234.56789}], "out": [{"f64": 1234.56789}]}]
+        },
+        {
+          "name": "f64_store",
+          "tests": [{"in": [{"f64": 424242.424242}], "out": [{"f64": 424242.424242}]}]
+        },
+        {
+          "name": "f64_store",
+          "tests": [{"in": [{"use": "f64.Max"}], "out": [{"use": "f64.Max"}]}]
+        }
+      ]
+    },
+    {
+      "file": "return.wasm",
+      "funcs": [
+        {
+          "name": "type-i32",
+          "tests": [{"in": [], "out": null}]
+        },
+        {
+          "name": "type-i64",
+          "tests": [{"in": [], "out": null}]
+        },
+        {
+          "name": "type-f32",
+          "tests": [{"in": [], "out": null}]
+        },
+        {
+          "name": "type-f64",
+          "tests": [{"in": [], "out": null}]
+        },
+        {
+          "name": "nullary",
+          "tests": [{"in": [], "out": null}]
+        },
+        {
+          "name": "unary",
+          "tests": [{"in": [], "out": [{"f64": 3}]}]
+        },
+        {
+          "name": "as-func-first",
+          "tests": [{"in": [], "out": [{"i32": 1}]}]
+        },
+        {
+          "name": "as-func-mid",
+          "tests": [{"in": [], "out": [{"i32": 2}]}]
+        },
+        {
+          "name": "as-func-last",
+          "tests": [{"in": [], "out": null}]
+        },
+        {
+          "name": "as-func-value",
+          "tests": [{"in": [], "out": [{"i32": 3}]}]
+        },
+        {
+          "name": "as-block-first",
+          "tests": [{"in": [], "out": null}]
+        },
+        {
+          "name": "as-block-mid",
+          "tests": [{"in": [], "out": null}]
+        },
+        {
+          "name": "as-block-last",
+          "tests": [{"in": [], "out": null}]
+        },
+        {
+          "name": "as-block-value",
+          "tests": [{"in": [], "out": [{"i32": 2}]}]
+        },
+        {
+          "name": "as-loop-first",
+          "tests": [{"in": [], "out": [{"i32": 3}]}]
+        },
+        {
+          "name": "as-loop-mid",
+          "tests": [{"in": [], "out": [{"i32": 4}]}]
+        },
+        {
+          "name": "as-loop-last",
+          "tests": [{"in": [], "out": [{"i32": 5}]}]
+        },
+        {
+          "name": "as-br-value",
+          "tests": [{"in": [], "out": [{"i32": 9}]}]
+        },
+        {
+          "name": "as-br_if-cond",
+          "tests": [{"in": [], "out": null}]
+        },
+        {
+          "name": "as-br_if-value",
+          "tests": [{"in": [], "out": [{"i32": 8}]}]
+        },
+        {
+          "name": "as-br_if-value-cond",
+          "tests": [{"in": [], "out": [{"i32": 9}]}]
+        },
+        {
+          "name": "as-br_table-index",
+          "tests": [{"in": [], "out": [{"i64": 9}]}]
+        },
+        {
+          "name": "as-br_table-value",
+          "tests": [{"in": [], "out": [{"i32": 10}]}]
+        },
+        {
+          "name": "as-br_table-value-index",
+          "tests": [{"in": [], "out": [{"i32": 11}]}]
+        },
+        {
+          "name": "as-return-value",
+          "tests": [{"in": [], "out": [{"i64": 7}]}]
+        },
+        {
+          "name": "as-if-cond",
+          "tests": [{"in": [], "out": [{"i32": 2}]}]
+        },
+        {
+          "name": "as-if-then",
+          "tests": [{"in": [{"i32": 1}, {"i32": 6}], "out": [{"i32": 3}]}]
+        },
+        {
+          "name": "as-if-then",
+          "tests": [{"in": [{"i32": 0}, {"i32": 6}], "out": [{"i32": 6}]}]
+        },
+        {
+          "name": "as-if-else",
+          "tests": [{"in": [{"i32": 0}, {"i32": 6}], "out": [{"i32": 4}]}]
+        },
+        {
+          "name": "as-if-else",
+          "tests": [{"in": [{"i32": 1}, {"i32": 6}], "out": [{"i32": 6}]}]
+        },
+        {
+          "name": "as-select-first",
+          "tests": [{"in": [{"i32": 0}, {"i32": 6}], "out": [{"i32": 5}]}]
+        },
+        {
+          "name": "as-select-first",
+          "tests": [{"in": [{"i32": 1}, {"i32": 6}], "out": [{"i32": 5}]}]
+        },
+        {
+          "name": "as-select-second",
+          "tests": [{"in": [{"i32": 0}, {"i32": 6}], "out": [{"i32": 6}]}]
+        },
+        {
+          "name": "as-select-second",
+          "tests": [{"in": [{"i32": 1}, {"i32": 6}], "out": [{"i32": 6}]}]
+        },
+        {
+          "name": "as-select-cond",
+          "tests": [{"in": [], "out": [{"i32": 7}]}]
+        },
+        {
+          "name": "as-call-first",
+          "tests": [{"in": [], "out": [{"i32": 12}]}]
+        },
+        {
+          "name": "as-call-mid",
+          "tests": [{"in": [], "out": [{"i32": 13}]}]
+        },
+        {
+          "name": "as-call-last",
+          "tests": [{"in": [], "out": [{"i32": 14}]}]
+        },
+        {
+          "name": "as-call_indirect-func",
+          "tests": [{"in": [], "out": [{"i32": 20}]}]
+        },
+        {
+          "name": "as-call_indirect-first",
+          "tests": [{"in": [], "out": [{"i32": 21}]}]
+        },
+        {
+          "name": "as-call_indirect-mid",
+          "tests": [{"in": [], "out": [{"i32": 22}]}]
+        },
+        {
+          "name": "as-call_indirect-last",
+          "tests": [{"in": [], "out": [{"i32": 23}]}]
+        },
+        {
+          "name": "as-set_local-value",
+          "tests": [{"in": [], "out": [{"i32": 17}]}]
+        },
+        {
+          "name": "as-load-address",
+          "tests": [{"in": [], "out": [{"f32": 1.7}]}]
+        },
+        {
+          "name": "as-loadN-address",
+          "tests": [{"in": [], "out": [{"i64": 30}]}]
+        },
+        {
+          "name": "as-store-address",
+          "tests": [{"in": [], "out": [{"i32": 30}]}]
+        },
+        {
+          "name": "as-store-value",
+          "tests": [{"in": [], "out": [{"i32": 31}]}]
+        },
+        {
+          "name": "as-storeN-address",
+          "tests": [{"in": [], "out": [{"i32": 32}]}]
+        },
+        {
+          "name": "as-storeN-value",
+          "tests": [{"in": [], "out": [{"i32": 33}]}]
+        },
+        {
+          "name": "as-unary-operand",
+          "tests": [{"in": [], "out": [{"f32": 3.4}]}]
+        },
+        {
+          "name": "as-binary-left",
+          "tests": [{"in": [], "out": [{"i32": 3}]}]
+        },
+        {
+          "name": "as-binary-right",
+          "tests": [{"in": [], "out": [{"i64": 45}]}]
+        },
+        {
+          "name": "as-test-operand",
+          "tests": [{"in": [], "out": [{"i32": 44}]}]
+        },
+        {
+          "name": "as-compare-left",
+          "tests": [{"in": [], "out": [{"i32": 43}]}]
+        },
+        {
+          "name": "as-compare-right",
+          "tests": [{"in": [], "out": [{"i32": 42}]}]
+        },
+        {
+          "name": "as-convert-operand",
+          "tests": [{"in": [], "out": [{"i32": 41}]}]
+        },
+        {
+          "name": "as-grow_memory-size",
+          "tests": [{"in": [], "out": [{"i32": 40}]}]
+        }
+      ]
+    }
+  ]
+}

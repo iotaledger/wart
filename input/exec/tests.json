@@ -1,0 +1,1146 @@
+{
+  "modules": [
+    {
+      "file": "basic.wasm",
+      "funcs": [
+        {
+          "name": "main",
+          "tests": [{"in": [], "out": [{"i32": 42}]}]
+        }
+      ]
+    },
+    {
+      "file": "binary.wasm",
+      "funcs": [
+        {
+          "name": "f64_copysign",
+          "tests": [{"in": [], "out": [{"f64": 0.000000}]}]
+        },
+        {
+          "name": "f64_max",
+          "tests": [{"in": [], "out": [{"f64": 0.000000}]}]
+        },
+        {
+          "name": "f64_min",
+          "tests": [{"in": [], "out": [{"f64": 0.000000}]}]
+        },
+        {
+          "name": "f64_div",
+          "tests": [{"in": [], "out": [{"f64": 1e150}]}]
+        },
+        {
+          "name": "f64_mul",
+          "tests": [{"in": [], "out": [{"f64": -15179717820000.000000}]}]
+        },
+        {
+          "name": "f64_sub",
+          "tests": [{"in": [], "out": [{"f64": 123400000000000007812762268812638756607430593436581896388608.000000}]}]
+        },
+        {
+          "name": "f64_add",
+          "tests": [{"in": [], "out": [{"f64": 1111111110.000000}]}]
+        },
+        {
+          "name": "f32_copysign",
+          "tests": [{"in": [], "out": [{"f32": 0.000000}]}]
+        },
+        {
+          "name": "f32_max",
+          "tests": [{"in": [], "out": [{"f32": 0.000000}]}]
+        },
+        {
+          "name": "f32_min",
+          "tests": [{"in": [], "out": [{"f32": 0.000000}]}]
+        },
+        {
+          "name": "f32_div",
+          "tests": [{"in": [], "out": [{"f32": -500000000.000000}]}]
+        },
+        {
+          "name": "f32_mul",
+          "tests": [{"in": [], "out": [{"f32": -8487.187500}]}]
+        },
+        {
+          "name": "f32_sub",
+          "tests": [{"in": [], "out": [{"f32": -9995.500000}]}]
+        },
+        {
+          "name": "f32_add",
+          "tests": [{"in": [], "out": [{"f32": 5.000000}]}]
+        },
+        {
+          "name": "i64_rotr",
+          "tests": [{"in": [], "out": [{"i64": -6917529027641081869}]}]
+        },
+        {
+          "name": "i64_rotl",
+          "tests": [{"in": [], "out": [{"i64": -793}]}]
+        },
+        {
+          "name": "i64_shr_s",
+          "tests": [{"in": [], "out": [{"i64": -13}]}]
+        },
+        {
+          "name": "i64_shr_u",
+          "tests": [{"in": [], "out": [{"i64": 2305843009213693939}]}]
+        },
+        {
+          "name": "i64_shl",
+          "tests": [{"in": [], "out": [{"i64": -800}]}]
+        },
+        {
+          "name": "i64_xor",
+          "tests": [{"in": [], "out": [{"i64": 14}]}]
+        },
+        {
+          "name": "i64_or",
+          "tests": [{"in": [], "out": [{"i64": 15}]}]
+        },
+        {
+          "name": "i64_and",
+          "tests": [{"in": [], "out": [{"i64": 1}]}]
+        },
+        {
+          "name": "i64_rem_u",
+          "tests": [{"in": [], "out": [{"i64": 1}]}]
+        },
+        {
+          "name": "i64_rem_s",
+          "tests": [{"in": [], "out": [{"i64": -1}]}]
+        },
+        {
+          "name": "i64_div_u",
+          "tests": [{"in": [], "out": [{"i64": 9223372036854775806}]}]
+        },
+        {
+          "name": "i64_div_s",
+          "tests": [{"in": [], "out": [{"i64": -2}]}]
+        },
+        {
+          "name": "i64_mul",
+          "tests": [{"in": [], "out": [{"i64": 21}]}]
+        },
+        {
+          "name": "i64_sub",
+          "tests": [{"in": [], "out": [{"i64": 16}]}]
+        },
+        {
+          "name": "i64_add",
+          "tests": [{"in": [], "out": [{"i64": 3}]}]
+        },
+        {
+          "name": "i32_rotr",
+          "tests": [{"in": [], "out": [{"i32": -1610612749}]}]
+        },
+        {
+          "name": "i32_rotl",
+          "tests": [{"in": [], "out": [{"i32": -793}]}]
+        },
+        {
+          "name": "i32_shr_s",
+          "tests": [{"in": [], "out": [{"i32": -13}]}]
+        },
+        {
+          "name": "i32_shr_u",
+          "tests": [{"in": [], "out": [{"i32": 536870899}]}]
+        },
+        {
+          "name": "i32_shl",
+          "tests": [{"in": [], "out": [{"i32": -800}]}]
+        },
+        {
+          "name": "i32_xor",
+          "tests": [{"in": [], "out": [{"i32": 14}]}]
+        },
+        {
+          "name": "i32_or",
+          "tests": [{"in": [], "out": [{"i32": 15}]}]
+        },
+        {
+          "name": "i32_and",
+          "tests": [{"in": [], "out": [{"i32": 1}]}]
+        },
+        {
+          "name": "i32_rem_u",
+          "tests": [{"in": [], "out": [{"i32": 1}]}]
+        },
+        {
+          "name": "i32_rem_s",
+          "tests": [{"in": [], "out": [{"i32": -1}]}]
+        },
+        {
+          "name": "i32_div_u",
+          "tests": [{"in": [], "out": [{"i32": 2147483646}]}]
+        },
+        {
+          "name": "i32_div_s",
+          "tests": [{"in": [], "out": [{"i32": -2}]}]
+        },
+        {
+          "name": "i32_mul",
+          "tests": [{"in": [], "out": [{"i32": 21}]}]
+        },
+        {
+          "name": "i32_sub",
+          "tests": [{"in": [], "out": [{"i32": 16}]}]
+        },
+        {
+          "name": "i32_add",
+          "tests": [{"in": [], "out": [{"i32": 3}]}]
+        }
+      ]
+    },
+    {
+      "file": "brif-loop.wasm",
+      "funcs": [
+        {
+          "name": "test2",
+          "tests": [{"in": [], "out": [{"i32": 10}]}]
+        },
+        {
+          "name": "test1",
+          "tests": [{"in": [], "out": [{"i32": 3}]}]
+        }
+      ]
+    },
+    {
+      "file": "brif.wasm",
+      "funcs": [
+        {
+          "name": "test2",
+          "tests": [{"in": [], "out": [{"i32": 2}]}]
+        },
+        {
+          "name": "test1",
+          "tests": [{"in": [], "out": [{"i32": 1}]}]
+        }
+      ]
+    },
+    {
+      "file": "br.wasm",
+      "funcs": [
+        {
+          "name": "br3",
+          "tests": [{"in": [], "out": [{"i32": 3}]}]
+        },
+        {
+          "name": "br2",
+          "tests": [{"in": [], "out": [{"i32": 2}]}]
+        },
+        {
+          "name": "br1",
+          "tests": [{"in": [], "out": [{"i32": 3}]}]
+        },
+        {
+          "name": "br0",
+          "tests": [{"in": [], "out": [{"i32": 2}]}]
+        }
+      ]
+    },
+    {
+      "file": "call.wasm",
+      "funcs": [
+        {
+          "name": "fac10",
+          "tests": [{"in": [], "out": [{"i32": 3628800}]}]
+        },
+        {
+          "name": "call",
+          "tests": [{"in": [], "out": [{"i32": 10}]}]
+        }
+      ]
+    },
+    {
+      "file": "call-zero-args.wasm",
+      "funcs": [
+        {
+          "name": "h",
+          "tests": [{"in": [], "out": [{"i32": 43}]}]
+        }
+      ]
+    },
+    {
+      "file": "callindirect.wasm",
+      "funcs": [
+        {
+          "name": "test_zero",
+          "tests": [{"in": [], "out": [{"i32": 0}]}]
+        },
+        {
+          "name": "test_one",
+          "tests": [{"in": [], "out": [{"i32": 1}]}]
+        },
+        {
+          "name": "test_add",
+          "tests": [{"in": [], "out": [{"i32": 14}]}]
+        },
+        {
+          "name": "test_sub",
+          "tests": [{"in": [], "out": [{"i32": 6}]}]
+        }
+      ]
+    },
+    {
+      "file": "cast.wasm",
+      "funcs": [
+        {
+          "name": "i64_reinterpret_f64",
+          "tests": [{"in": [], "out": [{"i64": 4758506566875873280}]}]
+        },
+        {
+          "name": "f64_reinterpret_i64",
+          "tests": [{"in": [], "out": [{"f64": 125.125000}]}]
+        },
+        {
+          "name": "i32_reinterpret_f32",
+          "tests": [{"in": [], "out": [{"i32": -1067450368}]}]
+        },
+        {
+          "name": "f32_reinterpret_i32",
+          "tests": [{"in": [], "out": [{"f32": 4.500000}]}]
+        }
+      ]
+    },
+    {
+      "file": "compare.wasm",
+      "funcs": [
+        {
+          "name": "f64_ge_greater",
+          "tests": [{"in": [], "out": [{"i32": 1}]}]
+        },
+        {
+          "name": "f64_ge_equal",
+          "tests": [{"in": [], "out": [{"i32": 1}]}]
+        },
+        {
+          "name": "f64_ge_less",
+          "tests": [{"in": [], "out": [{"i32": 0}]}]
+        },
+        {
+          "name": "f64_gt_greater",
+          "tests": [{"in": [], "out": [{"i32": 1}]}]
+        },
+        {
+          "name": "f64_gt_equal",
+          "tests": [{"in": [], "out": [{"i32": 0}]}]
+        },
+        {
+          "name": "f64_gt_less",
+          "tests": [{"in": [], "out": [{"i32": 0}]}]
+        },
+        {
+          "name": "f64_le_greater",
+          "tests": [{"in": [], "out": [{"i32": 0}]}]
+        },
+        {
+          "name": "f64_le_equal",
+          "tests": [{"in": [], "out": [{"i32": 1}]}]
+        },
+        {
+          "name": "f64_le_less",
+          "tests": [{"in": [], "out": [{"i32": 1}]}]
+        },
+        {
+          "name": "f64_lt_greater",
+          "tests": [{"in": [], "out": [{"i32": 0}]}]
+        },
+        {
+          "name": "f64_lt_equal",
+          "tests": [{"in": [], "out": [{"i32": 0}]}]
+        },
+        {
+          "name": "f64_lt_less",
+          "tests": [{"in": [], "out": [{"i32": 1}]}]
+        },
+        {
+          "name": "f64_ne_false",
+          "tests": [{"in": [], "out": [{"i32": 0}]}]
+        },
+        {
+          "name": "f64_ne_true",
+          "tests": [{"in": [], "out": [{"i32": 1}]}]
+        },
+        {
+          "name": "f64_eq_false",
+          "tests": [{"in": [], "out": [{"i32": 0}]}]
+        },
+        {
+          "name": "f64_eq_true",
+          "tests": [{"in": [], "out": [{"i32": 1}]}]
+        },
+        {
+          "name": "f32_ge_greater",
+          "tests": [{"in": [], "out": [{"i32": 1}]}]
+        },
+        {
+          "name": "f32_ge_equal",
+          "tests": [{"in": [], "out": [{"i32": 1}]}]
+        },
+        {
+          "name": "f32_ge_less",
+          "tests": [{"in": [], "out": [{"i32": 0}]}]
+        },
+        {
+          "name": "f32_gt_greater",
+          "tests": [{"in": [], "out": [{"i32": 1}]}]
+        },
+        {
+          "name": "f32_gt_equal",
+          "tests": [{"in": [], "out": [{"i32": 0}]}]
+        },
+        {
+          "name": "f32_gt_less",
+          "tests": [{"in": [], "out": [{"i32": 0}]}]
+        },
+        {
+          "name": "f32_le_greater",
+          "tests": [{"in": [], "out": [{"i32": 0}]}]
+        },
+        {
+          "name": "f32_le_equal",
+          "tests": [{"in": [], "out": [{"i32": 1}]}]
+        },
+        {
+          "name": "f32_le_less",
+          "tests": [{"in": [], "out": [{"i32": 1}]}]
+        },
+        {
+          "name": "f32_lt_greater",
+          "tests": [{"in": [], "out": [{"i32": 0}]}]
+        },
+        {
+          "name": "f32_lt_equal",
+          "tests": [{"in": [], "out": [{"i32": 0}]}]
+        },
+        {
+          "name": "f32_lt_less",
+          "tests": [{"in": [], "out": [{"i32": 1}]}]
+        },
+        {
+          "name": "f32_ne_false",
+          "tests": [{"in": [], "out": [{"i32": 0}]}]
+        },
+        {
+          "name": "f32_ne_true",
+          "tests": [{"in": [], "out": [{"i32": 1}]}]
+        },
+        {
+          "name": "f32_eq_false",
+          "tests": [{"in": [], "out": [{"i32": 0}]}]
+        },
+        {
+          "name": "f32_eq_true",
+          "tests": [{"in": [], "out": [{"i32": 1}]}]
+        },
+        {
+          "name": "i64_ge_u_greater",
+          "tests": [{"in": [], "out": [{"i32": 1}]}]
+        },
+        {
+          "name": "i64_ge_u_equal",
+          "tests": [{"in": [], "out": [{"i32": 1}]}]
+        },
+        {
+          "name": "i64_ge_u_less",
+          "tests": [{"in": [], "out": [{"i32": 0}]}]
+        },
+        {
+          "name": "i64_ge_s_greater",
+          "tests": [{"in": [], "out": [{"i32": 1}]}]
+        },
+        {
+          "name": "i64_ge_s_equal",
+          "tests": [{"in": [], "out": [{"i32": 1}]}]
+        },
+        {
+          "name": "i64_ge_s_less",
+          "tests": [{"in": [], "out": [{"i32": 0}]}]
+        },
+        {
+          "name": "i64_gt_u_greater",
+          "tests": [{"in": [], "out": [{"i32": 1}]}]
+        },
+        {
+          "name": "i64_gt_u_equal",
+          "tests": [{"in": [], "out": [{"i32": 0}]}]
+        },
+        {
+          "name": "i64_gt_u_less",
+          "tests": [{"in": [], "out": [{"i32": 0}]}]
+        },
+        {
+          "name": "i64_gt_s_greater",
+          "tests": [{"in": [], "out": [{"i32": 1}]}]
+        },
+        {
+          "name": "i64_gt_s_equal",
+          "tests": [{"in": [], "out": [{"i32": 0}]}]
+        },
+        {
+          "name": "i64_gt_s_less",
+          "tests": [{"in": [], "out": [{"i32": 0}]}]
+        },
+        {
+          "name": "i64_le_u_greater",
+          "tests": [{"in": [], "out": [{"i32": 0}]}]
+        },
+        {
+          "name": "i64_le_u_equal",
+          "tests": [{"in": [], "out": [{"i32": 1}]}]
+        },
+        {
+          "name": "i64_le_u_less",
+          "tests": [{"in": [], "out": [{"i32": 1}]}]
+        },
+        {
+          "name": "i64_le_s_greater",
+          "tests": [{"in": [], "out": [{"i32": 0}]}]
+        },
+        {
+          "name": "i64_le_s_equal",
+          "tests": [{"in": [], "out": [{"i32": 1}]}]
+        },
+        {
+          "name": "i64_le_s_less",
+          "tests": [{"in": [], "out": [{"i32": 1}]}]
+        },
+        {
+          "name": "i64_lt_u_greater",
+          "tests": [{"in": [], "out": [{"i32": 0}]}]
+        },
+        {
+          "name": "i64_lt_u_equal",
+          "tests": [{"in": [], "out": [{"i32": 0}]}]
+        },
+        {
+          "name": "i64_lt_u_less",
+          "tests": [{"in": [], "out": [{"i32": 1}]}]
+        },
+        {
+          "name": "i64_lt_s_greater",
+          "tests": [{"in": [], "out": [{"i32": 0}]}]
+        },
+        {
+          "name": "i64_lt_s_equal",
+          "tests": [{"in": [], "out": [{"i32": 0}]}]
+        },
+        {
+          "name": "i64_lt_s_less",
+          "tests": [{"in": [], "out": [{"i32": 1}]}]
+        },
+        {
+          "name": "i64_ne_false",
+          "tests": [{"in": [], "out": [{"i32": 0}]}]
+        },
+        {
+          "name": "i64_ne_true",
+          "tests": [{"in": [], "out": [{"i32": 1}]}]
+        },
+        {
+          "name": "i64_eq_false",
+          "tests": [{"in": [], "out": [{"i32": 0}]}]
+        },
+        {
+          "name": "i64_eq_true",
+          "tests": [{"in": [], "out": [{"i32": 1}]}]
+        },
+        {
+          "name": "i32_ge_u_greater",
+          "tests": [{"in": [], "out": [{"i32": 1}]}]
+        },
+        {
+          "name": "i32_ge_u_equal",
+          "tests": [{"in": [], "out": [{"i32": 1}]}]
+        },
+        {
+          "name": "i32_ge_u_less",
+          "tests": [{"in": [], "out": [{"i32": 0}]}]
+        },
+        {
+          "name": "i32_ge_s_greater",
+          "tests": [{"in": [], "out": [{"i32": 1}]}]
+        },
+        {
+          "name": "i32_ge_s_equal",
+          "tests": [{"in": [], "out": [{"i32": 1}]}]
+        },
+        {
+          "name": "i32_ge_s_less",
+          "tests": [{"in": [], "out": [{"i32": 0}]}]
+        },
+        {
+          "name": "i32_gt_u_greater",
+          "tests": [{"in": [], "out": [{"i32": 1}]}]
+        },
+        {
+          "name": "i32_gt_u_equal",
+          "tests": [{"in": [], "out": [{"i32": 0}]}]
+        },
+        {
+          "name": "i32_gt_u_less",
+          "tests": [{"in": [], "out": [{"i32": 0}]}]
+        },
+        {
+          "name": "i32_gt_s_greater",
+          "tests": [{"in": [], "out": [{"i32": 1}]}]
+        },
+        {
+          "name": "i32_gt_s_equal",
+          "tests": [{"in": [], "out": [{"i32": 0}]}]
+        },
+        {
+          "name": "i32_gt_s_less",
+          "tests": [{"in": [], "out": [{"i32": 0}]}]
+        },
+        {
+          "name": "i32_le_u_greater",
+          "tests": [{"in": [], "out": [{"i32": 0}]}]
+        },
+        {
+          "name": "i32_le_u_equal",
+          "tests": [{"in": [], "out": [{"i32": 1}]}]
+        },
+        {
+          "name": "i32_le_u_less",
+          "tests": [{"in": [], "out": [{"i32": 1}]}]
+        },
+        {
+          "name": "i32_le_s_greater",
+          "tests": [{"in": [], "out": [{"i32": 0}]}]
+        },
+        {
+          "name": "i32_le_s_equal",
+          "tests": [{"in": [], "out": [{"i32": 1}]}]
+        },
+        {
+          "name": "i32_le_s_less",
+          "tests": [{"in": [], "out": [{"i32": 1}]}]
+        },
+        {
+          "name": "i32_lt_u_greater",
+          "tests": [{"in": [], "out": [{"i32": 0}]}]
+        },
+        {
+          "name": "i32_lt_u_equal",
+          "tests": [{"in": [], "out": [{"i32": 0}]}]
+        },
+        {
+          "name": "i32_lt_u_less",
+          "tests": [{"in": [], "out": [{"i32": 1}]}]
+        },
+        {
+          "name": "i32_lt_s_greater",
+          "tests": [{"in": [], "out": [{"i32": 0}]}]
+        },
+        {
+          "name": "i32_lt_s_equal",
+          "tests": [{"in": [], "out": [{"i32": 0}]}]
+        },
+        {
+          "name": "i32_lt_s_less",
+          "tests": [{"in": [], "out": [{"i32": 1}]}]
+        },
+        {
+          "name": "i32_ne_false",
+          "tests": [{"in": [], "out": [{"i32": 0}]}]
+        },
+        {
+          "name": "i32_ne_true",
+          "tests": [{"in": [], "out": [{"i32": 1}]}]
+        },
+        {
+          "name": "i32_eq_false",
+          "tests": [{"in": [], "out": [{"i32": 0}]}]
+        },
+        {
+          "name": "i32_eq_true",
+          "tests": [{"in": [], "out": [{"i32": 1}]}]
+        }
+      ]
+    },
+    {
+      "file": "convert.wasm",
+      "funcs": [
+        {
+          "name": "f64_convert_u_i64",
+          "tests": [{"in": [], "out": [{"f64": 0.000000}]}]
+        },
+        {
+          "name": "f64_convert_s_i64",
+          "tests": [{"in": [], "out": [{"f64": 0.000000}]}]
+        },
+        {
+          "name": "f64_demote_f32",
+          "tests": [{"in": [], "out": [{"f64": 12345679.000000}]}]
+        },
+        {
+          "name": "f64_convert_u_i32",
+          "tests": [{"in": [], "out": [{"f64": 4294967295.000000}]}]
+        },
+        {
+          "name": "f64_convert_s_i32",
+          "tests": [{"in": [], "out": [{"f64": -1.000000}]}]
+        },
+        {
+          "name": "f32_convert_u_i64",
+          "tests": [{"in": [], "out": [{"f32": 0.000000}]}]
+        },
+        {
+          "name": "f32_convert_s_i64",
+          "tests": [{"in": [], "out": [{"f32": 0.000000}]}]
+        },
+        {
+          "name": "f32_demote_f64",
+          "tests": [{"in": [], "out": [{"f32": 12345679.000000}]}]
+        },
+        {
+          "name": "f32_convert_u_i32",
+          "tests": [{"in": [], "out": [{"f32": 4294967296.000000}]}]
+        },
+        {
+          "name": "f32_convert_s_i32",
+          "tests": [{"in": [], "out": [{"f32": -1.000000}]}]
+        },
+        {
+          "name": "i64_trunc_u_f64",
+          "tests": [{"in": [], "out": [{"i32": 1}]}]
+        },
+        {
+          "name": "i64_trunc_s_f64",
+          "tests": [{"in": [], "out": [{"i32": 1}]}]
+        },
+        {
+          "name": "i64_trunc_u_f32",
+          "tests": [{"in": [], "out": [{"i32": 1}]}]
+        },
+        {
+          "name": "i64_trunc_s_f32",
+          "tests": [{"in": [], "out": [{"i32": 1}]}]
+        },
+        {
+          "name": "i64_extend_s_i32",
+          "tests": [{"in": [], "out": [{"i64": -1}]}]
+        },
+        {
+          "name": "i64_extend_u_i32",
+          "tests": [{"in": [], "out": [{"i64": 4294967295}]}]
+        },
+        {
+          "name": "i32_trunc_u_f64",
+          "tests": [{"in": [], "out": [{"i32": -1294967296}]}]
+        },
+        {
+          "name": "i32_trunc_s_f64",
+          "tests": [{"in": [], "out": [{"i32": -100}]}]
+        },
+        {
+          "name": "i32_trunc_u_f32",
+          "tests": [{"in": [], "out": [{"i32": -1294967296}]}]
+        },
+        {
+          "name": "i32_trunc_s_f32",
+          "tests": [{"in": [], "out": [{"i32": -100}]}]
+        },
+        {
+          "name": "i32_wrap_i64",
+          "tests": [{"in": [], "out": [{"i32": -1}]}]
+        }
+      ]
+    },
+    {
+      "file": "expr-block.wasm",
+      "funcs": [
+        {
+          "name": "test",
+          "tests": [{"in": [], "out": [{"i32": 1}]}]
+        }
+      ]
+    },
+    {
+      "file": "expr-brif.wasm",
+      "funcs": [
+        {
+          "name": "test1",
+          "tests": [{"in": [], "out": [{"i32": 29}]}]
+        },
+        {
+          "name": "test2",
+          "tests": [{"in": [], "out": [{"i32": 42}]}]
+        }
+      ]
+    },
+    {
+      "file": "expr-br.wasm",
+      "funcs": [
+        {
+          "name": "test1",
+          "tests": [{"in": [], "out": [{"i32": 1}]}]
+        },
+        {
+          "name": "test2",
+          "tests": [{"in": [], "out": [{"i32": 2}]}]
+        }
+      ]
+    },
+    {
+      "file": "expr-if.wasm",
+      "funcs": [
+        {
+          "name": "test1",
+          "tests": [{"in": [], "out": [{"i32": 1}]}]
+        },
+        {
+          "name": "test2",
+          "tests": [{"in": [], "out": [{"i32": 2}]}]
+        }
+      ]
+    },
+    {
+      "file": "if.wasm",
+      "funcs": [
+        {
+          "name": "if2",
+          "tests": [{"in": [], "out": [{"i32": 9}]}]
+        },
+        {
+          "name": "if1",
+          "tests": [{"in": [], "out": [{"i32": 1}]}]
+        }
+      ]
+    },
+    {
+      "file": "load.wasm",
+      "funcs": [
+        {
+          "name": "f64_load",
+          "tests": [{"in": [], "out": [{"f64": 1023.875000}]}]
+        },
+        {
+          "name": "f32_load",
+          "tests": [{"in": [], "out": [{"f32": 25.750000}]}]
+        },
+        {
+          "name": "i64_load32_u",
+          "tests": [{"in": [], "out": [{"i64": 4294967295}]}]
+        },
+        {
+          "name": "i64_load16_u",
+          "tests": [{"in": [], "out": [{"i64": 65535}]}]
+        },
+        {
+          "name": "i64_load8_u",
+          "tests": [{"in": [], "out": [{"i64": 255}]}]
+        },
+        {
+          "name": "i64_load",
+          "tests": [{"in": [], "out": [{"i64": -1}]}]
+        },
+        {
+          "name": "i64_load32_s",
+          "tests": [{"in": [], "out": [{"i64": -1}]}]
+        },
+        {
+          "name": "i64_load16_s",
+          "tests": [{"in": [], "out": [{"i64": -1}]}]
+        },
+        {
+          "name": "i64_load8_s",
+          "tests": [{"in": [], "out": [{"i64": -1}]}]
+        },
+        {
+          "name": "i32_load16_u",
+          "tests": [{"in": [], "out": [{"i32": 65535}]}]
+        },
+        {
+          "name": "i32_load8_u",
+          "tests": [{"in": [], "out": [{"i32": 255}]}]
+        },
+        {
+          "name": "i32_load",
+          "tests": [{"in": [], "out": [{"i32": -1}]}]
+        },
+        {
+          "name": "i32_load16_s",
+          "tests": [{"in": [], "out": [{"i32": -1}]}]
+        },
+        {
+          "name": "i32_load8_s",
+          "tests": [{"in": [], "out": [{"i32": -1}]}]
+        }
+      ]
+    },
+    {
+      "file": "loop.wasm",
+      "funcs": [
+        {
+          "name": "loop",
+          "tests": [{"in": [], "out": [{"i32": 10}]}]
+        }
+      ]
+    },
+    {
+      "file": "nested-if.wasm",
+      "funcs": [
+        {
+          "name": "f",
+          "tests": [{"in": [], "out": [{"i32": 4}]}]
+        }
+      ]
+    },
+    {
+      "file": "return.wasm",
+      "funcs": [
+        {
+          "name": "test3",
+          "tests": [{"in": [], "out": [{"i32": 3}]}]
+        },
+        {
+          "name": "test2",
+          "tests": [{"in": [], "out": [{"i32": 2}]}]
+        },
+        {
+          "name": "test1",
+          "tests": [{"in": [], "out": [{"i32": 1}]}]
+        }
+      ]
+    },
+    {
+      "file": "select.wasm",
+      "funcs": [
+        {
+          "name": "test_f64_r",
+          "tests": [{"in": [], "out": [{"f64": 1.000000}]}]
+        },
+        {
+          "name": "test_f64_l",
+          "tests": [{"in": [], "out": [{"f64": 2.000000}]}]
+        },
+        {
+          "name": "test_f32_r",
+          "tests": [{"in": [], "out": [{"f32": 1.000000}]}]
+        },
+        {
+          "name": "test_f32_l",
+          "tests": [{"in": [], "out": [{"f32": 2.000000}]}]
+        },
+        {
+          "name": "test_i64_r",
+          "tests": [{"in": [], "out": [{"i64": 1}]}]
+        },
+        {
+          "name": "test_i64_l",
+          "tests": [{"in": [], "out": [{"i64": 2}]}]
+        },
+        {
+          "name": "test_i32_r",
+          "tests": [{"in": [], "out": [{"i32": 1}]}]
+        },
+        {
+          "name": "test_i32_l",
+          "tests": [{"in": [], "out": [{"i32": 2}]}]
+        }
+      ]
+    },
+    {
+      "file": "start.wasm",
+      "funcs": [
+        {
+          "name": "get",
+          "tests": [{"in": [], "out": [{"i32": 42}]}]
+        }
+      ]
+    },
+    {
+      "file": "store.wasm",
+      "funcs": [
+        {
+          "name": "f64_store",
+          "tests": [{"in": [], "out": [{"i32": -1064352256}]}]
+        },
+        {
+          "name": "f32_store",
+          "tests": [{"in": [], "out": [{"i32": 1069547520}]}]
+        },
+        {
+          "name": "i64_store",
+          "tests": [{"in": [], "out": [{"i64": -4981613551475109875}]}]
+        },
+        {
+          "name": "i64_store32",
+          "tests": [{"in": [], "out": [{"i32": -123456}]}]
+        },
+        {
+          "name": "i64_store16",
+          "tests": [{"in": [], "out": [{"i32": -859059511}]}]
+        },
+        {
+          "name": "i64_store8",
+          "tests": [{"in": [], "out": [{"i32": -16909061}]}]
+        },
+        {
+          "name": "i32_store",
+          "tests": [{"in": [], "out": [{"i32": -123456}]}]
+        },
+        {
+          "name": "i32_store16",
+          "tests": [{"in": [], "out": [{"i32": -859059511}]}]
+        },
+        {
+          "name": "i32_store8",
+          "tests": [{"in": [], "out": [{"i32": -16909061}]}]
+        }
+      ]
+    },
+    {
+      "file": "unary.wasm",
+      "funcs": [
+        {
+          "name": "f64_nearest_hi",
+          "tests": [{"in": [], "out": [{"f64": 2.000000}]}]
+        },
+        {
+          "name": "f64_nearest_lo",
+          "tests": [{"in": [], "out": [{"f64": 1.000000}]}]
+        },
+        {
+          "name": "f64_trunc",
+          "tests": [{"in": [], "out": [{"f64": -0.000000}]}]
+        },
+        {
+          "name": "f64_floor",
+          "tests": [{"in": [], "out": [{"f64": -1.000000}]}]
+        },
+        {
+          "name": "f64_ceil",
+          "tests": [{"in": [], "out": [{"f64": -0.000000}]}]
+        },
+        {
+          "name": "f64_sqrt_100",
+          "tests": [{"in": [], "out": [{"f64": 10.000000}]}]
+        },
+        {
+          "name": "f64_sqrt_neg_is_nan",
+          "tests": [{"in": [], "out": [{"i32": 1}]}]
+        },
+        {
+          "name": "f64_abs",
+          "tests": [{"in": [], "out": [{"f64": 100.000000}]}]
+        },
+        {
+          "name": "f64_neg",
+          "tests": [{"in": [], "out": [{"f64": -100.000000}]}]
+        },
+        {
+          "name": "f32_nearest_hi",
+          "tests": [{"in": [], "out": [{"f32": 2.000000}]}]
+        },
+        {
+          "name": "f32_nearest_lo",
+          "tests": [{"in": [], "out": [{"f32": 1.000000}]}]
+        },
+        {
+          "name": "f32_trunc",
+          "tests": [{"in": [], "out": [{"f32": -0.000000}]}]
+        },
+        {
+          "name": "f32_floor",
+          "tests": [{"in": [], "out": [{"f32": -1.000000}]}]
+        },
+        {
+          "name": "f32_ceil",
+          "tests": [{"in": [], "out": [{"f32": -0.000000}]}]
+        },
+        {
+          "name": "f32_sqrt_100",
+          "tests": [{"in": [], "out": [{"f32": 10.000000}]}]
+        },
+        {
+          "name": "f32_sqrt_neg_is_nan",
+          "tests": [{"in": [], "out": [{"i32": 1}]}]
+        },
+        {
+          "name": "f32_abs",
+          "tests": [{"in": [], "out": [{"f32": 100.000000}]}]
+        },
+        {
+          "name": "f32_neg",
+          "tests": [{"in": [], "out": [{"f32": -100.000000}]}]
+        },
+        {
+          "name": "i64_popcnt",
+          "tests": [{"in": [], "out": [{"i64": 1}]}]
+        },
+        {
+          "name": "i64_ctz",
+          "tests": [{"in": [], "out": [{"i64": 7}]}]
+        },
+        {
+          "name": "i64_clz",
+          "tests": [{"in": [], "out": [{"i64": 56}]}]
+        },
+        {
+          "name": "i64_eqz_0",
+          "tests": [{"in": [], "out": [{"i32": 1}]}]
+        },
+        {
+          "name": "i64_eqz_100",
+          "tests": [{"in": [], "out": [{"i32": 0}]}]
+        },
+        {
+          "name": "i32_popcnt",
+          "tests": [{"in": [], "out": [{"i32": 1}]}]
+        },
+        {
+          "name": "i32_ctz",
+          "tests": [{"in": [], "out": [{"i32": 7}]}]
+        },
+        {
+          "name": "i32_clz",
+          "tests": [{"in": [], "out": [{"i32": 24}]}]
+        },
+        {
+          "name": "i32_eqz_0",
+          "tests": [{"in": [], "out": [{"i32": 1}]}]
+        },
+        {
+          "name": "i32_eqz_100",
+          "tests": [{"in": [], "out": [{"i32": 0}]}]
+        }
+      ]
+    },
+    {
+      "file": "bug-49.wasm",
+      "funcs": [
+        {
+          "name": "sample",
+          "tests": [{"in": [], "out": [{"i32": 1}]}]
+        }
+      ]
+    },
+    {
+      "file": "rust-basic.wasm",
+      "funcs": [
+        {
+          "name": "x2_plus_y2_minus_13",
+          "tests": [{"in": [{"i64": 2}, {"i64": 6}], "out": [{"i64": 28}]}]
+        },
+        {
+          "name": "loopedArithmeticI64Benchmark",
+          "tests": [{"in": [{"i64": 8}, {"i64": 16}], "out": [{"i64": 1989840}]}]
+        },
+        {
+          "name": "loopedArithmeticI64Benchmark",
+          "tests": [{"in": [{"i64": 80}, {"i64": 7}], "out": [{"i64": 110262743}]}]
+        },
+        {
+          "name": "loopedArithmeticF64Benchmark",
+          "tests": [{"in": [{"i64": 80}, {"f64": 7}], "out": [{"f64": 2.7766899067423496e+26}]}]
+        },
+        {
+          "name": "loopedArithmeticF32Benchmark",
+          "tests": [{"in": [{"i64": 80}, {"f32": 7}], "out": [{"f32": 2.7766849e+26}]}]
+        }
+      ]
+    }
+  ]
+}
