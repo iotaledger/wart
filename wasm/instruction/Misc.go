@@ -20,23 +20,15 @@ func (o *Misc) Analyze(a *context.Analyzer) {
 	o.run = func(vm *Runner) {}
 	switch o.opcode {
 	//@formatter:off
-	case op.UNREACHABLE: o.run = func(vm *Runner) { vm.Error = Unreachable }
 	case op.NOP        :
-	case op.ELSE       : o.analyzeElse(a)
-	case op.END        : o.analyzeEnd(a)
-	case op.DROP       : o.analyzeDrop(a)
-	case op.SELECT     : o.analyzeSelect(a)
+	case op.ELSE       : o.analyzeElse       (a)
+	case op.END        : o.analyzeEnd        (a)
+	case op.DROP       : o.analyzeDrop       (a)
+	case op.SELECT     : o.analyzeSelect     (a)
+	case op.UNREACHABLE: o.analyzeUnreachable(a)
 	//@formatter:on
 	default:
 		panic("Invalid misc opcode")
-	}
-	if a.Error != nil {
-		return
-	}
-	if o.opcode == op.UNREACHABLE {
-		// unconditional panic jump, rest of block is unreachable
-		a.Unreachable = true
-		a.SP = a.BlockMark
 	}
 }
 
@@ -45,37 +37,43 @@ func (o *Misc) analyzeDrop(a *context.Analyzer) {
 }
 
 func (o *Misc) analyzeElse(a *context.Analyzer) {
-	label := a.Labels[len(a.Labels)-1]
+	label := a.Labels[0]
+	a.PopMulti(label.BlockType.ResultTypes)
+	if a.Error != nil {
+		return
+	}
+	if a.SP != a.BlockMark {
+		a.Error = o.fail("Items left on stack")
+		return
+	}
 	if label.BlockInst.Opcode() != op.IF {
 		a.Error = o.fail("No matching if instruction")
 		return
 	}
+	label.Unreachable = false
+	a.PushMulti(label.BlockType.ParamTypes)
 	o.next = label.Target.(ctxInstruction)
-	if !a.Unreachable && a.SP > a.BlockMark+len(label.BlockType.ResultTypes) {
-		//todo do not display this when an unconditional branch was made
-		fmt.Printf("  Warning: Func %d:%d, leaves values on stack\n", a.FuncNr, a.IP)
-	}
-	a.SP = a.BlockMark
-	a.Unreachable = false
 }
 
 func (o *Misc) analyzeEnd(a *context.Analyzer) {
-	label := a.Labels[len(a.Labels)-1]
-	a.Labels = a.Labels[:len(a.Labels)-1]
-	if !a.Unreachable && a.SP > a.BlockMark+len(label.BlockType.ResultTypes) {
-		//todo do not display this when an unconditional branch was made
-		fmt.Printf("  Warning: Func %d:%d, leaves values on stack\n", a.FuncNr, a.IP)
+	label := a.Labels[0]
+	a.PopMulti(label.BlockType.ResultTypes)
+	if a.Error != nil {
+		return
 	}
-	a.SP = a.BlockMark
-	a.Unreachable = false
-	a.BlockMark = label.OldMark
-	for _, vt := range label.BlockType.ResultTypes {
-		a.Push(vt)
+	if a.SP != a.BlockMark {
+		a.Error = o.fail("Items left on stack")
+		return
 	}
-	outer := label.Outer
-	resultSP := o.SP - len(label.BlockType.ResultTypes)
-	o.run = func(vm *Runner) {
-		if outer {
+	a.Labels = a.Labels[1:]
+	if len(a.Labels) != 0 {
+		a.BlockMark = a.Labels[0].UnwindSP
+	}
+	a.PushMulti(label.BlockType.ResultTypes)
+
+	if label.Target == nil {
+		resultSP := o.SP - len(label.BlockType.ResultTypes)
+		o.run = func(vm *Runner) {
 			vm.SP = resultSP
 			vm.Next = nil
 		}
@@ -107,6 +105,13 @@ func (o *Misc) analyzeSelect(a *context.Analyzer) {
 	default:
 		panic(fmt.Sprintf("Invalid value type: 0x%02x", lhs))
 	}
+}
+
+func (o *Misc) analyzeUnreachable(a *context.Analyzer) {
+	// unconditional panic jump, rest of block is unreachable
+	a.Labels[0].Unreachable = true
+	a.SP = a.BlockMark
+	o.run = func(vm *Runner) { vm.Error = Unreachable }
 }
 
 func (o *Misc) StackChange(m *wasm.Module) int {

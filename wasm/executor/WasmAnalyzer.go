@@ -68,10 +68,9 @@ func (ctx *WasmAnalyzer) analyzeCodeFunction(f *wasm.Function) {
 	ctx.a = context.NewAnalyzer(ctx.m, f.Type.ParamTypes, f.Locals)
 	ctx.a.FuncNr = f.Nr
 	ctx.a.Code = f.Body
-	label := wasm.NewLabel(f.Type, f.Body[len(f.Body)-1])
-	label.Outer = true
+	label := wasm.NewLabel(f.Type, nil)
 	label.UnwindSP = ctx.a.BlockMark
-	ctx.a.Labels = append(ctx.a.Labels, label)
+	ctx.a.Labels = append([]*wasm.Label{label}, ctx.a.Labels...)
 	instruction.AnalyzeBlock(ctx.a)
 	if ctx.a.Error != nil {
 		return
@@ -394,11 +393,10 @@ func (ctx *WasmAnalyzer) analyzeInitializerExpression(expr []wasm.Instruction, v
 
 	ctx.a = context.NewAnalyzer(ctx.m, nil, nil)
 	ctx.a.Code = expr
-	label := wasm.NewLabel(wasm.NewFuncType(), expr[1])
-	label.Outer = true
+	label := wasm.NewLabel(wasm.NewFuncType(), nil)
 	label.UnwindSP = ctx.a.BlockMark
 	label.BlockType.ResultTypes = []value.Type{vt}
-	ctx.a.Labels = append(ctx.a.Labels, label)
+	ctx.a.Labels = append([]*wasm.Label{label}, ctx.a.Labels...)
 	instruction.AnalyzeBlock(ctx.a)
 }
 
@@ -468,7 +466,7 @@ func (ctx *WasmAnalyzer) analyzeTypes() {
 
 		// just for fun check if there are duplicate function types
 		for i := 0; i < nr; i++ {
-			if ctx.sameFuncType(funcType, ctx.m.FuncTypes[i]) {
+			if funcType.IsSameAs(ctx.m.FuncTypes[i]) {
 				warn("duplicate function types")
 			}
 		}
@@ -480,17 +478,6 @@ func invalidMinMax(min uint32, max uint32) bool {
 		return true
 	}
 	return max < min && max != value.UNDEFINED
-}
-
-func (ctx *WasmAnalyzer) sameFuncType(lhs *wasm.FuncType, rhs *wasm.FuncType) bool {
-	same := len(lhs.ParamTypes) == len(rhs.ParamTypes) && len(lhs.ResultTypes) == len(rhs.ResultTypes)
-	for j := 0; same && j < len(lhs.ParamTypes); j++ {
-		same = lhs.ParamTypes[j] == rhs.ParamTypes[j]
-	}
-	for j := 0; same && j < len(lhs.ResultTypes); j++ {
-		same = lhs.ResultTypes[j] == rhs.ResultTypes[j]
-	}
-	return same
 }
 
 func warn(format string, a ...interface{}) {

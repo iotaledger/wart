@@ -11,7 +11,8 @@ import (
 	"github.com/iotaledger/wart/wasm/wasm"
 )
 
-const MAX_LOCALS = 1000
+// test-guard-page-skip tests with 1056 i64 = 8448 bytes of locals
+const MAX_LOCALS = 1060
 
 // WasmReader is an executor that reads a binary Wasm file and converts
 // it to a wasm.Module.

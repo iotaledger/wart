@@ -32,8 +32,8 @@ func (o *Block) Analyze(a *context.Analyzer) {
 			a.Error = o.fail("Invalid block value type")
 			return
 		}
-		o.label.BlockType.ResultTypes = append(o.label.BlockType.ResultTypes, value.Type(o.blockType&0x7f))
-	case o.blockType >= 0:
+		o.label.BlockType.ResultTypes = []value.Type{o.valueType()}
+	default:
 		if uint32(o.blockType) >= a.Module.MaxFuncTypes() {
 			a.Error = o.fail("Invalid block function type")
 			return
@@ -48,24 +48,18 @@ func (o *Block) Analyze(a *context.Analyzer) {
 			return
 		}
 	}
-	a.Labels = append(a.Labels, o.label)
+	a.Labels = append([]*wasm.Label{o.label}, a.Labels...)
 
-	for i := len(o.label.BlockType.ParamTypes) - 1; i >= 0; i-- {
-		top := a.Pop()
-		if a.Error != nil {
-			return
-		}
-		if top != o.label.BlockType.ParamTypes[i] {
-			a.Error = o.fail("Invalid block input param type")
-			return
-		}
+	a.PopMulti(o.label.BlockType.ParamTypes)
+	if a.Error != nil {
+		return
 	}
 
 	// mark stack, so that it cannot pop beyond the mark
 	// while working within this block
-	o.label.OldMark = a.BlockMark
 	a.BlockMark = a.SP
-	o.label.UnwindSP = a.BlockMark
+	o.label.UnwindSP = a.SP
+	a.PushMulti(o.label.BlockType.ParamTypes)
 }
 
 func (o *Block) makeBlock(_ wasm.Instruction) []wasm.Instruction {
@@ -122,7 +116,7 @@ func (o *Block) String() string {
 		return fmt.Sprintf("%s %d", o.Mnemonic(), o.blockType)
 	}
 
-	vt := o.ValueType()
+	vt := o.valueType()
 	switch vt {
 	case value.I32, value.I64, value.F32, value.F64:
 		return fmt.Sprintf("%s %v", o.Mnemonic(), vt)
@@ -133,7 +127,7 @@ func (o *Block) String() string {
 	}
 }
 
-func (o *Block) ValueType() value.Type {
+func (o *Block) valueType() value.Type {
 	return value.Type(o.blockType & 0x7f)
 }
 

@@ -1,12 +1,11 @@
 package wasm
 
 type Label struct {
-	BlockInst Instruction
-	BlockType *FuncType
-	OldMark   int
-	Outer     bool
-	Target    Instruction
-	UnwindSP  int
+	BlockInst   Instruction
+	BlockType   *FuncType
+	Target      Instruction
+	Unreachable bool
+	UnwindSP    int
 }
 
 func NewLabel(blockType *FuncType, target Instruction) *Label {

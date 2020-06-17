@@ -12,7 +12,7 @@ import (
 	"strings"
 )
 
-var DEBUG_MODULE = "global.16.wasm"
+var DEBUG_MODULE = "xxx.wasm"
 
 func main() {
 	fmt.Println("Hello, Wart!")

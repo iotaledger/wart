@@ -19,6 +19,8 @@ import (
 	"strings"
 )
 
+const DEBUG_MODULE = "xxx.wasm"
+
 var zero wasm.Value
 var uses = map[string]string{
 	"i32.Max":  "0x7fffffff",
@@ -179,6 +181,7 @@ func (ctx *WasmTester) loadModule(filename string) error {
 	}
 
 	ctx.m = wasm.NewModule()
+	ctx.m.Debug = filename == DEBUG_MODULE
 	reader := NewWasmReader(ctx.m, data)
 	err = reader.Read()
 	if err != nil {

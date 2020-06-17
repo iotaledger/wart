@@ -145,7 +145,7 @@ func init() {
 	StackOverflow = errors.New("call stack exhausted")
 	UndefinedElement = errors.New("undefined element")
 	UninitializedElement = errors.New("uninitialized element")
-	Unreachable = errors.New("Unreachable")
+	Unreachable = errors.New("unreachable")
 
 	newMisc(op.UNREACHABLE, "unreachable")
 	newMisc(op.NOP, "nop")

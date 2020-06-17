@@ -40,21 +40,12 @@ func (o *Call) analyzeCallType(a *context.Analyzer, funcType uint32) {
 		return
 	}
 	f := a.Module.FuncTypes[funcType]
-	for i := len(f.ParamTypes) - 1; i >= 0; i-- {
-		vt := f.ParamTypes[i]
-		argType := a.PopExpected(vt)
-		if a.Error != nil {
-			return
-		}
-		if vt != argType {
-			a.Error = o.fail("Invalid argument type")
-			return
-		}
+	a.PopMulti(f.ParamTypes)
+	if a.Error != nil {
+		return
 	}
 	o.SP = a.SP
-	for i := len(f.ResultTypes) - 1; i >= 0; i-- {
-		a.Push(f.ResultTypes[i])
-	}
+	a.PushMulti(f.ResultTypes)
 }
 
 func (o *Call) Read(r *context.Reader) {
@@ -149,23 +140,9 @@ func (o *Call) runCallIndirect(vm *Runner) {
 		vm.Error = UninitializedElement
 		return
 	}
-	if f.Type.Nr != o.index {
+	if !f.Type.IsSameAs(ft) {
 		vm.Error = FunctionSignature
-		if len(f.Type.ParamTypes) != len(ft.ParamTypes) ||
-			len(f.Type.ResultTypes) != len(ft.ResultTypes) {
-			return
-		}
-		for i := 0; i < len(ft.ParamTypes); i++ {
-			if f.Type.ParamTypes[i] != ft.ParamTypes[i] {
-				return
-			}
-		}
-		for i := 0; i < len(ft.ResultTypes); i++ {
-			if f.Type.ResultTypes[i] != ft.ResultTypes[i] {
-				return
-			}
-		}
-		vm.Error = nil
+		return
 	}
 	o.runCallDirect(vm, f)
 }

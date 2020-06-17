@@ -8,21 +8,18 @@ import (
 )
 
 type Analyzer struct {
-	Module      *wasm.Module
-	BlockMark   int
-	Code        []wasm.Instruction
-	Error       error
-	FuncNr      uint32
-	Frame       []value.Type
-	IP          int
-	Labels      []*wasm.Label
-	Locals      int
-	MaxSP       int
-	MinSP       int
-	ResultSP    int
-	SP          int
-	Unreachable bool
-	UnwindSP    int
+	BlockMark int
+	Code      []wasm.Instruction
+	Error     error
+	Frame     []value.Type
+	FuncNr    uint32
+	IP        int
+	Labels    []*wasm.Label
+	Locals    int
+	MaxSP     int
+	MinSP     int
+	Module    *wasm.Module
+	SP        int
 }
 
 func NewAnalyzer(m *wasm.Module, params []value.Type, locals []*wasm.Local) *Analyzer {
@@ -49,7 +46,10 @@ func (a *Analyzer) Fail(format string, args ...interface{}) {
 func (a *Analyzer) Pop() value.Type {
 	a.Error = nil
 	if a.SP == a.BlockMark {
-		a.Fail("Cannot pop from empty stack")
+		if !a.Labels[0].Unreachable {
+			a.Fail("Cannot pop from empty stack")
+			return value.NONE
+		}
 		return value.NONE
 	}
 	a.SP--
@@ -57,16 +57,28 @@ func (a *Analyzer) Pop() value.Type {
 }
 
 func (a *Analyzer) PopExpected(expected value.Type) value.Type {
-	a.Error = nil
-	if a.SP == a.BlockMark {
-		if !a.Unreachable {
-			a.Fail("Cannot pop from empty stack")
-			return value.NONE
-		}
+	actual := a.Pop()
+	if a.Error != nil {
+		return value.NONE
+	}
+	if actual == value.NONE {
 		return expected
 	}
-	a.SP--
-	return a.Frame[a.SP]
+	if actual != expected && expected != value.NONE {
+		a.Fail("Unexpected value type on stack")
+		return value.NONE
+
+	}
+	return actual
+}
+
+func (a *Analyzer) PopMulti(values []value.Type) {
+	for i := len(values) - 1; i >= 0; i-- {
+		a.PopExpected(values[i])
+		if a.Error != nil {
+			return
+		}
+	}
 }
 
 func (a *Analyzer) Push(val value.Type) {
@@ -78,5 +90,11 @@ func (a *Analyzer) Push(val value.Type) {
 	a.SP++
 	if a.SP > a.MaxSP {
 		a.MaxSP = a.SP
+	}
+}
+
+func (a *Analyzer) PushMulti(values []value.Type) {
+	for _, vt := range values {
+		a.Push(vt)
 	}
 }

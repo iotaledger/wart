@@ -32,182 +32,195 @@ func (o *Branch) Analyze(a *context.Analyzer) {
 }
 
 func (o *Branch) analyzeBr(a *context.Analyzer) {
-	o.analyzeBrCommon(a)
-	if a.Error != nil || a.Unreachable {
-		return
-	}
-
-	// unconditional jump, rest of block is unreachable
-	currentSP := a.SP
-	a.Unreachable = true
-	a.SP = a.BlockMark
-
-	if o.next == nil {
-		// this is a return from function, no need to unwind
-		// just point to result when returning
-		resultSP := a.ResultSP
-		o.run = func(vm *Runner) { vm.SP = resultSP }
-		return
-	}
-
-	if a.ResultSP == a.UnwindSP {
-		// nothing to unwind
-		o.run = func(vm *Runner) {}
-		return
-	}
-
-	if a.ResultSP+1 == currentSP {
-		// directly copy the one value
-		o.unwindSingleValue(a)
-		return
-	}
-
-	// slower copy loop, only done when multiple values
-	o.unwindMultiValue(a, currentSP-a.ResultSP)
-}
-
-func (o *Branch) analyzeBrCommon(a *context.Analyzer) {
 	if /* o.labelIndex < 0 || */ o.labelIndex >= uint32(len(a.Labels)) {
 		a.Error = o.fail("Invalid label index")
 		return
 	}
-	target := uint32(len(a.Labels)) - 1 - o.labelIndex
-	label := a.Labels[target]
-	valueTypes := label.BlockType.ResultTypes
-	//if label.BlockInst != nil && label.BlockInst.Opcode() == op.LOOP {
-	//	valueTypes = label.BlockType.ParamTypes
-	//}
-	for i := len(valueTypes) - 1; i >= 0; i-- {
-		vt := valueTypes[i]
-		top := a.PopExpected(vt)
-		if a.Error != nil {
-			return
-		}
-		if top != vt {
-			a.Error = o.fail("Invalid block result value type")
-			return
-		}
+	targetLabel := a.Labels[o.labelIndex]
+	valueTypes := targetLabel.BlockType.ResultTypes
+	if targetLabel.BlockInst != nil && targetLabel.BlockInst.Opcode() == op.LOOP {
+		valueTypes = targetLabel.BlockType.ParamTypes
 	}
-	a.ResultSP = a.SP
-	a.UnwindSP = label.UnwindSP
-	for _, vt := range valueTypes {
-		a.Push(vt)
+	a.PopMulti(valueTypes)
+	if a.Error != nil {
+		return
 	}
-	sp := o.SP - len(valueTypes)
-	o.run = func(vm *Runner) {
-		vm.SP = sp
+	resultSP := a.SP
+	currentLabel := a.Labels[0]
+	if currentLabel.Unreachable {
+		// unreachable, no need to set up a runner
+		return
 	}
 
-	// branch exits instruction loop
-	o.next = nil
-	// unless it is an inner block
-	if target != 0 {
-		o.next = label.Target.(ctxInstruction)
-		if o.next.Opcode() != op.END && o.next.Opcode() != op.LOOP {
-			a.Error = o.fail("Missing function end instruction")
+	// unconditional jump, rest of block became unreachable
+	currentLabel.Unreachable = true
+	a.SP = a.BlockMark
+
+	// now set up the runner for this branch instruction
+
+	if targetLabel.Target == nil {
+		// this is a return from function, no need to unwind
+		// anything, just point to result when returning
+		o.run = func(vm *Runner) { vm.SP = resultSP }
+		o.next = nil
+		return
+	}
+	o.next = targetLabel.Target.(ctxInstruction)
+
+	if resultSP == targetLabel.UnwindSP {
+		// nothing to move, nothing to do
+		o.run = func(vm *Runner) {}
+		return
+	}
+
+	if resultSP+1 == targetLabel.UnwindSP {
+		// move single value, directly copy that single value
+		o.unwindSingleValue(a, resultSP, targetLabel.UnwindSP)
+		return
+	}
+
+	// slower copy loop, only done when moving multiple values
+	dst := targetLabel.UnwindSP
+	resultTypes := valueTypes
+	o.run = func(vm *Runner) {
+		for i := 0; i < len(resultTypes); i++ {
+			vm.Frame[dst+i].Copy(&vm.Frame[resultSP+i], resultTypes[i])
 		}
 	}
 }
 
 func (o *Branch) analyzeBrIf(a *context.Analyzer) {
-	// save next instruction because analyzeBrCommon()
-	// will set <next> to the branch label target
-	nextInstruction := o.next
-	o.analyzeBrCommon(a)
-	if a.Error != nil || a.Unreachable {
+	if /* o.labelIndex < 0 || */ o.labelIndex >= uint32(len(a.Labels)) {
+		a.Error = o.fail("Invalid label index")
 		return
 	}
+	targetLabel := a.Labels[o.labelIndex]
+	valueTypes := targetLabel.BlockType.ResultTypes
+	if targetLabel.BlockInst != nil && targetLabel.BlockInst.Opcode() == op.LOOP {
+		valueTypes = targetLabel.BlockType.ParamTypes
+	}
 	conditionSP := o.SP
-	if o.next == nil {
+	a.PopMulti(valueTypes)
+	if a.Error != nil {
+		return
+	}
+	resultSP := a.SP
+	a.PushMulti(valueTypes)
+	currentLabel := a.Labels[0]
+	if currentLabel.Unreachable {
+		// unreachable, no need to set up a runner
+		return
+	}
+
+	// now set up the runner for this branch instruction
+
+	nextInstruction := o.next
+	if targetLabel.Target == nil {
 		// this is a return from function, no need to unwind
-		// just point to result when returning
-		resultSP := a.ResultSP
+		// anything, just point to result when returning
 		o.run = func(vm *Runner) {
 			if vm.Frame[conditionSP].I32 == 0 {
-				// continue to next instruction instead of label target
+				// continue to next instruction instead of branching to label target
 				vm.Next = nextInstruction
 				return
 			}
 			vm.SP = resultSP
 		}
+		o.next = nil
 		return
 	}
+	o.next = targetLabel.Target.(ctxInstruction)
 
-	if a.ResultSP == a.UnwindSP {
+	if resultSP == targetLabel.UnwindSP {
 		// nothing to unwind
 		o.run = func(vm *Runner) {
 			if vm.Frame[conditionSP].I32 == 0 {
-				// continue to next instruction instead of label target
+				// continue to next instruction instead of branching to label target
 				vm.Next = nextInstruction
 			}
 		}
 		return
 	}
 
-	resultSP := a.ResultSP
-	unwindSP := a.UnwindSP
-	valueTypes := make([]value.Type, a.SP-resultSP)
-	copy(valueTypes, a.Frame[resultSP:])
+	dst := targetLabel.UnwindSP
+	resultTypes := valueTypes
 	o.run = func(vm *Runner) {
 		if vm.Frame[conditionSP].I32 == 0 {
-			// continue to next instruction instead of label target
+			// continue to next instruction instead of branching to label target
 			vm.Next = nextInstruction
 			return
 		}
 		// unwind stack
-		for i := 0; i < len(valueTypes); i++ {
-			vm.Frame[unwindSP+i].Copy(&vm.Frame[resultSP+i], valueTypes[i])
+		for i := 0; i < len(resultTypes); i++ {
+			vm.Frame[dst+i].Copy(&vm.Frame[resultSP+i], resultTypes[i])
 		}
 	}
 }
 
 func (o *Branch) analyzeBrTable(a *context.Analyzer) {
+	if /* o.labelIndex < 0 || */ o.labelIndex >= uint32(len(a.Labels)) {
+		a.Error = o.fail("Invalid label index")
+		return
+	}
+	targetLabel := a.Labels[o.labelIndex]
 	for _, index := range o.table {
 		if /* index < 0 || */ index >= uint32(len(a.Labels)) {
 			a.Error = o.fail("Invalid table label index")
 			return
 		}
-		//todo more checking on target, like done in analyzeBrCommon()
+		// todo label_types(ctrls[index]) =/= label_types(ctrls[labelIndex])
+		// Label tableLabel = a.Labels.get(index);
+		// if (!tableLabel.BlockType.IsSameAs(targetLabel.BlockType)) {
+		//     a.Error = AllSignatures.FunctionSignature;
+		//     return;
+		// }
 	}
-	o.analyzeBrCommon(a)
-	if a.Error != nil || a.Unreachable {
+	valueTypes := targetLabel.BlockType.ResultTypes
+	if targetLabel.BlockInst != nil && targetLabel.BlockInst.Opcode() == op.LOOP {
+		valueTypes = targetLabel.BlockType.ParamTypes
+	}
+	a.PopMulti(valueTypes)
+	if a.Error != nil {
+		return
+	}
+	resultSP := a.SP
+	currentLabel := a.Labels[0]
+	if currentLabel.Unreachable {
+		// unreachable, no need to set up a runner
 		return
 	}
 
 	// unconditional jump, rest of block became unreachable
-	currentSP := a.SP
-	a.Unreachable = true
+	currentLabel.Unreachable = true
 	a.SP = a.BlockMark
 
-	// note we skip the outer block label
-	targets := make([]*wasm.Label, len(a.Labels)-1)
+	// now set up the runner for this branch instruction
+
+	targets := make([]*wasm.Label, len(a.Labels))
 	for i := 0; i < len(targets); i++ {
-		targets[i] = a.Labels[len(a.Labels)-1-i]
+		targets[i] = a.Labels[i]
 	}
 	table := o.table
 	sp := o.SP
-	resultSP := a.ResultSP
 	labelIndex := o.labelIndex
-	valueTypes := make([]value.Type, currentSP-resultSP)
-	copy(valueTypes, a.Frame[resultSP:])
+	resultTypes := valueTypes
 	o.run = func(vm *Runner) {
 		targetIndex := labelIndex
 		index := uint32(vm.Frame[sp].I32)
 		if /* index >= 0 && */ index < uint32(len(table)) {
 			targetIndex = table[index]
 		}
-		if targetIndex == uint32(len(targets)) {
+		target := targets[targetIndex]
+		vm.Next = target.Target
+		if vm.Next == nil {
 			// this is a return from function, no need to unwind
-			// just point to result when returning
-			vm.Next = nil
+			// anything, just point to result when returning
 			vm.SP = resultSP
 			return
 		}
-		label := targets[targetIndex]
-		vm.Next = label.Target
 		// unwind stack
-		for i := 0; i < len(valueTypes); i++ {
-			vm.Frame[label.UnwindSP+i].Copy(&vm.Frame[resultSP+i], valueTypes[i])
+		for i := 0; i < len(resultTypes); i++ {
+			vm.Frame[target.UnwindSP+i].Copy(&vm.Frame[resultSP+i], resultTypes[i])
 		}
 	}
 }
@@ -259,21 +272,7 @@ func (o *Branch) String() string {
 	}
 }
 
-func (o *Branch) unwindMultiValue(a *context.Analyzer, values int) {
-	valueTypes := make([]value.Type, values)
-	copy(valueTypes, a.Frame[a.ResultSP:])
-	src := a.ResultSP
-	dst := a.UnwindSP
-	o.run = func(vm *Runner) {
-		for i := 0; i < values; i++ {
-			vm.Frame[dst+i].Copy(&vm.Frame[src+i], valueTypes[i])
-		}
-	}
-}
-
-func (o *Branch) unwindSingleValue(a *context.Analyzer) {
-	src := a.ResultSP
-	dst := a.UnwindSP
+func (o *Branch) unwindSingleValue(a *context.Analyzer, src int, dst int) {
 	switch a.Frame[src] {
 	//@formatter:off
 	case value.I32: o.run = func(vm *Runner) { vm.Frame[dst].I32 = vm.Frame[src].I32 }

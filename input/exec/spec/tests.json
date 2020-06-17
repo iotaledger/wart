@@ -1558,11 +1558,11 @@
       "funcs": [
         {
           "name": "main",
-          "tests": [{"in": [], "err": "Unreachable"}]
+          "tests": [{"in": [], "err": "unreachable"}]
         },
         {
           "name": "main",
-          "tests": [{"in": [], "err": "Unreachable"}]
+          "tests": [{"in": [], "err": "unreachable"}]
         }
       ]
     },
@@ -1571,7 +1571,7 @@
       "funcs": [
         {
           "name": "func-unwind-by-unreachable",
-          "tests": [{"in": [], "err": "Unreachable"}]
+          "tests": [{"in": [], "err": "unreachable"}]
         },
         {
           "name": "func-unwind-by-br",
@@ -1595,7 +1595,7 @@
         },
         {
           "name": "block-unwind-by-unreachable",
-          "tests": [{"in": [], "err": "Unreachable"}]
+          "tests": [{"in": [], "err": "unreachable"}]
         },
         {
           "name": "block-unwind-by-br",
@@ -1619,7 +1619,7 @@
         },
         {
           "name": "block-nested-unwind-by-unreachable",
-          "tests": [{"in": [], "err": "Unreachable"}]
+          "tests": [{"in": [], "err": "unreachable"}]
         },
         {
           "name": "block-nested-unwind-by-br",
@@ -1643,7 +1643,7 @@
         },
         {
           "name": "unary-after-unreachable",
-          "tests": [{"in": [], "err": "Unreachable"}]
+          "tests": [{"in": [], "err": "unreachable"}]
         },
         {
           "name": "unary-after-br",
@@ -1659,7 +1659,7 @@
         },
         {
           "name": "binary-after-unreachable",
-          "tests": [{"in": [], "err": "Unreachable"}]
+          "tests": [{"in": [], "err": "unreachable"}]
         },
         {
           "name": "binary-after-br",
@@ -1675,7 +1675,7 @@
         },
         {
           "name": "select-after-unreachable",
-          "tests": [{"in": [], "err": "Unreachable"}]
+          "tests": [{"in": [], "err": "unreachable"}]
         },
         {
           "name": "select-after-br",
@@ -1691,7 +1691,7 @@
         },
         {
           "name": "block-value-after-unreachable",
-          "tests": [{"in": [], "err": "Unreachable"}]
+          "tests": [{"in": [], "err": "unreachable"}]
         },
         {
           "name": "block-value-after-br",
@@ -1707,7 +1707,7 @@
         },
         {
           "name": "loop-value-after-unreachable",
-          "tests": [{"in": [], "err": "Unreachable"}]
+          "tests": [{"in": [], "err": "unreachable"}]
         },
         {
           "name": "loop-value-after-br",
@@ -2687,19 +2687,19 @@
         },
         {
           "name": "select_trap_l",
-          "tests": [{"in": [{"i32": 1}], "err": "Unreachable"}]
+          "tests": [{"in": [{"i32": 1}], "err": "unreachable"}]
         },
         {
           "name": "select_trap_l",
-          "tests": [{"in": [{"i32": 0}], "err": "Unreachable"}]
+          "tests": [{"in": [{"i32": 0}], "err": "unreachable"}]
         },
         {
           "name": "select_trap_r",
-          "tests": [{"in": [{"i32": 1}], "err": "Unreachable"}]
+          "tests": [{"in": [{"i32": 1}], "err": "unreachable"}]
         },
         {
           "name": "select_trap_r",
-          "tests": [{"in": [{"i32": 0}], "err": "Unreachable"}]
+          "tests": [{"in": [{"i32": 0}], "err": "unreachable"}]
         }
       ]
     },
