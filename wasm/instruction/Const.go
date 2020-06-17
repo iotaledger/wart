@@ -10,7 +10,7 @@ import (
 
 type Const struct {
 	Base
-	Value wasm.Value
+	Value wasm.Variable
 }
 
 func NewConst() wasm.Instruction {

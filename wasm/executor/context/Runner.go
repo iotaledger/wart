@@ -10,8 +10,8 @@ type Runner struct {
 	Addr      uint32
 	CallDepth int
 	Error     error
-	Frame     []wasm.Value
-	Globals   []wasm.Value
+	Frame     []wasm.Variable
+	Globals   []wasm.Variable
 	MaxPages  uint32
 	Memory    []byte
 	Module    *wasm.Module

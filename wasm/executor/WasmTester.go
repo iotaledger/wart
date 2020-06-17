@@ -21,7 +21,7 @@ import (
 
 const DEBUG_MODULE = "xxx.wasm"
 
-var zero wasm.Value
+var zero wasm.Variable
 var uses = map[string]string{
 	"i32.Max":  "0x7fffffff",
 	"i32.Min":  "0x80000000",
@@ -126,7 +126,7 @@ func (ctx *WasmTester) initVM() error {
 	}
 
 	//todo more init globals and memory
-	ctx.vm.Globals = make([]wasm.Value, ctx.m.MaxGlobals())
+	ctx.vm.Globals = make([]wasm.Variable, ctx.m.MaxGlobals())
 	for _, global := range ctx.m.Internal.Globals {
 		globalValue := &ctx.vm.Globals[global.Nr]
 		if len(global.Init) == 0 {
@@ -170,7 +170,7 @@ func (ctx *WasmTester) initVM() error {
 		return nil
 	}
 	startFunction := ctx.m.Internal.Functions[ctx.m.Start]
-	ctx.vm.Frame = make([]wasm.Value, startFunction.MaxLocalIndex()+startFunction.FrameSize)
+	ctx.vm.Frame = make([]wasm.Variable, startFunction.MaxLocalIndex()+startFunction.FrameSize)
 	return instruction.RunBlock(ctx.vm, startFunction.Body)
 }
 
@@ -497,7 +497,7 @@ func (ctx *WasmTester) testFunction() {
 
 	// allocate a (reusable) stack frame for this function
 	// all tests on this function will reuse this same stack frame
-	ctx.vm.Frame = make([]wasm.Value, ctx.function.MaxLocalIndex()+ctx.function.FrameSize)
+	ctx.vm.Frame = make([]wasm.Variable, ctx.function.MaxLocalIndex()+ctx.function.FrameSize)
 	for _, run := range ctx.funcTest.Tests {
 		ctx.test = run
 		ctx.testRun()
@@ -530,7 +530,7 @@ func (ctx *WasmTester) testRun() {
 		if valueTest == nil {
 			return
 		}
-		ctx.vm.Frame[i].Copy(&valueTest.Value, paramType)
+		ctx.vm.Frame[i].Copy(&valueTest.Variable, paramType)
 	}
 
 	// reset the local variables to zero in case they were used

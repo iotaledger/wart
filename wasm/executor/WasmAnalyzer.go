@@ -23,7 +23,7 @@ const printWarnings = true
 type WasmAnalyzer struct {
 	m          *wasm.Module
 	a          *context.Analyzer
-	constValue *wasm.Value
+	constValue *wasm.Variable
 }
 
 func NewWasmAnalyzer(m *wasm.Module) *WasmAnalyzer {

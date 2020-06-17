@@ -102,7 +102,7 @@ func (o *Call) runCallDirect(vm *Runner, f *wasm.Function) {
 	// set up new stack frame with copy of params
 	// plus enough space for locals + stack frame
 	funcType := f.Type
-	callFrame := make([]wasm.Value, f.MaxLocalIndex()+f.FrameSize)
+	callFrame := make([]wasm.Variable, f.MaxLocalIndex()+f.FrameSize)
 	for i, vt := range funcType.ParamTypes {
 		callFrame[i].Copy(&savedFrame[o.SP+i], vt)
 	}
