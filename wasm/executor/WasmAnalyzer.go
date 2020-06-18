@@ -21,9 +21,8 @@ const printWarnings = true
 // WasmAnalyzer is an executor that analyzes the wasm.Module for validity
 // and prepares it for running by other executors.
 type WasmAnalyzer struct {
-	m          *wasm.Module
-	a          *context.Analyzer
-	constValue *wasm.Variable
+	m *wasm.Module
+	a *context.Analyzer
 }
 
 func NewWasmAnalyzer(m *wasm.Module) *WasmAnalyzer {
@@ -64,18 +63,18 @@ func (ctx *WasmAnalyzer) analyzeCode() {
 	}
 }
 
-func (ctx *WasmAnalyzer) analyzeCodeFunction(f *wasm.Function) {
-	ctx.a = context.NewAnalyzer(ctx.m, f.Type.ParamTypes, f.Locals)
-	ctx.a.FuncNr = f.Nr
-	ctx.a.Code = f.Body
-	label := wasm.NewLabel(f.Type, nil)
-	label.UnwindSP = ctx.a.BlockMark
-	ctx.a.Labels = append([]*wasm.Label{label}, ctx.a.Labels...)
+func (ctx *WasmAnalyzer) analyzeCodeFunction(function *wasm.Function) {
+	ctx.a = context.NewAnalyzer(ctx.m, function.Type.ParamTypes, function.Locals)
+	ctx.a.FuncNr = function.Nr
+	ctx.a.Code = function.Body
+	outerBlockLabel := wasm.NewLabel(function.Type, nil)
+	outerBlockLabel.UnwindSP = ctx.a.BlockMark
+	ctx.a.Labels = []*wasm.Label{outerBlockLabel}
 	instruction.AnalyzeBlock(ctx.a)
 	if ctx.a.Error != nil {
 		return
 	}
-	f.FrameSize = uint32(ctx.a.MaxSP - ctx.a.MinSP)
+	function.FrameSize = uint32(ctx.a.MaxSP - ctx.a.MinSP)
 }
 
 func (ctx *WasmAnalyzer) analyzeData() {
@@ -93,27 +92,6 @@ func (ctx *WasmAnalyzer) analyzeData() {
 		if ctx.a.Error != nil {
 			return
 		}
-
-		//todo: move this to VM init code
-		//offset := uint32(data.Offset[0].(*instruction.Const).Value.I32)
-		//last := offset + uint32(len(data.Data))
-		//memory := ctx.m.Internal.Memories[data.MemoryIndex]
-		//if last > memory.Max {
-		//	ctx.a.Fail("Data range outside memory")
-		//	return
-		//}
-		//size := uint32(len(memory.Data))
-		//if last > size {
-		//	memory.Data = append(memory.Data, make([]byte, last-size)...)
-		//}
-		//for i, b := range data.Data {
-		//	index := offset + uint32(i)
-		//	if memory.Data[index] != 0x00 {
-		//		ctx.a.Fail("Data already defined")
-		//		return
-		//	}
-		//	memory.Data[index] = b
-		//}
 	}
 }
 
@@ -133,54 +111,12 @@ func (ctx *WasmAnalyzer) analyzeElements() {
 		if ctx.a.Error != nil {
 			return
 		}
-
-		offset := uint32(0)
-		if ctx.constValue != nil {
-			offset = uint32(ctx.constValue.I32)
-			ctx.constValue = nil
-		}
-		table := ctx.a.Module.Internal.Tables[element.TableIndex]
-
-		end := offset + uint32(len(element.FuncIndexes))
-		if end < offset || end > table.Min {
-			ctx.a.Fail("Element definition outside of minimum table dimensions")
-			return
-		}
 		for _, funcIndex := range element.FuncIndexes {
 			if /* funcIndex < 0 || */ funcIndex >= ctx.a.Module.MaxFunctions() {
 				ctx.a.Fail("Invalid element function index")
 				return
 			}
 		}
-		//todo:move this to VM init code
-		//if element.Offset[0].Opcode() != op.I32_CONST {
-		//	ctx.a.Fail("Unexpected element offset instruction")
-		//	return
-		//}
-		//offset := uint32(element.Offset[0].(*instruction.Const).Value.I32)
-		//
-		//last := offset + uint32(len(element.FuncIndexes))
-		//table := ctx.m.Internal.Tables[element.TableIndex]
-		//if last > table.Max {
-		//	ctx.a.Fail("Element range outside table")
-		//	return
-		//}
-		//size := uint32(len(table.Functions))
-		//if last > size {
-		//	table.Functions = append(table.Functions, make([]*wasm.Function, last-size)...)
-		//}
-		//for i, funcIndex := range element.FuncIndexes {
-		//	if funcIndex >= ctx.m.MaxFunctions() {
-		//		ctx.a.Fail("Invalid element function index")
-		//		return
-		//	}
-		//	elemIndex := offset + uint32(i)
-		//	if table.Functions[elemIndex] != nil {
-		//		ctx.a.Fail("Element already defined")
-		//		return
-		//	}
-		//	table.Functions[elemIndex] = ctx.m.Internal.Functions[funcIndex]
-		//}
 	}
 }
 
@@ -372,10 +308,9 @@ func (ctx *WasmAnalyzer) analyzeInitializerExpression(expr []wasm.Instruction, v
 	case op.I32_CONST, op.I64_CONST, op.F32_CONST, op.F64_CONST:
 		constInstr := expr[0].(*instruction.Const)
 		if constInstr.Type() != vt {
-			ctx.a.Fail("Expression const type mismatch")
+			ctx.a.Fail("type mismatch")
 			return
 		}
-		ctx.constValue = &constInstr.Value
 	case op.GLOBAL_GET:
 		global := expr[0].(*instruction.Var)
 		if /*global.Index < 0 || */ global.Index >= uint32(len(ctx.m.External.Globals)) {
@@ -383,20 +318,20 @@ func (ctx *WasmAnalyzer) analyzeInitializerExpression(expr []wasm.Instruction, v
 			return
 		}
 		if ctx.m.External.Globals[global.Index].Type != vt {
-			ctx.a.Fail("Expression global_get type mismatch")
+			ctx.a.Fail("type mismatch")
 			return
 		}
 	default:
-		ctx.a.Fail("Expression is not a constant expression")
+		ctx.a.Fail("constant expression required")
 		return
 	}
 
 	ctx.a = context.NewAnalyzer(ctx.m, nil, nil)
 	ctx.a.Code = expr
-	label := wasm.NewLabel(wasm.NewFuncType(), nil)
-	label.UnwindSP = ctx.a.BlockMark
-	label.BlockType.ResultTypes = []value.Type{vt}
-	ctx.a.Labels = append([]*wasm.Label{label}, ctx.a.Labels...)
+	outerBlockLabel := wasm.NewLabel(wasm.NewFuncType(), nil)
+	outerBlockLabel.UnwindSP = ctx.a.BlockMark
+	outerBlockLabel.BlockType.ResultTypes = []value.Type{vt}
+	ctx.a.Labels = []*wasm.Label{outerBlockLabel}
 	instruction.AnalyzeBlock(ctx.a)
 }
 

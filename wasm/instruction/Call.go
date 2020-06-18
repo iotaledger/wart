@@ -152,13 +152,13 @@ func (o *Call) runMemoryGrow(vm *Runner) {
 	top := &vm.Frame[o.SP]
 	growPages := top.I32
 	if growPages < 0 {
-		fmt.Printf("  Warning: %v: cannot grow %d pages", o, growPages)
+		fmt.Printf("  Warning: %v: cannot grow %d pages\n", o, growPages)
 		top.I32 = oldPages
 		return
 	}
 	newPages := oldPages + growPages
 	if newPages < oldPages || newPages > int32(vm.MaxPages) {
-		fmt.Printf("  Warning: %v: cannot grow %d pages", o, growPages)
+		fmt.Printf("  Warning: %v: cannot grow %d pages\n", o, growPages)
 		top.I32 = -1
 		return
 	}

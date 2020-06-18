@@ -21,6 +21,7 @@ func main() {
 	//readerTest("..\\input\\wasm\\roulette.wasm")
 	//readerTests()
 	specTests()
+	fmt.Printf("\n%d tests executed, %d failed.\n", executor.TotalNrOfTests, executor.TotalNrFailed);
 	fmt.Println("Ready!")
 }
 

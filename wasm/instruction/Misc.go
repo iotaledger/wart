@@ -65,6 +65,7 @@ func (o *Misc) analyzeEnd(a *context.Analyzer) {
 		a.Error = o.fail("Items left on stack")
 		return
 	}
+	// pop label from label stack
 	a.Labels = a.Labels[1:]
 	if len(a.Labels) != 0 {
 		a.BlockMark = a.Labels[0].UnwindSP

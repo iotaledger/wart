@@ -48,6 +48,7 @@ func (o *Block) Analyze(a *context.Analyzer) {
 			return
 		}
 	}
+	// push label on label stack
 	a.Labels = append([]*wasm.Label{o.label}, a.Labels...)
 
 	a.PopMulti(o.label.BlockType.ParamTypes)
