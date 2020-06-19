@@ -2,7 +2,7 @@ package wasm
 
 type Data struct {
 	Identifier
-	Data        []byte
+	Bytes       []byte
 	MemoryIndex uint32
 	Offset      []Instruction
 }

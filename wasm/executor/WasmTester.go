@@ -24,6 +24,15 @@ const DEBUG_MODULE = "xxx.wasm"
 var TotalNrOfTests int
 var TotalNrFailed int
 
+var exports = []string{
+	"print_i32", "print_i64", "print_f32", "print_f64",
+	"print_i32_f32", "print_f64_f64",
+	"global_i32", "global_i64", "global_f32", "global_f64"}
+var globals = []byte{
+	op.I32_CONST, op.I64_CONST, op.F32_CONST, op.F64_CONST}
+var params = [][]value.Type{
+	{value.I32}, {value.I64}, {value.F32}, {value.F64},
+	{value.I32, value.F32}, {value.F64, value.F64}}
 var zero wasm.Variable
 var uses = map[string]string{
 	"i32.Max":  "0x7fffffff",
@@ -87,6 +96,102 @@ func NewWasmTester(path string, isSpecTest bool) *WasmTester {
 	return ctx
 }
 
+func (ctx *WasmTester) createSpecTestModule() {
+	//  (import "spectest" "print_i32" (func (param i32)))
+	//  (import "spectest" "print_i64" (func (param i64)))
+	//  (import "spectest" "print_f32" (func (param f32)))
+	//  (import "spectest" "print_f64" (func (param f64)))
+	//  (import "spectest" "print_i32_f32" (func (param i32 f32)))
+	//  (import "spectest" "print_f64_f64" (func (param f64 f64)))
+	//  (import "spectest" "global_i32" (global i32))
+	//  (import "spectest" "global_i64" (global i64))
+	//  (import "spectest" "global_f32" (global f32))
+	//  (import "spectest" "global_f64" (global f64))
+	//  (import "spectest" "memory" (memory 1))
+	//  (import "spectest" "table" (table 10 funcref))
+
+	ctx.m = wasm.NewModule()
+	ctx.m.Name = "spectest"
+
+	ctx.m.Start = value.UNDEFINED
+	ctx.m.Exports = make([]*wasm.Export, 12)
+
+	ctx.m.FuncTypes = make([]*wasm.FuncType, 6)
+	ctx.m.Internal.Functions = make([]*wasm.Function, 6)
+	for i := 0; i < 6; i++ {
+		funcType := wasm.NewFuncType()
+		funcType.ParamTypes = params[i]
+		ctx.m.FuncTypes[i] = funcType
+		function := wasm.NewFunction()
+		function.Type = funcType
+		function.Body = []wasm.Instruction{instruction.CreateInstruction(op.END)}
+		ctx.m.Internal.Functions[i] = function
+		export := wasm.NewExport()
+		export.Index = uint32(i)
+		export.Type = desc.FUNC
+		export.Name = exports[i]
+		ctx.m.Exports[i] = export
+	}
+
+	ctx.m.Internal.Globals = make([]*wasm.Global, 4)
+	for i := 0; i < 4; i++ {
+		global := wasm.NewGlobal()
+		global.Type = params[i][0]
+		global.Init = make([]wasm.Instruction, 2)
+		global.Init[0] = instruction.CreateInstruction(globals[i])
+		global.Init[1] = instruction.CreateInstruction(op.END)
+		global.Init[0].(*instruction.Const).Value.I32 = 666
+		ctx.m.Internal.Globals[i] = global
+		export := wasm.NewExport()
+		export.Index = uint32(i)
+		export.Type = desc.GLOBAL
+		export.Name = exports[i+6]
+		ctx.m.Exports[i+6] = export
+	}
+
+	ctx.m.Internal.Memories = make([]*wasm.Memory, 1)
+	memory := wasm.NewMemory()
+	memory.Min = 1
+	memory.Max = 2
+	ctx.m.Internal.Memories[0] = memory
+	export := wasm.NewExport()
+	export.Index = 0
+	export.Type = desc.MEM
+	export.Name = "memory"
+	ctx.m.Exports[10] = export
+
+	ctx.m.Internal.Tables = make([]*wasm.Table, 1)
+	table := wasm.NewTable()
+	table.ElemType = 0x70
+	table.Min = 10
+	table.Max = 20
+	table.Functions = make([]*wasm.Function, table.Min)
+	ctx.m.Internal.Tables[0] = table
+	export = wasm.NewExport()
+	export.Index = 0
+	export.Type = desc.TABLE
+	export.Name = "table"
+	ctx.m.Exports[11] = export
+
+	mod := &spec.SpecModule{}
+	mod.Module = ctx.m
+	ctx.modules[ctx.m.Name] = mod
+
+	a := NewWasmAnalyzer(ctx.m)
+	err := a.Analyze()
+	if err != nil {
+		panic("WTF?")
+	}
+
+	err = ctx.initVM()
+	if err != nil {
+		panic("WTF?")
+	}
+
+	ctx.m = nil
+	ctx.vm = nil
+}
+
 func (ctx *WasmTester) fail(format string, a ...interface{}) {
 	fmt.Printf("\n%s %s(", ctx.modTest.File, ctx.funcTest.Name)
 	sep := ""
@@ -134,10 +239,7 @@ func (ctx *WasmTester) initExprValue(val *wasm.Variable, expr []wasm.Instruction
 func (ctx *WasmTester) initVM() error {
 	ctx.vm = context.NewRunner(ctx.m)
 	if ctx.m.Name != "" {
-		mod, ok := ctx.modules[ctx.m.Name]
-		if ok {
-			mod.VM = ctx.vm
-		}
+		ctx.modules[ctx.m.Name].VM = ctx.vm
 	}
 
 	for i, global := range ctx.m.External.Globals {
@@ -146,18 +248,24 @@ func (ctx *WasmTester) initVM() error {
 		}
 		mod, ok := ctx.modules[global.Module]
 		if !ok {
-			continue
+			return errors.New("unknown import")
 		}
 		for _, export := range mod.Module.Exports {
-			if export.Type == desc.GLOBAL && export.Name == global.Name {
+			if export.Name == global.Name {
+				if export.Type != desc.GLOBAL {
+					return errors.New("incompatible import type")
+				}
 				imported := mod.Module.Internal.Globals[export.Index]
-				if imported.Type != global.Type {
+				if global.Type != imported.Type {
 					return errors.New("incompatible import type")
 				}
 				ctx.m.External.Globals[i] = imported
 				ctx.m.Internal.Globals[i] = imported
 				break
 			}
+		}
+		if global == ctx.m.External.Globals[i] {
+			return errors.New("unknown import")
 		}
 	}
 
@@ -167,12 +275,15 @@ func (ctx *WasmTester) initVM() error {
 		}
 		mod, ok := ctx.modules[function.Module]
 		if !ok {
-			continue
+			return errors.New("unknown import")
 		}
 		for _, export := range mod.Module.Exports {
-			if export.Type == desc.FUNC && export.Name == function.Name {
+			if export.Name == function.Name {
+				if export.Type != desc.FUNC {
+					return errors.New("incompatible import type")
+				}
 				imported := mod.Module.Internal.Functions[export.Index]
-				if !imported.Type.IsSameAs(function.Type) {
+				if !function.Type.IsSameAs(imported.Type) {
 					return errors.New("incompatible import type")
 				}
 				ctx.m.External.Functions[i] = imported
@@ -180,41 +291,84 @@ func (ctx *WasmTester) initVM() error {
 				break
 			}
 		}
+		if function == ctx.m.External.Functions[i] {
+			return errors.New("unknown import")
+		}
 	}
 
-	for i, function := range ctx.m.External.Memories {
-		if function.Module == "" {
+	for i, memory := range ctx.m.External.Memories {
+		if memory.Module == "" {
 			continue
 		}
-		mod, ok := ctx.modules[function.Module]
+		mod, ok := ctx.modules[memory.Module]
 		if !ok {
-			continue
+			return errors.New("unknown import")
 		}
 		for _, export := range mod.Module.Exports {
-			if export.Type == desc.MEM && export.Name == function.Name {
+			if export.Name == memory.Name {
+				if export.Type != desc.MEM {
+					return errors.New("incompatible import type")
+				}
 				imported := mod.Module.Internal.Memories[export.Index]
+				if memory.Min > imported.Min {
+					return errors.New("incompatible import type")
+				}
+				memMax := memory.Max
+				if memMax == value.UNDEFINED {
+					memMax = 0x10000
+				}
+				impMax := imported.Max
+				if impMax == value.UNDEFINED {
+					impMax = 0x10000
+				}
+				if memMax < impMax {
+					return errors.New("incompatible import type")
+				}
 				ctx.m.External.Memories[i] = imported
 				ctx.m.Internal.Memories[i] = imported
 				break
 			}
 		}
+		if memory == ctx.m.External.Memories[i] {
+			return errors.New("unknown import")
+		}
 	}
 
-	for i, function := range ctx.m.External.Tables {
-		if function.Module == "" {
+	for i, table := range ctx.m.External.Tables {
+		if table.Module == "" {
 			continue
 		}
-		mod, ok := ctx.modules[function.Module]
+		mod, ok := ctx.modules[table.Module]
 		if !ok {
-			continue
+			return errors.New("unknown import")
 		}
 		for _, export := range mod.Module.Exports {
-			if export.Type == desc.TABLE && export.Name == function.Name {
+			if export.Name == table.Name {
+				if export.Type != desc.TABLE {
+					return errors.New("incompatible import type")
+				}
 				imported := mod.Module.Internal.Tables[export.Index]
+				if table.Min > imported.Min {
+					return errors.New("incompatible import type")
+				}
+				tabMax := table.Max
+				if tabMax == value.UNDEFINED {
+					tabMax = 0x10000
+				}
+				impMax := imported.Max
+				if impMax == value.UNDEFINED {
+					impMax = 0x10000
+				}
+				if tabMax < impMax {
+					return errors.New("incompatible import type")
+				}
 				ctx.m.External.Tables[i] = imported
 				ctx.m.Internal.Tables[i] = imported
 				break
 			}
+		}
+		if table == ctx.m.External.Tables[i] {
+			return errors.New("unknown import")
 		}
 	}
 
@@ -246,7 +400,10 @@ func (ctx *WasmTester) initVM() error {
 		if memory.Nr != 0 {
 			return errors.New("Multiple memories not yet supported")
 		}
-		ctx.vm.Memory = make([]byte, memory.Min*context.PAGE_SIZE)
+		ctx.vm.Memory = memory
+		if len(memory.Pool) == 0 {
+			memory.Pool = make([]byte, memory.Min*context.PAGE_SIZE)
+		}
 		ctx.vm.MaxPages = 0x8000
 		if memory.Max < ctx.vm.MaxPages && memory.Max != value.UNDEFINED {
 			ctx.vm.MaxPages = memory.Max
@@ -257,12 +414,12 @@ func (ctx *WasmTester) initVM() error {
 	for _, data := range ctx.m.Datas {
 		ctx.initExprValue(addrValue, data.Offset, value.I32)
 		addr := uint32(addrValue.I32)
-		end := addr + uint32(len(data.Data))
+		end := addr + uint32(len(data.Bytes))
 		//  be careful not to wrap around the uint32
-		if end < addr || end > uint32(len(ctx.vm.Memory)) {
+		if end < addr || end > uint32(len(ctx.vm.Memory.Pool)) {
 			return errors.New("data segment does not fit")
 		}
-		copy(ctx.vm.Memory[addr:], data.Data)
+		copy(ctx.vm.Memory.Pool[addr:], data.Bytes)
 	}
 
 	if ctx.m.Start == value.UNDEFINED {
@@ -271,15 +428,7 @@ func (ctx *WasmTester) initVM() error {
 
 	startFunction := ctx.m.Internal.Functions[ctx.m.Start]
 	ctx.vm.Frame = make([]wasm.Variable, startFunction.MaxLocalIndex()+startFunction.FrameSize)
-	err := instruction.RunBlock(ctx.vm, startFunction.Body)
-	if err != nil {
-		return err
-	}
-
-	if ctx.m.Name != "" {
-		ctx.modules[ctx.m.Name].VM = ctx.vm
-	}
-	return nil
+	return instruction.RunBlock(ctx.vm, startFunction.Body)
 }
 
 func (ctx *WasmTester) loadModule(filename string) error {
@@ -620,11 +769,13 @@ func (ctx *WasmTester) specTest() {
 		panic(err)
 	}
 	defer file.Close()
-
 	err = json.NewDecoder(file).Decode(&ctx.source)
 	if err != nil {
 		panic(err)
 	}
+
+	ctx.createSpecTestModule()
+
 	fmt.Printf("Source: %s\n", ctx.source.Filename)
 	for _, cmd := range ctx.source.Commands {
 		switch cmd.Type {

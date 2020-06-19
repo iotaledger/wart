@@ -91,7 +91,7 @@ func (ctx *WasmReader) entryData() {
 	if ctx.r.Error != nil {
 		return
 	}
-	data.Data = ctx.r.GetBytes(count)
+	data.Bytes = ctx.r.GetBytes(count)
 	if ctx.r.Error != nil {
 		return
 	}

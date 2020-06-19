@@ -74,7 +74,7 @@ func (ctx *WatWriter) sectionData() bool {
 			fmt.Fprintf(ctx.w, ")")
 		}
 		fmt.Fprintf(ctx.w, " \"")
-		for _, b := range data.Data {
+		for _, b := range data.Bytes {
 			format := "\\%02x"
 			if b >= 0x20 && b < 0x7f {
 				format = "%c"

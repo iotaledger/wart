@@ -32,33 +32,33 @@ func (o *Mem) Analyze(a *context.Analyzer) {
 }
 
 func getI8(vm *Runner) int8 {
-	return int8(vm.Memory[vm.Addr])
+	return int8(vm.Memory.Pool[vm.Addr])
 }
 
 func getI16(vm *Runner) int16 {
 	addr := vm.Addr
-	return int16(uint16(vm.Memory[addr]) |
-		uint16(vm.Memory[addr+1])<<8)
+	return int16(uint16(vm.Memory.Pool[addr]) |
+		uint16(vm.Memory.Pool[addr+1])<<8)
 }
 
 func getI32(vm *Runner) int32 {
 	addr := vm.Addr
-	return int32(uint32(vm.Memory[addr]) |
-		uint32(vm.Memory[addr+1])<<8 |
-		uint32(vm.Memory[addr+2])<<16 |
-		uint32(vm.Memory[addr+3])<<24)
+	return int32(uint32(vm.Memory.Pool[addr]) |
+		uint32(vm.Memory.Pool[addr+1])<<8 |
+		uint32(vm.Memory.Pool[addr+2])<<16 |
+		uint32(vm.Memory.Pool[addr+3])<<24)
 }
 
 func getI64(vm *Runner) int64 {
 	addr := vm.Addr
-	return int64(uint64(vm.Memory[addr]) |
-		uint64(vm.Memory[addr+1])<<8 |
-		uint64(vm.Memory[addr+2])<<16 |
-		uint64(vm.Memory[addr+3])<<24 |
-		uint64(vm.Memory[addr+4])<<32 |
-		uint64(vm.Memory[addr+5])<<40 |
-		uint64(vm.Memory[addr+6])<<48 |
-		uint64(vm.Memory[addr+7])<<56)
+	return int64(uint64(vm.Memory.Pool[addr]) |
+		uint64(vm.Memory.Pool[addr+1])<<8 |
+		uint64(vm.Memory.Pool[addr+2])<<16 |
+		uint64(vm.Memory.Pool[addr+3])<<24 |
+		uint64(vm.Memory.Pool[addr+4])<<32 |
+		uint64(vm.Memory.Pool[addr+5])<<40 |
+		uint64(vm.Memory.Pool[addr+6])<<48 |
+		uint64(vm.Memory.Pool[addr+7])<<56)
 }
 
 func (o *Mem) Read(r *context.Reader) {
@@ -82,33 +82,33 @@ func setF64(vm *Runner, v float64) {
 }
 
 func setI8(vm *Runner, v int32) {
-	vm.Memory[vm.Addr] = byte(v)
+	vm.Memory.Pool[vm.Addr] = byte(v)
 }
 
 func setI16(vm *Runner, v int32) {
 	addr := vm.Addr
-	vm.Memory[addr+0] = byte(v)
-	vm.Memory[addr+1] = byte(v >> 8)
+	vm.Memory.Pool[addr+0] = byte(v)
+	vm.Memory.Pool[addr+1] = byte(v >> 8)
 }
 
 func setI32(vm *Runner, v int32) {
 	addr := vm.Addr
-	vm.Memory[addr+0] = byte(v)
-	vm.Memory[addr+1] = byte(v >> 8)
-	vm.Memory[addr+2] = byte(v >> 16)
-	vm.Memory[addr+3] = byte(v >> 24)
+	vm.Memory.Pool[addr+0] = byte(v)
+	vm.Memory.Pool[addr+1] = byte(v >> 8)
+	vm.Memory.Pool[addr+2] = byte(v >> 16)
+	vm.Memory.Pool[addr+3] = byte(v >> 24)
 }
 
 func setI64(vm *Runner, v int64) {
 	addr := vm.Addr
-	vm.Memory[addr+0] = byte(v)
-	vm.Memory[addr+1] = byte(v >> 8)
-	vm.Memory[addr+2] = byte(v >> 16)
-	vm.Memory[addr+3] = byte(v >> 24)
-	vm.Memory[addr+4] = byte(v >> 32)
-	vm.Memory[addr+5] = byte(v >> 40)
-	vm.Memory[addr+6] = byte(v >> 48)
-	vm.Memory[addr+7] = byte(v >> 56)
+	vm.Memory.Pool[addr+0] = byte(v)
+	vm.Memory.Pool[addr+1] = byte(v >> 8)
+	vm.Memory.Pool[addr+2] = byte(v >> 16)
+	vm.Memory.Pool[addr+3] = byte(v >> 24)
+	vm.Memory.Pool[addr+4] = byte(v >> 32)
+	vm.Memory.Pool[addr+5] = byte(v >> 40)
+	vm.Memory.Pool[addr+6] = byte(v >> 48)
+	vm.Memory.Pool[addr+7] = byte(v >> 56)
 }
 
 func (o *Mem) setRunner() {
@@ -148,7 +148,7 @@ func (o *Mem) setRunner() {
 	size := o.size
 	o.run = func(vm *Runner) {
 		addr := uint32(vm.Frame[sp].I32)
-		memSize := uint32(len(vm.Memory))
+		memSize := uint32(len(vm.Memory.Pool))
 		vm.Addr = offset + addr
 		// make sure that no wrapping occurs and that memory is accessible
 		if vm.Addr < addr || /* vm.Addr < offset || */ vm.Addr >= memSize || vm.Addr+size > memSize {

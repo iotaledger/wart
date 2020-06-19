@@ -83,8 +83,8 @@ func (ctx *WasmWriter) sectionData() {
 	for _, data := range ctx.m.Datas {
 		ctx.w.PutU32(data.MemoryIndex)
 		instruction.WriteBlock(ctx.w, data.Offset)
-		ctx.w.PutU32(uint32(len(data.Data)))
-		ctx.w.PutBytes(data.Data)
+		ctx.w.PutU32(uint32(len(data.Bytes)))
+		ctx.w.PutBytes(data.Bytes)
 	}
 }
 

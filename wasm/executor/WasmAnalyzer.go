@@ -347,8 +347,6 @@ func (ctx *WasmAnalyzer) analyzeMemories() {
 			ctx.a.Fail("Invalid memory limits")
 			return
 		}
-		// don't allocate this large blob until it is absolutely necessary
-		memory.Data = nil
 	}
 }
 
@@ -397,13 +395,6 @@ func (ctx *WasmAnalyzer) analyzeTypes() {
 		ctx.a.Error = funcType.CheckTypes()
 		if ctx.a.Error != nil {
 			return
-		}
-
-		// just for fun check if there are duplicate function types
-		for i := 0; i < nr; i++ {
-			if funcType.IsSameAs(ctx.m.FuncTypes[i]) {
-				warn("duplicate function types")
-			}
 		}
 	}
 }

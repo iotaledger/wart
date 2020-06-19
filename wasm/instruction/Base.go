@@ -107,7 +107,7 @@ func b2i(b bool) int32 {
 	return i
 }
 
-func createInstruction(opcode byte) wasm.Instruction {
+func CreateInstruction(opcode byte) wasm.Instruction {
 	sig := AllSignatures[opcode]
 	if sig.Factory == nil {
 		return nil
@@ -164,7 +164,7 @@ func readSubBlock(r *context.Reader) []wasm.Instruction {
 		if r.Error != nil {
 			break
 		}
-		instruction := createInstruction(opcode)
+		instruction := CreateInstruction(opcode)
 		if instruction == nil {
 			r.Error = utils.Error("Invalid opcode: 0x%02x", opcode)
 			break

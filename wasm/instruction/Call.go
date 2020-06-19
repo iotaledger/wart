@@ -148,7 +148,7 @@ func (o *Call) runCallIndirect(vm *Runner) {
 }
 
 func (o *Call) runMemoryGrow(vm *Runner) {
-	oldPages := int32(len(vm.Memory)) / context.PAGE_SIZE
+	oldPages := int32(len(vm.Memory.Pool)) / context.PAGE_SIZE
 	top := &vm.Frame[o.SP]
 	growPages := top.I32
 	if growPages < 0 {
@@ -162,13 +162,13 @@ func (o *Call) runMemoryGrow(vm *Runner) {
 		top.I32 = -1
 		return
 	}
-	vm.Memory = append(vm.Memory, make([]byte, int(newPages)*context.PAGE_SIZE-len(vm.Memory))...)
+	vm.Memory.Pool = append(vm.Memory.Pool, make([]byte, int(newPages)*context.PAGE_SIZE-len(vm.Memory.Pool))...)
 	top.I32 = oldPages
 }
 
 func (o *Call) runMemorySize(vm *Runner) {
 	top := &vm.Frame[o.SP]
-	top.I32 = int32(len(vm.Memory)) / context.PAGE_SIZE
+	top.I32 = int32(len(vm.Memory.Pool)) / context.PAGE_SIZE
 }
 
 func (o *Call) StackChange(m *wasm.Module) int {
