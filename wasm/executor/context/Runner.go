@@ -12,11 +12,11 @@ type Runner struct {
 	Error     error
 	Frame     []wasm.Variable
 	Globals   []wasm.Variable
-	MaxPages  uint32
 	Memory    *wasm.Memory
 	Module    *wasm.Module
 	Next      wasm.Instruction
 	SP        int
+	Table     *wasm.Table
 }
 
 func NewRunner(m *wasm.Module) *Runner {

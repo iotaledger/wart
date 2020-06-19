@@ -11,6 +11,8 @@ import (
 var AllSignatures [256]wasm.Signature
 var DivZero error
 var FunctionSignature error
+var IntOverflow error
+var InvalidConversion error
 var MemAccess error
 var StackOverflow error
 var UndefinedElement error
@@ -141,6 +143,8 @@ func valueTypeOf(typeName string) value.Type {
 func init() {
 	DivZero = errors.New("integer divide by zero")
 	FunctionSignature = errors.New("indirect call type mismatch")
+	IntOverflow = errors.New("integer overflow")
+	InvalidConversion = errors.New("invalid conversion to integer")
 	MemAccess = errors.New("out of bounds memory access")
 	StackOverflow = errors.New("call stack exhausted")
 	UndefinedElement = errors.New("undefined element")

@@ -380,7 +380,6 @@ func (ctx *WasmAnalyzer) analyzeTables() {
 			ctx.a.Fail("Invalid table limits")
 			return
 		}
-		table.Functions = make([]*wasm.Function, table.Min)
 	}
 }
 

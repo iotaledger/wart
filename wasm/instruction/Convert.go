@@ -19,16 +19,16 @@ func (o *Convert) setRunner() {
 	switch o.opcode {
 	//@formatter:off
 	case op.I32_WRAP_I64       : o.run = func(vm *Runner) { vm.Frame[sp].I32 = int32(vm.Frame[sp].I64) }
-	case op.I32_TRUNC_F32_S    : o.run = func(vm *Runner) { vm.Frame[sp].I32 = int32(math.Trunc(float64(vm.Frame[sp].F32))) }
-	case op.I32_TRUNC_F32_U    : o.run = func(vm *Runner) { vm.Frame[sp].I32 = int32(uint32(math.Trunc(float64(vm.Frame[sp].F32)))) }
-	case op.I32_TRUNC_F64_S    : o.run = func(vm *Runner) { vm.Frame[sp].I32 = int32(math.Trunc(vm.Frame[sp].F64)) }
-	case op.I32_TRUNC_F64_U    : o.run = func(vm *Runner) { vm.Frame[sp].I32 = int32(uint32(math.Trunc(vm.Frame[sp].F64))) }
+	case op.I32_TRUNC_F32_S    : o.run = func(vm *Runner) { vm.Frame[sp].I32 = int32(truncF64(vm, float64(vm.Frame[sp].F32))) }
+	case op.I32_TRUNC_F32_U    : o.run = func(vm *Runner) { vm.Frame[sp].I32 = int32(uint32(truncF64(vm, float64(vm.Frame[sp].F32)))) }
+	case op.I32_TRUNC_F64_S    : o.run = func(vm *Runner) { vm.Frame[sp].I32 = int32(truncF64(vm, vm.Frame[sp].F64)) }
+	case op.I32_TRUNC_F64_U    : o.run = func(vm *Runner) { vm.Frame[sp].I32 = int32(uint32(truncF64(vm, vm.Frame[sp].F64))) }
 	case op.I64_EXTEND_I32_S   : o.run = func(vm *Runner) { vm.Frame[sp].I64 = int64(vm.Frame[sp].I32) }
 	case op.I64_EXTEND_I32_U   : o.run = func(vm *Runner) { vm.Frame[sp].I64 = int64(uint32(vm.Frame[sp].I32)) }
-	case op.I64_TRUNC_F32_S    : o.run = func(vm *Runner) { vm.Frame[sp].I64 = int64(math.Trunc(float64(vm.Frame[sp].F32))) }
-	case op.I64_TRUNC_F32_U    : o.run = func(vm *Runner) { vm.Frame[sp].I64 = int64(uint64(math.Trunc(float64(vm.Frame[sp].F32)))) }
-	case op.I64_TRUNC_F64_S    : o.run = func(vm *Runner) { vm.Frame[sp].I64 = int64(math.Trunc(vm.Frame[sp].F64)) }
-	case op.I64_TRUNC_F64_U    : o.run = func(vm *Runner) { vm.Frame[sp].I64 = int64(uint64(math.Trunc(vm.Frame[sp].F64))) }
+	case op.I64_TRUNC_F32_S    : o.run = func(vm *Runner) { vm.Frame[sp].I64 = int64(truncF64(vm, float64(vm.Frame[sp].F32))) }
+	case op.I64_TRUNC_F32_U    : o.run = func(vm *Runner) { vm.Frame[sp].I64 = int64(uint64(truncF64(vm, float64(vm.Frame[sp].F32)))) }
+	case op.I64_TRUNC_F64_S    : o.run = func(vm *Runner) { vm.Frame[sp].I64 = int64(truncF64(vm, vm.Frame[sp].F64)) }
+	case op.I64_TRUNC_F64_U    : o.run = func(vm *Runner) { vm.Frame[sp].I64 = int64(uint64(truncF64(vm, vm.Frame[sp].F64))) }
 	case op.F32_CONVERT_I32_S  : o.run = func(vm *Runner) { vm.Frame[sp].F32 = float32(vm.Frame[sp].I32) }
 	case op.F32_CONVERT_I32_U  : o.run = func(vm *Runner) { vm.Frame[sp].F32 = float32(uint32(vm.Frame[sp].I32)) }
 	case op.F32_CONVERT_I64_S  : o.run = func(vm *Runner) { vm.Frame[sp].F32 = float32(vm.Frame[sp].I64) }
@@ -47,4 +47,12 @@ func (o *Convert) setRunner() {
 	default:
 		panic("Invalid convert opcode")
 	}
+}
+
+func truncF64(vm *Runner, val float64) float64 {
+	if math.IsNaN(val) {
+		vm.Error = InvalidConversion
+		return val
+	}
+	return math.Trunc(val)
 }

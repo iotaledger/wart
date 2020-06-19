@@ -108,65 +108,81 @@ func f64Min(x, y float64) float64 {
 }
 
 func i32Div(vm *Runner, sp int) {
-	if vm.Frame[sp+1].I32 == 0 {
+	rhs := vm.Frame[sp+1].I32
+	if rhs == 0 {
 		vm.Error = DivZero
 		return
 	}
-	vm.Frame[sp].I32 /= vm.Frame[sp+1].I32
+	if rhs == -1 && vm.Frame[sp].I32 == -0x80000000 {
+		vm.Error = IntOverflow
+		return
+	}
+	vm.Frame[sp].I32 /= rhs
 }
 
 func i32Rem(vm *Runner, sp int) {
-	if vm.Frame[sp+1].I32 == 0 {
+	rhs := vm.Frame[sp+1].I32
+	if rhs == 0 {
 		vm.Error = DivZero
 		return
 	}
-	vm.Frame[sp].I32 %= vm.Frame[sp+1].I32
+	vm.Frame[sp].I32 %= rhs
 }
 
 func i64Div(vm *Runner, sp int) {
-	if vm.Frame[sp+1].I64 == 0 {
+	rhs := vm.Frame[sp+1].I64
+	if rhs == 0 {
 		vm.Error = DivZero
 		return
 	}
-	vm.Frame[sp].I64 /= vm.Frame[sp+1].I64
+	if rhs == -1 && vm.Frame[sp].I64 == -0x8000000000000000 {
+		vm.Error = IntOverflow
+		return
+	}
+	vm.Frame[sp].I64 /= rhs
 }
 
 func i64Rem(vm *Runner, sp int) {
-	if vm.Frame[sp+1].I64 == 0 {
+	rhs := vm.Frame[sp+1].I64
+	if rhs == 0 {
 		vm.Error = DivZero
 		return
 	}
-	vm.Frame[sp].I64 %= vm.Frame[sp+1].I64
+	vm.Frame[sp].I64 %= rhs
 }
 
 func u32Div(vm *Runner, sp int) {
-	if vm.Frame[sp+1].I32 == 0 {
+	rhs := vm.Frame[sp+1].I32
+	if rhs == 0 {
 		vm.Error = DivZero
 		return
 	}
-	vm.Frame[sp].I32 = int32(uint32(vm.Frame[sp].I32) / uint32(vm.Frame[sp+1].I32))
+	vm.Frame[sp].I32 = int32(uint32(vm.Frame[sp].I32) / uint32(rhs))
 }
 
 func u32Rem(vm *Runner, sp int) {
-	if vm.Frame[sp+1].I32 == 0 {
+	rhs := vm.Frame[sp+1].I32
+	if rhs == 0 {
 		vm.Error = DivZero
 		return
 	}
-	vm.Frame[sp].I32 = int32(uint32(vm.Frame[sp].I32) % uint32(vm.Frame[sp+1].I32))
+	vm.Frame[sp].I32 = int32(uint32(vm.Frame[sp].I32) % uint32(rhs))
 }
 
 func u64Div(vm *Runner, sp int) {
-	if vm.Frame[sp+1].I64 == 0 {
+	rhs := vm.Frame[sp+1].I64
+	if rhs == 0 {
 		vm.Error = DivZero
 		return
 	}
-	vm.Frame[sp].I64 = int64(uint64(vm.Frame[sp].I64) / uint64(vm.Frame[sp+1].I64))
+	vm.Frame[sp].I64 = int64(uint64(vm.Frame[sp].I64) / uint64(rhs))
 }
 
 func u64Rem(vm *Runner, sp int) {
-	if vm.Frame[sp+1].I64 == 0 {
+	rhs := vm.Frame[sp+1].I64
+	if rhs == 0 {
 		vm.Error = DivZero
 		return
 	}
-	vm.Frame[sp].I64 = int64(uint64(vm.Frame[sp].I64) % uint64(vm.Frame[sp+1].I64))
+	vm.Frame[sp].I64 = int64(uint64(vm.Frame[sp].I64) % uint64(rhs))
 }

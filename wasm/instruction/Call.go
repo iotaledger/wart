@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"github.com/iotaledger/wart/utils"
 	"github.com/iotaledger/wart/wasm/consts/op"
+	"github.com/iotaledger/wart/wasm/consts/value"
 	"github.com/iotaledger/wart/wasm/executor/context"
 	"github.com/iotaledger/wart/wasm/wasm"
 )
@@ -74,7 +75,7 @@ func (o *Call) Read(r *context.Reader) {
 func (o *Call) Run(vm *Runner) {
 	switch o.opcode {
 	//@formatter:off
-	case op.CALL         : o.runCall(vm)
+	case op.CALL         : o.runCallDirect(vm, o.index)
 	case op.CALL_INDIRECT: o.runCallIndirect(vm)
 	case op.MEMORY_GROW  : o.runMemoryGrow(vm)
 	case op.MEMORY_SIZE  : o.runMemorySize(vm)
@@ -84,12 +85,7 @@ func (o *Call) Run(vm *Runner) {
 	}
 }
 
-func (o *Call) runCall(vm *Runner) {
-	f := vm.Module.Internal.Functions[o.index]
-	o.runCallDirect(vm, f)
-}
-
-func (o *Call) runCallDirect(vm *Runner, f *wasm.Function) {
+func (o *Call) runCallDirect(vm *Runner, funcIndex uint32) {
 	if vm.CallDepth == 1000 {
 		vm.CallDepth = 0
 		vm.Error = StackOverflow
@@ -101,6 +97,7 @@ func (o *Call) runCallDirect(vm *Runner, f *wasm.Function) {
 
 	// set up new stack frame with copy of params
 	// plus enough space for locals + stack frame
+	f := vm.Module.Internal.Functions[funcIndex]
 	funcType := f.Type
 	callFrame := make([]wasm.Variable, f.MaxLocalIndex()+f.FrameSize)
 	for i, vt := range funcType.ParamTypes {
@@ -129,22 +126,23 @@ func (o *Call) runCallIndirect(vm *Runner) {
 	//todo dynamic type check on call argument
 	// see if vm.Module.Internal.FuncIndexes[vm.Module.Elements[arg]].Type == o.index
 	ft := vm.Module.FuncTypes[o.index]
-	funcIndex := uint32(vm.Frame[o.SP+len(ft.ParamTypes)].I32)
-	functions := vm.Module.Internal.Tables[0].Functions
-	if /* funcIndex < 0 || */ funcIndex >= uint32(len(functions)) {
+	tableIndex := uint32(vm.Frame[o.SP+len(ft.ParamTypes)].I32)
+	table := vm.Module.Internal.Tables[0].FuncIndexes
+	if /* tableIndex < 0 || */ tableIndex >= uint32(len(table)) {
 		vm.Error = UndefinedElement
 		return
 	}
-	f := functions[funcIndex]
-	if f == nil {
+	funcIndex := table[tableIndex]
+	if funcIndex == value.UNDEFINED {
 		vm.Error = UninitializedElement
 		return
 	}
+	f := vm.Module.Internal.Functions[funcIndex]
 	if !f.Type.IsSameAs(ft) {
 		vm.Error = FunctionSignature
 		return
 	}
-	o.runCallDirect(vm, f)
+	o.runCallDirect(vm, funcIndex)
 }
 
 func (o *Call) runMemoryGrow(vm *Runner) {
@@ -152,13 +150,15 @@ func (o *Call) runMemoryGrow(vm *Runner) {
 	top := &vm.Frame[o.SP]
 	growPages := top.I32
 	if growPages < 0 {
-		fmt.Printf("  Warning: %v: cannot grow %d pages\n", o, growPages)
 		top.I32 = oldPages
 		return
 	}
 	newPages := oldPages + growPages
-	if newPages < oldPages || newPages > int32(vm.MaxPages) {
-		fmt.Printf("  Warning: %v: cannot grow %d pages\n", o, growPages)
+	maxPages := vm.Memory.Max
+	if maxPages == value.UNDEFINED {
+		maxPages = 0x8000
+	}
+	if newPages < oldPages || newPages > int32(maxPages) {
 		top.I32 = -1
 		return
 	}
