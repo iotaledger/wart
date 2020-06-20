@@ -25,7 +25,7 @@ func (o *Call) Analyze(a *context.Analyzer) {
 			a.Error = o.fail("Invalid function index")
 			return
 		}
-		f := a.Module.Internal.Functions[o.index]
+		f := a.Module.Functions[o.index]
 		o.analyzeCallType(a, f.Type.Nr)
 	case op.CALL_INDIRECT:
 		o.analyzeCallType(a, o.index)
@@ -75,7 +75,7 @@ func (o *Call) Read(r *context.Reader) {
 func (o *Call) Run(vm *Runner) {
 	switch o.opcode {
 	//@formatter:off
-	case op.CALL         : o.runCallDirect(vm, o.index)
+	case op.CALL         : o.runCall(vm)
 	case op.CALL_INDIRECT: o.runCallIndirect(vm)
 	case op.MEMORY_GROW  : o.runMemoryGrow(vm)
 	case op.MEMORY_SIZE  : o.runMemorySize(vm)
@@ -85,7 +85,12 @@ func (o *Call) Run(vm *Runner) {
 	}
 }
 
-func (o *Call) runCallDirect(vm *Runner, funcIndex uint32) {
+func (o *Call) runCall(vm *Runner) {
+	f := vm.Module.Functions[o.index]
+	o.runCallDirect(vm, f)
+}
+
+func (o *Call) runCallDirect(vm *Runner, f *wasm.Function) {
 	if vm.CallDepth == 1000 {
 		vm.CallDepth = 0
 		vm.Error = StackOverflow
@@ -94,10 +99,10 @@ func (o *Call) runCallDirect(vm *Runner, funcIndex uint32) {
 
 	savedFrame := vm.Frame
 	savedNext := vm.Next
+	savedModule := vm.Module
 
 	// set up new stack frame with copy of params
 	// plus enough space for locals + stack frame
-	f := vm.Module.Internal.Functions[funcIndex]
 	funcType := f.Type
 	callFrame := make([]wasm.Variable, f.MaxLocalIndex()+f.FrameSize)
 	for i, vt := range funcType.ParamTypes {
@@ -106,11 +111,13 @@ func (o *Call) runCallDirect(vm *Runner, funcIndex uint32) {
 
 	vm.CallDepth++
 	vm.Frame = callFrame
+	vm.Module = f.Module
 	vm.Error = RunBlock(vm, f.Body)
 	if vm.Error != nil {
 		return
 	}
 	vm.Frame = savedFrame
+	vm.Module = savedModule
 	vm.Next = savedNext
 	vm.CallDepth--
 
@@ -124,29 +131,31 @@ func (o *Call) runCallDirect(vm *Runner, funcIndex uint32) {
 
 func (o *Call) runCallIndirect(vm *Runner) {
 	//todo dynamic type check on call argument
-	// see if vm.Module.Internal.FuncIndexes[vm.Module.Elements[arg]].Type == o.index
+	// see if vm.Module.FuncIndexes[vm.Module.Elements[arg]].Type == o.index
 	ft := vm.Module.FuncTypes[o.index]
 	tableIndex := uint32(vm.Frame[o.SP+len(ft.ParamTypes)].I32)
-	table := vm.Module.Internal.Tables[0].FuncIndexes
-	if /* tableIndex < 0 || */ tableIndex >= uint32(len(table)) {
+	table := vm.Module.Tables[0]
+	if /* tableIndex < 0 || */ tableIndex >= uint32(len(table.FuncModules)) {
 		vm.Error = UndefinedElement
 		return
 	}
-	funcIndex := table[tableIndex]
-	if funcIndex == value.UNDEFINED {
+	funcModule := table.FuncModules[tableIndex]
+	if funcModule == nil {
 		vm.Error = UninitializedElement
 		return
 	}
-	f := vm.Module.Internal.Functions[funcIndex]
+	funcIndex := table.FuncIndexes[tableIndex]
+	f := funcModule.Functions[funcIndex]
 	if !f.Type.IsSameAs(ft) {
 		vm.Error = FunctionSignature
 		return
 	}
-	o.runCallDirect(vm, funcIndex)
+	o.runCallDirect(vm, f)
 }
 
 func (o *Call) runMemoryGrow(vm *Runner) {
-	oldPages := int32(len(vm.Memory.Pool)) / context.PAGE_SIZE
+	memory := vm.Module.Memories[0]
+	oldPages := int32(len(memory.Pool)) / context.PAGE_SIZE
 	top := &vm.Frame[o.SP]
 	growPages := top.I32
 	if growPages < 0 {
@@ -154,7 +163,7 @@ func (o *Call) runMemoryGrow(vm *Runner) {
 		return
 	}
 	newPages := oldPages + growPages
-	maxPages := vm.Memory.Max
+	maxPages := memory.Max
 	if maxPages == value.UNDEFINED {
 		maxPages = 0x8000
 	}
@@ -162,19 +171,20 @@ func (o *Call) runMemoryGrow(vm *Runner) {
 		top.I32 = -1
 		return
 	}
-	vm.Memory.Pool = append(vm.Memory.Pool, make([]byte, int(newPages)*context.PAGE_SIZE-len(vm.Memory.Pool))...)
+	memory.Pool = append(memory.Pool, make([]byte, int(newPages)*context.PAGE_SIZE-len(memory.Pool))...)
 	top.I32 = oldPages
 }
 
 func (o *Call) runMemorySize(vm *Runner) {
+	memory := vm.Module.Memories[0]
 	top := &vm.Frame[o.SP]
-	top.I32 = int32(len(vm.Memory.Pool)) / context.PAGE_SIZE
+	top.I32 = int32(len(memory.Pool)) / context.PAGE_SIZE
 }
 
 func (o *Call) StackChange(m *wasm.Module) int {
 	switch o.opcode {
 	case op.CALL:
-		funcType := m.Internal.Functions[o.index].Type
+		funcType := m.Functions[o.index].Type
 		return len(funcType.ResultTypes) - len(funcType.ParamTypes)
 	case op.CALL_INDIRECT:
 		// todo filter out preceding i32.const

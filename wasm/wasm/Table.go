@@ -3,6 +3,7 @@ package wasm
 type Table struct {
 	Identifier
 	FuncIndexes []uint32
+	FuncModules []*Module
 	ElemType    byte
 	Max         uint32
 	Min         uint32

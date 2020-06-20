@@ -115,7 +115,7 @@ func (ctx *WatWriter) sectionFunction() bool {
 }
 
 func (ctx *WatWriter) sectionGlobal() bool {
-	globals := ctx.m.Internal.Globals[len(ctx.m.External.Globals):]
+	globals := ctx.m.Globals[ctx.m.ExternalGlobals:]
 	for _, global := range globals {
 		ctx.writeId("global", global.Identifier)
 		fmt.Fprintf(ctx.w, " (;%d;)%s", global.Nr, mutable(global))
@@ -127,22 +127,26 @@ func (ctx *WatWriter) sectionGlobal() bool {
 
 func (ctx *WatWriter) sectionImport() bool {
 	var done bool
-	for _, function := range ctx.m.External.Functions {
+	for i := uint32(0); i < ctx.m.ExternalFunctions; i++ {
+		function := ctx.m.Functions[i]
 		ctx.writeId("import", function.Identifier)
 		fmt.Fprintf(ctx.w, " (func (;%d;)%s))\n", function.Nr, ctx.funcTypeUse(function.Type, false))
 		done = true
 	}
-	for _, memory := range ctx.m.External.Memories {
+	for i := uint32(0); i < ctx.m.ExternalMemories; i++ {
+		memory := ctx.m.Memories[i]
 		ctx.writeId("import", memory.Identifier)
 		fmt.Fprintf(ctx.w, " (memory (;%d;)%s))\n", memory.Nr, limits(memory.Min, memory.Max))
 		done = true
 	}
-	for _, table := range ctx.m.External.Tables {
+	for i := uint32(0); i < ctx.m.ExternalTables; i++ {
+		table := ctx.m.Tables[i]
 		ctx.writeId("import", table.Identifier)
 		fmt.Fprintf(ctx.w, " (table (;%d;)%s))\n", table.Nr, limits(table.Min, table.Max))
 		done = true
 	}
-	for _, global := range ctx.m.External.Globals {
+	for i := uint32(0); i < ctx.m.ExternalGlobals; i++ {
+		global := ctx.m.Globals[i]
 		ctx.writeId("import", global.Identifier)
 		fmt.Fprintf(ctx.w, " (global (;%d;)%s))\n", global.Nr, mutable(global))
 		done = true
@@ -151,7 +155,7 @@ func (ctx *WatWriter) sectionImport() bool {
 }
 
 func (ctx *WatWriter) sectionMemory() bool {
-	memories := ctx.m.Internal.Memories[len(ctx.m.External.Memories):]
+	memories := ctx.m.Memories[ctx.m.ExternalMemories:]
 	for _, memory := range memories {
 		fmt.Fprintf(ctx.w, "%v(memory (;%d;)%s))\n", ctx.tab, memory.Nr, limits(memory.Min, memory.Max))
 	}
@@ -167,7 +171,7 @@ func (ctx *WatWriter) sectionStart() bool {
 }
 
 func (ctx *WatWriter) sectionTable() bool {
-	tables := ctx.m.Internal.Tables[len(ctx.m.External.Tables):]
+	tables := ctx.m.Tables[ctx.m.ExternalTables:]
 	for _, table := range tables {
 		fmt.Fprintf(ctx.w, "%v(table (;%d;)%s))\n", ctx.tab, table.Nr, limits(table.Min, table.Max))
 	}
@@ -207,17 +211,17 @@ func (ctx *WatWriter) writeExpr(expr []wasm.Instruction) {
 
 func (ctx *WatWriter) writeId(what string, identifier wasm.Identifier) {
 	fmt.Fprintf(ctx.w, "%v(%s", ctx.tab, what)
-	if identifier.Module != "" {
-		fmt.Fprintf(ctx.w, " \"%s\"", identifier.Module)
+	if identifier.ModuleName != "" {
+		fmt.Fprintf(ctx.w, " \"%s\"", identifier.ModuleName)
 	}
-	if identifier.Name != "" {
-		fmt.Fprintf(ctx.w, " \"%s\"", identifier.Name)
+	if identifier.ImportName != "" {
+		fmt.Fprintf(ctx.w, " \"%s\"", identifier.ImportName)
 	}
 }
 
 func (ctx *WatWriter) writeFunctions(code bool) bool {
-	imports := len(ctx.m.External.Functions)
-	functions := ctx.m.Internal.Functions[imports:]
+	imports := ctx.m.ExternalFunctions
+	functions := ctx.m.Functions[imports:]
 	for _, function := range functions {
 		ctx.writeId("func", function.Identifier)
 		fmt.Fprintf(ctx.w, " (;%d;)%s", function.Nr, ctx.funcTypeUse(function.Type, code))

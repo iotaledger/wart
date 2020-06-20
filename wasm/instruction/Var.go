@@ -33,7 +33,7 @@ func (o *Var) Analyze(a *context.Analyzer) {
 }
 
 func (o *Var) analyzeLocalGet(a *context.Analyzer) {
-	if /* o.Index < 0 || */ o.Index >= a.Module.Internal.Functions[a.FuncNr].MaxLocalIndex() {
+	if /* o.Index < 0 || */ o.Index >= a.Module.Functions[a.FuncNr].MaxLocalIndex() {
 		a.Error = o.fail("Invalid local index")
 		return
 	}
@@ -42,7 +42,7 @@ func (o *Var) analyzeLocalGet(a *context.Analyzer) {
 }
 
 func (o *Var) analyzeLocalSetAndTee(a *context.Analyzer) {
-	if /* o.Index < 0 || */ o.Index >= a.Module.Internal.Functions[a.FuncNr].MaxLocalIndex() {
+	if /* o.Index < 0 || */ o.Index >= a.Module.Functions[a.FuncNr].MaxLocalIndex() {
 		a.Error = o.fail("Invalid local index")
 		return
 	}
@@ -66,7 +66,7 @@ func (o *Var) analyzeGlobalGet(a *context.Analyzer) {
 		a.Error = o.fail("Invalid global index")
 		return
 	}
-	o.vt = a.Module.Internal.Globals[o.Index].Type
+	o.vt = a.Module.Globals[o.Index].Type
 	a.Push(o.vt)
 }
 
@@ -75,11 +75,11 @@ func (o *Var) analyzeGlobalSet(a *context.Analyzer) {
 		a.Error = o.fail("Invalid global index")
 		return
 	}
-	if !a.Module.Internal.Globals[o.Index].Mutable {
+	if !a.Module.Globals[o.Index].Mutable {
 		a.Error = o.fail("Global is immutable")
 		return
 	}
-	o.vt = a.Module.Internal.Globals[o.Index].Type
+	o.vt = a.Module.Globals[o.Index].Type
 	top := a.PopExpected(o.vt)
 	if a.Error != nil {
 		return
@@ -144,10 +144,10 @@ func (o *Var) setRunGlobalGet() {
 	idx := o.Index
 	switch o.vt {
 	//@formatter:off
-	case value.I32: o.run = func(vm *Runner) { vm.Frame[sp].I32 = vm.Globals[idx].I32 }
-	case value.I64: o.run = func(vm *Runner) { vm.Frame[sp].I64 = vm.Globals[idx].I64 }
-	case value.F32: o.run = func(vm *Runner) { vm.Frame[sp].F32 = vm.Globals[idx].F32 }
-	case value.F64: o.run = func(vm *Runner) { vm.Frame[sp].F64 = vm.Globals[idx].F64 }
+	case value.I32: o.run = func(vm *Runner) { vm.Frame[sp].I32 = vm.Module.GlobalVars[idx].I32 }
+	case value.I64: o.run = func(vm *Runner) { vm.Frame[sp].I64 = vm.Module.GlobalVars[idx].I64 }
+	case value.F32: o.run = func(vm *Runner) { vm.Frame[sp].F32 = vm.Module.GlobalVars[idx].F32 }
+	case value.F64: o.run = func(vm *Runner) { vm.Frame[sp].F64 = vm.Module.GlobalVars[idx].F64 }
 	//@formatter:on
 	default:
 		panic(fmt.Sprintf("Invalid value type: 0x%02x", byte(o.vt)))
@@ -159,10 +159,10 @@ func (o *Var) setRunGlobalSet() {
 	idx := o.Index
 	switch o.vt {
 	//@formatter:off
-	case value.I32: o.run = func(vm *Runner) { vm.Globals[idx].I32 = vm.Frame[sp].I32 }
-	case value.I64: o.run = func(vm *Runner) { vm.Globals[idx].I64 = vm.Frame[sp].I64 }
-	case value.F32: o.run = func(vm *Runner) { vm.Globals[idx].F32 = vm.Frame[sp].F32 }
-	case value.F64: o.run = func(vm *Runner) { vm.Globals[idx].F64 = vm.Frame[sp].F64 }
+	case value.I32: o.run = func(vm *Runner) { vm.Module.GlobalVars[idx].I32 = vm.Frame[sp].I32 }
+	case value.I64: o.run = func(vm *Runner) { vm.Module.GlobalVars[idx].I64 = vm.Frame[sp].I64 }
+	case value.F32: o.run = func(vm *Runner) { vm.Module.GlobalVars[idx].F32 = vm.Frame[sp].F32 }
+	case value.F64: o.run = func(vm *Runner) { vm.Module.GlobalVars[idx].F64 = vm.Frame[sp].F64 }
 	//@formatter:on
 	default:
 		panic(fmt.Sprintf("Invalid value type: 0x%02x", byte(o.vt)))

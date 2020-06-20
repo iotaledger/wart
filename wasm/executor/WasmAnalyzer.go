@@ -49,8 +49,8 @@ func (ctx *WasmAnalyzer) Analyze() error {
 }
 
 func (ctx *WasmAnalyzer) analyzeCode() {
-	for nr := len(ctx.m.External.Functions); nr < len(ctx.m.Internal.Functions); nr++ {
-		function := ctx.m.Internal.Functions[nr]
+	for nr := ctx.m.ExternalFunctions; nr < ctx.m.MaxFunctions(); nr++ {
+		function := ctx.m.Functions[nr]
 		ctx.analyzeCodeFunction(function)
 		if ctx.a.Error != nil {
 			if allFunctions {
@@ -127,7 +127,7 @@ func (ctx *WasmAnalyzer) analyzeExports() {
 			return
 		}
 		export.Nr = uint32(nr)
-		if export.Name == "" {
+		if export.ImportName == "" {
 			warn("Missing export name")
 		}
 		switch export.Type {
@@ -159,13 +159,14 @@ func (ctx *WasmAnalyzer) analyzeExports() {
 }
 
 func (ctx *WasmAnalyzer) analyzeFunctions() {
-	for nr := len(ctx.m.External.Functions); nr < len(ctx.m.Internal.Functions); nr++ {
-		function := ctx.m.Internal.Functions[nr]
-		if function.Nr != 0 && function.Nr != uint32(nr) {
+	for nr := ctx.m.ExternalFunctions; nr < ctx.m.MaxFunctions(); nr++ {
+		function := ctx.m.Functions[nr]
+		if function.Nr != 0 && function.Nr != nr {
 			ctx.a.Fail("Invalid function numbering")
 			return
 		}
-		function.Nr = uint32(nr)
+		function.Nr = nr
+		function.Module = ctx.m
 		if function.Type == nil {
 			ctx.a.Fail("Missing function type")
 			return
@@ -182,13 +183,13 @@ func (ctx *WasmAnalyzer) analyzeFunctions() {
 }
 
 func (ctx *WasmAnalyzer) analyzeGlobals() {
-	for nr := len(ctx.m.External.Globals); nr < len(ctx.m.Internal.Globals); nr++ {
-		global := ctx.m.Internal.Globals[nr]
-		if global.Nr != 0 && global.Nr != uint32(nr) {
+	for nr := ctx.m.ExternalGlobals; nr < ctx.m.MaxGlobals(); nr++ {
+		global := ctx.m.Globals[nr]
+		if global.Nr != 0 && global.Nr != nr {
 			ctx.a.Fail("Invalid global numbering")
 			return
 		}
-		global.Nr = uint32(nr)
+		global.Nr = nr
 		ctx.a.Error = global.Type.Check()
 		if ctx.a.Error != nil {
 			return
@@ -202,30 +203,27 @@ func (ctx *WasmAnalyzer) analyzeGlobals() {
 	}
 }
 
-func (ctx *WasmAnalyzer) analyzeImportIdentifier(id *wasm.Identifier, nr int, what string) {
-	if id.Nr != 0 && id.Nr != uint32(nr) {
+func (ctx *WasmAnalyzer) analyzeImportIdentifier(id *wasm.Identifier, nr uint32, what string) {
+	if id.Nr != 0 && id.Nr != nr {
 		ctx.a.Fail("Invalid import %s numbering", what)
 		return
 	}
-	id.Nr = uint32(nr)
-	if id.Module == "" {
+	id.Nr = nr
+	if id.ModuleName == "" {
 		ctx.a.Fail("Missing import %s module", what)
 		return
 	}
-	if id.Name == "" {
+	if id.ImportName == "" {
 		ctx.a.Fail("Missing import %s name", what)
 		return
 	}
 }
 
 func (ctx *WasmAnalyzer) analyzeImports() {
-	for nr, function := range ctx.m.External.Functions {
+	for nr := uint32(0); nr < ctx.m.ExternalFunctions; nr++ {
+		function := ctx.m.Functions[nr]
 		ctx.analyzeImportIdentifier(&function.Identifier, nr, "function")
 		if ctx.a.Error != nil {
-			return
-		}
-		if uint32(nr) >= ctx.m.MaxFunctions() || function != ctx.m.Internal.Functions[nr] {
-			ctx.a.Fail("Import function missing from internals")
 			return
 		}
 		if function.Type == nil {
@@ -242,13 +240,37 @@ func (ctx *WasmAnalyzer) analyzeImports() {
 		}
 	}
 
-	for nr, table := range ctx.m.External.Tables {
-		ctx.analyzeImportIdentifier(&table.Identifier, nr, "table")
+	for nr := uint32(0); nr < ctx.m.ExternalGlobals; nr++ {
+		global := ctx.m.Globals[nr]
+		ctx.analyzeImportIdentifier(&global.Identifier, nr, "global")
 		if ctx.a.Error != nil {
 			return
 		}
-		if uint32(nr) >= ctx.m.MaxTables() || table != ctx.m.Internal.Tables[nr] {
-			ctx.a.Fail("Import table missing from internals")
+		ctx.a.Error = global.Type.Check()
+		if ctx.a.Error != nil {
+			return
+		}
+		if len(global.Init) != 0 {
+			warn("Initializer expression found for global import")
+		}
+	}
+
+	for nr := uint32(0); nr < ctx.m.ExternalMemories; nr++ {
+		memory := ctx.m.Memories[nr]
+		ctx.analyzeImportIdentifier(&memory.Identifier, nr, "memory")
+		if ctx.a.Error != nil {
+			return
+		}
+		if invalidMinMax(memory.Min, memory.Max) {
+			ctx.a.Fail("Invalid import memory limits")
+			return
+		}
+	}
+
+	for nr := uint32(0); nr < ctx.m.ExternalTables; nr++ {
+		table := ctx.m.Tables[nr]
+		ctx.analyzeImportIdentifier(&table.Identifier, nr, "table")
+		if ctx.a.Error != nil {
 			return
 		}
 		if table.ElemType != 0x70 {
@@ -258,39 +280,6 @@ func (ctx *WasmAnalyzer) analyzeImports() {
 		if invalidMinMax(table.Min, table.Max) {
 			ctx.a.Fail("Invalid import table limits")
 			return
-		}
-	}
-
-	for nr, memory := range ctx.m.External.Memories {
-		ctx.analyzeImportIdentifier(&memory.Identifier, nr, "memory")
-		if ctx.a.Error != nil {
-			return
-		}
-		if uint32(nr) >= ctx.m.MaxMemories() || memory != ctx.m.Internal.Memories[nr] {
-			ctx.a.Fail("Import memory missing from internals")
-			return
-		}
-		if invalidMinMax(memory.Min, memory.Max) {
-			ctx.a.Fail("Invalid import memory limits")
-			return
-		}
-	}
-
-	for nr, global := range ctx.m.External.Globals {
-		ctx.analyzeImportIdentifier(&global.Identifier, nr, "global")
-		if ctx.a.Error != nil {
-			return
-		}
-		if uint32(nr) >= ctx.m.MaxGlobals() || global != ctx.m.Internal.Globals[nr] {
-			ctx.a.Fail("Import global missing from internals")
-			return
-		}
-		ctx.a.Error = global.Type.Check()
-		if ctx.a.Error != nil {
-			return
-		}
-		if len(global.Init) != 0 {
-			warn("Initializer expression found for import global")
 		}
 	}
 }
@@ -312,12 +301,16 @@ func (ctx *WasmAnalyzer) analyzeInitializerExpression(expr []wasm.Instruction, v
 			return
 		}
 	case op.GLOBAL_GET:
-		global := expr[0].(*instruction.Var)
-		if /*global.Index < 0 || */ global.Index >= uint32(len(ctx.m.External.Globals)) {
-			ctx.a.Fail("Expression global_get is not an import")
+		getInstr := expr[0].(*instruction.Var)
+		if /*getInstr.Index < 0 || */ getInstr.Index >= ctx.m.ExternalGlobals {
+			ctx.a.Fail("invalid global index")
 			return
 		}
-		if ctx.m.External.Globals[global.Index].Type != vt {
+		if getInstr.Index >= ctx.m.ExternalGlobals {
+			ctx.a.Fail("global must be import")
+			return
+		}
+		if ctx.m.Globals[getInstr.Index].Type != vt {
 			ctx.a.Fail("type mismatch")
 			return
 		}
@@ -336,13 +329,13 @@ func (ctx *WasmAnalyzer) analyzeInitializerExpression(expr []wasm.Instruction, v
 }
 
 func (ctx *WasmAnalyzer) analyzeMemories() {
-	for nr := len(ctx.m.External.Memories); nr < len(ctx.m.Internal.Memories); nr++ {
-		memory := ctx.m.Internal.Memories[nr]
-		if memory.Nr != 0 && memory.Nr != uint32(nr) {
+	for nr := ctx.m.ExternalMemories; nr < ctx.m.MaxMemories(); nr++ {
+		memory := ctx.m.Memories[nr]
+		if memory.Nr != 0 && memory.Nr != nr {
 			ctx.a.Fail("Invalid memory numbering")
 			return
 		}
-		memory.Nr = uint32(nr)
+		memory.Nr = nr
 		if invalidMinMax(memory.Min, memory.Max) {
 			ctx.a.Fail("Invalid memory limits")
 			return
@@ -356,7 +349,7 @@ func (ctx *WasmAnalyzer) analyzeStart() {
 			ctx.a.Fail("Invalid start function index")
 			return
 		}
-		funcType := ctx.m.Internal.Functions[ctx.m.Start].Type
+		funcType := ctx.m.Functions[ctx.m.Start].Type
 		if len(funcType.ParamTypes) != 0 || len(funcType.ResultTypes) != 0 {
 			ctx.a.Fail("Invalid start function type signature")
 			return
@@ -366,7 +359,7 @@ func (ctx *WasmAnalyzer) analyzeStart() {
 
 func (ctx *WasmAnalyzer) analyzeTables() {
 	for nr := uint32(0); nr < ctx.m.MaxTables(); nr++ {
-		table := ctx.m.Internal.Tables[nr]
+		table := ctx.m.Tables[nr]
 		if table.Nr != 0 && table.Nr != nr {
 			ctx.a.Fail("Invalid table numbering")
 			return
@@ -384,13 +377,13 @@ func (ctx *WasmAnalyzer) analyzeTables() {
 }
 
 func (ctx *WasmAnalyzer) analyzeTypes() {
-	for nr, funcType := range ctx.m.FuncTypes {
-		if funcType.Nr != 0 && funcType.Nr != uint32(nr) {
+	for nr := uint32(0); nr < ctx.m.MaxFuncTypes(); nr++ {
+		funcType := ctx.m.FuncTypes[nr]
+		if funcType.Nr != 0 && funcType.Nr != nr {
 			ctx.a.Fail("Invalid function type numbering")
 			return
 		}
-		funcType.Nr = uint32(nr)
-
+		funcType.Nr = nr
 		ctx.a.Error = funcType.CheckTypes()
 		if ctx.a.Error != nil {
 			return

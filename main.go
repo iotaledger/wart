@@ -47,9 +47,14 @@ func readerTest(path string) {
 	r := executor.NewWasmReader(m, data)
 	err = r.Read()
 	if err != nil {
-		fmt.Printf("Error: %v\n", err)
+		// no need to report errors on the spec test suite because
+		// specTest() will do more thorough testing of any error messages
+		if !strings.Contains(path, "\\input\\spec\\") {
+			fmt.Printf("Error: %v\n", err)
+		}
 		return
 	}
+
 	out, err := os.Create(outPath)
 	if err != nil {
 		panic(err)
@@ -72,6 +77,12 @@ func readerTest(path string) {
 			fmt.Printf("  Warning: Data mismatch: offset %d, in=0x%02x, out=0x%02x\n", i, b, newData[i])
 			return
 		}
+	}
+
+	// no need to do further analysis on the spec test suite because
+	// specTest() will do more thorough testing of any error messages
+	if strings.Contains(path, "\\input\\spec\\") {
+		return
 	}
 
 	a := executor.NewWasmAnalyzer(m)

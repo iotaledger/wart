@@ -1,7 +1,7 @@
 package wasm
 
 type Identifier struct {
-	Module string
-	Name   string
-	Nr     uint32
+	ImportName string
+	ModuleName string
+	Nr         uint32
 }

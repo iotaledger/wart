@@ -5,6 +5,7 @@ type Function struct {
 	Body      []Instruction
 	FrameSize uint32
 	Locals    []*Local
+	Module    *Module
 	Type      *FuncType
 }
 

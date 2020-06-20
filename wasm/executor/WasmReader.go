@@ -28,12 +28,12 @@ func NewWasmReader(m *wasm.Module, data []byte) *WasmReader {
 }
 
 func (ctx *WasmReader) entryCode(nr uint32) {
-	nr += uint32(len(ctx.m.External.Functions))
+	nr += ctx.m.ExternalFunctions
 	if nr >= ctx.m.MaxFunctions() {
 		ctx.r.Error = utils.Error("function and code section have inconsistent lengths")
 		return
 	}
-	function := ctx.m.Internal.Functions[nr]
+	function := ctx.m.Functions[nr]
 	if function.Nr != nr {
 		panic("Unexpected function")
 	}
@@ -130,7 +130,7 @@ func (ctx *WasmReader) entryElement() {
 
 func (ctx *WasmReader) entryExport() {
 	export := wasm.NewExport()
-	export.Name = ctx.r.GetString()
+	export.ImportName = ctx.r.GetString()
 	if ctx.r.Error != nil {
 		return
 	}
@@ -179,7 +179,7 @@ func (ctx *WasmReader) entryFunction() {
 		return
 	}
 	function.Nr = ctx.m.MaxFunctions()
-	ctx.m.Internal.Functions = append(ctx.m.Internal.Functions, function)
+	ctx.m.Functions = append(ctx.m.Functions, function)
 }
 
 func (ctx *WasmReader) entryGlobal() {
@@ -193,7 +193,7 @@ func (ctx *WasmReader) entryGlobal() {
 		return
 	}
 	global.Nr = ctx.m.MaxGlobals()
-	ctx.m.Internal.Globals = append(ctx.m.Internal.Globals, global)
+	ctx.m.Globals = append(ctx.m.Globals, global)
 }
 
 func (ctx *WasmReader) entryImport() {
@@ -212,30 +212,30 @@ func (ctx *WasmReader) entryImport() {
 	switch desc.Type(descId) {
 	case desc.FUNC:
 		function := wasm.NewFunction()
-		function.Module = module
-		function.Name = name
+		function.ModuleName = module
+		function.ImportName = name
 		ctx.readFunction(function)
 		if ctx.r.Error != nil {
 			return
 		}
 		function.Nr = ctx.m.MaxFunctions()
-		ctx.m.Internal.Functions = append(ctx.m.Internal.Functions, function)
-		ctx.m.External.Functions = append(ctx.m.External.Functions, function)
+		ctx.m.Functions = append(ctx.m.Functions, function)
+		ctx.m.ExternalFunctions = uint32(len(ctx.m.Functions))
 	case desc.GLOBAL:
 		global := wasm.NewGlobal()
-		global.Module = module
-		global.Name = name
+		global.ModuleName = module
+		global.ImportName = name
 		ctx.readGlobal(global)
 		if ctx.r.Error != nil {
 			return
 		}
 		global.Nr = ctx.m.MaxGlobals()
-		ctx.m.Internal.Globals = append(ctx.m.Internal.Globals, global)
-		ctx.m.External.Globals = append(ctx.m.External.Globals, global)
+		ctx.m.Globals = append(ctx.m.Globals, global)
+		ctx.m.ExternalGlobals = uint32(len(ctx.m.Globals))
 	case desc.MEM:
 		memory := wasm.NewMemory()
-		memory.Module = module
-		memory.Name = name
+		memory.ModuleName = module
+		memory.ImportName = name
 		ctx.r.GetLimits()
 		if ctx.r.Error != nil {
 			return
@@ -243,19 +243,19 @@ func (ctx *WasmReader) entryImport() {
 		memory.Min = ctx.r.Min
 		memory.Max = ctx.r.Max
 		memory.Nr = ctx.m.MaxMemories()
-		ctx.m.Internal.Memories = append(ctx.m.Internal.Memories, memory)
-		ctx.m.External.Memories = append(ctx.m.External.Memories, memory)
+		ctx.m.Memories = append(ctx.m.Memories, memory)
+		ctx.m.ExternalMemories = uint32(len(ctx.m.Memories))
 	case desc.TABLE:
 		table := wasm.NewTable()
-		table.Module = module
-		table.Name = name
+		table.ModuleName = module
+		table.ImportName = name
 		ctx.readTable(table)
 		if ctx.r.Error != nil {
 			return
 		}
 		table.Nr = ctx.m.MaxTables()
-		ctx.m.Internal.Tables = append(ctx.m.Internal.Tables, table)
-		ctx.m.External.Tables = append(ctx.m.External.Tables, table)
+		ctx.m.Tables = append(ctx.m.Tables, table)
+		ctx.m.ExternalTables = uint32(len(ctx.m.Tables))
 	default:
 		ctx.r.Error = utils.Error("Invalid import descriptor: 0x%02x", descId)
 	}
@@ -270,7 +270,7 @@ func (ctx *WasmReader) entryMemory() {
 	memory.Min = ctx.r.Min
 	memory.Max = ctx.r.Max
 	memory.Nr = ctx.m.MaxMemories()
-	ctx.m.Internal.Memories = append(ctx.m.Internal.Memories, memory)
+	ctx.m.Memories = append(ctx.m.Memories, memory)
 }
 
 func (ctx *WasmReader) entryTable() {
@@ -280,7 +280,7 @@ func (ctx *WasmReader) entryTable() {
 		return
 	}
 	table.Nr = ctx.m.MaxTables()
-	ctx.m.Internal.Tables = append(ctx.m.Internal.Tables, table)
+	ctx.m.Tables = append(ctx.m.Tables, table)
 }
 
 func (ctx *WasmReader) entryType() {
@@ -422,7 +422,7 @@ func (ctx *WasmReader) readSections() {
 func (ctx *WasmReader) readSectionCustom() {
 	custom := wasm.NewCustom()
 	custom.SectionId = ctx.prevSecId
-	custom.Name = ctx.r.GetString()
+	custom.ImportName = ctx.r.GetString()
 	if ctx.r.Error != nil {
 		return
 	}
@@ -431,11 +431,11 @@ func (ctx *WasmReader) readSectionCustom() {
 		return
 	}
 	if ctx.m.Debug {
-		fmt.Printf("Custom %s: %d bytes\n", custom.Name, len(custom.Data))
+		fmt.Printf("Custom %s: %d bytes\n", custom.ImportName, len(custom.Data))
 	}
 	custom.Nr = uint32(len(ctx.m.Customs))
 	ctx.m.Customs = append(ctx.m.Customs, custom)
-	if custom.Name == "name" {
+	if custom.ImportName == "name" {
 		rSave := ctx.r
 		ctx.r = context.NewReader(ctx.m, custom.Data)
 		ctx.readSectionCustomName()
@@ -493,8 +493,8 @@ func (ctx *WasmReader) readSectionCustomNameFunction() {
 			return
 		}
 		next = index + 1
-		function := ctx.m.Internal.Functions[index]
-		function.Name = ctx.r.GetString()
+		function := ctx.m.Functions[index]
+		function.ImportName = ctx.r.GetString()
 		if ctx.r.Error != nil {
 			return
 		}
@@ -517,7 +517,7 @@ func (ctx *WasmReader) readSectionCustomNameLocal() {
 			return
 		}
 		funNext = index + 1
-		function := ctx.m.Internal.Functions[index]
+		function := ctx.m.Functions[index]
 		locCount := ctx.r.GetU32()
 		if ctx.r.Error != nil {
 			return
@@ -534,7 +534,7 @@ func (ctx *WasmReader) readSectionCustomNameLocal() {
 			}
 			locNext = index + 1
 			local := function.Locals[index]
-			local.Name = ctx.r.GetString()
+			local.ImportName = ctx.r.GetString()
 			if ctx.r.Error != nil {
 				return
 			}
@@ -543,7 +543,7 @@ func (ctx *WasmReader) readSectionCustomNameLocal() {
 }
 
 func (ctx *WasmReader) readSectionCustomNameModule() {
-	ctx.m.Name = ctx.r.GetString()
+	ctx.m.ImportName = ctx.r.GetString()
 }
 
 func (ctx *WasmReader) readSectionOther(secId byte) {

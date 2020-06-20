@@ -108,13 +108,13 @@ func (tst *WasmTester) createSpecTestModule() {
 	//  (import "spectest" "table" (table 10 funcref))
 
 	tst.m = wasm.NewModule()
-	tst.m.Name = "spectest"
+	tst.m.ImportName = "spectest"
 
 	tst.m.Start = value.UNDEFINED
 	tst.m.Exports = make([]*wasm.Export, 12)
 
 	tst.m.FuncTypes = make([]*wasm.FuncType, 6)
-	tst.m.Internal.Functions = make([]*wasm.Function, 6)
+	tst.m.Functions = make([]*wasm.Function, 6)
 	for i := 0; i < 6; i++ {
 		funcType := wasm.NewFuncType()
 		funcType.ParamTypes = params[i]
@@ -122,15 +122,15 @@ func (tst *WasmTester) createSpecTestModule() {
 		function := wasm.NewFunction()
 		function.Type = funcType
 		function.Body = []wasm.Instruction{instruction.CreateInstruction(op.END)}
-		tst.m.Internal.Functions[i] = function
+		tst.m.Functions[i] = function
 		export := wasm.NewExport()
 		export.Index = uint32(i)
 		export.Type = desc.FUNC
-		export.Name = exports[i]
+		export.ImportName = exports[i]
 		tst.m.Exports[i] = export
 	}
 
-	tst.m.Internal.Globals = make([]*wasm.Global, 4)
+	tst.m.Globals = make([]*wasm.Global, 4)
 	for i := 0; i < 4; i++ {
 		global := wasm.NewGlobal()
 		global.Type = params[i][0]
@@ -138,35 +138,35 @@ func (tst *WasmTester) createSpecTestModule() {
 		global.Init[0] = instruction.CreateInstruction(globals[i])
 		global.Init[1] = instruction.CreateInstruction(op.END)
 		global.Init[0].(*instruction.Const).Value.I32 = 666
-		tst.m.Internal.Globals[i] = global
+		tst.m.Globals[i] = global
 		export := wasm.NewExport()
 		export.Index = uint32(i)
 		export.Type = desc.GLOBAL
-		export.Name = exports[i+6]
+		export.ImportName = exports[i+6]
 		tst.m.Exports[i+6] = export
 	}
 
-	tst.m.Internal.Memories = make([]*wasm.Memory, 1)
+	tst.m.Memories = make([]*wasm.Memory, 1)
 	memory := wasm.NewMemory()
 	memory.Min = 1
 	memory.Max = 2
-	tst.m.Internal.Memories[0] = memory
+	tst.m.Memories[0] = memory
 	export := wasm.NewExport()
 	export.Index = 0
 	export.Type = desc.MEM
-	export.Name = "memory"
+	export.ImportName = "memory"
 	tst.m.Exports[10] = export
 
-	tst.m.Internal.Tables = make([]*wasm.Table, 1)
+	tst.m.Tables = make([]*wasm.Table, 1)
 	table := wasm.NewTable()
 	table.ElemType = 0x70
 	table.Min = 10
 	table.Max = 20
-	tst.m.Internal.Tables[0] = table
+	tst.m.Tables[0] = table
 	export = wasm.NewExport()
 	export.Index = 0
 	export.Type = desc.TABLE
-	export.Name = "table"
+	export.ImportName = "table"
 	tst.m.Exports[11] = export
 
 	a := NewWasmAnalyzer(tst.m)
@@ -361,41 +361,20 @@ func (tst *WasmTester) specAssertMalformed(cmd *spec.SpecCommand) {
 	tst.nrOfTests++
 	tst.m = wasm.NewModule()
 	reader := NewWasmReader(tst.m, data)
-	err = reader.Read()
-	if err != nil {
-		if err.Error() != cmd.Text {
-			// the error was unexpected
-			tst.nrFailed++
-			expected := "no error"
-			if cmd.Text != "" {
-				expected = "'" + cmd.Text + "'"
-			}
-			tst.fail("Unexpected error: '%s', expected %s", err, expected)
-		}
-		return
-	}
-
-	if cmd.Text != "" {
-		// an error was expected
-		tst.nrFailed++
-		tst.fail("Expected error: %s", cmd.Text)
-		return
-	}
-
-	tst.fail("No malformed binary found")
+	tst.Error = reader.Read()
+	tst.verifyError(cmd.Text, cmd.Type)
+	tst.m = nil
 }
 
 func (tst *WasmTester) specAssertReturn(cmd *spec.SpecCommand) {
-	if tst.m == nil {
-		return
-	}
-	if tst.vm == nil {
+	if tst.m != nil && tst.vm == nil {
 		err := tst.initVM()
 		if err != nil {
 			fmt.Printf("VM init error: %v\n", err)
 			return
 		}
 	}
+
 	saved := tst.vm
 	if cmd.Action.Module != "" {
 		ctx, ok := Modules[cmd.Action.Module]
@@ -414,8 +393,10 @@ func (tst *WasmTester) specAssertReturn(cmd *spec.SpecCommand) {
 	default:
 		fmt.Printf("Unknown action type: %s\n", cmd.Action.Type)
 	}
-	tst.vm = saved
-	tst.m = saved.Module
+	if saved != nil {
+		tst.vm = saved
+		tst.m = saved.Module
+	}
 }
 
 func (tst *WasmTester) specAssertReturnGet(cmd *spec.SpecCommand) {
@@ -432,15 +413,15 @@ func (tst *WasmTester) specAssertReturnGet(cmd *spec.SpecCommand) {
 	}
 	tst.nrOfTests++
 	for _, export := range tst.m.Exports {
-		if export.Name != cmd.Action.Field {
+		if export.ImportName != cmd.Action.Field {
 			continue
 		}
 		if export.Type != desc.GLOBAL {
-			fmt.Printf("Not a global: %s\n", export.Name)
+			fmt.Printf("Not a global: %s\n", export.ImportName)
 			return
 		}
-		global := tst.m.Internal.Globals[export.Index]
-		got := tst.vm.Globals[export.Index]
+		global := tst.m.Globals[export.Index]
+		got := tst.vm.Module.GlobalVars[export.Index]
 		gotValue := got.Field(global.Type)
 		expValue := out.Field(global.Type)
 		if gotValue != expValue {
@@ -466,32 +447,16 @@ func (tst *WasmTester) specAssertTrap(cmd *spec.SpecCommand) {
 }
 
 func (tst *WasmTester) specAssertUninstantiable(cmd *spec.SpecCommand) {
-	fmt.Println(cmd.Type)
+	tst.specAssertUnlinkable(cmd)
 }
 
 func (tst *WasmTester) specAssertUnlinkable(cmd *spec.SpecCommand) {
 	tst.specModuleLoad(cmd)
 	if tst.Error == nil {
 		tst.Error = tst.initVM()
+		tst.verifyError(cmd.Text, cmd.Type)
 	}
-	if tst.Error != nil {
-		if tst.Error.Error() != cmd.Text {
-			// the error was unexpected
-			tst.nrFailed++
-			expected := "no error"
-			if cmd.Text != "" {
-				expected = "'" + cmd.Text + "'"
-			}
-			fmt.Printf("Unexpected error: '%s', expected %s\n", tst.Error, expected)
-		}
-		return
-	}
-
-	if cmd.Text != "" {
-		// an error was expected
-		tst.nrFailed++
-		fmt.Printf("Expected error: %s\n", cmd.Text)
-	}
+	tst.m = nil
 }
 
 func (tst *WasmTester) specModule(cmd *spec.SpecCommand) {
@@ -519,7 +484,7 @@ func (tst *WasmTester) specModuleLoad(cmd *spec.SpecCommand) {
 	}
 
 	if cmd.Name != "" {
-		tst.m.Name = cmd.Name
+		tst.m.ImportName = cmd.Name
 	}
 }
 
@@ -532,7 +497,7 @@ func (tst *WasmTester) specRegister(cmd *spec.SpecCommand) {
 		}
 	}
 	if cmd.Name == "" {
-		tst.m.Name = cmd.As
+		tst.m.ImportName = cmd.As
 		Modules[cmd.As] = tst.vm
 		return
 	}
@@ -646,8 +611,8 @@ func (tst *WasmTester) testFunction() {
 	fmt.Print(".")
 	tst.function = nil
 	for _, export := range tst.m.Exports {
-		if export.Type == desc.FUNC && export.Name == tst.funcTest.Name {
-			tst.function = tst.m.Internal.Functions[export.Index]
+		if export.Type == desc.FUNC && export.ImportName == tst.funcTest.Name {
+			tst.function = tst.m.Functions[export.Index]
 			break
 		}
 	}
@@ -705,24 +670,12 @@ func (tst *WasmTester) testRun() {
 	}
 
 	tst.nrOfTests++
-	err := instruction.RunBlock(tst.vm, tst.function.Body)
-	if err != nil {
-		if err.Error() != tst.test.Err {
-			// the error was unexpected
-			tst.nrFailed++
-			expected := "no error"
-			if tst.test.Err != "" {
-				expected = "'" + tst.test.Err + "'"
-			}
-			tst.fail("Unexpected error: '%s', expected %s", err, expected)
-		}
-		return
-	}
-
-	if tst.test.Err != "" {
-		// an error was expected
-		tst.nrFailed++
-		tst.fail("Expected error: %v", tst.test.Err)
+	saved := tst.vm.Module
+	tst.vm.Module = tst.function.Module
+	tst.Error = instruction.RunBlock(tst.vm, tst.function.Body)
+	tst.verifyError(tst.test.Err, "")
+	tst.vm.Module = saved
+	if tst.Error != nil || tst.test.Err != "" {
 		return
 	}
 
@@ -739,5 +692,31 @@ func (tst *WasmTester) testRun() {
 			tst.nrFailed++
 			tst.fail("Expected value: %s, got: %s", expValue, gotValue)
 		}
+	}
+}
+
+func (tst *WasmTester) verifyError(errorText string, action string) {
+	if len(errorText) == 0 {
+		if action != "" {
+			tst.nrFailed++
+			fmt.Printf("Missing expected error text for: \n", action)
+		}
+		if tst.Error != nil {
+			tst.nrFailed++
+			fmt.Printf("Unexpected error: '%s', expected no error\n", tst.Error)
+		}
+		return
+	}
+
+	if tst.Error == nil {
+		tst.nrFailed++
+		fmt.Printf("Expected error: %s\n", errorText)
+		return
+	}
+
+	if !strings.HasPrefix(tst.Error.Error(), errorText) {
+		// this particular error was unexpected
+		tst.nrFailed++
+		fmt.Printf("Unexpected error: '%s', expected '%s'\n", tst.Error, errorText)
 	}
 }

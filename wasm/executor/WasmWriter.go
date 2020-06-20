@@ -63,7 +63,7 @@ func putSubWriter(dst *context.Writer, w *context.Writer) {
 }
 
 func (ctx *WasmWriter) sectionCode() {
-	functions := ctx.m.Internal.Functions[len(ctx.m.External.Functions):]
+	functions := ctx.m.Functions[ctx.m.ExternalFunctions:]
 	ctx.putLen(len(functions))
 	sectionWriter := ctx.w
 	for _, function := range functions {
@@ -103,14 +103,14 @@ func (ctx *WasmWriter) sectionElement() {
 func (ctx *WasmWriter) sectionExport() {
 	ctx.putLen(len(ctx.m.Exports))
 	for _, export := range ctx.m.Exports {
-		ctx.w.PutString(export.Name)
+		ctx.w.PutString(export.ImportName)
 		ctx.w.PutByte(byte(export.Type))
 		ctx.w.PutU32(export.Index)
 	}
 }
 
 func (ctx *WasmWriter) sectionFunction() {
-	functions := ctx.m.Internal.Functions[len(ctx.m.External.Functions):]
+	functions := ctx.m.Functions[ctx.m.ExternalFunctions:]
 	ctx.putLen(len(functions))
 	for _, function := range functions {
 		ctx.w.PutU32(function.Type.Nr)
@@ -118,10 +118,7 @@ func (ctx *WasmWriter) sectionFunction() {
 }
 
 func (ctx *WasmWriter) sectionGlobal() {
-	if ctx.m.Debug {
-		fmt.Println()
-	}
-	globals := ctx.m.Internal.Globals[len(ctx.m.External.Globals):]
+	globals := ctx.m.Globals[ctx.m.ExternalGlobals:]
 	ctx.putLen(len(globals))
 	for _, global := range globals {
 		ctx.writeGlobal(global)
@@ -130,40 +127,44 @@ func (ctx *WasmWriter) sectionGlobal() {
 }
 
 func (ctx *WasmWriter) sectionImport() {
-	total := len(ctx.m.External.Functions)
-	total += len(ctx.m.External.Globals)
-	total += len(ctx.m.External.Memories)
-	total += len(ctx.m.External.Tables)
-	ctx.putLen(total)
-	for _, function := range ctx.m.External.Functions {
-		ctx.w.PutString(function.Module)
-		ctx.w.PutString(function.Name)
+	total := ctx.m.ExternalFunctions
+	total += ctx.m.ExternalGlobals
+	total += ctx.m.ExternalMemories
+	total += ctx.m.ExternalTables
+	ctx.putLen(int(total))
+	for i := uint32(0); i < ctx.m.ExternalFunctions; i++ {
+		function := ctx.m.Functions[i]
+		ctx.w.PutString(function.ModuleName)
+		ctx.w.PutString(function.ImportName)
 		ctx.w.PutByte(byte(desc.FUNC))
 		ctx.w.PutU32(function.Type.Nr)
 	}
-	for _, memory := range ctx.m.External.Memories {
-		ctx.w.PutString(memory.Module)
-		ctx.w.PutString(memory.Name)
+	for i := uint32(0); i < ctx.m.ExternalMemories; i++ {
+		memory := ctx.m.Memories[i]
+		ctx.w.PutString(memory.ModuleName)
+		ctx.w.PutString(memory.ImportName)
 		ctx.w.PutByte(byte(desc.MEM))
 		ctx.w.PutLimits(memory.Min, memory.Max)
 	}
-	for _, table := range ctx.m.External.Tables {
-		ctx.w.PutString(table.Module)
-		ctx.w.PutString(table.Name)
+	for i := uint32(0); i < ctx.m.ExternalTables; i++ {
+		table := ctx.m.Tables[i]
+		ctx.w.PutString(table.ModuleName)
+		ctx.w.PutString(table.ImportName)
 		ctx.w.PutByte(byte(desc.TABLE))
 		ctx.w.PutByte(0x70)
 		ctx.w.PutLimits(table.Min, table.Max)
 	}
-	for _, global := range ctx.m.External.Globals {
-		ctx.w.PutString(global.Module)
-		ctx.w.PutString(global.Name)
+	for i := uint32(0); i < ctx.m.ExternalGlobals; i++ {
+		global := ctx.m.Globals[i]
+		ctx.w.PutString(global.ModuleName)
+		ctx.w.PutString(global.ImportName)
 		ctx.w.PutByte(byte(desc.GLOBAL))
 		ctx.writeGlobal(global)
 	}
 }
 
 func (ctx *WasmWriter) sectionMemory() {
-	memories := ctx.m.Internal.Memories[len(ctx.m.External.Memories):]
+	memories := ctx.m.Memories[ctx.m.ExternalMemories:]
 	ctx.putLen(len(memories))
 	for _, memory := range memories {
 		ctx.w.PutLimits(memory.Min, memory.Max)
@@ -177,7 +178,7 @@ func (ctx *WasmWriter) sectionStart() {
 }
 
 func (ctx *WasmWriter) sectionTable() {
-	tables := ctx.m.Internal.Tables[len(ctx.m.External.Tables):]
+	tables := ctx.m.Tables[ctx.m.ExternalTables:]
 	ctx.putLen(len(tables))
 	for _, table := range tables {
 		ctx.w.PutByte(table.ElemType) // this better be 0x70
@@ -246,10 +247,10 @@ func (ctx *WasmWriter) writeSectionCustom(secId byte) {
 	for _, custom := range ctx.m.Customs {
 		if custom.SectionId == secId && len(custom.Data) != 0 {
 			wTmp := context.NewWriter()
-			wTmp.PutString(custom.Name)
+			wTmp.PutString(custom.ImportName)
 			wTmp.PutBytes(custom.Data)
 			if ctx.m.Debug {
-				fmt.Printf("Custom %s: %d bytes\n", custom.Name, len(custom.Data))
+				fmt.Printf("Custom %s: %d bytes\n", custom.ImportName, len(custom.Data))
 			}
 			ctx.w.PutByte(sec.CUSTOM)
 			putSubWriter(ctx.w, wTmp)
