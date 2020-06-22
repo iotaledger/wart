@@ -130,6 +130,15 @@ func (tst *WasmTester) createSpecTestModule() {
 		tst.m.Exports[i] = export
 	}
 
+	//@formatter:off
+	tst.m.Functions[0].HostCall = func(f *wasm.Function,frame []wasm.Variable,sp int) error { fmt.Printf("==>> %s: %d\n",    exports[0], frame[sp].I32                 ); return nil }
+	tst.m.Functions[1].HostCall = func(f *wasm.Function,frame []wasm.Variable,sp int) error { fmt.Printf("==>> %s: %d\n",    exports[1], frame[sp].I64                 ); return nil }
+	tst.m.Functions[2].HostCall = func(f *wasm.Function,frame []wasm.Variable,sp int) error { fmt.Printf("==>> %s: %f\n",    exports[2], frame[sp].F32                 ); return nil }
+	tst.m.Functions[3].HostCall = func(f *wasm.Function,frame []wasm.Variable,sp int) error { fmt.Printf("==>> %s: %f\n",    exports[3], frame[sp].F64                 ); return nil }
+	tst.m.Functions[4].HostCall = func(f *wasm.Function,frame []wasm.Variable,sp int) error { fmt.Printf("==>> %s: %d %f\n", exports[4], frame[sp].I32, frame[sp+1].F32); return nil }
+	tst.m.Functions[5].HostCall = func(f *wasm.Function,frame []wasm.Variable,sp int) error { fmt.Printf("==>> %s: %f %f\n", exports[5], frame[sp].F64, frame[sp+1].F64); return nil }
+	//@formatter:on
+
 	tst.m.Globals = make([]*wasm.Global, 4)
 	for i := 0; i < 4; i++ {
 		global := wasm.NewGlobal()

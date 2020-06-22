@@ -112,6 +112,11 @@ func (o *Call) runCall(vm *Runner) {
 }
 
 func (o *Call) runCallDirect(vm *Runner, f *wasm.Function) {
+	if f.HostCall != nil {
+		vm.Error = f.HostCall(f, vm.Frame, o.SP)
+		return
+	}
+
 	if vm.CallDepth == 1000 {
 		vm.CallDepth = 0
 		vm.Error = StackOverflow
