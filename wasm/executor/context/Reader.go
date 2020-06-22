@@ -1,16 +1,16 @@
 package context
 
 import (
-	"errors"
 	"github.com/iotaledger/wart/utils"
 	"github.com/iotaledger/wart/wasm/consts/value"
 	"github.com/iotaledger/wart/wasm/wasm"
 	"math"
-	"strconv"
+	"unicode/utf8"
 )
 
 type Reader struct {
 	data   []byte
+	Flag   byte
 	Error  error
 	Max    uint32
 	Min    uint32
@@ -26,7 +26,7 @@ func NewReader(m *wasm.Module, data []byte) *Reader {
 
 func (r *Reader) GetByte() byte {
 	if len(r.data) < r.pos+1 {
-		r.Error = utils.Error("unexpected end")
+		r.Error = utils.Error("unexpected end of section or function")
 		return 0
 	}
 	r.pos++
@@ -36,7 +36,7 @@ func (r *Reader) GetByte() byte {
 func (r *Reader) GetBytes(count uint32) []byte {
 	n := int(count)
 	if n < 0 || len(r.data) < r.pos+n {
-		r.Error = utils.Error("unexpected end")
+		r.Error = utils.Error("unexpected end of section or function: length out of bounds")
 		return nil
 	}
 	r.pos += n
@@ -74,7 +74,15 @@ func (r *Reader) GetF64() float64 {
 }
 
 func (r *Reader) GetI32() int32 {
-	return int32(r.leb128DecodeI64(32))
+	//return int32(r.leb128DecodeI64(32))
+	i64 := r.leb128DecodeI64(32)
+	val := int32(i64)
+	top := int32(i64 >> 32)
+	if (val < 0 && top != -1) || (val >= 0 && top != 0) {
+		r.Error = utils.Error("integer too large")
+		return 0
+	}
+	return val
 }
 
 func (r *Reader) GetI64() int64 {
@@ -82,11 +90,11 @@ func (r *Reader) GetI64() int64 {
 }
 
 func (r *Reader) GetLimits() {
-	flag := r.GetByte()
+	r.Flag = r.GetByte()
 	if r.Error != nil {
 		return
 	}
-	if /* flag < 0x00 || */ flag > 0x01 {
+	if /* r.Flag < 0x00 || */ r.Flag > 0x01 {
 		r.Error = utils.Error("Expected limits flag 0x00 or 0x01")
 		return
 	}
@@ -95,7 +103,7 @@ func (r *Reader) GetLimits() {
 		return
 	}
 	r.Max = value.UNDEFINED
-	if flag == 0x01 {
+	if r.Flag == 0x01 {
 		r.Max = r.GetU32()
 	}
 }
@@ -109,11 +117,21 @@ func (r *Reader) GetString() string {
 	if r.Error != nil {
 		return ""
 	}
+	if !utf8.Valid(strData) {
+		r.Error = utils.Error("malformed UTF-8 encoding")
+		return ""
+	}
 	return string(strData)
 }
 
 func (r *Reader) GetU32() uint32 {
-	return uint32(r.leb128DecodeU64(32))
+	//return uint32(r.leb128DecodeU64(32))
+	u64 := r.leb128DecodeU64(32)
+	if u64>>32 != 0 {
+		r.Error = utils.Error("integer too large")
+		return 0
+	}
+	return uint32(u64)
 }
 
 func (r *Reader) GetU64() uint64 {
@@ -160,6 +178,10 @@ func (r *Reader) leb128DecodeI64(limit int) int64 {
 		b := int8(buf)
 		val |= int64(b&0x7f) << s
 		if b >= 0 {
+			if int8(val>>s)&0x7f != b&0x7f {
+				r.Error = utils.Error("integer too large")
+				return 0
+			}
 			// extend int7 sign to int8
 			if (b & 0x40) != 0 {
 				b |= -0x80
@@ -169,7 +191,7 @@ func (r *Reader) leb128DecodeI64(limit int) int64 {
 		}
 		s += 7
 		if s >= limit {
-			r.Error = errors.New("leb128: int exceeds limit: " + strconv.Itoa(limit))
+			r.Error = utils.Error("integer representation too long: %d", limit)
 			return 0
 		}
 	}
@@ -185,12 +207,17 @@ func (r *Reader) leb128DecodeU64(limit int) uint64 {
 		}
 		b := uint64(buf)
 		if (b & 0x80) == 0 {
-			return val | (b << s)
+			val |= b << s
+			if byte(val>>s) != buf {
+				r.Error = utils.Error("integer too large")
+				return 0
+			}
+			return val
 		}
 		val |= (b & 0x7f) << s
 		s += 7
 		if s >= limit {
-			r.Error = errors.New("leb128: uint exceeds limit: " + strconv.Itoa(limit))
+			r.Error = utils.Error("integer representation too long: %d", limit)
 			return 0
 		}
 	}

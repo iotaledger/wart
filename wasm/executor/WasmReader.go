@@ -17,10 +17,12 @@ const MAX_LOCALS = 1060
 // WasmReader is an executor that reads a binary Wasm file and converts
 // it to a wasm.Module.
 type WasmReader struct {
-	m            *wasm.Module
-	r            *context.Reader
-	prevSecId    byte
-	sectionsDone uint32
+	m             *wasm.Module
+	r             *context.Reader
+	prevSecId     byte
+	sectionsDone  uint32
+	functionCount uint32
+	codeCount     uint32
 }
 
 func NewWasmReader(m *wasm.Module, data []byte) *WasmReader {
@@ -119,7 +121,7 @@ func (ctx *WasmReader) entryElement() {
 			return
 		}
 		if /* index < 0 || */ index >= ctx.m.MaxFunctions() {
-			ctx.r.Error = utils.Error("Invalid element function index")
+			ctx.r.Error = utils.Error("unknown function")
 			return
 		}
 		element.FuncIndexes = append(element.FuncIndexes, index)
@@ -146,22 +148,22 @@ func (ctx *WasmReader) entryExport() {
 	switch export.Type {
 	case desc.FUNC:
 		if /* export.Index < 0 || */ export.Index >= ctx.m.MaxFunctions() {
-			ctx.r.Error = utils.Error("Invalid export function index")
+			ctx.r.Error = utils.Error("unknown function")
 			return
 		}
 	case desc.GLOBAL:
 		if /* export.Index < 0 || */ export.Index >= ctx.m.MaxGlobals() {
-			ctx.r.Error = utils.Error("Invalid export global index")
+			ctx.r.Error = utils.Error("unknown global")
 			return
 		}
 	case desc.MEM:
 		if /* export.Index < 0 || */ export.Index >= ctx.m.MaxMemories() {
-			ctx.r.Error = utils.Error("Invalid export memory index")
+			ctx.r.Error = utils.Error("unknown memory")
 			return
 		}
 	case desc.TABLE:
 		if /* export.Index < 0 || */ export.Index >= ctx.m.MaxTables() {
-			ctx.r.Error = utils.Error("Invalid export table index")
+			ctx.r.Error = utils.Error("unknown table")
 			return
 		}
 	default:
@@ -240,10 +242,18 @@ func (ctx *WasmReader) entryImport() {
 		if ctx.r.Error != nil {
 			return
 		}
+		if ctx.r.Min < 0 || ctx.r.Min > 0x10000 || (ctx.r.Flag == 0x01 && (ctx.r.Max < 0 || ctx.r.Max > 0x10000)) {
+			ctx.r.Error = utils.Error("memory size must be at most 65536 pages (4GiB)")
+			return
+		}
 		memory.Min = ctx.r.Min
 		memory.Max = ctx.r.Max
 		memory.Nr = ctx.m.MaxMemories()
 		ctx.m.Memories = append(ctx.m.Memories, memory)
+		if len(ctx.m.Memories) > 1 {
+			ctx.r.Error = utils.Error("multiple memories")
+			return
+		}
 		ctx.m.ExternalMemories = uint32(len(ctx.m.Memories))
 	case desc.TABLE:
 		table := wasm.NewTable()
@@ -255,6 +265,10 @@ func (ctx *WasmReader) entryImport() {
 		}
 		table.Nr = ctx.m.MaxTables()
 		ctx.m.Tables = append(ctx.m.Tables, table)
+		if len(ctx.m.Tables) > 1 {
+			ctx.r.Error = utils.Error("multiple tables")
+			return
+		}
 		ctx.m.ExternalTables = uint32(len(ctx.m.Tables))
 	default:
 		ctx.r.Error = utils.Error("Invalid import descriptor: 0x%02x", descId)
@@ -267,10 +281,18 @@ func (ctx *WasmReader) entryMemory() {
 	if ctx.r.Error != nil {
 		return
 	}
+	if ctx.r.Min < 0 || ctx.r.Min > 0x10000 || (ctx.r.Flag == 0x01 && (ctx.r.Max < 0 || ctx.r.Max > 0x10000)) {
+		ctx.r.Error = utils.Error("memory size must be at most 65536 pages (4GiB)")
+		return
+	}
 	memory.Min = ctx.r.Min
 	memory.Max = ctx.r.Max
 	memory.Nr = ctx.m.MaxMemories()
 	ctx.m.Memories = append(ctx.m.Memories, memory)
+	if len(ctx.m.Memories) > 1 {
+		ctx.r.Error = utils.Error("multiple memories")
+		return
+	}
 }
 
 func (ctx *WasmReader) entryTable() {
@@ -281,6 +303,10 @@ func (ctx *WasmReader) entryTable() {
 	}
 	table.Nr = ctx.m.MaxTables()
 	ctx.m.Tables = append(ctx.m.Tables, table)
+	if len(ctx.m.Tables) > 1 {
+		ctx.r.Error = utils.Error("multiple tables")
+		return
+	}
 }
 
 func (ctx *WasmReader) entryType() {
@@ -335,7 +361,7 @@ func (ctx *WasmReader) readFunction(function *wasm.Function) {
 		return
 	}
 	if /* funcType < 0 || */ funcType >= ctx.m.MaxFuncTypes() {
-		ctx.r.Error = utils.Error("Invalid function type: %d", function.Type)
+		ctx.r.Error = utils.Error("unknown type: %d", function.Type)
 		return
 	}
 	function.Type = ctx.m.FuncTypes[funcType]
@@ -351,7 +377,7 @@ func (ctx *WasmReader) readGlobal(global *wasm.Global) {
 		return
 	}
 	if /* mut < 0x00 || */ mut > 0x01 {
-		ctx.r.Error = utils.Error("Expected mutable flag 0x00 or 0x01")
+		ctx.r.Error = utils.Error("malformed mutability")
 		return
 	}
 	global.Mutable = mut != 0
@@ -386,7 +412,7 @@ func (ctx *WasmReader) readSections() {
 	for ctx.r.Size() != 0 {
 		secId := ctx.r.GetByte()
 		if /* secId >= 0 && */ secId != sec.CUSTOM && secId <= ctx.prevSecId {
-			ctx.r.Error = utils.Error("Invalid section order")
+			ctx.r.Error = utils.Error("junk after last section")
 			return
 		}
 		rSaved := ctx.getSubReader()
@@ -403,19 +429,22 @@ func (ctx *WasmReader) readSections() {
 		case /* secId >= 0 && */ secId < sec.SECTIONS: ctx.readSectionOther(secId)
 		//@formatter:on
 		default:
-			ctx.r.Error = utils.Error("Invalid section id")
+			ctx.r.Error = utils.Error("malformed section id")
 		}
 		if ctx.r.Error != nil {
 			return
 		}
 		if ctx.r.Size() != 0 {
-			ctx.r.Error = utils.Error("Section data not entirely processed")
+			ctx.r.Error = utils.Error("section size mismatch")
 			return
 		}
 		ctx.r = rSaved
 		if secId != sec.CUSTOM {
 			ctx.prevSecId = secId
 		}
+	}
+	if ctx.codeCount != ctx.functionCount {
+		ctx.r.Error = utils.Error("function and code section have inconsistent lengths")
 	}
 }
 
@@ -529,7 +558,7 @@ func (ctx *WasmReader) readSectionCustomNameLocal() {
 				return
 			}
 			if index < locNext || index >= uint32(len(function.Locals)) {
-				ctx.r.Error = utils.Error("Invalid local index")
+				ctx.r.Error = utils.Error("unknown local")
 				return
 			}
 			locNext = index + 1
@@ -557,6 +586,16 @@ func (ctx *WasmReader) readSectionOther(secId byte) {
 	}
 	if count == 0 {
 		fmt.Printf("  Warning: Zero entries for section id %d\n", secId)
+	}
+	if secId == sec.FUNCTION {
+		ctx.functionCount = count
+	}
+	if secId == sec.CODE {
+		ctx.codeCount = count
+		if ctx.codeCount != ctx.functionCount {
+			ctx.r.Error = utils.Error("function and code section have inconsistent lengths")
+			return
+		}
 	}
 	for nr := uint32(0); ctx.r.Error == nil && nr < count; nr++ {
 		switch secId {
@@ -588,7 +627,7 @@ func (ctx *WasmReader) readSectionStart() {
 		return
 	}
 	if /* m.Start < 0 || */ ctx.m.Start >= ctx.m.MaxFunctions() {
-		ctx.r.Error = utils.Error("Invalid start function index")
+		ctx.r.Error = utils.Error("unknown function")
 	}
 }
 

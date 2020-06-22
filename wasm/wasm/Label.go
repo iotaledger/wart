@@ -3,6 +3,7 @@ package wasm
 type Label struct {
 	BlockInst   Instruction
 	BlockType   *FuncType
+	HasElse     bool
 	Target      Instruction
 	Unreachable bool
 	UnwindSP    int

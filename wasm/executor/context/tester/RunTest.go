@@ -5,3 +5,7 @@ type RunTest struct {
 	In  []*ValueTest `json:"in"`
 	Out []*ValueTest `json:"out"`
 }
+
+func NewRunTest() *RunTest {
+	return &RunTest{}
+}

@@ -34,7 +34,7 @@ func (o *Var) Analyze(a *context.Analyzer) {
 
 func (o *Var) analyzeLocalGet(a *context.Analyzer) {
 	if /* o.Index < 0 || */ o.Index >= a.Module.Functions[a.FuncNr].MaxLocalIndex() {
-		a.Error = o.fail("Invalid local index")
+		a.Error = o.fail("unknown local")
 		return
 	}
 	o.vt = a.Frame[o.Index]
@@ -43,7 +43,7 @@ func (o *Var) analyzeLocalGet(a *context.Analyzer) {
 
 func (o *Var) analyzeLocalSetAndTee(a *context.Analyzer) {
 	if /* o.Index < 0 || */ o.Index >= a.Module.Functions[a.FuncNr].MaxLocalIndex() {
-		a.Error = o.fail("Invalid local index")
+		a.Error = o.fail("unknown local")
 		return
 	}
 	o.vt = a.Frame[o.Index]
@@ -63,7 +63,7 @@ func (o *Var) analyzeLocalSetAndTee(a *context.Analyzer) {
 
 func (o *Var) analyzeGlobalGet(a *context.Analyzer) {
 	if /* o.Index < 0 || */ o.Index >= a.Module.MaxGlobals() {
-		a.Error = o.fail("Invalid global index")
+		a.Error = o.fail("unknown global")
 		return
 	}
 	o.vt = a.Module.Globals[o.Index].Type
@@ -72,11 +72,11 @@ func (o *Var) analyzeGlobalGet(a *context.Analyzer) {
 
 func (o *Var) analyzeGlobalSet(a *context.Analyzer) {
 	if /* o.Index < 0 || */ o.Index >= a.Module.MaxGlobals() {
-		a.Error = o.fail("Invalid global index")
+		a.Error = o.fail("unknown global")
 		return
 	}
 	if !a.Module.Globals[o.Index].Mutable {
-		a.Error = o.fail("Global is immutable")
+		a.Error = o.fail("global is immutable")
 		return
 	}
 	o.vt = a.Module.Globals[o.Index].Type

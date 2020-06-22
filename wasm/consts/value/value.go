@@ -4,8 +4,8 @@
 package value
 
 import (
-	"errors"
 	"fmt"
+	"github.com/iotaledger/wart/utils"
 )
 
 type Type byte
@@ -24,7 +24,7 @@ func (vt Type) Check() error {
 	case I32, I64, F32, F64:
 		return nil
 	default:
-		return errors.New(fmt.Sprintf("Invalid value type: 0x%02x", byte(vt)))
+		return utils.Error("Invalid value type: 0x%02x", byte(vt))
 	}
 }
 

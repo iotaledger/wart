@@ -1,7 +1,7 @@
 package executor
 
 import (
-	"errors"
+	"github.com/iotaledger/wart/utils"
 	"github.com/iotaledger/wart/wasm/consts/desc"
 	"github.com/iotaledger/wart/wasm/consts/op"
 	"github.com/iotaledger/wart/wasm/consts/value"
@@ -10,17 +10,16 @@ import (
 	"github.com/iotaledger/wart/wasm/wasm"
 )
 
-var Modules = make(map[string]*context.Runner)
+var Modules = make(map[string]*wasm.Module)
 
 type WasmLinker struct {
-	m  *wasm.Module
-	vm *context.Runner
+	m *wasm.Module
 }
 
 func NewWasmLinker(m *wasm.Module) *WasmLinker {
-	lnk := &WasmLinker{m: m, vm: context.NewRunner(m)}
+	lnk := &WasmLinker{m: m}
 	if m.ImportName != "" {
-		Modules[m.ImportName] = lnk.vm
+		Modules[m.ImportName] = m
 	}
 	return lnk
 }
@@ -34,7 +33,7 @@ func (lnk *WasmLinker) initExprValue(val *wasm.Variable, expr []wasm.Instruction
 	case op.I32_CONST, op.I64_CONST, op.F32_CONST, op.F64_CONST:
 		val.Copy(&init.(*instruction.Const).Value, vt)
 	case op.GLOBAL_GET:
-		imported := lnk.vm.Module.GlobalVars[init.(*instruction.Var).Index]
+		imported := lnk.m.GlobalVars[init.(*instruction.Var).Index]
 		val.Copy(imported, vt)
 	default:
 		panic("non-constant initializer expression")
@@ -42,7 +41,10 @@ func (lnk *WasmLinker) initExprValue(val *wasm.Variable, expr []wasm.Instruction
 }
 
 func (lnk *WasmLinker) Link() error {
-	lnk.vm.Module.GlobalVars = make([]*wasm.Variable, lnk.m.MaxGlobals())
+	if lnk.m.IsLinked {
+		return nil
+	}
+	lnk.m.GlobalVars = make([]*wasm.Variable, lnk.m.MaxGlobals())
 
 	err := lnk.linkImportFunctions()
 	if err != nil {
@@ -95,7 +97,12 @@ func (lnk *WasmLinker) Link() error {
 		return err
 	}
 
-	return lnk.runStartFunction()
+	err = lnk.runStartFunction()
+	if err != nil {
+		return err
+	}
+	lnk.m.IsLinked = true
+	return nil
 }
 
 func (lnk *WasmLinker) incompatibleOverlap(min uint32, max uint32, impMin uint32, impMax uint32) bool {
@@ -112,7 +119,7 @@ func (lnk *WasmLinker) initGlobals() error {
 	for i := lnk.m.ExternalGlobals; i < lnk.m.MaxGlobals(); i++ {
 		global := lnk.m.Globals[i]
 		globalValue := &wasm.Variable{}
-		lnk.vm.Module.GlobalVars[i] = globalValue
+		lnk.m.GlobalVars[i] = globalValue
 		lnk.initExprValue(globalValue, global.Init, global.Type)
 	}
 	return nil
@@ -121,7 +128,7 @@ func (lnk *WasmLinker) initGlobals() error {
 func (lnk *WasmLinker) initMemories() error {
 	for _, memory := range lnk.m.Memories {
 		if memory.Nr != 0 {
-			return errors.New("Multiple memories not yet supported")
+			return utils.Error("Multiple memories not yet supported")
 		}
 		if len(memory.Pool) == 0 {
 			memory.Pool = make([]byte, memory.Min*context.PAGE_SIZE)
@@ -139,7 +146,7 @@ func (lnk *WasmLinker) initMemoryData(update bool) error {
 		end := addr + uint32(len(data.Bytes))
 		//  be careful not to wrap around the uint32
 		if end < addr || end > uint32(len(memory.Pool)) {
-			return errors.New("data segment does not fit")
+			return utils.Error("data segment does not fit")
 		}
 		if update {
 			copy(memory.Pool[addr:], data.Bytes)
@@ -151,7 +158,7 @@ func (lnk *WasmLinker) initMemoryData(update bool) error {
 func (lnk *WasmLinker) initTables() error {
 	for _, table := range lnk.m.Tables {
 		if table.Nr != 0 {
-			return errors.New("Multiple memories not yet supported")
+			return utils.Error("Multiple memories not yet supported")
 		}
 		if len(table.FuncIndexes) == 0 {
 			table.FuncIndexes = make([]uint32, table.Min)
@@ -168,11 +175,11 @@ func (lnk *WasmLinker) initTableElements(update bool) error {
 		lnk.initExprValue(offsetValue, element.Offset, value.I32)
 		start := offsetValue.I32
 		if start < 0 || uint32(start)+uint32(len(element.FuncIndexes)) > table.Min {
-			return errors.New("elements segment does not fit")
+			return utils.Error("elements segment does not fit")
 		}
 		for _, funcIndex := range element.FuncIndexes {
 			if /* funcIndex < 0 || */ funcIndex > lnk.m.MaxFunctions() {
-				return errors.New("Invalid function index")
+				return utils.Error("Invalid function index")
 			}
 			if update {
 				table.FuncIndexes[start] = funcIndex
@@ -187,25 +194,25 @@ func (lnk *WasmLinker) initTableElements(update bool) error {
 func (lnk *WasmLinker) linkImportFunctions() error {
 	for i := uint32(0); i < lnk.m.ExternalFunctions; i++ {
 		function := lnk.m.Functions[i]
-		ctx, ok := Modules[function.ModuleName]
+		mod, ok := Modules[function.ModuleName]
 		if !ok {
-			return errors.New("unknown import")
+			return utils.Error("unknown import")
 		}
-		for _, export := range ctx.Module.Exports {
+		for _, export := range mod.Exports {
 			if export.ImportName == function.ImportName {
 				if export.Type != desc.FUNC {
-					return errors.New("incompatible import type")
+					return utils.Error("incompatible import type")
 				}
-				imported := ctx.Module.Functions[export.Index]
+				imported := mod.Functions[export.Index]
 				if !function.Type.IsSameAs(imported.Type) {
-					return errors.New("incompatible import type")
+					return utils.Error("incompatible import type")
 				}
 				lnk.m.Functions[i] = imported
 				break
 			}
 		}
 		if function == lnk.m.Functions[i] {
-			return errors.New("unknown import")
+			return utils.Error("unknown import")
 		}
 	}
 	return nil
@@ -214,26 +221,26 @@ func (lnk *WasmLinker) linkImportFunctions() error {
 func (lnk *WasmLinker) linkImportGlobals() error {
 	for i := uint32(0); i < lnk.m.ExternalGlobals; i++ {
 		global := lnk.m.Globals[i]
-		ctx, ok := Modules[global.ModuleName]
+		mod, ok := Modules[global.ModuleName]
 		if !ok {
-			return errors.New("unknown import")
+			return utils.Error("unknown import")
 		}
-		for _, export := range ctx.Module.Exports {
+		for _, export := range mod.Exports {
 			if export.ImportName == global.ImportName {
 				if export.Type != desc.GLOBAL {
-					return errors.New("incompatible import type")
+					return utils.Error("incompatible import type")
 				}
-				imported := ctx.Module.Globals[export.Index]
+				imported := mod.Globals[export.Index]
 				if global.Type != imported.Type || global.Mutable != imported.Mutable {
-					return errors.New("incompatible import type")
+					return utils.Error("incompatible import type")
 				}
 				lnk.m.Globals[i] = imported
-				lnk.m.GlobalVars[i] = ctx.Module.GlobalVars[export.Index]
+				lnk.m.GlobalVars[i] = mod.GlobalVars[export.Index]
 				break
 			}
 		}
 		if global == lnk.m.Globals[i] {
-			return errors.New("unknown import")
+			return utils.Error("unknown import")
 		}
 	}
 	return nil
@@ -242,25 +249,25 @@ func (lnk *WasmLinker) linkImportGlobals() error {
 func (lnk *WasmLinker) linkImportMemories() error {
 	for i := uint32(0); i < lnk.m.ExternalMemories; i++ {
 		memory := lnk.m.Memories[i]
-		ctx, ok := Modules[memory.ModuleName]
+		mod, ok := Modules[memory.ModuleName]
 		if !ok {
-			return errors.New("unknown import")
+			return utils.Error("unknown import")
 		}
-		for _, export := range ctx.Module.Exports {
+		for _, export := range mod.Exports {
 			if export.ImportName == memory.ImportName {
 				if export.Type != desc.MEM {
-					return errors.New("incompatible import type")
+					return utils.Error("incompatible import type")
 				}
-				imported := ctx.Module.Memories[export.Index]
+				imported := mod.Memories[export.Index]
 				if lnk.incompatibleOverlap(memory.Min, memory.Max, imported.Min, imported.Max) {
-					return errors.New("incompatible import type")
+					return utils.Error("incompatible import type")
 				}
 				lnk.m.Memories[i] = imported
 				break
 			}
 		}
 		if memory == lnk.m.Memories[i] {
-			return errors.New("unknown import")
+			return utils.Error("unknown import")
 		}
 	}
 	return nil
@@ -269,25 +276,25 @@ func (lnk *WasmLinker) linkImportMemories() error {
 func (lnk *WasmLinker) linkImportTables() error {
 	for i := uint32(0); i < lnk.m.ExternalTables; i++ {
 		table := lnk.m.Tables[i]
-		ctx, ok := Modules[table.ModuleName]
+		mod, ok := Modules[table.ModuleName]
 		if !ok {
-			return errors.New("unknown import")
+			return utils.Error("unknown import")
 		}
-		for _, export := range ctx.Module.Exports {
+		for _, export := range mod.Exports {
 			if export.ImportName == table.ImportName {
 				if export.Type != desc.TABLE {
-					return errors.New("incompatible import type")
+					return utils.Error("incompatible import type")
 				}
-				imported := ctx.Module.Tables[export.Index]
+				imported := mod.Tables[export.Index]
 				if lnk.incompatibleOverlap(table.Min, table.Max, imported.Min, imported.Max) {
-					return errors.New("incompatible import type")
+					return utils.Error("incompatible import type")
 				}
 				lnk.m.Tables[i] = imported
 				break
 			}
 		}
 		if table == lnk.m.Tables[i] {
-			return errors.New("unknown import")
+			return utils.Error("unknown import")
 		}
 	}
 	return nil
@@ -298,10 +305,7 @@ func (lnk *WasmLinker) runStartFunction() error {
 		return nil
 	}
 	startFunction := lnk.m.Functions[lnk.m.Start]
-	lnk.vm.Frame = make([]wasm.Variable, startFunction.MaxLocalIndex()+startFunction.FrameSize)
-	saved := lnk.vm.Module
-	lnk.vm.Module = startFunction.Module
-	err := instruction.RunBlock(lnk.vm, startFunction.Body)
-	lnk.vm.Module = saved
-	return err
+	vm := context.NewRunner(lnk.m)
+	vm.Frame = make([]wasm.Variable, startFunction.MaxLocalIndex()+startFunction.FrameSize)
+	return instruction.RunBlock(vm, startFunction.Body)
 }

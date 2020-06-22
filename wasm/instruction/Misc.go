@@ -38,12 +38,13 @@ func (o *Misc) analyzeDrop(a *context.Analyzer) {
 
 func (o *Misc) analyzeElse(a *context.Analyzer) {
 	label := a.Labels[0]
+	label.HasElse = true
 	a.PopMulti(label.BlockType.ResultTypes)
 	if a.Error != nil {
 		return
 	}
 	if a.SP != a.BlockMark {
-		a.Error = o.fail("Items left on stack")
+		a.Error = o.fail("type mismatch")
 		return
 	}
 	if label.BlockInst.Opcode() != op.IF {
@@ -62,7 +63,7 @@ func (o *Misc) analyzeEnd(a *context.Analyzer) {
 		return
 	}
 	if a.SP != a.BlockMark {
-		a.Error = o.fail("Items left on stack")
+		a.Error = o.fail("type mismatch")
 		return
 	}
 	// pop label from label stack
@@ -70,8 +71,11 @@ func (o *Misc) analyzeEnd(a *context.Analyzer) {
 	if len(a.Labels) != 0 {
 		a.BlockMark = a.Labels[0].UnwindSP
 	}
-	a.PushMulti(label.BlockType.ResultTypes)
-
+	if label.BlockInst != nil && label.BlockInst.Opcode() == op.IF && !label.HasElse {
+		a.PushMulti(label.BlockType.ParamTypes)
+	} else {
+		a.PushMulti(label.BlockType.ResultTypes)
+	}
 	if label.Target == nil {
 		resultSP := o.SP - len(label.BlockType.ResultTypes)
 		o.run = func(vm *Runner) {
@@ -83,7 +87,7 @@ func (o *Misc) analyzeEnd(a *context.Analyzer) {
 
 func (o *Misc) analyzeSelect(a *context.Analyzer) {
 	rhs := a.PopExpected(value.NONE)
-	if rhs == value.NONE || a.Error != nil {
+	if a.Error != nil || rhs == value.NONE {
 		return
 	}
 	lhs := a.PopExpected(rhs)

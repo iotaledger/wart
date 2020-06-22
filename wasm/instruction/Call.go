@@ -22,14 +22,22 @@ func (o *Call) Analyze(a *context.Analyzer) {
 	switch o.opcode {
 	case op.CALL:
 		if /* o.Index < 0 || */ o.index >= a.Module.MaxFunctions() {
-			a.Error = o.fail("Invalid function index")
+			a.Error = o.fail("unknown function")
 			return
 		}
 		f := a.Module.Functions[o.index]
 		o.analyzeCallType(a, f.Type.Nr)
 	case op.CALL_INDIRECT:
+		if a.Module.MaxTables() == 0 {
+			a.Error = o.fail("unknown table")
+			return
+		}
 		o.analyzeCallType(a, o.index)
 	case op.MEMORY_GROW, op.MEMORY_SIZE:
+		if a.Module.MaxMemories() == 0 {
+			a.Error = o.fail("unknown memory")
+			return
+		}
 	default:
 		panic("Invalid call opcode")
 	}
@@ -37,7 +45,7 @@ func (o *Call) Analyze(a *context.Analyzer) {
 
 func (o *Call) analyzeCallType(a *context.Analyzer, funcType uint32) {
 	if funcType >= a.Module.MaxFuncTypes() {
-		a.Error = o.fail("Invalid function type index")
+		a.Error = o.fail("unknown type")
 		return
 	}
 	f := a.Module.FuncTypes[funcType]
@@ -50,23 +58,36 @@ func (o *Call) analyzeCallType(a *context.Analyzer, funcType uint32) {
 }
 
 func (o *Call) Read(r *context.Reader) {
-	o.index = r.GetU32()
-	if r.Error != nil {
-		return
-	}
 	switch o.opcode {
 	case op.CALL:
+		o.index = r.GetU32()
+		if r.Error != nil {
+			return
+		}
 		if /* o.index < 0 || */ o.index >= r.Module.MaxFunctions() {
 			r.Error = utils.Error("unknown function")
 			return
 		}
 	case op.CALL_INDIRECT:
+		o.index = r.GetU32()
+		if r.Error != nil {
+			return
+		}
 		tableIndex := r.GetByte()
 		if r.Error != nil {
 			return
 		}
 		if tableIndex != 0 {
-			r.Error = o.fail("Expected table index 0")
+			r.Error = o.fail("zero flag expected")
+			return
+		}
+	case op.MEMORY_GROW, op.MEMORY_SIZE:
+		flag := r.GetByte()
+		if r.Error != nil {
+			return
+		}
+		if flag != 0x00 {
+			r.Error = o.fail("zero flag expected")
 			return
 		}
 	}
@@ -97,9 +118,9 @@ func (o *Call) runCallDirect(vm *Runner, f *wasm.Function) {
 		return
 	}
 
+	savedModule := vm.Module
 	savedFrame := vm.Frame
 	savedNext := vm.Next
-	savedModule := vm.Module
 
 	// set up new stack frame with copy of params
 	// plus enough space for locals + stack frame
@@ -109,17 +130,17 @@ func (o *Call) runCallDirect(vm *Runner, f *wasm.Function) {
 		callFrame[i].Copy(&savedFrame[o.SP+i], vt)
 	}
 
-	vm.CallDepth++
-	vm.Frame = callFrame
 	vm.Module = f.Module
+	vm.Frame = callFrame
+	vm.CallDepth++
 	vm.Error = RunBlock(vm, f.Body)
 	if vm.Error != nil {
 		return
 	}
-	vm.Frame = savedFrame
-	vm.Module = savedModule
-	vm.Next = savedNext
 	vm.CallDepth--
+	vm.Module = savedModule
+	vm.Frame = savedFrame
+	vm.Next = savedNext
 
 	// copy function results over from called frame
 	// return instruction should have set vm.SP correctly

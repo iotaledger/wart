@@ -1,8 +1,7 @@
 package context
 
 import (
-	"errors"
-	"fmt"
+	"github.com/iotaledger/wart/utils"
 	"github.com/iotaledger/wart/wasm/consts/value"
 	"github.com/iotaledger/wart/wasm/wasm"
 )
@@ -40,14 +39,14 @@ func NewAnalyzer(m *wasm.Module, params []value.Type, locals []*wasm.Local) *Ana
 }
 
 func (a *Analyzer) Fail(format string, args ...interface{}) {
-	a.Error = errors.New(fmt.Sprintf(format, args...))
+	a.Error = utils.Error(format, args...)
 }
 
 func (a *Analyzer) Pop() value.Type {
 	a.Error = nil
 	if a.SP == a.BlockMark {
 		if !a.Labels[0].Unreachable {
-			a.Fail("Cannot pop from empty stack")
+			a.Fail("type mismatch")
 			return value.NONE
 		}
 		return value.NONE
@@ -65,7 +64,7 @@ func (a *Analyzer) PopExpected(expected value.Type) value.Type {
 		return expected
 	}
 	if actual != expected && expected != value.NONE {
-		a.Fail("Unexpected value type on stack")
+		a.Fail("type mismatch")
 		return value.NONE
 
 	}

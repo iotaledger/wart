@@ -33,7 +33,7 @@ func (o *Branch) Analyze(a *context.Analyzer) {
 
 func (o *Branch) analyzeBr(a *context.Analyzer) {
 	if /* o.labelIndex < 0 || */ o.labelIndex >= uint32(len(a.Labels)) {
-		a.Error = o.fail("Invalid label index")
+		a.Error = o.fail("unknown label")
 		return
 	}
 	targetLabel := a.Labels[o.labelIndex]
@@ -91,7 +91,7 @@ func (o *Branch) analyzeBr(a *context.Analyzer) {
 
 func (o *Branch) analyzeBrIf(a *context.Analyzer) {
 	if /* o.labelIndex < 0 || */ o.labelIndex >= uint32(len(a.Labels)) {
-		a.Error = o.fail("Invalid label index")
+		a.Error = o.fail("unknown label")
 		return
 	}
 	targetLabel := a.Labels[o.labelIndex]
@@ -159,13 +159,13 @@ func (o *Branch) analyzeBrIf(a *context.Analyzer) {
 
 func (o *Branch) analyzeBrTable(a *context.Analyzer) {
 	if /* o.labelIndex < 0 || */ o.labelIndex >= uint32(len(a.Labels)) {
-		a.Error = o.fail("Invalid label index")
+		a.Error = o.fail("unknown label")
 		return
 	}
 	targetLabel := a.Labels[o.labelIndex]
 	for _, index := range o.table {
 		if /* index < 0 || */ index >= uint32(len(a.Labels)) {
-			a.Error = o.fail("Invalid table label index")
+			a.Error = o.fail("unknown label")
 			return
 		}
 		// todo label_types(ctrls[index]) =/= label_types(ctrls[labelIndex])

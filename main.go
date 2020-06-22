@@ -109,7 +109,7 @@ func readerTests() {
 }
 
 func specTest(path string) {
-	fmt.Printf("\n\nSpec input file %s\n", path[3:])
+	fmt.Printf("\nSpec input file %s\n", path[3:])
 	t := executor.NewWasmTester(path, true)
 	t.Test()
 }

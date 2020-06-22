@@ -1,8 +1,6 @@
 package instruction
 
 import (
-	"errors"
-	"fmt"
 	"github.com/iotaledger/wart/utils"
 	"github.com/iotaledger/wart/wasm/consts/op"
 	"github.com/iotaledger/wart/wasm/consts/value"
@@ -118,7 +116,7 @@ func CreateInstruction(opcode byte) wasm.Instruction {
 }
 
 func (o *Base) fail(format string, a ...interface{}) error {
-	return errors.New(o.Mnemonic() + ": " + fmt.Sprintf(format, a...))
+	return utils.Error(o.Mnemonic()+": "+format, a...)
 }
 
 func (o *Base) getNext() ctxInstruction {
@@ -148,11 +146,11 @@ func ReadBlock(r *context.Reader) []wasm.Instruction {
 	r.IP = 0
 	block := readSubBlock(r)
 	if r.Error != nil {
-		return nil
+		return make([]wasm.Instruction, 0)
 	}
 	if r.Opcode != op.END {
 		r.Error = utils.Error("Expected end instruction")
-		return nil
+		return make([]wasm.Instruction, 0)
 	}
 	return block
 }

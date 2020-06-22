@@ -25,10 +25,14 @@ func NewMem() wasm.Instruction {
 func (o *Mem) Analyze(a *context.Analyzer) {
 	maxAlign := AllSignatures[o.opcode].Align
 	if /* o.align < 0 || */ o.align > maxAlign {
-		a.Error = o.fail("Invalid memory alignment value")
+		a.Error = o.fail("alignment must not be larger than natural: %d", o.align)
 		return
 	}
 	o.size = alignment[maxAlign]
+	if a.Module.MaxMemories() == 0 {
+		a.Error = o.fail("unknown memory")
+		return
+	}
 }
 
 func getI8(vm *Runner) int8 {
@@ -67,7 +71,7 @@ func (o *Mem) Read(r *context.Reader) {
 		return
 	}
 	if /* o.align < 0 || */ o.align > 3 {
-		r.Error = utils.Error("Invalid alignment value: %d", o.align)
+		r.Error = utils.Error("alignment must not be larger than natural: %d", o.align)
 		return
 	}
 	o.offset = r.GetU32()

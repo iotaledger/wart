@@ -18,6 +18,7 @@ type Module struct {
 	FuncTypes         []*FuncType
 	Globals           []*Global
 	GlobalVars        []*Variable
+	IsLinked          bool
 	Memories          []*Memory
 	Start             uint32
 	Tables            []*Table

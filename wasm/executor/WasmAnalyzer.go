@@ -12,7 +12,7 @@ import (
 
 // When a function has an error, display the error and continue
 // with next function instead of passing error back up.
-const allFunctions = true
+const allFunctions = false
 
 // Displays some additional warnings on the console when analyzing.
 // Mostly used for sanity checks and non-fatal issues.
@@ -85,7 +85,7 @@ func (ctx *WasmAnalyzer) analyzeData() {
 		}
 		data.Nr = uint32(nr)
 		if /* data.MemoryIndex < 0 || */ data.MemoryIndex >= ctx.m.MaxMemories() {
-			ctx.a.Fail("Invalid data memory index")
+			ctx.a.Fail("unknown memory")
 			return
 		}
 		ctx.analyzeInitializerExpression(data.Offset, value.I32)
@@ -104,7 +104,7 @@ func (ctx *WasmAnalyzer) analyzeElements() {
 		element.Nr = uint32(nr)
 
 		if /* element.TableIndex < 0 || */ element.TableIndex >= ctx.m.MaxTables() {
-			ctx.a.Fail("Invalid element table index")
+			ctx.a.Fail("unknown table")
 			return
 		}
 		ctx.analyzeInitializerExpression(element.Offset, value.I32)
@@ -130,25 +130,31 @@ func (ctx *WasmAnalyzer) analyzeExports() {
 		if export.ImportName == "" {
 			warn("Missing export name")
 		}
+		for i := 0; i < nr; i++ {
+			if ctx.m.Exports[i].ImportName == export.ImportName {
+				ctx.a.Fail("duplicate export name")
+				return
+			}
+		}
 		switch export.Type {
 		case desc.FUNC:
 			if /* export.Index < 0 || */ export.Index >= ctx.m.MaxFunctions() {
-				ctx.a.Fail("Invalid export function index")
+				ctx.a.Fail("unknown function")
 				return
 			}
 		case desc.TABLE:
 			if /* export.Index < 0 || */ export.Index >= ctx.m.MaxTables() {
-				ctx.a.Fail("Invalid export table index")
+				ctx.a.Fail("unknown table")
 				return
 			}
 		case desc.MEM:
 			if /* export.Index < 0 || */ export.Index >= ctx.m.MaxMemories() {
-				ctx.a.Fail("Invalid export memory index")
+				ctx.a.Fail("unknown memory")
 				return
 			}
 		case desc.GLOBAL:
 			if /* export.Index < 0 || */ export.Index >= ctx.m.MaxGlobals() {
-				ctx.a.Fail("Invalid export global index")
+				ctx.a.Fail("unknown global")
 				return
 			}
 		default:
@@ -194,11 +200,9 @@ func (ctx *WasmAnalyzer) analyzeGlobals() {
 		if ctx.a.Error != nil {
 			return
 		}
-		if len(global.Init) != 0 {
-			ctx.analyzeInitializerExpression(global.Init, global.Type)
-			if ctx.a.Error != nil {
-				return
-			}
+		ctx.analyzeInitializerExpression(global.Init, global.Type)
+		if ctx.a.Error != nil {
+			return
 		}
 	}
 }
@@ -255,6 +259,10 @@ func (ctx *WasmAnalyzer) analyzeImports() {
 		}
 	}
 
+	if len(ctx.m.Memories) > 1 {
+		ctx.a.Fail("multiple memories")
+		return
+	}
 	for nr := uint32(0); nr < ctx.m.ExternalMemories; nr++ {
 		memory := ctx.m.Memories[nr]
 		ctx.analyzeImportIdentifier(&memory.Identifier, nr, "memory")
@@ -267,6 +275,10 @@ func (ctx *WasmAnalyzer) analyzeImports() {
 		}
 	}
 
+	if len(ctx.m.Tables) > 1 {
+		ctx.a.Fail("multiple tables")
+		return
+	}
 	for nr := uint32(0); nr < ctx.m.ExternalTables; nr++ {
 		table := ctx.m.Tables[nr]
 		ctx.analyzeImportIdentifier(&table.Identifier, nr, "table")
@@ -285,38 +297,37 @@ func (ctx *WasmAnalyzer) analyzeImports() {
 }
 
 func (ctx *WasmAnalyzer) analyzeInitializerExpression(expr []wasm.Instruction, vt value.Type) {
-	if len(expr) != 2 {
-		ctx.a.Fail("Expression size is invalid")
-		return
-	}
-	if expr[1].Opcode() != op.END {
+	if len(expr) != 0 && expr[len(expr)-1].Opcode() != op.END {
 		ctx.a.Fail("Expression without terminating end instruction")
 		return
 	}
-	switch expr[0].Opcode() {
-	case op.I32_CONST, op.I64_CONST, op.F32_CONST, op.F64_CONST:
-		constInstr := expr[0].(*instruction.Const)
-		if constInstr.Type() != vt {
-			ctx.a.Fail("type mismatch")
+
+	for i := 0; i < len(expr)-1; i++ {
+		switch expr[i].Opcode() {
+		case op.I32_CONST, op.I64_CONST, op.F32_CONST, op.F64_CONST:
+			constInstr := expr[i].(*instruction.Const)
+			if constInstr.Type() != vt {
+				ctx.a.Fail(constInstr.Mnemonic() + " type mismatch")
+				return
+			}
+		case op.GLOBAL_GET:
+			getInstr := expr[i].(*instruction.Var)
+			if /*getInstr.Index < 0 || */ getInstr.Index >= ctx.m.ExternalGlobals {
+				ctx.a.Fail("unknown global")
+				return
+			}
+			if getInstr.Index >= ctx.m.ExternalGlobals {
+				ctx.a.Fail("global must be import")
+				return
+			}
+			if ctx.m.Globals[getInstr.Index].Type != vt {
+				ctx.a.Fail("global.get type mismatch")
+				return
+			}
+		default:
+			ctx.a.Fail("constant expression required")
 			return
 		}
-	case op.GLOBAL_GET:
-		getInstr := expr[0].(*instruction.Var)
-		if /*getInstr.Index < 0 || */ getInstr.Index >= ctx.m.ExternalGlobals {
-			ctx.a.Fail("invalid global index")
-			return
-		}
-		if getInstr.Index >= ctx.m.ExternalGlobals {
-			ctx.a.Fail("global must be import")
-			return
-		}
-		if ctx.m.Globals[getInstr.Index].Type != vt {
-			ctx.a.Fail("type mismatch")
-			return
-		}
-	default:
-		ctx.a.Fail("constant expression required")
-		return
 	}
 
 	ctx.a = context.NewAnalyzer(ctx.m, nil, nil)
@@ -329,6 +340,10 @@ func (ctx *WasmAnalyzer) analyzeInitializerExpression(expr []wasm.Instruction, v
 }
 
 func (ctx *WasmAnalyzer) analyzeMemories() {
+	if len(ctx.m.Memories) > 1 {
+		ctx.a.Fail("multiple memories")
+		return
+	}
 	for nr := ctx.m.ExternalMemories; nr < ctx.m.MaxMemories(); nr++ {
 		memory := ctx.m.Memories[nr]
 		if memory.Nr != 0 && memory.Nr != nr {
@@ -336,8 +351,16 @@ func (ctx *WasmAnalyzer) analyzeMemories() {
 			return
 		}
 		memory.Nr = nr
+		if /* memory.Min < 0 || */ memory.Min > 0x10000 {
+			ctx.a.Fail("memory size must be at most 65536 pages (4GiB)")
+			return
+		}
+		if ( /* memory.Max < 0 || */ memory.Max > 0x10000) && memory.Max != value.UNDEFINED {
+			ctx.a.Fail("memory size must be at most 65536 pages (4GiB)")
+			return
+		}
 		if invalidMinMax(memory.Min, memory.Max) {
-			ctx.a.Fail("Invalid memory limits")
+			ctx.a.Fail("size minimum must not be greater than maximum")
 			return
 		}
 	}
@@ -358,6 +381,10 @@ func (ctx *WasmAnalyzer) analyzeStart() {
 }
 
 func (ctx *WasmAnalyzer) analyzeTables() {
+	if len(ctx.m.Tables) > 1 {
+		ctx.a.Fail("multiple tables")
+		return
+	}
 	for nr := uint32(0); nr < ctx.m.MaxTables(); nr++ {
 		table := ctx.m.Tables[nr]
 		if table.Nr != 0 && table.Nr != nr {
@@ -370,7 +397,7 @@ func (ctx *WasmAnalyzer) analyzeTables() {
 			return
 		}
 		if invalidMinMax(table.Min, table.Max) {
-			ctx.a.Fail("Invalid table limits")
+			ctx.a.Fail("size minimum must not be greater than maximum")
 			return
 		}
 	}

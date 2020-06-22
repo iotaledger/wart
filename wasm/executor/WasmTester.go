@@ -2,8 +2,8 @@ package executor
 
 import (
 	"encoding/json"
-	"errors"
 	"fmt"
+	"github.com/iotaledger/wart/utils"
 	"github.com/iotaledger/wart/wasm/consts/desc"
 	"github.com/iotaledger/wart/wasm/consts/op"
 	"github.com/iotaledger/wart/wasm/consts/value"
@@ -169,23 +169,21 @@ func (tst *WasmTester) createSpecTestModule() {
 	export.ImportName = "table"
 	tst.m.Exports[11] = export
 
-	a := NewWasmAnalyzer(tst.m)
-	err := a.Analyze()
-	if err != nil {
+	tst.moduleAnalyze()
+	if tst.Error != nil {
 		panic("WTF?")
 	}
 
-	err = tst.initVM()
-	if err != nil {
+	tst.moduleLink()
+	if tst.Error != nil {
 		panic("WTF?")
 	}
 
 	tst.m = nil
-	tst.vm = nil
 }
 
 func (tst *WasmTester) fail(format string, a ...interface{}) {
-	fmt.Printf("\n%s %s(", tst.modTest.File, tst.funcTest.Name)
+	fmt.Printf("%s %s(", tst.modTest.File, tst.funcTest.Name)
 	sep := ""
 	for i, param := range tst.function.Type.ParamTypes {
 		fmt.Printf("%s%s", sep, tst.test.In[i].Field(param))
@@ -212,33 +210,36 @@ func (tst *WasmTester) getValueTest(valueTest *tester.ValueTest, param value.Typ
 	return use
 }
 
-func (tst *WasmTester) initVM() error {
-	linker := NewWasmLinker(tst.m)
-	err := linker.Link()
-	if err != nil {
-		return err
-	}
-	tst.vm = linker.vm
-	return nil
+func (tst *WasmTester) moduleAnalyze() {
+	a := NewWasmAnalyzer(tst.m)
+	tst.Error = a.Analyze()
 }
 
-func (tst *WasmTester) loadModule(filename string) error {
-	data, err := ioutil.ReadFile(tst.modulePath + filename)
-	if err != nil {
-		return err
-	}
+func (tst *WasmTester) moduleLink() {
+	linker := NewWasmLinker(tst.m)
+	tst.Error = linker.Link()
+}
 
-	tst.vm = nil
+func (tst *WasmTester) moduleLoad(filename string) {
+	tst.moduleRead(filename)
+	if tst.Error == nil {
+		tst.moduleAnalyze()
+	}
+}
+
+func (tst *WasmTester) moduleRead(filename string) {
 	tst.m = wasm.NewModule()
 	tst.m.Debug = filename == DEBUG_MODULE
-	reader := NewWasmReader(tst.m, data)
-	err = reader.Read()
-	if err != nil {
-		return err
+	funcTest := tester.NewFuncTest()
+	funcTest.Tests = []*tester.RunTest{tester.NewRunTest()}
+	tst.modTest = tester.NewModuleTest()
+	tst.modTest.File = filename
+	tst.modTest.Funcs = []*tester.FuncTest{funcTest}
+	data := tst.readData(filename)
+	if tst.Error == nil {
+		reader := NewWasmReader(tst.m, data)
+		tst.Error = reader.Read()
 	}
-
-	analyzer := NewWasmAnalyzer(tst.m)
-	return analyzer.Analyze()
 }
 
 func (tst *WasmTester) parseInputs(cmd *spec.SpecCommand) error {
@@ -248,7 +249,7 @@ func (tst *WasmTester) parseInputs(cmd *spec.SpecCommand) error {
 	tst.test.Err = cmd.Text
 	tst.test.In = make([]*tester.ValueTest, len(cmd.Action.Args))
 	for i, specIn := range cmd.Action.Args {
-		in := &tester.ValueTest{}
+		in := tester.NewValueTest()
 		err := parseValue(in, specIn.Type, specIn.Value)
 		if err != nil {
 			return err
@@ -262,7 +263,7 @@ func (tst *WasmTester) parseInputs(cmd *spec.SpecCommand) error {
 	}
 	tst.test.Out = make([]*tester.ValueTest, len(cmd.Expected))
 	for i, specOut := range cmd.Expected {
-		out := &tester.ValueTest{}
+		out := tester.NewValueTest()
 		err := parseValue(out, specOut.Type, specOut.Value)
 		if err != nil {
 			return err
@@ -274,19 +275,19 @@ func (tst *WasmTester) parseInputs(cmd *spec.SpecCommand) error {
 
 func parseInt(v string) (uint64, error) {
 	if v == "" {
-		return 0, errors.New("Empty value: " + v)
+		return 0, utils.Error("Empty value: " + v)
 	}
 	if v == "0" {
 		return 0, nil
 	}
 	if v[0] == '0' {
-		return 0, errors.New("Leading zeroes: " + v)
+		return 0, utils.Error("Leading zeroes: " + v)
 	}
 	val := uint64(0)
 	for i := 0; i < len(v); i++ {
 		c := v[i]
 		if c < '0' || c > '9' {
-			return 0, errors.New("Invalid value: " + v)
+			return 0, utils.Error("Invalid value: " + v)
 		}
 		val = val*10 + uint64(c-'0')
 	}
@@ -328,9 +329,19 @@ func parseValue(in *tester.ValueTest, field string, value string) error {
 	case "f64": in.F64 = math.Float64frombits(val)
 	//@formatter:on
 	default:
-		return errors.New("Invalid arg type: " + field)
+		return utils.Error("Invalid arg type: " + field)
 	}
 	return nil
+}
+
+func (tst *WasmTester) readData(filename string) []byte {
+	data, err := ioutil.ReadFile(tst.modulePath + filename)
+	tst.Error = err
+	if tst.Error != nil {
+		tst.fail("Cannot read: %s", tst.modulePath+filename)
+		return nil
+	}
+	return data
 }
 
 func (tst *WasmTester) specAction(cmd *spec.SpecCommand) {
@@ -342,48 +353,42 @@ func (tst *WasmTester) specAssertExhaustion(cmd *spec.SpecCommand) {
 }
 
 func (tst *WasmTester) specAssertInvalid(cmd *spec.SpecCommand) {
-	if cmd.Type != "binary" {
+	if cmd.ModuleType != "binary" {
 		return
 	}
-	// todo fmt.Println(cmd.Type)
+	tst.nrOfTests++
+	tst.moduleLoad(cmd.Filename)
+	tst.verifyError(cmd.Text, cmd.Type)
+	tst.m = nil
 }
 
 func (tst *WasmTester) specAssertMalformed(cmd *spec.SpecCommand) {
-	if cmd.Type != "binary" {
+	if cmd.ModuleType != "binary" {
 		return
 	}
-	data, err := ioutil.ReadFile(tst.modulePath + cmd.Filename)
-	if err != nil {
-		tst.fail("Cannot read: %s", tst.modulePath+cmd.Filename)
-		return
-	}
-
 	tst.nrOfTests++
-	tst.m = wasm.NewModule()
-	reader := NewWasmReader(tst.m, data)
-	tst.Error = reader.Read()
+	tst.moduleRead(cmd.Filename)
 	tst.verifyError(cmd.Text, cmd.Type)
 	tst.m = nil
 }
 
 func (tst *WasmTester) specAssertReturn(cmd *spec.SpecCommand) {
-	if tst.m != nil && tst.vm == nil {
-		err := tst.initVM()
-		if err != nil {
-			fmt.Printf("VM init error: %v\n", err)
+	if tst.m != nil {
+		tst.moduleLink()
+		if tst.Error != nil {
+			fmt.Printf("Module link error: %v\n", tst.Error)
 			return
 		}
 	}
 
-	saved := tst.vm
+	saved := tst.m
 	if cmd.Action.Module != "" {
-		ctx, ok := Modules[cmd.Action.Module]
+		mod, ok := Modules[cmd.Action.Module]
 		if !ok {
 			fmt.Printf("Cannot find module: %s\n", cmd.Action.Module)
 			return
 		}
-		tst.vm = ctx
-		tst.m = ctx.Module
+		tst.m = mod
 	}
 	switch cmd.Action.Type {
 	case "get":
@@ -393,10 +398,7 @@ func (tst *WasmTester) specAssertReturn(cmd *spec.SpecCommand) {
 	default:
 		fmt.Printf("Unknown action type: %s\n", cmd.Action.Type)
 	}
-	if saved != nil {
-		tst.vm = saved
-		tst.m = saved.Module
-	}
+	tst.m = saved
 }
 
 func (tst *WasmTester) specAssertReturnGet(cmd *spec.SpecCommand) {
@@ -405,7 +407,7 @@ func (tst *WasmTester) specAssertReturnGet(cmd *spec.SpecCommand) {
 		return
 	}
 	expected := cmd.Expected[0]
-	out := &tester.ValueTest{}
+	out := tester.NewValueTest()
 	err := parseValue(out, expected.Type, expected.Value)
 	if err != nil {
 		fmt.Printf("Parse error: %v\n", err)
@@ -421,7 +423,7 @@ func (tst *WasmTester) specAssertReturnGet(cmd *spec.SpecCommand) {
 			return
 		}
 		global := tst.m.Globals[export.Index]
-		got := tst.vm.Module.GlobalVars[export.Index]
+		got := tst.m.GlobalVars[export.Index]
 		gotValue := got.Field(global.Type)
 		expValue := out.Field(global.Type)
 		if gotValue != expValue {
@@ -451,34 +453,19 @@ func (tst *WasmTester) specAssertUninstantiable(cmd *spec.SpecCommand) {
 }
 
 func (tst *WasmTester) specAssertUnlinkable(cmd *spec.SpecCommand) {
-	tst.specModuleLoad(cmd)
+	tst.nrOfTests++
+	tst.moduleLoad(cmd.Filename)
 	if tst.Error == nil {
-		tst.Error = tst.initVM()
-		tst.verifyError(cmd.Text, cmd.Type)
+		tst.moduleLink()
 	}
+	tst.verifyError(cmd.Text, cmd.Type)
 	tst.m = nil
 }
 
 func (tst *WasmTester) specModule(cmd *spec.SpecCommand) {
-	tst.specModuleLoad(cmd)
+	tst.moduleLoad(cmd.Filename)
 	if tst.Error != nil {
 		fmt.Printf("Error loading %s: %v\n", cmd.Filename, tst.Error)
-	}
-}
-
-func (tst *WasmTester) specModuleLoad(cmd *spec.SpecCommand) {
-	tst.nrOfTests++
-	funcTest := &tester.FuncTest{}
-	funcTest.Tests = make([]*tester.RunTest, 1)
-	funcTest.Tests[0] = &tester.RunTest{}
-	tst.modTest = &tester.ModuleTest{}
-	tst.modTest.File = cmd.Filename
-	tst.modTest.Funcs = make([]*tester.FuncTest, 1)
-	tst.modTest.Funcs[0] = funcTest
-	tst.Error = tst.loadModule(cmd.Filename)
-	if tst.Error != nil {
-		tst.nrFailed++
-		tst.vm = nil
 		tst.m = nil
 		return
 	}
@@ -489,26 +476,24 @@ func (tst *WasmTester) specModuleLoad(cmd *spec.SpecCommand) {
 }
 
 func (tst *WasmTester) specRegister(cmd *spec.SpecCommand) {
-	if tst.vm == nil {
-		err := tst.initVM()
-		if err != nil {
-			fmt.Printf("VM init error: %v\n", err)
-			return
-		}
+	tst.moduleLink()
+	if tst.Error != nil {
+		fmt.Printf("Module link error: %v\n", tst.Error)
+		return
 	}
 	if cmd.Name == "" {
 		tst.m.ImportName = cmd.As
-		Modules[cmd.As] = tst.vm
+		Modules[cmd.As] = tst.m
 		return
 	}
 
-	ctx, ok := Modules[cmd.Name]
+	mod, ok := Modules[cmd.Name]
 	if !ok {
 		fmt.Printf("Cannot register module %s as %s\n", cmd.Name, cmd.As)
 		return
 	}
 
-	Modules[cmd.As] = ctx
+	Modules[cmd.As] = mod
 }
 
 func (tst *WasmTester) specTest() {
@@ -522,7 +507,7 @@ func (tst *WasmTester) specTest() {
 		panic(err)
 	}
 
-	Modules = make(map[string]*context.Runner)
+	Modules = make(map[string]*wasm.Module)
 	tst.createSpecTestModule()
 
 	fmt.Printf("Source: %s\n", tst.source.Filename)
@@ -544,7 +529,7 @@ func (tst *WasmTester) specTest() {
 			panic("Unknown command: " + cmd.Type)
 		}
 	}
-	fmt.Printf("\n%d tests executed, %d failed.\n", tst.nrOfTests, tst.nrFailed)
+	fmt.Printf("%d tests executed, %d failed.\n", tst.nrOfTests, tst.nrFailed)
 	TotalNrOfTests += tst.nrOfTests
 	TotalNrFailed += tst.nrFailed
 	tst.nrOfTests = 0
@@ -600,7 +585,7 @@ func (tst *WasmTester) Test() {
 			fmt.Printf("%s: %v\n", mod.File, err)
 		}
 	}
-	fmt.Printf("\n%d tests executed, %d failed.\n", tst.nrOfTests, tst.nrFailed)
+	fmt.Printf("%d tests executed, %d failed.\n", tst.nrOfTests, tst.nrFailed)
 	TotalNrOfTests += tst.nrOfTests
 	TotalNrFailed += tst.nrFailed
 	tst.nrOfTests = 0
@@ -608,7 +593,6 @@ func (tst *WasmTester) Test() {
 }
 
 func (tst *WasmTester) testFunction() {
-	fmt.Print(".")
 	tst.function = nil
 	for _, export := range tst.m.Exports {
 		if export.Type == desc.FUNC && export.ImportName == tst.funcTest.Name {
@@ -617,12 +601,13 @@ func (tst *WasmTester) testFunction() {
 		}
 	}
 	if tst.function == nil {
-		fmt.Printf("\nError: %s missing function export for: %s\n", tst.modTest.File, tst.funcTest.Name)
+		fmt.Printf("Error: %s missing function export for: %s\n", tst.modTest.File, tst.funcTest.Name)
 		return
 	}
 
 	// allocate a (reusable) stack frame for this function
 	// all tests on this function will reuse this same stack frame
+	tst.vm = context.NewRunner(tst.m)
 	tst.vm.Frame = make([]wasm.Variable, tst.function.MaxLocalIndex()+tst.function.FrameSize)
 	for _, run := range tst.funcTest.Tests {
 		tst.test = run
@@ -631,15 +616,15 @@ func (tst *WasmTester) testFunction() {
 }
 
 func (tst *WasmTester) testModule() error {
-	fmt.Printf("\nModule %s\n", tst.modTest.File)
+	fmt.Printf("Module %s\n", tst.modTest.File)
 	tst.modulePath = tst.path[:len(tst.path)-len("tests.json")]
-	err := tst.loadModule(tst.modTest.File)
-	if err != nil {
-		return err
+	tst.moduleLoad(tst.modTest.File)
+	if tst.Error != nil {
+		return tst.Error
 	}
-	err = tst.initVM()
-	if err != nil {
-		return err
+	tst.moduleLink()
+	if tst.Error != nil {
+		return tst.Error
 	}
 	for _, fun := range tst.modTest.Funcs {
 		tst.funcTest = fun
@@ -650,7 +635,7 @@ func (tst *WasmTester) testModule() error {
 
 func (tst *WasmTester) testRun() {
 	if len(tst.test.In) != len(tst.function.Type.ParamTypes) {
-		fmt.Printf("\n%s %s(): param length mismatch\n", tst.modTest.File, tst.funcTest.Name)
+		fmt.Printf("%s %s(): param length mismatch\n", tst.modTest.File, tst.funcTest.Name)
 		return
 	}
 
@@ -670,11 +655,9 @@ func (tst *WasmTester) testRun() {
 	}
 
 	tst.nrOfTests++
-	saved := tst.vm.Module
 	tst.vm.Module = tst.function.Module
 	tst.Error = instruction.RunBlock(tst.vm, tst.function.Body)
 	tst.verifyError(tst.test.Err, "")
-	tst.vm.Module = saved
 	if tst.Error != nil || tst.test.Err != "" {
 		return
 	}
@@ -699,7 +682,7 @@ func (tst *WasmTester) verifyError(errorText string, action string) {
 	if len(errorText) == 0 {
 		if action != "" {
 			tst.nrFailed++
-			fmt.Printf("Missing expected error text for: \n", action)
+			fmt.Printf("Missing expected error text for: %s\n", action)
 		}
 		if tst.Error != nil {
 			tst.nrFailed++
@@ -714,7 +697,7 @@ func (tst *WasmTester) verifyError(errorText string, action string) {
 		return
 	}
 
-	if !strings.HasPrefix(tst.Error.Error(), errorText) {
+	if !strings.Contains(tst.Error.Error(), errorText) {
 		// this particular error was unexpected
 		tst.nrFailed++
 		fmt.Printf("Unexpected error: '%s', expected '%s'\n", tst.Error, errorText)
