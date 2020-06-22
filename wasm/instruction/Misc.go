@@ -1,7 +1,6 @@
 package instruction
 
 import (
-	"fmt"
 	"github.com/iotaledger/wart/wasm/consts/op"
 	"github.com/iotaledger/wart/wasm/consts/value"
 	"github.com/iotaledger/wart/wasm/executor/context"
@@ -87,7 +86,7 @@ func (o *Misc) analyzeEnd(a *context.Analyzer) {
 
 func (o *Misc) analyzeSelect(a *context.Analyzer) {
 	rhs := a.PopExpected(value.NONE)
-	if a.Error != nil || rhs == value.NONE {
+	if a.Error != nil {
 		return
 	}
 	lhs := a.PopExpected(rhs)
@@ -107,8 +106,6 @@ func (o *Misc) analyzeSelect(a *context.Analyzer) {
 	case value.F32: o.run = func(vm *Runner) { if vm.Frame[o.SP+2].I32 == 0 { vm.Frame[o.SP].F32 = vm.Frame[o.SP+1].F32 } }
 	case value.F64: o.run = func(vm *Runner) { if vm.Frame[o.SP+2].I32 == 0 { vm.Frame[o.SP].F64 = vm.Frame[o.SP+1].F64 } }
 	//@formatter:on
-	default:
-		panic(fmt.Sprintf("Invalid value type: 0x%02x", lhs))
 	}
 }
 

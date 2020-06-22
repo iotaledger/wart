@@ -163,21 +163,31 @@ func (o *Branch) analyzeBrTable(a *context.Analyzer) {
 		return
 	}
 	targetLabel := a.Labels[o.labelIndex]
+	valueTypes := targetLabel.BlockType.ResultTypes
+	if targetLabel.BlockInst != nil && targetLabel.BlockInst.Opcode() == op.LOOP {
+		valueTypes = targetLabel.BlockType.ParamTypes
+	}
 	for _, index := range o.table {
 		if /* index < 0 || */ index >= uint32(len(a.Labels)) {
 			a.Error = o.fail("unknown label")
 			return
 		}
-		// todo label_types(ctrls[index]) =/= label_types(ctrls[labelIndex])
-		// Label tableLabel = a.Labels.get(index);
-		// if (!tableLabel.BlockType.IsSameAs(targetLabel.BlockType)) {
-		//     a.Error = AllSignatures.FunctionSignature;
-		//     return;
-		// }
-	}
-	valueTypes := targetLabel.BlockType.ResultTypes
-	if targetLabel.BlockInst != nil && targetLabel.BlockInst.Opcode() == op.LOOP {
-		valueTypes = targetLabel.BlockType.ParamTypes
+		// all labels should have the same target type
+		tableLabel := a.Labels[index]
+		tableTypes := tableLabel.BlockType.ResultTypes
+		if tableLabel.BlockInst != nil && tableLabel.BlockInst.Opcode() == op.LOOP {
+			tableTypes = tableLabel.BlockType.ParamTypes
+		}
+		if len(tableTypes) != len(valueTypes) {
+			a.Error = o.fail("type mismatch")
+			return
+		}
+		for i := 0; i < len(tableTypes); i++ {
+			if tableTypes[i] != valueTypes[i] {
+				a.Error = o.fail("type mismatch")
+				return
+			}
+		}
 	}
 	a.PopMulti(valueTypes)
 	if a.Error != nil {
