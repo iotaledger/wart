@@ -2,9 +2,9 @@ package main
 
 import (
 	"fmt"
-	"github.com/iotaledger/wart/wasm/executor"
-	"github.com/iotaledger/wart/wasm/instruction"
-	"github.com/iotaledger/wart/wasm/wasm"
+	"github.com/iotaledger/wart/wasm/executors"
+	"github.com/iotaledger/wart/wasm/instructions"
+	"github.com/iotaledger/wart/wasm/sections"
 	"io/ioutil"
 	"log"
 	"os"
@@ -21,12 +21,12 @@ func main() {
 	//readerTest("..\\input\\wasm\\roulette.wasm")
 	//readerTests()
 	specTests()
-	fmt.Printf("\n%d tests executed, %d failed.\n", executor.TotalNrOfTests, executor.TotalNrFailed)
+	fmt.Printf("\n%d tests executed, %d failed.\n", executors.TotalNrOfTests, executors.TotalNrFailed)
 	fmt.Println("Ready!")
 }
 
 func listInstructions() {
-	for opcode, sig := range instruction.AllSignatures {
+	for opcode, sig := range instructions.AllSignatures {
 		if sig.Mnemonic == "" {
 			continue
 		}
@@ -42,9 +42,9 @@ func readerTest(path string) {
 	if err != nil {
 		panic(err)
 	}
-	m := wasm.NewModule()
+	m := sections.NewModule()
 	m.Debug = strings.HasSuffix(path, DEBUG_MODULE)
-	r := executor.NewWasmReader(m, data)
+	r := executors.NewWasmReader(m, data)
 	err = r.Read()
 	if err != nil {
 		// no need to report errors on the spec test suite because
@@ -60,10 +60,10 @@ func readerTest(path string) {
 		panic(err)
 	}
 	defer out.Close()
-	p := executor.NewWatWriter(m, out)
+	p := executors.NewWatWriter(m, out)
 	p.Write()
 
-	w := executor.NewWasmWriter(m)
+	w := executors.NewWasmWriter(m)
 	w.Write()
 
 	newData := w.Data()
@@ -85,7 +85,7 @@ func readerTest(path string) {
 		return
 	}
 
-	a := executor.NewWasmAnalyzer(m)
+	a := executors.NewWasmAnalyzer(m)
 	err = a.Analyze()
 	if err != nil {
 		fmt.Printf("Error: %v\n\n", err)
@@ -110,7 +110,7 @@ func readerTests() {
 
 func specTest(path string) {
 	fmt.Printf("\nSpec input file %s\n", path[3:])
-	t := executor.NewWasmTester(path, true)
+	t := executors.NewWasmTester(path, true)
 	t.Test()
 }
 
@@ -132,7 +132,7 @@ func specTests() {
 
 func testerTest(path string) {
 	fmt.Printf("\n\nTest input file %s\n", path[3:])
-	t := executor.NewWasmTester(path, false)
+	t := executors.NewWasmTester(path, false)
 	t.Test()
 }
 
