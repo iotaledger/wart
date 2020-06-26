@@ -28,7 +28,7 @@ func (o *Call) Analyze(a *context.Analyzer) {
 			return
 		}
 		f := a.Module.Functions[o.index]
-		o.analyzeCallType(a, f.Type.Nr)
+		o.analyzeCallType(a, f.FuncType.Nr)
 	case op.CALL_INDIRECT:
 		if a.Module.MaxTables() == 0 {
 			a.Error = o.fail("unknown table")
@@ -45,19 +45,19 @@ func (o *Call) Analyze(a *context.Analyzer) {
 	}
 }
 
-func (o *Call) analyzeCallType(a *context.Analyzer, funcType uint32) {
-	if funcType >= a.Module.MaxFuncTypes() {
+func (o *Call) analyzeCallType(a *context.Analyzer, typeIndex uint32) {
+	if typeIndex >= a.Module.MaxFuncTypes() {
 		a.Error = o.fail("unknown type")
 		return
 	}
-	f := a.Module.FuncTypes[funcType]
-	o.stackChange = len(f.ResultTypes) - len(f.ParamTypes)
-	a.PopMulti(f.ParamTypes)
+	funcType := a.Module.FuncTypes[typeIndex]
+	o.stackChange = len(funcType.ResultTypes) - len(funcType.ParamTypes)
+	a.PopMulti(funcType.ParamTypes)
 	if a.Error != nil {
 		return
 	}
 	o.SP = a.SP
-	a.PushMulti(f.ResultTypes)
+	a.PushMulti(funcType.ResultTypes)
 }
 
 func (o *Call) Read(r *context.Reader) {
@@ -122,7 +122,7 @@ func (o *Call) runCallDirect(vm *Runner, f *sections.Function) {
 
 	if vm.CallDepth == 1000 {
 		vm.CallDepth = 0
-		vm.Error = StackOverflow
+		vm.Error = utils.Error("call stack exhausted")
 		return
 	}
 
@@ -132,10 +132,10 @@ func (o *Call) runCallDirect(vm *Runner, f *sections.Function) {
 
 	// set up new stack frame with copy of params
 	// plus enough space for locals + stack frame
-	funcType := f.Type
+	funcType := f.FuncType
 	callFrame := make([]sections.Variable, f.MaxLocalIndex()+f.FrameSize)
-	for i, vt := range funcType.ParamTypes {
-		callFrame[i].Copy(&savedFrame[o.SP+i], vt)
+	for i, paramType := range funcType.ParamTypes {
+		callFrame[i].Copy(&savedFrame[o.SP+i], paramType)
 	}
 
 	vm.Module = f.Module
@@ -153,30 +153,30 @@ func (o *Call) runCallDirect(vm *Runner, f *sections.Function) {
 	// copy function results over from called frame
 	// return instruction should have set vm.SP correctly
 	// to point to results in frame
-	for i, vt := range funcType.ResultTypes {
-		savedFrame[o.SP+i].Copy(&callFrame[vm.SP+i], vt)
+	for i, resultType := range funcType.ResultTypes {
+		savedFrame[o.SP+i].Copy(&callFrame[vm.SP+i], resultType)
 	}
 }
 
 func (o *Call) runCallIndirect(vm *Runner) {
 	//todo dynamic type check on call argument
-	// see if vm.Module.FuncIndexes[vm.Module.Elements[arg]].Type == o.index
+	// see if vm.Module.FuncIndexes[vm.Module.Elements[arg]].DataType == o.index
 	ft := vm.Module.FuncTypes[o.index]
 	tableIndex := uint32(vm.Frame[o.SP+len(ft.ParamTypes)].I32)
 	table := vm.Module.Tables[0]
 	if /* tableIndex < 0 || */ tableIndex >= uint32(len(table.FuncModules)) {
-		vm.Error = UndefinedElement
+		vm.Error = utils.Error("undefined element")
 		return
 	}
 	funcModule := table.FuncModules[tableIndex]
 	if funcModule == nil {
-		vm.Error = UninitializedElement
+		vm.Error = utils.Error("uninitialized element")
 		return
 	}
 	funcIndex := table.FuncIndexes[tableIndex]
 	f := funcModule.Functions[funcIndex]
-	if !f.Type.IsSameAs(ft) {
-		vm.Error = FunctionSignature
+	if !f.FuncType.IsSameAs(ft) {
+		vm.Error = utils.Error("indirect call type mismatch")
 		return
 	}
 	o.runCallDirect(vm, f)

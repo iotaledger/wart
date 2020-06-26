@@ -10,10 +10,10 @@ type Function struct {
 	Identifier
 	Body      []helper.Instruction
 	FrameSize uint32
+	FuncType  *FuncType
 	HostCall  HostInterface
 	Locals    []*Local
 	Module    *Module
-	Type      *FuncType
 }
 
 func NewFunction() *Function {
@@ -21,5 +21,5 @@ func NewFunction() *Function {
 }
 
 func (f *Function) MaxLocalIndex() uint32 {
-	return uint32(len(f.Type.ParamTypes) + len(f.Locals))
+	return uint32(len(f.FuncType.ParamTypes) + len(f.Locals))
 }

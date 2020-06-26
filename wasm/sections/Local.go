@@ -4,7 +4,7 @@ import "github.com/iotaledger/wart/wasm/consts/value"
 
 type Local struct {
 	Identifier
-	Type value.Type
+	DataType value.DataType
 }
 
 func NewLocal() *Local {

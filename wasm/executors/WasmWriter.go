@@ -26,15 +26,15 @@ func (ctx *WasmWriter) compressLocals(locals []*sections.Local) {
 		return
 	}
 	counts := make([]uint32, 0)
-	values := make([]value.Type, 0)
+	values := make([]value.DataType, 0)
 	count := uint32(0)
-	lastVt := locals[0].Type
+	lastVt := locals[0].DataType
 	for _, local := range locals {
-		if local.Type != lastVt {
+		if local.DataType != lastVt {
 			counts = append(counts, count)
 			values = append(values, lastVt)
 			count = 0
-			lastVt = local.Type
+			lastVt = local.DataType
 		}
 		count++
 	}
@@ -45,7 +45,7 @@ func (ctx *WasmWriter) compressLocals(locals []*sections.Local) {
 	ctx.w.PutU32(uint32(len(counts)))
 	for i, count := range counts {
 		ctx.w.PutU32(count)
-		ctx.w.PutValueType(values[i])
+		ctx.w.PutDataType(values[i])
 	}
 }
 
@@ -104,7 +104,7 @@ func (ctx *WasmWriter) sectionExport() {
 	ctx.putLen(len(ctx.m.Exports))
 	for _, export := range ctx.m.Exports {
 		ctx.w.PutString(export.ImportName)
-		ctx.w.PutByte(byte(export.Type))
+		ctx.w.PutByte(byte(export.ExternalType))
 		ctx.w.PutU32(export.Index)
 	}
 }
@@ -113,7 +113,7 @@ func (ctx *WasmWriter) sectionFunction() {
 	functions := ctx.m.Functions[ctx.m.ExternalFunctions:]
 	ctx.putLen(len(functions))
 	for _, function := range functions {
-		ctx.w.PutU32(function.Type.Nr)
+		ctx.w.PutU32(function.FuncType.Nr)
 	}
 }
 
@@ -137,7 +137,7 @@ func (ctx *WasmWriter) sectionImport() {
 		ctx.w.PutString(function.ModuleName)
 		ctx.w.PutString(function.ImportName)
 		ctx.w.PutByte(byte(desc.FUNC))
-		ctx.w.PutU32(function.Type.Nr)
+		ctx.w.PutU32(function.FuncType.Nr)
 	}
 	for i := uint32(0); i < ctx.m.ExternalMemories; i++ {
 		memory := ctx.m.Memories[i]
@@ -190,8 +190,8 @@ func (ctx *WasmWriter) sectionType() {
 	ctx.putLen(len(ctx.m.FuncTypes))
 	for _, funcType := range ctx.m.FuncTypes {
 		ctx.w.PutByte(0x60)
-		ctx.w.PutValueTypes(funcType.ParamTypes)
-		ctx.w.PutValueTypes(funcType.ResultTypes)
+		ctx.w.PutDataTypes(funcType.ParamTypes)
+		ctx.w.PutDataTypes(funcType.ResultTypes)
 	}
 }
 
@@ -202,7 +202,7 @@ func (ctx *WasmWriter) Write() {
 }
 
 func (ctx *WasmWriter) writeGlobal(global *sections.Global) {
-	ctx.w.PutValueType(global.Type)
+	ctx.w.PutDataType(global.DataType)
 	var mut byte
 	if global.Mutable {
 		mut = 0x01

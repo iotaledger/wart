@@ -10,8 +10,8 @@ import (
 
 type Var struct {
 	Base
-	Index uint32
-	vt    value.Type
+	Index    uint32
+	dataType value.DataType
 }
 
 func NewVar() helper.Instruction {
@@ -37,8 +37,8 @@ func (o *Var) analyzeLocalGet(a *context.Analyzer) {
 		a.Error = o.fail("unknown local")
 		return
 	}
-	o.vt = a.Frame[o.Index]
-	a.Push(o.vt)
+	o.dataType = a.Frame[o.Index]
+	a.Push(o.dataType)
 }
 
 func (o *Var) analyzeLocalSetAndTee(a *context.Analyzer) {
@@ -46,18 +46,18 @@ func (o *Var) analyzeLocalSetAndTee(a *context.Analyzer) {
 		a.Error = o.fail("unknown local")
 		return
 	}
-	o.vt = a.Frame[o.Index]
-	top := a.PopExpected(o.vt)
+	o.dataType = a.Frame[o.Index]
+	top := a.PopExpected(o.dataType)
 	if a.Error != nil {
 		return
 	}
-	if top != o.vt {
+	if top != o.dataType {
 		a.Error = o.fail("Invalid operand type")
 		return
 	}
 	o.SP = a.SP
 	if o.opcode == op.LOCAL_TEE {
-		a.Push(o.vt)
+		a.Push(o.dataType)
 	}
 }
 
@@ -66,8 +66,8 @@ func (o *Var) analyzeGlobalGet(a *context.Analyzer) {
 		a.Error = o.fail("unknown global")
 		return
 	}
-	o.vt = a.Module.Globals[o.Index].Type
-	a.Push(o.vt)
+	o.dataType = a.Module.Globals[o.Index].DataType
+	a.Push(o.dataType)
 }
 
 func (o *Var) analyzeGlobalSet(a *context.Analyzer) {
@@ -79,12 +79,12 @@ func (o *Var) analyzeGlobalSet(a *context.Analyzer) {
 		a.Error = o.fail("global is immutable")
 		return
 	}
-	o.vt = a.Module.Globals[o.Index].Type
-	top := a.PopExpected(o.vt)
+	o.dataType = a.Module.Globals[o.Index].DataType
+	top := a.PopExpected(o.dataType)
 	if a.Error != nil {
 		return
 	}
-	if top != o.vt {
+	if top != o.dataType {
 		a.Error = o.fail("Invalid operand type")
 		return
 	}
@@ -112,7 +112,7 @@ func (o *Var) setRunner() {
 func (o *Var) setRunLocalGet() {
 	sp := o.SP
 	idx := o.Index
-	switch o.vt {
+	switch o.dataType {
 	//@formatter:off
 	case value.I32: o.run = func(vm *Runner) { vm.Frame[sp].I32 = vm.Frame[idx].I32 }
 	case value.I64: o.run = func(vm *Runner) { vm.Frame[sp].I64 = vm.Frame[idx].I64 }
@@ -120,14 +120,14 @@ func (o *Var) setRunLocalGet() {
 	case value.F64: o.run = func(vm *Runner) { vm.Frame[sp].F64 = vm.Frame[idx].F64 }
 	//@formatter:on
 	default:
-		panic(fmt.Sprintf("Invalid value type: 0x%02x", byte(o.vt)))
+		panic("Invalid utils.Errordata type")
 	}
 }
 
 func (o *Var) setRunLocalSet() {
 	sp := o.SP
 	idx := o.Index
-	switch o.vt {
+	switch o.dataType {
 	//@formatter:off
 	case value.I32: o.run = func(vm *Runner) { vm.Frame[idx].I32 = vm.Frame[sp].I32 }
 	case value.I64: o.run = func(vm *Runner) { vm.Frame[idx].I64 = vm.Frame[sp].I64 }
@@ -135,14 +135,14 @@ func (o *Var) setRunLocalSet() {
 	case value.F64: o.run = func(vm *Runner) { vm.Frame[idx].F64 = vm.Frame[sp].F64 }
 	//@formatter:on
 	default:
-		panic(fmt.Sprintf("Invalid value type: 0x%02x", byte(o.vt)))
+		panic("Invalid utils.Errordata type")
 	}
 }
 
 func (o *Var) setRunGlobalGet() {
 	sp := o.SP
 	idx := o.Index
-	switch o.vt {
+	switch o.dataType {
 	//@formatter:off
 	case value.I32: o.run = func(vm *Runner) { vm.Frame[sp].I32 = vm.Module.GlobalVars[idx].I32 }
 	case value.I64: o.run = func(vm *Runner) { vm.Frame[sp].I64 = vm.Module.GlobalVars[idx].I64 }
@@ -150,14 +150,14 @@ func (o *Var) setRunGlobalGet() {
 	case value.F64: o.run = func(vm *Runner) { vm.Frame[sp].F64 = vm.Module.GlobalVars[idx].F64 }
 	//@formatter:on
 	default:
-		panic(fmt.Sprintf("Invalid value type: 0x%02x", byte(o.vt)))
+		panic("Invalid utils.Errordata type")
 	}
 }
 
 func (o *Var) setRunGlobalSet() {
 	sp := o.SP
 	idx := o.Index
-	switch o.vt {
+	switch o.dataType {
 	//@formatter:off
 	case value.I32: o.run = func(vm *Runner) { vm.Module.GlobalVars[idx].I32 = vm.Frame[sp].I32 }
 	case value.I64: o.run = func(vm *Runner) { vm.Module.GlobalVars[idx].I64 = vm.Frame[sp].I64 }
@@ -165,7 +165,7 @@ func (o *Var) setRunGlobalSet() {
 	case value.F64: o.run = func(vm *Runner) { vm.Module.GlobalVars[idx].F64 = vm.Frame[sp].F64 }
 	//@formatter:on
 	default:
-		panic(fmt.Sprintf("Invalid value type: 0x%02x", byte(o.vt)))
+		panic("Invalid utils.Errordata type")
 	}
 }
 

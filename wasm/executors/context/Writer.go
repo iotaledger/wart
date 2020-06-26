@@ -51,6 +51,17 @@ func (w *Writer) PutBytes(data []byte) {
 	w.data = append(w.data, data...)
 }
 
+func (w *Writer) PutDataType(dataType value.DataType) {
+	w.PutByte(byte(dataType))
+}
+
+func (w *Writer) PutDataTypes(dataTypes []value.DataType) {
+	w.PutU32(uint32(len(dataTypes)))
+	for _, dataType := range dataTypes {
+		w.PutDataType(dataType)
+	}
+}
+
 func (w *Writer) PutF32(val float32) {
 	data := make([]byte, 4)
 	binary.LittleEndian.PutUint32(data, math.Float32bits(val))
@@ -95,17 +106,6 @@ func (w *Writer) PutU32(val uint32) {
 
 func (w *Writer) PutU64(val uint64) {
 	w.leb128EncodeU64(val)
-}
-
-func (w *Writer) PutValueType(vt value.Type) {
-	w.PutByte(byte(vt))
-}
-
-func (w *Writer) PutValueTypes(valueTypes []value.Type) {
-	w.PutU32(uint32(len(valueTypes)))
-	for _, vt := range valueTypes {
-		w.PutValueType(vt)
-	}
 }
 
 // returns size of written part

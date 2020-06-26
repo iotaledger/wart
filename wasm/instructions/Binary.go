@@ -1,6 +1,7 @@
 package instructions
 
 import (
+	"github.com/iotaledger/wart/utils"
 	"github.com/iotaledger/wart/wasm/consts/op"
 	"github.com/iotaledger/wart/wasm/instructions/helper"
 	"math"
@@ -110,11 +111,11 @@ func f64Min(x, y float64) float64 {
 func i32Div(vm *Runner, sp int) {
 	rhs := vm.Frame[sp+1].I32
 	if rhs == 0 {
-		vm.Error = DivZero
+		vm.Error = utils.Error("integer divide by zero")
 		return
 	}
 	if rhs == -1 && vm.Frame[sp].I32 == -0x80000000 {
-		vm.Error = IntOverflow
+		vm.Error = utils.Error("integer overflow")
 		return
 	}
 	vm.Frame[sp].I32 /= rhs
@@ -123,7 +124,7 @@ func i32Div(vm *Runner, sp int) {
 func i32Rem(vm *Runner, sp int) {
 	rhs := vm.Frame[sp+1].I32
 	if rhs == 0 {
-		vm.Error = DivZero
+		vm.Error = utils.Error("integer divide by zero")
 		return
 	}
 	vm.Frame[sp].I32 %= rhs
@@ -132,11 +133,11 @@ func i32Rem(vm *Runner, sp int) {
 func i64Div(vm *Runner, sp int) {
 	rhs := vm.Frame[sp+1].I64
 	if rhs == 0 {
-		vm.Error = DivZero
+		vm.Error = utils.Error("integer divide by zero")
 		return
 	}
 	if rhs == -1 && vm.Frame[sp].I64 == -0x8000000000000000 {
-		vm.Error = IntOverflow
+		vm.Error = utils.Error("integer overflow")
 		return
 	}
 	vm.Frame[sp].I64 /= rhs
@@ -145,7 +146,7 @@ func i64Div(vm *Runner, sp int) {
 func i64Rem(vm *Runner, sp int) {
 	rhs := vm.Frame[sp+1].I64
 	if rhs == 0 {
-		vm.Error = DivZero
+		vm.Error = utils.Error("integer divide by zero")
 		return
 	}
 	vm.Frame[sp].I64 %= rhs
@@ -154,7 +155,7 @@ func i64Rem(vm *Runner, sp int) {
 func u32Div(vm *Runner, sp int) {
 	rhs := vm.Frame[sp+1].I32
 	if rhs == 0 {
-		vm.Error = DivZero
+		vm.Error = utils.Error("integer divide by zero")
 		return
 	}
 	vm.Frame[sp].I32 = int32(uint32(vm.Frame[sp].I32) / uint32(rhs))
@@ -163,7 +164,7 @@ func u32Div(vm *Runner, sp int) {
 func u32Rem(vm *Runner, sp int) {
 	rhs := vm.Frame[sp+1].I32
 	if rhs == 0 {
-		vm.Error = DivZero
+		vm.Error = utils.Error("integer divide by zero")
 		return
 	}
 	vm.Frame[sp].I32 = int32(uint32(vm.Frame[sp].I32) % uint32(rhs))
@@ -172,7 +173,7 @@ func u32Rem(vm *Runner, sp int) {
 func u64Div(vm *Runner, sp int) {
 	rhs := vm.Frame[sp+1].I64
 	if rhs == 0 {
-		vm.Error = DivZero
+		vm.Error = utils.Error("integer divide by zero")
 		return
 	}
 	vm.Frame[sp].I64 = int64(uint64(vm.Frame[sp].I64) / uint64(rhs))
@@ -181,7 +182,7 @@ func u64Div(vm *Runner, sp int) {
 func u64Rem(vm *Runner, sp int) {
 	rhs := vm.Frame[sp+1].I64
 	if rhs == 0 {
-		vm.Error = DivZero
+		vm.Error = utils.Error("integer divide by zero")
 		return
 	}
 	vm.Frame[sp].I64 = int64(uint64(vm.Frame[sp].I64) % uint64(rhs))

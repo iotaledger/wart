@@ -54,7 +54,7 @@ func AnalyzeBlock(a *context.Analyzer) {
 		if i+1 < len(a.Code) {
 			instruction.setNext(a.Code[i+1])
 		}
-		sig := &AllSignatures[instruction.Opcode()]
+		sig := &Operations[instruction.Opcode()]
 		if sig.Mnemonic == "" {
 			panic("Invalid instruction opcode")
 		}
@@ -106,7 +106,7 @@ func b2i(b bool) int32 {
 }
 
 func CreateInstruction(opcode byte) helper.Instruction {
-	sig := AllSignatures[opcode]
+	sig := &Operations[opcode]
 	if sig.Factory == nil {
 		return nil
 	}
@@ -132,7 +132,7 @@ func (o *Base) makeBlock(instruction helper.Instruction) []helper.Instruction {
 }
 
 func (o *Base) Mnemonic() string {
-	return AllSignatures[o.opcode].Mnemonic
+	return Operations[o.opcode].Mnemonic
 }
 
 func (o *Base) Opcode() byte {
@@ -229,7 +229,7 @@ func (o *Base) setSP(sp int) {
 }
 
 func (o *Base) StackChange() int {
-	return AllSignatures[o.opcode].StackChange
+	return Operations[o.opcode].StackChange
 }
 
 func (o *Base) String() string {

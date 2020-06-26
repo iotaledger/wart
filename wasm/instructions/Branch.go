@@ -291,7 +291,7 @@ func (o *Branch) unwindSingleValue(a *context.Analyzer, src int, dst int) {
 	case value.F64: o.run = func(vm *Runner) { vm.Frame[dst].F64 = vm.Frame[src].F64 }
 	//@formatter:on
 	default:
-		panic(fmt.Sprintf("Invalid value type: 0x%02x", a.Frame[src]))
+		panic("Invalid utils.Errordata type")
 	}
 }
 

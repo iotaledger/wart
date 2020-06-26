@@ -65,10 +65,10 @@ func (ctx *WasmAnalyzer) analyzeCode() {
 }
 
 func (ctx *WasmAnalyzer) analyzeCodeFunction(function *sections.Function) {
-	ctx.a = context.NewAnalyzer(ctx.m, function.Type.ParamTypes, function.Locals)
+	ctx.a = context.NewAnalyzer(ctx.m, function.FuncType.ParamTypes, function.Locals)
 	ctx.a.FuncNr = function.Nr
 	ctx.a.Code = function.Body
-	outerBlockLabel := context.NewLabel(function.Type, nil)
+	outerBlockLabel := context.NewLabel(function.FuncType, nil)
 	outerBlockLabel.UnwindSP = ctx.a.BlockMark
 	ctx.a.Labels = []*context.Label{outerBlockLabel}
 	instructions.AnalyzeBlock(ctx.a)
@@ -137,7 +137,7 @@ func (ctx *WasmAnalyzer) analyzeExports() {
 				return
 			}
 		}
-		switch export.Type {
+		switch export.ExternalType {
 		case desc.FUNC:
 			if /* export.Index < 0 || */ export.Index >= ctx.m.MaxFunctions() {
 				ctx.a.Fail("unknown function")
@@ -174,15 +174,15 @@ func (ctx *WasmAnalyzer) analyzeFunctions() {
 		}
 		function.Nr = nr
 		function.Module = ctx.m
-		if function.Type == nil {
+		if function.FuncType == nil {
 			ctx.a.Fail("Missing function type")
 			return
 		}
-		if /* function.Type.Nr < 0 || */ function.Type.Nr >= ctx.m.MaxFuncTypes() {
+		if /* function.FuncType.Nr < 0 || */ function.FuncType.Nr >= ctx.m.MaxFuncTypes() {
 			ctx.a.Fail("Invalid function type")
 			return
 		}
-		if function.Type != ctx.m.FuncTypes[function.Type.Nr] {
+		if function.FuncType != ctx.m.FuncTypes[function.FuncType.Nr] {
 			ctx.a.Fail("Invalid function type reference")
 			return
 		}
@@ -197,11 +197,11 @@ func (ctx *WasmAnalyzer) analyzeGlobals() {
 			return
 		}
 		global.Nr = nr
-		ctx.a.Error = global.Type.Check()
+		ctx.a.Error = global.DataType.Check()
 		if ctx.a.Error != nil {
 			return
 		}
-		ctx.analyzeInitializerExpression(global.Init, global.Type)
+		ctx.analyzeInitializerExpression(global.Init, global.DataType)
 		if ctx.a.Error != nil {
 			return
 		}
@@ -231,15 +231,15 @@ func (ctx *WasmAnalyzer) analyzeImports() {
 		if ctx.a.Error != nil {
 			return
 		}
-		if function.Type == nil {
+		if function.FuncType == nil {
 			ctx.a.Fail("Missing import function type")
 			return
 		}
-		if /* function.Type.Nr < 0 || */ function.Type.Nr >= ctx.m.MaxFuncTypes() {
+		if /* function.Desc.Nr < 0 || */ function.FuncType.Nr >= ctx.m.MaxFuncTypes() {
 			ctx.a.Fail("Invalid import function type")
 			return
 		}
-		if function.Type != ctx.m.FuncTypes[function.Type.Nr] {
+		if function.FuncType != ctx.m.FuncTypes[function.FuncType.Nr] {
 			ctx.a.Fail("Invalid import function type reference")
 			return
 		}
@@ -251,7 +251,7 @@ func (ctx *WasmAnalyzer) analyzeImports() {
 		if ctx.a.Error != nil {
 			return
 		}
-		ctx.a.Error = global.Type.Check()
+		ctx.a.Error = global.DataType.Check()
 		if ctx.a.Error != nil {
 			return
 		}
@@ -297,7 +297,7 @@ func (ctx *WasmAnalyzer) analyzeImports() {
 	}
 }
 
-func (ctx *WasmAnalyzer) analyzeInitializerExpression(expr []helper.Instruction, vt value.Type) {
+func (ctx *WasmAnalyzer) analyzeInitializerExpression(expr []helper.Instruction, dataType value.DataType) {
 	if len(expr) != 0 && expr[len(expr)-1].Opcode() != op.END {
 		ctx.a.Fail("Expression without terminating end instruction")
 		return
@@ -307,8 +307,8 @@ func (ctx *WasmAnalyzer) analyzeInitializerExpression(expr []helper.Instruction,
 		switch expr[i].Opcode() {
 		case op.I32_CONST, op.I64_CONST, op.F32_CONST, op.F64_CONST:
 			constInstr := expr[i].(*instructions.Const)
-			if constInstr.Type() != vt {
-				ctx.a.Fail(constInstr.Mnemonic() + " type mismatch")
+			if constInstr.DataType() != dataType {
+				ctx.a.Fail("type mismatch")
 				return
 			}
 		case op.GLOBAL_GET:
@@ -321,8 +321,8 @@ func (ctx *WasmAnalyzer) analyzeInitializerExpression(expr []helper.Instruction,
 				ctx.a.Fail("global must be import")
 				return
 			}
-			if ctx.m.Globals[getInstr.Index].Type != vt {
-				ctx.a.Fail("global.get type mismatch")
+			if ctx.m.Globals[getInstr.Index].DataType != dataType {
+				ctx.a.Fail("type mismatch")
 				return
 			}
 		default:
@@ -335,7 +335,7 @@ func (ctx *WasmAnalyzer) analyzeInitializerExpression(expr []helper.Instruction,
 	ctx.a.Code = expr
 	outerBlockLabel := context.NewLabel(sections.NewFuncType(), nil)
 	outerBlockLabel.UnwindSP = ctx.a.BlockMark
-	outerBlockLabel.BlockType.ResultTypes = []value.Type{vt}
+	outerBlockLabel.BlockType.ResultTypes = []value.DataType{dataType}
 	ctx.a.Labels = []*context.Label{outerBlockLabel}
 	instructions.AnalyzeBlock(ctx.a)
 }
@@ -373,7 +373,7 @@ func (ctx *WasmAnalyzer) analyzeStart() {
 			ctx.a.Fail("Invalid start function index")
 			return
 		}
-		funcType := ctx.m.Functions[ctx.m.Start].Type
+		funcType := ctx.m.Functions[ctx.m.Start].FuncType
 		if len(funcType.ParamTypes) != 0 || len(funcType.ResultTypes) != 0 {
 			ctx.a.Fail("Invalid start function type signature")
 			return

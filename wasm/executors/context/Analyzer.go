@@ -11,7 +11,7 @@ type Analyzer struct {
 	BlockMark int
 	Code      []helper.Instruction
 	Error     error
-	Frame     []value.Type
+	Frame     []value.DataType
 	FuncNr    uint32
 	IP        int
 	Labels    []*Label
@@ -22,14 +22,14 @@ type Analyzer struct {
 	SP        int
 }
 
-func NewAnalyzer(m *sections.Module, params []value.Type, locals []*sections.Local) *Analyzer {
+func NewAnalyzer(m *sections.Module, params []value.DataType, locals []*sections.Local) *Analyzer {
 	a := &Analyzer{}
 	a.Module = m
 	a.Locals = len(params) + len(locals)
-	a.Frame = make([]value.Type, a.Locals)
+	a.Frame = make([]value.DataType, a.Locals)
 	copy(a.Frame, params)
 	for i, local := range locals {
-		a.Frame[len(params)+i] = local.Type
+		a.Frame[len(params)+i] = local.DataType
 	}
 	a.SP = len(a.Frame)
 	a.BlockMark = a.SP
@@ -43,7 +43,7 @@ func (a *Analyzer) Fail(format string, args ...interface{}) {
 	a.Error = utils.Error(format, args...)
 }
 
-func (a *Analyzer) Pop() value.Type {
+func (a *Analyzer) Pop() value.DataType {
 	a.Error = nil
 	if a.SP == a.BlockMark {
 		if !a.Labels[0].Unreachable {
@@ -56,7 +56,7 @@ func (a *Analyzer) Pop() value.Type {
 	return a.Frame[a.SP]
 }
 
-func (a *Analyzer) PopExpected(expected value.Type) value.Type {
+func (a *Analyzer) PopExpected(expected value.DataType) value.DataType {
 	actual := a.Pop()
 	if a.Error != nil {
 		return value.NONE
@@ -72,7 +72,7 @@ func (a *Analyzer) PopExpected(expected value.Type) value.Type {
 	return actual
 }
 
-func (a *Analyzer) PopMulti(values []value.Type) {
+func (a *Analyzer) PopMulti(values []value.DataType) {
 	for i := len(values) - 1; i >= 0; i-- {
 		a.PopExpected(values[i])
 		if a.Error != nil {
@@ -81,20 +81,20 @@ func (a *Analyzer) PopMulti(values []value.Type) {
 	}
 }
 
-func (a *Analyzer) Push(val value.Type) {
+func (a *Analyzer) Push(dataType value.DataType) {
 	// expand frame capacity when necessary
 	if a.SP == len(a.Frame) {
-		a.Frame = append(a.Frame, val)
+		a.Frame = append(a.Frame, dataType)
 	}
-	a.Frame[a.SP] = val
+	a.Frame[a.SP] = dataType
 	a.SP++
 	if a.SP > a.MaxSP {
 		a.MaxSP = a.SP
 	}
 }
 
-func (a *Analyzer) PushMulti(values []value.Type) {
-	for _, vt := range values {
-		a.Push(vt)
+func (a *Analyzer) PushMulti(dataTypes []value.DataType) {
+	for _, dataType := range dataTypes {
+		a.Push(dataType)
 	}
 }

@@ -1,26 +1,45 @@
 package instructions
 
 import (
-	"errors"
-	"fmt"
 	"github.com/iotaledger/wart/wasm/consts/op"
 	"github.com/iotaledger/wart/wasm/consts/value"
 	"github.com/iotaledger/wart/wasm/instructions/helper"
 )
 
-var AllSignatures [256]helper.Signature
-var DivZero error
-var FunctionSignature error
-var IntOverflow error
-var InvalidConversion error
-var MemAccess error
-var StackOverflow error
-var UndefinedElement error
-var UninitializedElement error
-var Unreachable error
+var Operations [256]Operation
 
-func initSignature(opcode byte, mnemonic string, result value.Type, arg1 value.Type, arg2 value.Type, factory func() helper.Instruction) {
-	sig := &AllSignatures[opcode]
+type Operation struct {
+	Factory     func() helper.Instruction
+	Mnemonic    string
+	Result      value.DataType
+	Arg1        value.DataType
+	Arg2        value.DataType
+	Align       byte
+	StackChange int
+}
+
+func (s *Operation) NewSignature(mnemonic string, result value.DataType, arg1 value.DataType, arg2 value.DataType, factory func() helper.Instruction) {
+	if s.Factory != nil {
+		panic("Duplicate opcode byte value")
+	}
+	s.Factory = factory
+	s.Mnemonic = mnemonic
+	s.Result = result
+	s.Arg1 = arg1
+	s.Arg2 = arg2
+	if s.Arg2 != value.NONE {
+		s.StackChange--
+	}
+	if s.Arg1 != value.NONE {
+		s.StackChange--
+	}
+	if s.Result != value.NONE {
+		s.StackChange++
+	}
+}
+
+func initSignature(opcode byte, mnemonic string, result value.DataType, arg1 value.DataType, arg2 value.DataType, factory func() helper.Instruction) {
+	sig := &Operations[opcode]
 	sig.NewSignature(mnemonic, result, arg1, arg2, factory)
 }
 
@@ -85,7 +104,7 @@ func newConvert(opcode byte, mnemonic string) {
 func newLoad(opcode byte, mnemonic string, align byte) {
 	result := valueTypeOf(mnemonic[0:3])
 	initSignature(opcode, mnemonic, result, value.I32, value.NONE, NewMem)
-	AllSignatures[opcode].Align = align
+	Operations[opcode].Align = align
 }
 
 func newMisc(opcode byte, mnemonic string) {
@@ -97,14 +116,14 @@ func newMisc(opcode byte, mnemonic string) {
 	initSignature(opcode, mnemonic, value.NONE, arg, value.NONE, NewMisc)
 	switch opcode {
 	case op.SELECT:
-		AllSignatures[opcode].StackChange = -2
+		Operations[opcode].StackChange = -2
 	}
 }
 
 func newStore(opcode byte, mnemonic string, align byte) {
 	arg := valueTypeOf(mnemonic[0:3])
 	initSignature(opcode, mnemonic, value.NONE, value.I32, arg, NewMem)
-	AllSignatures[opcode].Align = align
+	Operations[opcode].Align = align
 }
 
 func newUnary(opcode byte, mnemonic string) {
@@ -121,13 +140,13 @@ func newVar(opcode byte, mnemonic string) {
 	initSignature(opcode, mnemonic, value.NONE, value.NONE, value.NONE, NewVar)
 	switch opcode {
 	case op.LOCAL_GET, op.GLOBAL_GET:
-		AllSignatures[opcode].StackChange = 1
+		Operations[opcode].StackChange = 1
 	case op.LOCAL_SET, op.GLOBAL_SET:
-		AllSignatures[opcode].StackChange = -1
+		Operations[opcode].StackChange = -1
 	}
 }
 
-func valueTypeOf(typeName string) value.Type {
+func valueTypeOf(typeName string) value.DataType {
 	switch typeName {
 	//@formatter:off
 	case "i32": return value.I32
@@ -136,21 +155,11 @@ func valueTypeOf(typeName string) value.Type {
 	case "f64": return value.F64
 	//@formatter:on
 	default:
-		panic(fmt.Sprintf("Invalid value type name: %s", typeName))
+		panic("Invalid utils.Errordata type name: " + typeName)
 	}
 }
 
 func init() {
-	DivZero = errors.New("integer divide by zero")
-	FunctionSignature = errors.New("indirect call type mismatch")
-	IntOverflow = errors.New("integer overflow")
-	InvalidConversion = errors.New("invalid conversion to integer")
-	MemAccess = errors.New("out of bounds memory access")
-	StackOverflow = errors.New("call stack exhausted")
-	UndefinedElement = errors.New("undefined element")
-	UninitializedElement = errors.New("uninitialized element")
-	Unreachable = errors.New("unreachable")
-
 	newMisc(op.UNREACHABLE, "unreachable")
 	newMisc(op.NOP, "nop")
 	newBlock(op.BLOCK, "block")

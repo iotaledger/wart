@@ -1,8 +1,8 @@
 package spec
 
 type SpecAction struct {
-	Args   []*SpecValue `json:"args"`
-	Field  string       `json:"field"`
-	Module string       `json:"module"`
-	Type   string       `json:"type"`
+	ActionType string       `json:"type"`
+	Args       []*SpecValue `json:"args"`
+	ExportName string       `json:"field"`
+	ModuleName string       `json:"module"`
 }

@@ -56,13 +56,13 @@ func (ctx *WasmReader) entryCode(nr uint32) {
 			ctx.r.Error = utils.Error("too many locals")
 			return
 		}
-		vt := ctx.r.GetValueType()
+		dataType := ctx.r.GetDataType()
 		if ctx.r.Error != nil {
 			return
 		}
 		for ; n != 0; n-- {
 			local := sections.NewLocal()
-			local.Type = vt
+			local.DataType = dataType
 			local.Nr = uint32(len(function.Locals))
 			function.Locals = append(function.Locals, local)
 		}
@@ -140,12 +140,12 @@ func (ctx *WasmReader) entryExport() {
 	if ctx.r.Error != nil {
 		return
 	}
-	export.Type = desc.Type(descId)
+	export.ExternalType = desc.ExternalType(descId)
 	export.Index = ctx.r.GetU32()
 	if ctx.r.Error != nil {
 		return
 	}
-	switch export.Type {
+	switch export.ExternalType {
 	case desc.FUNC:
 		if /* export.Index < 0 || */ export.Index >= ctx.m.MaxFunctions() {
 			ctx.r.Error = utils.Error("unknown function")
@@ -211,7 +211,7 @@ func (ctx *WasmReader) entryImport() {
 	if ctx.r.Error != nil {
 		return
 	}
-	switch desc.Type(descId) {
+	switch desc.ExternalType(descId) {
 	case desc.FUNC:
 		function := sections.NewFunction()
 		function.ModuleName = module
@@ -319,11 +319,11 @@ func (ctx *WasmReader) entryType() {
 		ctx.r.Error = utils.Error("Expected TypeUnit tag 0x60")
 		return
 	}
-	funcType.ParamTypes = ctx.r.GetValueTypes()
+	funcType.ParamTypes = ctx.r.GetDataTypes()
 	if ctx.r.Error != nil {
 		return
 	}
-	funcType.ResultTypes = ctx.r.GetValueTypes()
+	funcType.ResultTypes = ctx.r.GetDataTypes()
 	if ctx.r.Error != nil {
 		return
 	}
@@ -361,14 +361,14 @@ func (ctx *WasmReader) readFunction(function *sections.Function) {
 		return
 	}
 	if /* funcType < 0 || */ funcType >= ctx.m.MaxFuncTypes() {
-		ctx.r.Error = utils.Error("unknown type: %d", function.Type)
+		ctx.r.Error = utils.Error("unknown type: %d", function.FuncType)
 		return
 	}
-	function.Type = ctx.m.FuncTypes[funcType]
+	function.FuncType = ctx.m.FuncTypes[funcType]
 }
 
 func (ctx *WasmReader) readGlobal(global *sections.Global) {
-	global.Type = ctx.r.GetValueType()
+	global.DataType = ctx.r.GetDataType()
 	if ctx.r.Error != nil {
 		return
 	}

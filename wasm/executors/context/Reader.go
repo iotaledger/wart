@@ -57,6 +57,34 @@ func (r *Reader) getBytesU64(count int) uint64 {
 	return val
 }
 
+func (r *Reader) GetDataType() value.DataType {
+	b := r.GetByte()
+	if r.Error != nil {
+		return value.NONE
+	}
+	dataType := value.DataType(b)
+	r.Error = dataType.Check()
+	if r.Error != nil {
+		return value.NONE
+	}
+	return dataType
+}
+
+func (r *Reader) GetDataTypes() []value.DataType {
+	count := r.GetU32()
+	if r.Error != nil {
+		return nil
+	}
+	dataTypes := make([]value.DataType, count)
+	for i := uint32(0); i < count; i++ {
+		dataTypes[i] = r.GetDataType()
+		if r.Error != nil {
+			return nil
+		}
+	}
+	return dataTypes
+}
+
 func (r *Reader) GetF32() float32 {
 	val := r.getBytesU64(4)
 	if r.Error != nil {
@@ -136,35 +164,6 @@ func (r *Reader) GetU32() uint32 {
 
 func (r *Reader) GetU64() uint64 {
 	return r.leb128DecodeU64(64)
-}
-
-func (r *Reader) GetValueType() value.Type {
-	b := r.GetByte()
-	if r.Error != nil {
-		return value.NONE
-	}
-	vt := value.Type(b)
-	r.Error = vt.Check()
-	if r.Error != nil {
-		return value.NONE
-	}
-	return vt
-}
-
-func (r *Reader) GetValueTypes() []value.Type {
-	count := r.GetU32()
-	if r.Error != nil {
-		return nil
-	}
-	valueTypes := make([]value.Type, 0)
-	for ; count != 0; count-- {
-		vt := r.GetValueType()
-		if r.Error != nil {
-			return nil
-		}
-		valueTypes = append(valueTypes, vt)
-	}
-	return valueTypes
 }
 
 func (r *Reader) leb128DecodeI64(limit int) int64 {

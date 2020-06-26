@@ -18,7 +18,9 @@ func main() {
 	fmt.Println("Hello, Wart!")
 	//listInstructions()
 	//testerTests()
-	//readerTest("..\\input\\wasm\\roulette.wasm")
+	readerTest("D:\\Work\\Rust\\wasmtest\\target\\wasm32-unknown-unknown\\debug\\wasmtest.wasm")
+	readerTest("D:\\Work\\Rust\\wasmtest\\target\\wasm32-unknown-unknown\\release\\wasmtest.wasm")
+	readerTest("D:\\Work\\Rust\\wasmtest\\pkg\\wasmtest_bg.wasm")
 	//readerTests()
 	specTests()
 	fmt.Printf("\n%d tests executed, %d failed.\n", executors.TotalNrOfTests, executors.TotalNrFailed)
@@ -26,7 +28,7 @@ func main() {
 }
 
 func listInstructions() {
-	for opcode, sig := range instructions.AllSignatures {
+	for opcode, sig := range instructions.Operations {
 		if sig.Mnemonic == "" {
 			continue
 		}
@@ -36,7 +38,10 @@ func listInstructions() {
 
 func readerTest(path string) {
 	fmt.Println(path[3:])
-	outPath := "." + path[8:len(path)-5] + ".wat"
+	outPath := path[:len(path)-5] + ".wat"
+	if strings.HasPrefix(path, "..\\input") {
+		outPath = "." + path[8:len(path)-5] + ".wat"
+	}
 	_ = os.MkdirAll(filepath.Dir(outPath), 0770)
 	data, err := ioutil.ReadFile(path)
 	if err != nil {

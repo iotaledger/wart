@@ -23,7 +23,7 @@ func NewMem() helper.Instruction {
 }
 
 func (o *Mem) Analyze(a *context.Analyzer) {
-	maxAlign := AllSignatures[o.opcode].Align
+	maxAlign := Operations[o.opcode].Align
 	if /* o.align < 0 || */ o.align > maxAlign {
 		a.Error = o.fail("alignment must not be larger than natural: %d", o.align)
 		return
@@ -157,7 +157,7 @@ func (o *Mem) setRunner() {
 		vm.Addr = offset + addr
 		// make sure that no wrapping occurs and that memory is accessible
 		if vm.Addr < addr || /* vm.Addr < offset || */ vm.Addr >= memSize || vm.Addr+size > memSize {
-			vm.Error = MemAccess
+			vm.Error = utils.Error("out of bounds memory access")
 			return
 		}
 		runner(vm)
@@ -170,7 +170,7 @@ func (o *Mem) String() string {
 		offsetText = fmt.Sprintf(" offset=%d", o.offset)
 	}
 	alignText := ""
-	if o.align != AllSignatures[o.opcode].Align {
+	if o.align != Operations[o.opcode].Align {
 		alignText = fmt.Sprintf(" align=%d", o.align)
 	}
 	return fmt.Sprintf("%s%s%s", o.Mnemonic(), offsetText, alignText)

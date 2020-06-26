@@ -24,16 +24,16 @@ func NewWatWriter(m *sections.Module, w io.Writer) *WatWriter {
 	return &WatWriter{m: m, w: w, tab: &utils.Indenter{}}
 }
 
-func (ctx *WatWriter) funcTypes(what string, types []value.Type, code bool) string {
-	if len(types) == 0 {
+func (ctx *WatWriter) funcTypes(what string, dataTypes []value.DataType, code bool) string {
+	if len(dataTypes) == 0 {
 		return ""
 	}
 	s := " (" + what
-	for i, vt := range types {
+	for i, dataType := range dataTypes {
 		if code {
 			s += " (;" + strconv.Itoa(i) + ";)"
 		}
-		s += " " + vt.String()
+		s += " " + dataType.String()
 	}
 	return s + ")"
 }
@@ -54,9 +54,9 @@ func limits(min uint32, max uint32) string {
 }
 
 func mutable(g *sections.Global) string {
-	mut := fmt.Sprintf(" %v", g.Type)
+	mut := fmt.Sprintf(" %v", g.DataType)
 	if g.Mutable {
-		mut = fmt.Sprintf(" (mut %v)", g.Type)
+		mut = fmt.Sprintf(" (mut %v)", g.DataType)
 	}
 	return mut
 }
@@ -106,7 +106,7 @@ func (ctx *WatWriter) sectionElement() bool {
 func (ctx *WatWriter) sectionExport() bool {
 	for _, export := range ctx.m.Exports {
 		ctx.writeId("export", export.Identifier)
-		fmt.Fprintf(ctx.w, " (%v %d))\n", export.Type, export.Index)
+		fmt.Fprintf(ctx.w, " (%v %d))\n", export.ExternalType, export.Index)
 	}
 	return len(ctx.m.Exports) != 0
 }
@@ -131,7 +131,7 @@ func (ctx *WatWriter) sectionImport() bool {
 	for i := uint32(0); i < ctx.m.ExternalFunctions; i++ {
 		function := ctx.m.Functions[i]
 		ctx.writeId("import", function.Identifier)
-		fmt.Fprintf(ctx.w, " (func (;%d;)%s))\n", function.Nr, ctx.funcTypeUse(function.Type, false))
+		fmt.Fprintf(ctx.w, " (func (;%d;)%s))\n", function.Nr, ctx.funcTypeUse(function.FuncType, false))
 		done = true
 	}
 	for i := uint32(0); i < ctx.m.ExternalMemories; i++ {
@@ -225,14 +225,14 @@ func (ctx *WatWriter) writeFunctions(code bool) bool {
 	functions := ctx.m.Functions[imports:]
 	for _, function := range functions {
 		ctx.writeId("func", function.Identifier)
-		fmt.Fprintf(ctx.w, " (;%d;)%s", function.Nr, ctx.funcTypeUse(function.Type, code))
+		fmt.Fprintf(ctx.w, " (;%d;)%s", function.Nr, ctx.funcTypeUse(function.FuncType, code))
 		if code {
 			fmt.Fprintln(ctx.w)
 			ctx.tab.Indent(2)
-			offset := len(function.Type.ParamTypes)
+			offset := len(function.FuncType.ParamTypes)
 			for j, local := range function.Locals {
 				ctx.writeId("local", local.Identifier)
-				fmt.Fprintf(ctx.w, " (;%d;) %v)\n", offset+j, local.Type)
+				fmt.Fprintf(ctx.w, " (;%d;) %v)\n", offset+j, local.DataType)
 			}
 			ctx.tab.Indent(2)
 			blocks := make([]int, 0, 1)

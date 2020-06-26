@@ -7,9 +7,9 @@ import (
 
 type Global struct {
 	Identifier
-	Init    []helper.Instruction
-	Mutable bool
-	Type    value.Type
+	Init     []helper.Instruction
+	Mutable  bool
+	DataType value.DataType
 }
 
 func NewGlobal() *Global {

@@ -18,6 +18,19 @@ func NewConst() helper.Instruction {
 	return &Const{}
 }
 
+func (o *Const) DataType() value.DataType {
+	switch o.opcode {
+	//@formatter:off
+	case op.I32_CONST: return value.I32
+	case op.I64_CONST: return value.I64
+	case op.F32_CONST: return value.F32
+	case op.F64_CONST: return value.F64
+	//@formatter:on
+	default:
+		panic("Invalid const opcode")
+	}
+}
+
 func (o *Const) Read(r *context.Reader) {
 	switch o.opcode {
 	//@formatter:off
@@ -70,19 +83,6 @@ func toStringF64(f64 float64) string {
 func toStringFormat(val string) string {
 	// opportunity to standardize floating point to Wasm spec
 	return val
-}
-
-func (o *Const) Type() value.Type {
-	switch o.opcode {
-	//@formatter:off
-	case op.I32_CONST: return value.I32
-	case op.I64_CONST: return value.I64
-	case op.F32_CONST: return value.F32
-	case op.F64_CONST: return value.F64
-	//@formatter:on
-	default:
-		panic("Invalid const opcode")
-	}
 }
 
 func (o *Const) Write(w *context.Writer) {

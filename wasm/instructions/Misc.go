@@ -1,6 +1,7 @@
 package instructions
 
 import (
+	"github.com/iotaledger/wart/utils"
 	"github.com/iotaledger/wart/wasm/consts/op"
 	"github.com/iotaledger/wart/wasm/consts/value"
 	"github.com/iotaledger/wart/wasm/executors/context"
@@ -113,7 +114,7 @@ func (o *Misc) analyzeUnreachable(a *context.Analyzer) {
 	// unconditional panic jump, rest of block is unreachable
 	a.Labels[0].Unreachable = true
 	a.SP = a.BlockMark
-	o.run = func(vm *Runner) { vm.Error = Unreachable }
+	o.run = func(vm *Runner) { vm.Error = utils.Error("unreachable") }
 }
 
 func (o *Misc) StackChange() int {

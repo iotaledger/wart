@@ -2,19 +2,17 @@
 // It also can generate their String() representations.
 package desc
 
-import "fmt"
-
-type Type byte
+type ExternalType byte
 
 const (
-	FUNC   Type = 0x00
-	TABLE  Type = 0x01
-	MEM    Type = 0x02
-	GLOBAL Type = 0x03
+	FUNC   ExternalType = 0x00
+	TABLE  ExternalType = 0x01
+	MEM    ExternalType = 0x02
+	GLOBAL ExternalType = 0x03
 )
 
-func (t Type) String() string {
-	switch t {
+func (et ExternalType) String() string {
+	switch et {
 	//@formatter:off
 	case FUNC  : return "func"
 	case TABLE : return "table"
@@ -22,6 +20,6 @@ func (t Type) String() string {
 	case GLOBAL: return "global"
 	//@formatter:on
 	default:
-		panic(fmt.Sprintf("Invalid descriptor: 0x%02x", byte(t)))
+		panic("Invalid external type")
 	}
 }

@@ -12,8 +12,8 @@ type Variable struct {
 	F64 float64 `json:"f64"`
 }
 
-func (v *Variable) Copy(src *Variable, vt value.Type) {
-	switch vt {
+func (v *Variable) Copy(src *Variable, dataType value.DataType) {
+	switch dataType {
 	//@formatter:off
 	case value.I32: v.I32 = src.I32
 	case value.I64: v.I64 = src.I64
@@ -21,12 +21,12 @@ func (v *Variable) Copy(src *Variable, vt value.Type) {
 	case value.F64: v.F64 = src.F64
 	//@formatter:on
 	default:
-		panic(fmt.Sprintf("Invalid value type: 0x%02x", vt))
+		panic("Invalid utils.Errordata type")
 	}
 }
 
-func (v *Variable) Field(vt value.Type) string {
-	switch vt {
+func (v *Variable) Field(dataType value.DataType) string {
+	switch dataType {
 	//@formatter:off
 	case value.I32: return fmt.Sprintf("%v", v.I32)
 	case value.I64: return fmt.Sprintf("%v", v.I64)
@@ -34,7 +34,7 @@ func (v *Variable) Field(vt value.Type) string {
 	case value.F64: return fmt.Sprintf("%v", v.F64)
 	//@formatter:on
 	default:
-		panic(fmt.Sprintf("Invalid value type: 0x%02x", vt))
+		panic("Invalid utils.Errordata type")
 	}
 }
 

@@ -30,10 +30,10 @@ func (o *Block) Analyze(a *context.Analyzer) {
 	case o.blockType == BLOCK_EMPTY:
 	case o.blockType < 0:
 		if o.blockType < -4 {
-			a.Error = o.fail("Invalid block value type")
+			a.Error = o.fail("Invalid block utils.Errordata type")
 			return
 		}
-		o.label.BlockType.ResultTypes = []value.Type{o.valueType()}
+		o.label.BlockType.ResultTypes = []value.DataType{o.blockDataType()}
 	default:
 		if uint32(o.blockType) >= a.Module.MaxFuncTypes() {
 			a.Error = o.fail("Invalid block function type")
@@ -62,6 +62,10 @@ func (o *Block) Analyze(a *context.Analyzer) {
 	a.BlockMark = a.SP
 	o.label.UnwindSP = a.SP
 	a.PushMulti(o.label.BlockType.ParamTypes)
+}
+
+func (o *Block) blockDataType() value.DataType {
+	return value.DataType(o.blockType & 0x7f)
 }
 
 func (o *Block) makeBlock(_ helper.Instruction) []helper.Instruction {
@@ -118,19 +122,15 @@ func (o *Block) String() string {
 		return fmt.Sprintf("%s %d", o.Mnemonic(), o.blockType)
 	}
 
-	vt := o.valueType()
-	switch vt {
+	dataType := o.blockDataType()
+	switch dataType {
 	case value.I32, value.I64, value.F32, value.F64:
-		return fmt.Sprintf("%s %v", o.Mnemonic(), vt)
+		return fmt.Sprintf("%s %v", o.Mnemonic(), dataType)
 	case 0x40:
 		return o.Mnemonic()
 	default:
-		panic(fmt.Sprintf("Invalid value type: 0x%02x", vt))
+		panic("Invalid utils.Errordata type")
 	}
-}
-
-func (o *Block) valueType() value.Type {
-	return value.Type(o.blockType & 0x7f)
 }
 
 func (o *Block) Write(w *context.Writer) {

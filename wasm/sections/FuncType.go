@@ -4,8 +4,8 @@ import "github.com/iotaledger/wart/wasm/consts/value"
 
 type FuncType struct {
 	Identifier
-	ParamTypes  []value.Type
-	ResultTypes []value.Type
+	ParamTypes  []value.DataType
+	ResultTypes []value.DataType
 }
 
 func NewFuncType() *FuncType {
@@ -13,14 +13,14 @@ func NewFuncType() *FuncType {
 }
 
 func (ft *FuncType) CheckTypes() error {
-	for _, vt := range ft.ParamTypes {
-		err := vt.Check()
+	for _, paramType := range ft.ParamTypes {
+		err := paramType.Check()
 		if err != nil {
 			return err
 		}
 	}
-	for _, vt := range ft.ResultTypes {
-		err := vt.Check()
+	for _, resultType := range ft.ResultTypes {
+		err := resultType.Check()
 		if err != nil {
 			return err
 		}
@@ -33,13 +33,13 @@ func (ft *FuncType) IsSameAs(rhs *FuncType) bool {
 		len(ft.ResultTypes) != len(rhs.ResultTypes) {
 		return false
 	}
-	for i, vt := range ft.ParamTypes {
-		if vt != rhs.ParamTypes[i] {
+	for i, paramType := range ft.ParamTypes {
+		if paramType != rhs.ParamTypes[i] {
 			return false
 		}
 	}
-	for i, vt := range ft.ResultTypes {
-		if vt != rhs.ResultTypes[i] {
+	for i, resultType := range ft.ResultTypes {
+		if resultType != rhs.ResultTypes[i] {
 			return false
 		}
 	}

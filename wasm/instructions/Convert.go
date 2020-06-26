@@ -1,6 +1,7 @@
 package instructions
 
 import (
+	"github.com/iotaledger/wart/utils"
 	"github.com/iotaledger/wart/wasm/consts/op"
 	"github.com/iotaledger/wart/wasm/instructions/helper"
 	"math"
@@ -51,7 +52,7 @@ func (o *Convert) setRunner() {
 
 func truncF64(vm *Runner, val float64) float64 {
 	if math.IsNaN(val) {
-		vm.Error = InvalidConversion
+		vm.Error = utils.Error("invalid conversion to integer")
 		return val
 	}
 	return math.Trunc(val)

@@ -1,19 +1,19 @@
-package tester
+package test
 
 import (
 	"fmt"
 	"github.com/iotaledger/wart/wasm/sections"
 )
 
-type ValueTest struct {
+type TestValue struct {
 	sections.Variable
 	Use string `json:"use"`
 }
 
-func NewValueTest() *ValueTest {
-	return &ValueTest{}
+func NewValueTest() *TestValue {
+	return &TestValue{}
 }
 
-func (v *ValueTest) String() string {
+func (v *TestValue) String() string {
 	return fmt.Sprintf("%v, Use=%s", v.Variable, v.Use)
 }
