@@ -46,7 +46,7 @@ func (o *Call) Analyze(a *context.Analyzer) {
 }
 
 func (o *Call) analyzeCallType(a *context.Analyzer, typeIndex uint32) {
-	if typeIndex >= a.Module.MaxFuncTypes() {
+	if /* typeIndex < 0 || */ typeIndex >= a.Module.MaxFuncTypes() {
 		a.Error = o.fail("unknown type")
 		return
 	}
@@ -71,11 +71,19 @@ func (o *Call) Read(r *context.Reader) {
 			r.Error = utils.Error("unknown function")
 			return
 		}
+		funcType := r.Module.Functions[o.index].FuncType
+		o.stackChange = len(funcType.ResultTypes) - len(funcType.ParamTypes)
 	case op.CALL_INDIRECT:
 		o.index = r.GetU32()
 		if r.Error != nil {
 			return
 		}
+		if /* o.index < 0 || */ o.index >= r.Module.MaxFuncTypes() {
+			r.Error = utils.Error("unknown type")
+			return
+		}
+		funcType := r.Module.FuncTypes[o.index]
+		o.stackChange = len(funcType.ResultTypes) - len(funcType.ParamTypes)
 		tableIndex := r.GetByte()
 		if r.Error != nil {
 			return

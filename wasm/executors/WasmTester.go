@@ -25,15 +25,19 @@ const DEBUG_MODULE = "xxx.wasm"
 var TotalNrOfTests int
 var TotalNrFailed int
 
-var exports = []string{
+var specExports = []string{
 	"print_i32", "print_i64", "print_f32", "print_f64",
 	"print_i32_f32", "print_f64_f64",
-	"global_i32", "global_i64", "global_f32", "global_f64"}
-var globals = []byte{
-	op.I32_CONST, op.I64_CONST, op.F32_CONST, op.F64_CONST}
-var params = [][]value.DataType{
+	"global_i32", "global_i64", "global_f32", "global_f64",
+}
+var specGlobals = []byte{
+	op.I32_CONST, op.I64_CONST, op.F32_CONST, op.F64_CONST,
+}
+var specParams = [][]value.DataType{
 	{value.I32}, {value.I64}, {value.F32}, {value.F64},
-	{value.I32, value.F32}, {value.F64, value.F64}}
+	{value.I32, value.F32}, {value.F64, value.F64},
+}
+
 var zero sections.Variable
 var uses = map[string]string{
 	"i32.Max":  "0x7fffffff",
@@ -118,7 +122,7 @@ func (tst *WasmTester) createSpecTestModule() {
 	tst.m.Functions = make([]*sections.Function, 6)
 	for i := 0; i < 6; i++ {
 		funcType := sections.NewFuncType()
-		funcType.ParamTypes = params[i]
+		funcType.ParamTypes = specParams[i]
 		tst.m.FuncTypes[i] = funcType
 		function := sections.NewFunction()
 		function.FuncType = funcType
@@ -127,32 +131,32 @@ func (tst *WasmTester) createSpecTestModule() {
 		export := sections.NewExport()
 		export.Index = uint32(i)
 		export.ExternalType = desc.FUNC
-		export.ImportName = exports[i]
+		export.ImportName = specExports[i]
 		tst.m.Exports[i] = export
 	}
 
 	//@formatter:off
-	tst.m.Functions[0].HostCall = func(f *sections.Function,frame []sections.Variable,sp int) error { fmt.Printf("==>> %s: %d\n",    exports[0], frame[sp].I32                 ); return nil }
-	tst.m.Functions[1].HostCall = func(f *sections.Function,frame []sections.Variable,sp int) error { fmt.Printf("==>> %s: %d\n",    exports[1], frame[sp].I64                 ); return nil }
-	tst.m.Functions[2].HostCall = func(f *sections.Function,frame []sections.Variable,sp int) error { fmt.Printf("==>> %s: %f\n",    exports[2], frame[sp].F32                 ); return nil }
-	tst.m.Functions[3].HostCall = func(f *sections.Function,frame []sections.Variable,sp int) error { fmt.Printf("==>> %s: %f\n",    exports[3], frame[sp].F64                 ); return nil }
-	tst.m.Functions[4].HostCall = func(f *sections.Function,frame []sections.Variable,sp int) error { fmt.Printf("==>> %s: %d %f\n", exports[4], frame[sp].I32, frame[sp+1].F32); return nil }
-	tst.m.Functions[5].HostCall = func(f *sections.Function,frame []sections.Variable,sp int) error { fmt.Printf("==>> %s: %f %f\n", exports[5], frame[sp].F64, frame[sp+1].F64); return nil }
+	tst.m.Functions[0].HostCall = func(f *sections.Function,frame []sections.Variable,sp int) error { fmt.Printf("==>> %s: %d\n",    specExports[0], frame[sp].I32                 ); return nil }
+	tst.m.Functions[1].HostCall = func(f *sections.Function,frame []sections.Variable,sp int) error { fmt.Printf("==>> %s: %d\n",    specExports[1], frame[sp].I64                 ); return nil }
+	tst.m.Functions[2].HostCall = func(f *sections.Function,frame []sections.Variable,sp int) error { fmt.Printf("==>> %s: %f\n",    specExports[2], frame[sp].F32                 ); return nil }
+	tst.m.Functions[3].HostCall = func(f *sections.Function,frame []sections.Variable,sp int) error { fmt.Printf("==>> %s: %f\n",    specExports[3], frame[sp].F64                 ); return nil }
+	tst.m.Functions[4].HostCall = func(f *sections.Function,frame []sections.Variable,sp int) error { fmt.Printf("==>> %s: %d %f\n", specExports[4], frame[sp].I32, frame[sp+1].F32); return nil }
+	tst.m.Functions[5].HostCall = func(f *sections.Function,frame []sections.Variable,sp int) error { fmt.Printf("==>> %s: %f %f\n", specExports[5], frame[sp].F64, frame[sp+1].F64); return nil }
 	//@formatter:on
 
 	tst.m.Globals = make([]*sections.Global, 4)
 	for i := 0; i < 4; i++ {
 		global := sections.NewGlobal()
-		global.DataType = params[i][0]
+		global.DataType = specParams[i][0]
 		global.Init = make([]helper.Instruction, 2)
-		global.Init[0] = instructions.CreateInstruction(globals[i])
+		global.Init[0] = instructions.CreateInstruction(specGlobals[i])
 		global.Init[1] = instructions.CreateInstruction(op.END)
 		global.Init[0].(*instructions.Const).Value.I32 = 666
 		tst.m.Globals[i] = global
 		export := sections.NewExport()
 		export.Index = uint32(i)
 		export.ExternalType = desc.GLOBAL
-		export.ImportName = exports[i+6]
+		export.ImportName = specExports[i+6]
 		tst.m.Exports[i+6] = export
 	}
 
