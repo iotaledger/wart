@@ -225,8 +225,8 @@ func (tst *WasmTester) getTestValue(testValue *test.TestValue, param value.DataT
 }
 
 func (tst *WasmTester) moduleAnalyze() {
-	a := NewWasmAnalyzer(tst.m)
-	tst.Error = a.Analyze()
+	analyzer := NewWasmAnalyzer(tst.m)
+	tst.Error = analyzer.Analyze()
 }
 
 func (tst *WasmTester) moduleLink() {
