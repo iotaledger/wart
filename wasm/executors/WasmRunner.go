@@ -1,6 +1,8 @@
 package executors
 
 import (
+	"errors"
+	"github.com/iotaledger/wart/wasm/consts/desc"
 	"github.com/iotaledger/wart/wasm/executors/context"
 	"github.com/iotaledger/wart/wasm/instructions"
 	"github.com/iotaledger/wart/wasm/sections"
@@ -48,7 +50,19 @@ func (r *WasmRunner) Module() *sections.Module {
 	return r.m
 }
 
-func (r *WasmRunner) Run(function *sections.Function) error {
+func (r *WasmRunner) RunExport(exportName string) error {
+	for _,export := range r.m.Exports {
+		if export.ImportName == exportName {
+			if export.ExternalType != desc.FUNC { return errors.New("Invalid export type") }
+			function := r.m.Functions[export.Index]
+			return r.RunFunction(function)
+		}
+	}
+
+	return errors.New("Invalid export name")
+}
+
+func (r *WasmRunner) RunFunction(function *sections.Function) error {
 	r.vm.Frame = make([]sections.Variable, function.MaxLocalIndex()+function.FrameSize)
 	err := instructions.RunBlock(r.vm, function.Body)
 	return err

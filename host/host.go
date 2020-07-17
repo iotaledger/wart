@@ -45,7 +45,10 @@ var hostResults = [][]value.DataType{
 	{value.I32}, {}, {value.I32}, {}, {}, {},
 }
 
-func createHostModule() {
+type Logger func (text string)
+var HostLogger Logger = nil
+
+func CreateHostModule() {
 	m := sections.NewModule()
 	m.ImportName = "wasp"
 
@@ -84,7 +87,14 @@ func createHostModule() {
 	}
 }
 
+func hostLog(text string) {
+	if HostLogger != nil {
+		HostLogger(text)
+	}
+}
+
 func hostError(f *sections.Function, frame []sections.Variable, sp int) error {
+	hostLog("hostError")
 	value := int32(0)
 	if errorState {
 		value = 1
@@ -94,6 +104,7 @@ func hostError(f *sections.Function, frame []sections.Variable, sp int) error {
 }
 
 func hostGetInt(f *sections.Function, frame []sections.Variable, sp int) error {
+	hostLog("hostGetInt")
 	if errorState {
 		frame[sp].I32 = 0
 		return nil
@@ -115,12 +126,14 @@ func getObject(objId int32) HostObject {
 }
 
 func hostGetKey(f *sections.Function, frame []sections.Variable, sp int) error {
+	hostLog("hostGetKey")
 	if errorState {
 		frame[sp].I32 = 0
 		return nil
 	}
 
 	key := getString(f, frame, sp)
+	hostLog("hostGetKey key='" + key + "'")
 	keyId, ok := keyToKeyId[key]
 	if ok {
 		frame[sp].I32 = keyId
@@ -140,17 +153,20 @@ func getString(f *sections.Function, frame []sections.Variable, sp int) string {
 }
 
 func hostGetLength(f *sections.Function, frame []sections.Variable, sp int) error {
+	hostLog("hostGetLength")
 	if errorState {
 		frame[sp].I32 = 0
 		return nil
 	}
 
 	objId := frame[sp].I32
+	_ = objId
 	frame[sp].I32 = 0
 	return nil
 }
 
 func hostGetObject(f *sections.Function, frame []sections.Variable, sp int) error {
+	hostLog("hostGetObject")
 	if errorState {
 		frame[sp].I32 = 0
 		return nil
@@ -159,11 +175,13 @@ func hostGetObject(f *sections.Function, frame []sections.Variable, sp int) erro
 	objId := frame[sp].I32
 	keyId := frame[sp+1].I32
 	typeId := frame[sp+2].I32
+	_,_,_ = objId,keyId,typeId
 	frame[sp].I32 = 0
 	return nil
 }
 
 func hostGetString(f *sections.Function, frame []sections.Variable, sp int) error {
+	hostLog("hostGetString")
 	if errorState {
 		offset := frame[sp+2].I32
 		mem := f.Module.Memories[0]
@@ -177,10 +195,12 @@ func hostGetString(f *sections.Function, frame []sections.Variable, sp int) erro
 	// can use space before offset to put string, which will be copied
 	// immediately after returning into a caller environment type string
 	offset := frame[sp+2].I32
+	_,_,_ = objId,keyId,offset
 	return nil
 }
 
 func hostRandom(f *sections.Function, frame []sections.Variable, sp int) error {
+	hostLog("hostRandom")
 	if errorState {
 		frame[sp].I32 = 0
 		return nil
@@ -191,6 +211,7 @@ func hostRandom(f *sections.Function, frame []sections.Variable, sp int) error {
 }
 
 func hostSetError(f *sections.Function, frame []sections.Variable, sp int) error {
+	hostLog("hostSetError")
 	if errorState {
 		return nil
 	}
@@ -206,6 +227,7 @@ func setError(error string) {
 }
 
 func hostSetInt(f *sections.Function, frame []sections.Variable, sp int) error {
+	hostLog("hostSetInt")
 	if errorState {
 		return nil
 	}
@@ -213,10 +235,13 @@ func hostSetInt(f *sections.Function, frame []sections.Variable, sp int) error {
 	objId := frame[sp].I32
 	keyId := frame[sp+1].I32
 	value := frame[sp+2].I32
+	hostLog("hostSetString value=" + string(value))
+	_,_ = objId,keyId
 	return nil
 }
 
 func hostSetString(f *sections.Function, frame []sections.Variable, sp int) error {
+	hostLog("hostSetString")
 	if errorState {
 		return nil
 	}
@@ -224,5 +249,7 @@ func hostSetString(f *sections.Function, frame []sections.Variable, sp int) erro
 	objId := frame[sp].I32
 	keyId := frame[sp+1].I32
 	value := getString(f, frame, sp+2)
+	hostLog("hostSetString value='" + value + "'")
+	_,_ = objId,keyId
 	return nil
 }
