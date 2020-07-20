@@ -52,14 +52,16 @@ func (ctx *WasmAnalyzer) Analyze() error {
 func (ctx *WasmAnalyzer) analyzeCode() {
 	for nr := ctx.m.ExternalFunctions; nr < ctx.m.MaxFunctions(); nr++ {
 		function := ctx.m.Functions[nr]
-		ctx.analyzeCodeFunction(function)
-		if ctx.a.Error != nil {
-			if allFunctions {
-				fmt.Printf("Func %d:%d, Error: %v\n\n", function.Nr, ctx.a.IP, ctx.a.Error)
-				continue
+		if function.HostCall == nil {
+			ctx.analyzeCodeFunction(function)
+			if ctx.a.Error != nil {
+				if allFunctions {
+					fmt.Printf("Func %d:%d, Error: %v\n\n", function.Nr, ctx.a.IP, ctx.a.Error)
+					continue
+				}
+				ctx.a.Fail("Func %d:%d, %v", function.Nr, ctx.a.IP, ctx.a.Error)
+				return
 			}
-			ctx.a.Fail("Func %d:%d, %v", function.Nr, ctx.a.IP, ctx.a.Error)
-			return
 		}
 	}
 }

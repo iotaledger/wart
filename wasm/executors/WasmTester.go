@@ -136,12 +136,12 @@ func (tst *WasmTester) createSpecTestModule() {
 	}
 
 	//@formatter:off
-	tst.m.Functions[0].HostCall = func(f *sections.Function,frame []sections.Variable,sp int) error { fmt.Printf("==>> %s: %d\n",    specExports[0], frame[sp].I32                 ); return nil }
-	tst.m.Functions[1].HostCall = func(f *sections.Function,frame []sections.Variable,sp int) error { fmt.Printf("==>> %s: %d\n",    specExports[1], frame[sp].I64                 ); return nil }
-	tst.m.Functions[2].HostCall = func(f *sections.Function,frame []sections.Variable,sp int) error { fmt.Printf("==>> %s: %f\n",    specExports[2], frame[sp].F32                 ); return nil }
-	tst.m.Functions[3].HostCall = func(f *sections.Function,frame []sections.Variable,sp int) error { fmt.Printf("==>> %s: %f\n",    specExports[3], frame[sp].F64                 ); return nil }
-	tst.m.Functions[4].HostCall = func(f *sections.Function,frame []sections.Variable,sp int) error { fmt.Printf("==>> %s: %d %f\n", specExports[4], frame[sp].I32, frame[sp+1].F32); return nil }
-	tst.m.Functions[5].HostCall = func(f *sections.Function,frame []sections.Variable,sp int) error { fmt.Printf("==>> %s: %f %f\n", specExports[5], frame[sp].F64, frame[sp+1].F64); return nil }
+	tst.m.Functions[0].HostCall = func(ctx *sections.HostContext) error { fmt.Printf("==>> %s: %d\n",    specExports[0], ctx.Frame[ctx.SP].I32); return nil }
+	tst.m.Functions[1].HostCall = func(ctx *sections.HostContext) error { fmt.Printf("==>> %s: %d\n",    specExports[1], ctx.Frame[ctx.SP].I64); return nil }
+	tst.m.Functions[2].HostCall = func(ctx *sections.HostContext) error { fmt.Printf("==>> %s: %f\n",    specExports[2], ctx.Frame[ctx.SP].F32); return nil }
+	tst.m.Functions[3].HostCall = func(ctx *sections.HostContext) error { fmt.Printf("==>> %s: %f\n",    specExports[3], ctx.Frame[ctx.SP].F64); return nil }
+	tst.m.Functions[4].HostCall = func(ctx *sections.HostContext) error { fmt.Printf("==>> %s: %d %f\n", specExports[4], ctx.Frame[ctx.SP].I32, ctx.Frame[ctx.SP+1].F32); return nil }
+	tst.m.Functions[5].HostCall = func(ctx *sections.HostContext) error { fmt.Printf("==>> %s: %f %f\n", specExports[5], ctx.Frame[ctx.SP].F64, ctx.Frame[ctx.SP+1].F64); return nil }
 	//@formatter:on
 
 	tst.m.Globals = make([]*sections.Global, 4)
@@ -621,7 +621,7 @@ func (tst *WasmTester) testFunction() {
 
 	// allocate a (reusable) stack frame for this function
 	// all tests on this function will reuse this same stack frame
-	tst.vm = context.NewRunner(tst.m)
+	tst.vm = context.NewRunner(tst.m, nil)
 	tst.vm.Frame = make([]sections.Variable, tst.function.MaxLocalIndex()+tst.function.FrameSize)
 	for _, run := range tst.testFunc.Tests {
 		tst.test = run

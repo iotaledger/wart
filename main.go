@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"github.com/iotaledger/wart/host"
 	"github.com/iotaledger/wart/wasm/executors"
 	"github.com/iotaledger/wart/wasm/instructions"
 	"github.com/iotaledger/wart/wasm/sections"
@@ -16,6 +17,7 @@ var DEBUG_MODULE = "xxx.wasm"
 
 func main() {
 	fmt.Println("Hello, Wart!")
+	host.CreateHostModule()
 	//listInstructions()
 	//testerTests()
 	//readerTest("D:\\Work\\Rust\\wasmtest\\target\\wasm32-unknown-unknown\\debug\\wasmtest.wasm")

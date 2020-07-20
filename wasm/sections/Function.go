@@ -4,7 +4,14 @@ import (
 	"github.com/iotaledger/wart/wasm/instructions/helper"
 )
 
-type HostInterface func(f *Function, frame []Variable, sp int) error
+type HostContext struct {
+	Frame        []Variable
+	Function     *Function
+	OuterContext interface{}
+	SP           int
+}
+
+type HostInterface func(ctx *HostContext) error
 
 type Function struct {
 	Identifier

@@ -18,7 +18,7 @@ type HostObject interface {
 }
 
 var errorState = false
-var errorText  = ""
+var errorText = ""
 
 var keyToKeyId = make(map[string]int32)
 var keyIdToKey = make([]string, 0)
@@ -26,26 +26,27 @@ var objIdToObj = make([]HostObject, 0)
 
 var hostCalls = []sections.HostInterface{
 	hostError, hostGetInt, hostGetKey, hostGetLength,
-	hostGetObject, hostGetString, hostRandom, hostSetError,
-	hostSetInt, hostSetString,
+	hostGetObject, hostGetString, hostLog, hostRandom,
+	hostSetError, hostSetInt, hostSetString,
 }
 var hostExports = []string{
 	"hostError", "hostGetInt", "hostGetKey", "hostGetLength",
-	"hostGetObject", "hostGetString", "hostRandom", "hostSetError",
-	"hostSetInt", "hostSetString",
+	"hostGetObject", "hostGetString", "hostLog", "hostRandom",
+	"hostSetError", "hostSetInt", "hostSetString",
 }
 var hostParams = [][]value.DataType{
 	{}, {value.I32, value.I32}, {value.I32, value.I32}, {value.I32},
-	{value.I32, value.I32, value.I32}, {value.I32, value.I32}, {},
-	{value.I32, value.I32}, {value.I32, value.I32, value.I32},
+	{value.I32, value.I32, value.I32}, {value.I32, value.I32}, {value.I32, value.I32},
+	{},	{value.I32, value.I32}, {value.I32, value.I32, value.I32},
 	{value.I32, value.I32, value.I32, value.I32},
 }
 var hostResults = [][]value.DataType{
 	{value.I32}, {value.I32}, {value.I32}, {value.I32},
-	{value.I32}, {}, {value.I32}, {}, {}, {},
+	{value.I32}, {}, {}, {value.I32}, {}, {}, {},
 }
 
-type Logger func (text string)
+type Logger func(text string)
+
 var HostLogger Logger = nil
 
 func CreateHostModule() {
@@ -53,11 +54,11 @@ func CreateHostModule() {
 	m.ImportName = "wasp"
 
 	m.Start = value.UNDEFINED
-	m.Exports = make([]*sections.Export, 10)
+	m.Exports = make([]*sections.Export, len(hostCalls))
 
-	m.FuncTypes = make([]*sections.FuncType, 10)
-	m.Functions = make([]*sections.Function, 10)
-	for i := 0; i < 10; i++ {
+	m.FuncTypes = make([]*sections.FuncType, len(hostCalls))
+	m.Functions = make([]*sections.Function, len(hostCalls))
+	for i := 0; i < len(hostCalls); i++ {
 		funcType := sections.NewFuncType()
 		funcType.ParamTypes = hostParams[i]
 		funcType.ResultTypes = hostResults[i]
@@ -87,32 +88,26 @@ func CreateHostModule() {
 	}
 }
 
-func hostLog(text string) {
-	if HostLogger != nil {
-		HostLogger(text)
-	}
-}
-
-func hostError(f *sections.Function, frame []sections.Variable, sp int) error {
-	hostLog("hostError")
+func hostError(ctx *sections.HostContext) error {
+	log("hostError")
 	value := int32(0)
 	if errorState {
 		value = 1
 	}
-	frame[sp].I32 = value
+	ctx.Frame[ctx.SP].I32 = value
 	return nil
 }
 
-func hostGetInt(f *sections.Function, frame []sections.Variable, sp int) error {
-	hostLog("hostGetInt")
+func hostGetInt(ctx *sections.HostContext) error {
+	log("hostGetInt")
 	if errorState {
-		frame[sp].I32 = 0
+		ctx.Frame[ctx.SP].I32 = 0
 		return nil
 	}
 
-	objId := frame[sp].I32
-	keyId := frame[sp+1].I32
-	frame[sp].I32 = getObject(objId).GetInt(keyId);
+	objId := ctx.Frame[ctx.SP].I32
+	keyId := ctx.Frame[ctx.SP+1].I32
+	ctx.Frame[ctx.SP].I32 = getObject(objId).GetInt(keyId)
 	return nil
 }
 
@@ -121,104 +116,117 @@ func getObject(objId int32) HostObject {
 		setError("Invalid objId")
 		return objIdToObj[0]
 	}
-	
+
 	return objIdToObj[objId]
 }
 
-func hostGetKey(f *sections.Function, frame []sections.Variable, sp int) error {
-	hostLog("hostGetKey")
+func hostGetKey(ctx *sections.HostContext) error {
+	log("hostGetKey")
 	if errorState {
-		frame[sp].I32 = 0
+		ctx.Frame[ctx.SP].I32 = 0
 		return nil
 	}
 
-	key := getString(f, frame, sp)
-	hostLog("hostGetKey key='" + key + "'")
+	key := getStringParam(ctx, ctx.SP)
+	log("hostGetKey key='" + key + "'")
 	keyId, ok := keyToKeyId[key]
 	if ok {
-		frame[sp].I32 = keyId
+		ctx.Frame[ctx.SP].I32 = keyId
 		return nil
 	}
 
-	frame[sp].I32 = 0
+	ctx.Frame[ctx.SP].I32 = 0
 	return nil
 }
 
-func getString(f *sections.Function, frame []sections.Variable, sp int) string {
-	address := frame[sp].I32
-	length := frame[sp+1].I32
-	mem := f.Module.Memories[0]
+func getStringParam(ctx *sections.HostContext, offset int) string {
+	address := ctx.Frame[offset].I32
+	length := ctx.Frame[offset+1].I32
+	mem := ctx.Function.Module.Memories[0]
 	// make sure to copy string out of mem.Pool
 	return string(copy(make([]byte, length), mem.Pool[address:address+length]))
 }
 
-func hostGetLength(f *sections.Function, frame []sections.Variable, sp int) error {
-	hostLog("hostGetLength")
+func hostGetLength(ctx *sections.HostContext) error {
+	log("hostGetLength")
 	if errorState {
-		frame[sp].I32 = 0
+		ctx.Frame[ctx.SP].I32 = 0
 		return nil
 	}
 
-	objId := frame[sp].I32
+	objId := ctx.Frame[ctx.SP].I32
 	_ = objId
-	frame[sp].I32 = 0
+	ctx.Frame[ctx.SP].I32 = 0
 	return nil
 }
 
-func hostGetObject(f *sections.Function, frame []sections.Variable, sp int) error {
-	hostLog("hostGetObject")
+func hostGetObject(ctx *sections.HostContext) error {
+	log("hostGetObject")
 	if errorState {
-		frame[sp].I32 = 0
+		ctx.Frame[ctx.SP].I32 = 0
 		return nil
 	}
 
-	objId := frame[sp].I32
-	keyId := frame[sp+1].I32
-	typeId := frame[sp+2].I32
-	_,_,_ = objId,keyId,typeId
-	frame[sp].I32 = 0
+	objId := ctx.Frame[ctx.SP].I32
+	keyId := ctx.Frame[ctx.SP+1].I32
+	typeId := ctx.Frame[ctx.SP+2].I32
+	_, _, _ = objId, keyId, typeId
+	ctx.Frame[ctx.SP].I32 = 0
 	return nil
 }
 
-func hostGetString(f *sections.Function, frame []sections.Variable, sp int) error {
-	hostLog("hostGetString")
+func hostGetString(ctx *sections.HostContext) error {
+	log("hostGetString")
 	if errorState {
-		offset := frame[sp+2].I32
-		mem := f.Module.Memories[0]
+		offset := ctx.Frame[ctx.SP+2].I32
+		mem := ctx.Function.Module.Memories[0]
 		copy(mem.Pool[offset+8:offset+16], make([]byte, 8))
 		return nil
 	}
 
-	objId := frame[sp].I32
-	keyId := frame[sp+1].I32
+	objId := ctx.Frame[ctx.SP].I32
+	keyId := ctx.Frame[ctx.SP+1].I32
 	// length 16, offset[8] == string address, offset[12] == string length
 	// can use space before offset to put string, which will be copied
 	// immediately after returning into a caller environment type string
-	offset := frame[sp+2].I32
-	_,_,_ = objId,keyId,offset
+	offset := ctx.Frame[ctx.SP+2].I32
+	_, _, _ = objId, keyId, offset
 	return nil
 }
 
-func hostRandom(f *sections.Function, frame []sections.Variable, sp int) error {
-	hostLog("hostRandom")
-	if errorState {
-		frame[sp].I32 = 0
-		return nil
-	}
-
-	frame[sp].I32 = 0
+func hostLog(ctx *sections.HostContext) error {
+	log("hostLog")
+	text := getStringParam(ctx, ctx.SP)
+	log("hostLog text='" + text + "'")
 	return nil
 }
 
-func hostSetError(f *sections.Function, frame []sections.Variable, sp int) error {
-	hostLog("hostSetError")
+func hostRandom(ctx *sections.HostContext) error {
+	log("hostRandom")
+	if errorState {
+		ctx.Frame[ctx.SP].I32 = 0
+		return nil
+	}
+
+	ctx.Frame[ctx.SP].I32 = 0
+	return nil
+}
+
+func hostSetError(ctx *sections.HostContext) error {
+	log("hostSetError")
 	if errorState {
 		return nil
 	}
 
-	error := getString(f, frame, sp)
+	error := getStringParam(ctx, ctx.SP)
 	setError(error)
 	return nil
+}
+
+func log(text string) {
+	if HostLogger != nil {
+		HostLogger(text)
+	}
 }
 
 func setError(error string) {
@@ -226,30 +234,30 @@ func setError(error string) {
 	errorState = true
 }
 
-func hostSetInt(f *sections.Function, frame []sections.Variable, sp int) error {
-	hostLog("hostSetInt")
+func hostSetInt(ctx *sections.HostContext) error {
+	log("hostSetInt")
 	if errorState {
 		return nil
 	}
 
-	objId := frame[sp].I32
-	keyId := frame[sp+1].I32
-	value := frame[sp+2].I32
-	hostLog("hostSetString value=" + string(value))
-	_,_ = objId,keyId
+	objId := ctx.Frame[ctx.SP].I32
+	keyId := ctx.Frame[ctx.SP+1].I32
+	value := ctx.Frame[ctx.SP+2].I32
+	log("hostSetString value=" + string(value))
+	_, _ = objId, keyId
 	return nil
 }
 
-func hostSetString(f *sections.Function, frame []sections.Variable, sp int) error {
-	hostLog("hostSetString")
+func hostSetString(ctx *sections.HostContext) error {
+	log("hostSetString")
 	if errorState {
 		return nil
 	}
 
-	objId := frame[sp].I32
-	keyId := frame[sp+1].I32
-	value := getString(f, frame, sp+2)
-	hostLog("hostSetString value='" + value + "'")
-	_,_ = objId,keyId
+	objId := ctx.Frame[ctx.SP].I32
+	keyId := ctx.Frame[ctx.SP+1].I32
+	value := getStringParam(ctx, ctx.SP+2)
+	log("hostSetString value='" + value + "'")
+	_, _ = objId, keyId
 	return nil
 }

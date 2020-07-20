@@ -306,7 +306,7 @@ func (lnk *WasmLinker) runStartFunction() error {
 		return nil
 	}
 	startFunction := lnk.m.Functions[lnk.m.Start]
-	vm := context.NewRunner(lnk.m)
+	vm := context.NewRunner(lnk.m, nil)
 	vm.Frame = make([]sections.Variable, startFunction.MaxLocalIndex()+startFunction.FrameSize)
 	return instructions.RunBlock(vm, startFunction.Body)
 }
