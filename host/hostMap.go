@@ -1,7 +1,7 @@
 package host
 
 type HostMap struct {
-	objId int32
+	objId  int32
 	fields map[int32]interface{}
 }
 
@@ -20,4 +20,3 @@ func (h HostMap) SetInt(keyId int32, value int32) {
 func (h HostMap) SetString(keyId int32, value string) {
 	panic("implement me")
 }
-

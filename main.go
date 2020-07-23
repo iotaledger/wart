@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	"github.com/iotaledger/wart/host"
+	"github.com/iotaledger/wart/wasm/consts/desc"
 	"github.com/iotaledger/wart/wasm/executors"
 	"github.com/iotaledger/wart/wasm/instructions"
 	"github.com/iotaledger/wart/wasm/sections"
@@ -17,16 +18,44 @@ var DEBUG_MODULE = "xxx.wasm"
 
 func main() {
 	fmt.Println("Hello, Wart!")
-	host.CreateHostModule()
+	runSC()
 	//listInstructions()
 	//testerTests()
 	//readerTest("D:\\Work\\Rust\\wasmtest\\target\\wasm32-unknown-unknown\\debug\\wasmtest.wasm")
 	//readerTest("D:\\Work\\Rust\\wasmtest\\target\\wasm32-unknown-unknown\\release\\wasmtest.wasm")
-	readerTest("D:\\Work\\Rust\\wasmtest\\pkg\\wasmtest_bg.wasm")
+	//readerTest("D:\\Work\\Rust\\wasmtest\\pkg\\wasmtest_bg.wasm")
 	//readerTests()
 	//specTests()
 	fmt.Printf("\n%d tests executed, %d failed.\n", executors.TotalNrOfTests, executors.TotalNrFailed)
 	fmt.Println("Ready!")
+}
+
+func runSC() {
+	host.CreateHostModule()
+	runner := executors.NewWasmRunner(nil)
+	err := runner.Load("D:\\Work\\Go\\src\\github.com\\iotaledger\\wasp\\tools\\cluster\\tests\\wasptest\\wasmtest_bg.wasm")
+	if err != nil {
+		fmt.Printf("error loading wasm: " + err.Error())
+		return
+	}
+
+	module := runner.Module()
+	for _, export := range module.Exports {
+		if export.ImportName == "no_op" {
+			if export.ExternalType != desc.FUNC {
+				fmt.Printf("error running wasm: wrong export type")
+				return
+			}
+			function := module.Functions[export.Index]
+			err = runner.RunFunction(function)
+			if err != nil {
+				fmt.Printf("error running wasm: " + err.Error())
+				return
+			}
+			break
+		}
+	}
+	fmt.Printf("Success!")
 }
 
 func listInstructions() {

@@ -7,6 +7,8 @@ import (
 type HostContext struct {
 	Frame        []Variable
 	Function     *Function
+	HostLogger   func(ctx *HostContext, text string)
+	Module       *Module
 	OuterContext interface{}
 	SP           int
 }

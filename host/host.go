@@ -36,18 +36,14 @@ var hostExports = []string{
 }
 var hostParams = [][]value.DataType{
 	{}, {value.I32, value.I32}, {value.I32, value.I32}, {value.I32},
-	{value.I32, value.I32, value.I32}, {value.I32, value.I32}, {value.I32, value.I32},
-	{},	{value.I32, value.I32}, {value.I32, value.I32, value.I32},
-	{value.I32, value.I32, value.I32, value.I32},
+	{value.I32, value.I32, value.I32}, {value.I32, value.I32, value.I32}, {value.I32, value.I32}, {},
+	{value.I32, value.I32}, {value.I32, value.I32, value.I32}, {value.I32, value.I32, value.I32, value.I32},
 }
 var hostResults = [][]value.DataType{
 	{value.I32}, {value.I32}, {value.I32}, {value.I32},
-	{value.I32}, {}, {}, {value.I32}, {}, {}, {},
+	{value.I32}, {}, {}, {value.I32},
+	{}, {}, {},
 }
-
-type Logger func(text string)
-
-var HostLogger Logger = nil
 
 func CreateHostModule() {
 	m := sections.NewModule()
@@ -88,8 +84,30 @@ func CreateHostModule() {
 	}
 }
 
+func getObject(objId int32) HostObject {
+	if objId < 0 || objId >= int32(len(objIdToObj)) {
+		setError("Invalid objId")
+		return objIdToObj[0]
+	}
+
+	return objIdToObj[objId]
+}
+
+func getStringParam(ctx *sections.HostContext, offset int) string {
+	address := ctx.Frame[offset].I32
+	length := ctx.Frame[offset+1].I32
+	mem := ctx.Function.Module.Memories
+	if len(mem) == 0 {
+		mem = ctx.Module.Memories
+	}
+	// make sure to copy string out of mem.Pool
+	bytes := make([]byte, length)
+	copy(bytes, mem[0].Pool[address:address+length])
+	return string(bytes)
+}
+
 func hostError(ctx *sections.HostContext) error {
-	log("hostError")
+	log(ctx, "hostError")
 	value := int32(0)
 	if errorState {
 		value = 1
@@ -99,7 +117,7 @@ func hostError(ctx *sections.HostContext) error {
 }
 
 func hostGetInt(ctx *sections.HostContext) error {
-	log("hostGetInt")
+	log(ctx, "hostGetInt")
 	if errorState {
 		ctx.Frame[ctx.SP].I32 = 0
 		return nil
@@ -111,24 +129,15 @@ func hostGetInt(ctx *sections.HostContext) error {
 	return nil
 }
 
-func getObject(objId int32) HostObject {
-	if objId < 0 || objId >= int32(len(objIdToObj)) {
-		setError("Invalid objId")
-		return objIdToObj[0]
-	}
-
-	return objIdToObj[objId]
-}
-
 func hostGetKey(ctx *sections.HostContext) error {
-	log("hostGetKey")
+	log(ctx, "hostGetKey")
 	if errorState {
 		ctx.Frame[ctx.SP].I32 = 0
 		return nil
 	}
 
 	key := getStringParam(ctx, ctx.SP)
-	log("hostGetKey key='" + key + "'")
+	log(ctx, "hostGetKey key='"+key+"'")
 	keyId, ok := keyToKeyId[key]
 	if ok {
 		ctx.Frame[ctx.SP].I32 = keyId
@@ -139,16 +148,8 @@ func hostGetKey(ctx *sections.HostContext) error {
 	return nil
 }
 
-func getStringParam(ctx *sections.HostContext, offset int) string {
-	address := ctx.Frame[offset].I32
-	length := ctx.Frame[offset+1].I32
-	mem := ctx.Function.Module.Memories[0]
-	// make sure to copy string out of mem.Pool
-	return string(copy(make([]byte, length), mem.Pool[address:address+length]))
-}
-
 func hostGetLength(ctx *sections.HostContext) error {
-	log("hostGetLength")
+	log(ctx, "hostGetLength")
 	if errorState {
 		ctx.Frame[ctx.SP].I32 = 0
 		return nil
@@ -161,7 +162,7 @@ func hostGetLength(ctx *sections.HostContext) error {
 }
 
 func hostGetObject(ctx *sections.HostContext) error {
-	log("hostGetObject")
+	log(ctx, "hostGetObject")
 	if errorState {
 		ctx.Frame[ctx.SP].I32 = 0
 		return nil
@@ -176,11 +177,14 @@ func hostGetObject(ctx *sections.HostContext) error {
 }
 
 func hostGetString(ctx *sections.HostContext) error {
-	log("hostGetString")
+	log(ctx, "hostGetString")
 	if errorState {
 		offset := ctx.Frame[ctx.SP+2].I32
-		mem := ctx.Function.Module.Memories[0]
-		copy(mem.Pool[offset+8:offset+16], make([]byte, 8))
+		mem := ctx.Function.Module.Memories
+		if len(mem) == 0 {
+			mem = ctx.Module.Memories
+		}
+		copy(mem[0].Pool[offset+8:offset+16], make([]byte, 8))
 		return nil
 	}
 
@@ -195,14 +199,14 @@ func hostGetString(ctx *sections.HostContext) error {
 }
 
 func hostLog(ctx *sections.HostContext) error {
-	log("hostLog")
+	log(ctx, "hostLog")
 	text := getStringParam(ctx, ctx.SP)
-	log("hostLog text='" + text + "'")
+	log(ctx, "hostLog text='"+text+"'")
 	return nil
 }
 
 func hostRandom(ctx *sections.HostContext) error {
-	log("hostRandom")
+	log(ctx, "hostRandom")
 	if errorState {
 		ctx.Frame[ctx.SP].I32 = 0
 		return nil
@@ -213,7 +217,7 @@ func hostRandom(ctx *sections.HostContext) error {
 }
 
 func hostSetError(ctx *sections.HostContext) error {
-	log("hostSetError")
+	log(ctx, "hostSetError")
 	if errorState {
 		return nil
 	}
@@ -223,19 +227,8 @@ func hostSetError(ctx *sections.HostContext) error {
 	return nil
 }
 
-func log(text string) {
-	if HostLogger != nil {
-		HostLogger(text)
-	}
-}
-
-func setError(error string) {
-	errorText = error
-	errorState = true
-}
-
 func hostSetInt(ctx *sections.HostContext) error {
-	log("hostSetInt")
+	log(ctx, "hostSetInt")
 	if errorState {
 		return nil
 	}
@@ -243,13 +236,13 @@ func hostSetInt(ctx *sections.HostContext) error {
 	objId := ctx.Frame[ctx.SP].I32
 	keyId := ctx.Frame[ctx.SP+1].I32
 	value := ctx.Frame[ctx.SP+2].I32
-	log("hostSetString value=" + string(value))
+	log(ctx, "hostSetString value="+string(value))
 	_, _ = objId, keyId
 	return nil
 }
 
 func hostSetString(ctx *sections.HostContext) error {
-	log("hostSetString")
+	log(ctx, "hostSetString")
 	if errorState {
 		return nil
 	}
@@ -257,7 +250,18 @@ func hostSetString(ctx *sections.HostContext) error {
 	objId := ctx.Frame[ctx.SP].I32
 	keyId := ctx.Frame[ctx.SP+1].I32
 	value := getStringParam(ctx, ctx.SP+2)
-	log("hostSetString value='" + value + "'")
+	log(ctx, "hostSetString value='"+value+"'")
 	_, _ = objId, keyId
 	return nil
+}
+
+func log(ctx *sections.HostContext, text string) {
+	if ctx.HostLogger != nil {
+		ctx.HostLogger(ctx, text)
+	}
+}
+
+func setError(error string) {
+	errorText = error
+	errorState = true
 }

@@ -50,9 +50,11 @@ func (r *WasmRunner) Module() *sections.Module {
 
 func (r *WasmRunner) RunExport(exportName string) error {
 	m := r.Module()
-	for _,export := range m.Exports {
+	for _, export := range m.Exports {
 		if export.ImportName == exportName {
-			if export.ExternalType != desc.FUNC { return errors.New("Invalid export type") }
+			if export.ExternalType != desc.FUNC {
+				return errors.New("Invalid export type")
+			}
 			function := m.Functions[export.Index]
 			return r.RunFunction(function)
 		}

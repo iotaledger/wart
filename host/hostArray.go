@@ -1,9 +1,9 @@
 package host
 
 type HostArray struct {
-	 objId int32
-	 objType int
-	 ints []int32
+	objId   int32
+	objType int
+	ints    []int32
 }
 
 func (h *HostArray) GetInt(keyId int32) int32 {
@@ -21,4 +21,3 @@ func (h *HostArray) SetInt(keyId int32, value int32) {
 func (h *HostArray) SetString(keyId int32, value string) {
 	panic("implement me")
 }
-
