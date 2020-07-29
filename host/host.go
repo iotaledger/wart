@@ -1,6 +1,8 @@
 package host
 
 import (
+	"encoding/binary"
+	"github.com/iotaledger/wart/host/interfaces/level"
 	"github.com/iotaledger/wart/wasm/consts/desc"
 	"github.com/iotaledger/wart/wasm/consts/op"
 	"github.com/iotaledger/wart/wasm/consts/value"
@@ -10,21 +12,7 @@ import (
 	"github.com/iotaledger/wart/wasm/sections"
 )
 
-type HostObject interface {
-	GetInt(keyId int32) int32
-	GetString(keyId int32) string
-	SetInt(keyId int32, value int32)
-	SetString(keyId int32, value string)
-}
-
-var errorState = false
-var errorText = ""
-
-var keyToKeyId = make(map[string]int32)
-var keyIdToKey = make([]string, 0)
-var objIdToObj = make([]HostObject, 0)
-
-var hostCalls = []sections.HostInterface{
+var hostCalls = []sections.HostCall{
 	hostError, hostGetInt, hostGetKey, hostGetLength,
 	hostGetObject, hostGetString, hostLog, hostRandom,
 	hostSetError, hostSetInt, hostSetString,
@@ -84,15 +72,6 @@ func CreateHostModule() {
 	}
 }
 
-func getObject(objId int32) HostObject {
-	if objId < 0 || objId >= int32(len(objIdToObj)) {
-		setError("Invalid objId")
-		return objIdToObj[0]
-	}
-
-	return objIdToObj[objId]
-}
-
 func getStringParam(ctx *sections.HostContext, offset int) string {
 	address := ctx.Frame[offset].I32
 	length := ctx.Frame[offset+1].I32
@@ -109,7 +88,7 @@ func getStringParam(ctx *sections.HostContext, offset int) string {
 func hostError(ctx *sections.HostContext) error {
 	log(ctx, "hostError")
 	value := int32(0)
-	if errorState {
+	if ctx.Host.HasError() {
 		value = 1
 	}
 	ctx.Frame[ctx.SP].I32 = value
@@ -118,52 +97,45 @@ func hostError(ctx *sections.HostContext) error {
 
 func hostGetInt(ctx *sections.HostContext) error {
 	log(ctx, "hostGetInt")
-	if errorState {
+	if ctx.Host.HasError() {
 		ctx.Frame[ctx.SP].I32 = 0
 		return nil
 	}
 
 	objId := ctx.Frame[ctx.SP].I32
 	keyId := ctx.Frame[ctx.SP+1].I32
-	ctx.Frame[ctx.SP].I32 = getObject(objId).GetInt(keyId)
+	ctx.Frame[ctx.SP].I32 = ctx.Host.GetInt(objId, keyId)
 	return nil
 }
 
 func hostGetKey(ctx *sections.HostContext) error {
 	log(ctx, "hostGetKey")
-	if errorState {
+	if ctx.Host.HasError() {
 		ctx.Frame[ctx.SP].I32 = 0
 		return nil
 	}
 
 	key := getStringParam(ctx, ctx.SP)
 	log(ctx, "hostGetKey key='"+key+"'")
-	keyId, ok := keyToKeyId[key]
-	if ok {
-		ctx.Frame[ctx.SP].I32 = keyId
-		return nil
-	}
-
-	ctx.Frame[ctx.SP].I32 = 0
+	ctx.Frame[ctx.SP].I32 = ctx.Host.GetKey(key)
 	return nil
 }
 
 func hostGetLength(ctx *sections.HostContext) error {
 	log(ctx, "hostGetLength")
-	if errorState {
+	if ctx.Host.HasError() {
 		ctx.Frame[ctx.SP].I32 = 0
 		return nil
 	}
 
 	objId := ctx.Frame[ctx.SP].I32
-	_ = objId
-	ctx.Frame[ctx.SP].I32 = 0
+	ctx.Frame[ctx.SP].I32 = ctx.Host.GetLength(objId)
 	return nil
 }
 
 func hostGetObject(ctx *sections.HostContext) error {
 	log(ctx, "hostGetObject")
-	if errorState {
+	if ctx.Host.HasError() {
 		ctx.Frame[ctx.SP].I32 = 0
 		return nil
 	}
@@ -171,30 +143,36 @@ func hostGetObject(ctx *sections.HostContext) error {
 	objId := ctx.Frame[ctx.SP].I32
 	keyId := ctx.Frame[ctx.SP+1].I32
 	typeId := ctx.Frame[ctx.SP+2].I32
-	_, _, _ = objId, keyId, typeId
-	ctx.Frame[ctx.SP].I32 = 0
+	ctx.Frame[ctx.SP].I32 = ctx.Host.GetObject(objId, keyId, typeId)
 	return nil
 }
 
 func hostGetString(ctx *sections.HostContext) error {
 	log(ctx, "hostGetString")
-	if errorState {
-		offset := ctx.Frame[ctx.SP+2].I32
-		mem := ctx.Function.Module.Memories
-		if len(mem) == 0 {
-			mem = ctx.Module.Memories
-		}
-		copy(mem[0].Pool[offset+8:offset+16], make([]byte, 8))
+	offset := ctx.Frame[ctx.SP+2].I32
+	mem := ctx.Function.Module.Memories
+	if len(mem) == 0 {
+		mem = ctx.Module.Memories
+	}
+	pool := mem[0].Pool
+
+	if ctx.Host.HasError() {
+		copy(pool[offset+8:offset+16], make([]byte, 8))
 		return nil
 	}
 
 	objId := ctx.Frame[ctx.SP].I32
 	keyId := ctx.Frame[ctx.SP+1].I32
+	value := ctx.Host.GetString(objId, keyId)
 	// length 16, offset[8] == string address, offset[12] == string length
 	// can use space before offset to put string, which will be copied
 	// immediately after returning into a caller environment type string
-	offset := ctx.Frame[ctx.SP+2].I32
-	_, _, _ = objId, keyId, offset
+	bytes := []byte(value)
+	length := uint32(len(bytes))
+	start := uint32(offset) - length
+	copy(pool[start:offset], bytes)
+	binary.LittleEndian.PutUint32(pool[offset+8:offset+12], start)
+	binary.LittleEndian.PutUint32(pool[offset+12:offset+16], length)
 	return nil
 }
 
@@ -202,34 +180,36 @@ func hostLog(ctx *sections.HostContext) error {
 	log(ctx, "hostLog")
 	text := getStringParam(ctx, ctx.SP)
 	log(ctx, "hostLog text='"+text+"'")
+	ctx.Host.Log(level.MSG, text)
 	return nil
 }
 
 func hostRandom(ctx *sections.HostContext) error {
 	log(ctx, "hostRandom")
-	if errorState {
+	if ctx.Host.HasError() {
 		ctx.Frame[ctx.SP].I32 = 0
 		return nil
 	}
 
-	ctx.Frame[ctx.SP].I32 = 0
+	ctx.Frame[ctx.SP].I32 = ctx.Host.Random()
 	return nil
 }
 
 func hostSetError(ctx *sections.HostContext) error {
 	log(ctx, "hostSetError")
-	if errorState {
+	if ctx.Host.HasError() {
 		return nil
 	}
 
-	error := getStringParam(ctx, ctx.SP)
-	setError(error)
+	text := getStringParam(ctx, ctx.SP)
+	log(ctx, "hostSetError text='"+text+"'")
+	ctx.Host.SetError(text)
 	return nil
 }
 
 func hostSetInt(ctx *sections.HostContext) error {
 	log(ctx, "hostSetInt")
-	if errorState {
+	if ctx.Host.HasError() {
 		return nil
 	}
 
@@ -237,13 +217,13 @@ func hostSetInt(ctx *sections.HostContext) error {
 	keyId := ctx.Frame[ctx.SP+1].I32
 	value := ctx.Frame[ctx.SP+2].I32
 	log(ctx, "hostSetString value="+string(value))
-	_, _ = objId, keyId
+	ctx.Host.SetInt(objId, keyId, value)
 	return nil
 }
 
 func hostSetString(ctx *sections.HostContext) error {
 	log(ctx, "hostSetString")
-	if errorState {
+	if ctx.Host.HasError() {
 		return nil
 	}
 
@@ -251,17 +231,10 @@ func hostSetString(ctx *sections.HostContext) error {
 	keyId := ctx.Frame[ctx.SP+1].I32
 	value := getStringParam(ctx, ctx.SP+2)
 	log(ctx, "hostSetString value='"+value+"'")
-	_, _ = objId, keyId
+	ctx.Host.SetString(objId, keyId, value)
 	return nil
 }
 
 func log(ctx *sections.HostContext, text string) {
-	if ctx.HostLogger != nil {
-		ctx.HostLogger(ctx, text)
-	}
-}
-
-func setError(error string) {
-	errorText = error
-	errorState = true
+	ctx.Host.Log(level.TRACE, text)
 }

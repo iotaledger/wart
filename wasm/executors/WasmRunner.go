@@ -2,6 +2,7 @@ package executors
 
 import (
 	"errors"
+	"github.com/iotaledger/wart/host/interfaces"
 	"github.com/iotaledger/wart/wasm/consts/desc"
 	"github.com/iotaledger/wart/wasm/executors/context"
 	"github.com/iotaledger/wart/wasm/instructions"
@@ -13,8 +14,8 @@ type WasmRunner struct {
 	vm *context.Runner
 }
 
-func NewWasmRunner(outerContext interface{}) *WasmRunner {
-	return &WasmRunner{vm: context.NewRunner(sections.NewModule(), outerContext)}
+func NewWasmRunner(host interfaces.HostInterface) *WasmRunner {
+	return &WasmRunner{vm: context.NewRunner(sections.NewModule(), host)}
 }
 
 func (r *WasmRunner) Load(path string) error {

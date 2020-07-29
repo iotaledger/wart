@@ -1,26 +1,26 @@
 package sections
 
 import (
+	"github.com/iotaledger/wart/host/interfaces"
 	"github.com/iotaledger/wart/wasm/instructions/helper"
 )
 
 type HostContext struct {
-	Frame        []Variable
-	Function     *Function
-	HostLogger   func(ctx *HostContext, text string)
-	Module       *Module
-	OuterContext interface{}
-	SP           int
+	Frame    []Variable
+	Function *Function
+	Host     interfaces.HostInterface
+	Module   *Module
+	SP       int
 }
 
-type HostInterface func(ctx *HostContext) error
+type HostCall func(ctx *HostContext) error
 
 type Function struct {
 	Identifier
 	Body      []helper.Instruction
 	FrameSize uint32
 	FuncType  *FuncType
-	HostCall  HostInterface
+	HostCall  HostCall
 	Locals    []*Local
 	Module    *Module
 }
