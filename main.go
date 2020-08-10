@@ -19,11 +19,12 @@ var DEBUG_MODULE = "xxx.wasm"
 func main() {
 	fmt.Println("Hello, Wart!")
 	runSC()
+	fmt.Println()
 	//listInstructions()
 	//testerTests()
 	//readerTest("D:\\Work\\Rust\\wasmtest\\target\\wasm32-unknown-unknown\\debug\\wasmtest.wasm")
 	//readerTest("D:\\Work\\Rust\\wasmtest\\target\\wasm32-unknown-unknown\\release\\wasmtest.wasm")
-	//readerTest("D:\\Work\\Rust\\wasmtest\\pkg\\wasmtest_bg.wasm")
+	readerTest("D:\\Work\\Rust\\wasmtest\\pkg\\wasmtest_bg.wasm")
 	//readerTests()
 	//specTests()
 	fmt.Printf("\n%d tests executed, %d failed.\n", executors.TotalNrOfTests, executors.TotalNrFailed)
@@ -32,7 +33,7 @@ func main() {
 
 func runSC() {
 	host.CreateHostModule()
-	ctx := &host.HostImpl{}
+	ctx := host.NewHostImpl()
 	runner := executors.NewWasmRunner(ctx)
 	err := runner.Load("D:\\Work\\Go\\src\\github.com\\iotaledger\\wasp\\tools\\cluster\\tests\\wasptest\\wasmtest_bg.wasm")
 	if err != nil {
@@ -40,9 +41,10 @@ func runSC() {
 		return
 	}
 
+	scName := "increment"
 	module := runner.Module()
 	for _, export := range module.Exports {
-		if export.ImportName == "no_op" {
+		if export.ImportName == scName {
 			if export.ExternalType != desc.FUNC {
 				fmt.Printf("error running wasm: wrong export type")
 				return

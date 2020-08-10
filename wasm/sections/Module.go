@@ -29,7 +29,6 @@ type Module struct {
 func NewModule() *Module {
 	return &Module{Start: value.UNDEFINED}
 }
-
 func (m *Module) MaxFunctions() uint32 {
 	return uint32(len(m.Functions))
 }

@@ -2,13 +2,17 @@ package host
 
 import (
 	"fmt"
-	"github.com/iotaledger/wart/wasm/sections"
+	"github.com/iotaledger/wart/host/interfaces/field"
+	"github.com/iotaledger/wart/host/interfaces/objtype"
+	"strings"
 )
 
 type HostObject interface {
-	GetInt(ctx *HostImpl, keyId int32) int32
+	GetInt(ctx *HostImpl, keyId int32) int64
+	GetLength(ctx *HostImpl) int32
+	GetObject(ctx *HostImpl, keyId int32, typeId int32) int32
 	GetString(ctx *HostImpl, keyId int32) string
-	SetInt(ctx *HostImpl, keyId int32, value int32)
+	SetInt(ctx *HostImpl, keyId int32, value int64)
 	SetString(ctx *HostImpl, keyId int32, value string)
 }
 
@@ -17,19 +21,42 @@ type HostImpl struct {
 	errorText  string
 	keyToKeyId map[string]int32
 	keyIdToKey []string
-	module *sections.Module
 	objIdToObj []HostObject
 }
 
-func NewHostImpl(Module *sections.Module) *HostImpl {
-	return &HostImpl{
-		errorFlag: false,
-		errorText: "",
+func NewHostImpl() *HostImpl {
+	h := &HostImpl{
+		errorFlag:  false,
+		errorText:  "",
 		keyToKeyId: make(map[string]int32),
-		keyIdToKey: []string{ "<null>" },
-		module: Module,
-		objIdToObj: []HostObject{ &nullObject{}},
+		keyIdToKey: []string{},
+		objIdToObj: []HostObject{},
 	}
+
+	field.NULL = h.add("<null>", &nullObject{})
+	field.ROOT = h.add("<root>", nil)
+	field.CONFIG = h.add("config", nil)
+	field.PARAMS = h.add("params", nil)
+	field.REQUEST = h.add("request", nil)
+	field.STATE = h.add("state", nil)
+
+	return h
+}
+
+func (h *HostImpl) add(key string, obj HostObject) int32 {
+	keyId := h.GetKey(key)
+	if obj == nil {
+		hostMap := NewHostMap(keyId)
+		hostMap.readonly = key != "state"
+		obj = hostMap
+		if !strings.HasPrefix(key, "<") {
+			root := h.getObject(field.ROOT).(*HostMap)
+			root.fields[keyId] = obj
+			root.types[keyId] = objtype.OBJTYPE_MAP
+		}
+	}
+	h.objIdToObj = append(h.objIdToObj, obj)
+	return keyId
 }
 
 func (h *HostImpl) getObject(objId int32) HostObject {
@@ -41,12 +68,12 @@ func (h *HostImpl) getObject(objId int32) HostObject {
 	return h.objIdToObj[objId]
 }
 
-func (h *HostImpl) GetInt(objId int32, keyId int32) int32 {
-	panic("implement me")
+func (h *HostImpl) GetInt(objId int32, keyId int32) int64 {
+	return h.getObject(objId).GetInt(h, keyId)
 }
 
 func (h *HostImpl) GetKey(key string) int32 {
-	keyId,ok := h.keyToKeyId[key]
+	keyId, ok := h.keyToKeyId[key]
 	if !ok {
 		keyId = int32(len(h.keyIdToKey))
 		h.keyToKeyId[key] = keyId
@@ -56,27 +83,23 @@ func (h *HostImpl) GetKey(key string) int32 {
 }
 
 func (h *HostImpl) GetLength(objId int32) int32 {
-	panic("implement me")
+	return h.getObject(objId).GetLength(h)
 }
 
 func (h *HostImpl) GetObject(objId int32, keyId int32, typeId int32) int32 {
-	panic("implement me")
+	return h.getObject(objId).GetObject(h, keyId, typeId)
 }
 
 func (h *HostImpl) GetString(objId int32, keyId int32) string {
-	panic("implement me")
+	return h.getObject(objId).GetString(h, keyId)
 }
 
 func (h *HostImpl) HasError() bool {
 	return h.errorFlag
 }
 
-func (h *HostImpl) Log(level int, text string) {
+func (h *HostImpl) Log(logLevel int, text string) {
 	fmt.Println(text)
-}
-
-func (h *HostImpl) Random() int32 {
-	panic("implement me")
 }
 
 func (h *HostImpl) SetError(text string) {
@@ -87,10 +110,10 @@ func (h *HostImpl) SetError(text string) {
 	h.errorFlag = true
 }
 
-func (h *HostImpl) SetInt(objId int32, keyId int32, value int32) {
-	panic("implement me")
+func (h *HostImpl) SetInt(objId int32, keyId int32, value int64) {
+	h.getObject(objId).SetInt(h, keyId, value)
 }
 
 func (h *HostImpl) SetString(objId int32, keyId int32, value string) {
-	panic("implement me")
+	h.getObject(objId).SetString(h, keyId, value)
 }

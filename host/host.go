@@ -10,54 +10,39 @@ import (
 	"github.com/iotaledger/wart/wasm/instructions"
 	"github.com/iotaledger/wart/wasm/instructions/helper"
 	"github.com/iotaledger/wart/wasm/sections"
+	"strconv"
 )
 
-var hostCalls = []sections.HostCall{
-	hostError, hostGetInt, hostGetKey, hostGetLength,
-	hostGetObject, hostGetString, hostLog, hostRandom,
-	hostSetError, hostSetInt, hostSetString,
-}
-var hostExports = []string{
-	"hostError", "hostGetInt", "hostGetKey", "hostGetLength",
-	"hostGetObject", "hostGetString", "hostLog", "hostRandom",
-	"hostSetError", "hostSetInt", "hostSetString",
-}
-var hostParams = [][]value.DataType{
-	{}, {value.I32, value.I32}, {value.I32, value.I32}, {value.I32},
-	{value.I32, value.I32, value.I32}, {value.I32, value.I32, value.I32}, {value.I32, value.I32}, {},
-	{value.I32, value.I32}, {value.I32, value.I32, value.I32}, {value.I32, value.I32, value.I32, value.I32},
-}
-var hostResults = [][]value.DataType{
-	{value.I32}, {value.I32}, {value.I32}, {value.I32},
-	{value.I32}, {}, {}, {value.I32},
-	{}, {}, {},
+func addHostCall(m *sections.Module, exportName string, hostCall sections.HostCall, hostParams []value.DataType, hostResults []value.DataType) {
+	funcType := sections.NewFuncType()
+	funcType.ParamTypes = hostParams
+	funcType.ResultTypes = hostResults
+	m.FuncTypes = append(m.FuncTypes, funcType)
+	function := sections.NewFunction()
+	function.FuncType = funcType
+	function.HostCall = hostCall
+	function.Body = []helper.Instruction{instructions.CreateInstruction(op.END)}
+	m.Functions = append(m.Functions, function)
+	export := sections.NewExport()
+	export.Index = uint32(len(m.Exports))
+	export.ExternalType = desc.FUNC
+	export.ImportName = exportName
+	m.Exports = append(m.Exports, export)
 }
 
 func CreateHostModule() {
 	m := sections.NewModule()
 	m.ImportName = "wasp"
-
-	m.Start = value.UNDEFINED
-	m.Exports = make([]*sections.Export, len(hostCalls))
-
-	m.FuncTypes = make([]*sections.FuncType, len(hostCalls))
-	m.Functions = make([]*sections.Function, len(hostCalls))
-	for i := 0; i < len(hostCalls); i++ {
-		funcType := sections.NewFuncType()
-		funcType.ParamTypes = hostParams[i]
-		funcType.ResultTypes = hostResults[i]
-		m.FuncTypes[i] = funcType
-		function := sections.NewFunction()
-		function.FuncType = funcType
-		function.HostCall = hostCalls[i]
-		function.Body = []helper.Instruction{instructions.CreateInstruction(op.END)}
-		m.Functions[i] = function
-		export := sections.NewExport()
-		export.Index = uint32(i)
-		export.ExternalType = desc.FUNC
-		export.ImportName = hostExports[i]
-		m.Exports[i] = export
-	}
+	addHostCall(m, "hostError", hostError, []value.DataType{}, []value.DataType{value.I32})
+	addHostCall(m, "hostGetInt", hostGetInt, []value.DataType{value.I32, value.I32}, []value.DataType{value.I64})
+	addHostCall(m, "hostGetKey", hostGetKey, []value.DataType{value.I32, value.I32}, []value.DataType{value.I32})
+	addHostCall(m, "hostGetLength", hostGetLength, []value.DataType{value.I32}, []value.DataType{value.I32})
+	addHostCall(m, "hostGetObject", hostGetObject, []value.DataType{value.I32, value.I32, value.I32}, []value.DataType{value.I32})
+	addHostCall(m, "hostGetString", hostGetString, []value.DataType{value.I32, value.I32, value.I32}, []value.DataType{})
+	addHostCall(m, "hostLog", hostLog, []value.DataType{value.I32, value.I32}, []value.DataType{})
+	addHostCall(m, "hostSetError", hostSetError, []value.DataType{value.I32, value.I32}, []value.DataType{})
+	addHostCall(m, "hostSetInt", hostSetInt, []value.DataType{value.I32, value.I32, value.I64}, []value.DataType{})
+	addHostCall(m, "hostSetString", hostSetString, []value.DataType{value.I32, value.I32, value.I32, value.I32}, []value.DataType{})
 
 	a := executors.NewWasmAnalyzer(m)
 	err := a.Analyze()
@@ -98,13 +83,13 @@ func hostError(ctx *sections.HostContext) error {
 func hostGetInt(ctx *sections.HostContext) error {
 	log(ctx, "hostGetInt")
 	if ctx.Host.HasError() {
-		ctx.Frame[ctx.SP].I32 = 0
+		ctx.Frame[ctx.SP].I64 = 0
 		return nil
 	}
 
 	objId := ctx.Frame[ctx.SP].I32
 	keyId := ctx.Frame[ctx.SP+1].I32
-	ctx.Frame[ctx.SP].I32 = ctx.Host.GetInt(objId, keyId)
+	ctx.Frame[ctx.SP].I64 = ctx.Host.GetInt(objId, keyId)
 	return nil
 }
 
@@ -184,17 +169,6 @@ func hostLog(ctx *sections.HostContext) error {
 	return nil
 }
 
-func hostRandom(ctx *sections.HostContext) error {
-	log(ctx, "hostRandom")
-	if ctx.Host.HasError() {
-		ctx.Frame[ctx.SP].I32 = 0
-		return nil
-	}
-
-	ctx.Frame[ctx.SP].I32 = ctx.Host.Random()
-	return nil
-}
-
 func hostSetError(ctx *sections.HostContext) error {
 	log(ctx, "hostSetError")
 	if ctx.Host.HasError() {
@@ -215,8 +189,8 @@ func hostSetInt(ctx *sections.HostContext) error {
 
 	objId := ctx.Frame[ctx.SP].I32
 	keyId := ctx.Frame[ctx.SP+1].I32
-	value := ctx.Frame[ctx.SP+2].I32
-	log(ctx, "hostSetString value="+string(value))
+	value := ctx.Frame[ctx.SP+2].I64
+	log(ctx, "hostSetString value="+strconv.FormatInt(value, 10))
 	ctx.Host.SetInt(objId, keyId, value)
 	return nil
 }
