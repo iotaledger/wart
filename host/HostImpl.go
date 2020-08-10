@@ -2,18 +2,19 @@ package host
 
 import (
 	"fmt"
+	"github.com/iotaledger/wart/host/interfaces"
 	"github.com/iotaledger/wart/host/interfaces/field"
 	"github.com/iotaledger/wart/host/interfaces/objtype"
 	"strings"
 )
 
 type HostObject interface {
-	GetInt(ctx *HostImpl, keyId int32) int64
-	GetLength(ctx *HostImpl) int32
-	GetObject(ctx *HostImpl, keyId int32, typeId int32) int32
-	GetString(ctx *HostImpl, keyId int32) string
-	SetInt(ctx *HostImpl, keyId int32, value int64)
-	SetString(ctx *HostImpl, keyId int32, value string)
+	GetInt(ctx interfaces.HostInterface, keyId int32) int64
+	GetLength(ctx interfaces.HostInterface) int32
+	GetObject(ctx interfaces.HostInterface, keyId int32, typeId int32) int32
+	GetString(ctx interfaces.HostInterface, keyId int32) string
+	SetInt(ctx interfaces.HostInterface, keyId int32, value int64)
+	SetString(ctx interfaces.HostInterface, keyId int32, value string)
 }
 
 type HostImpl struct {
@@ -25,22 +26,22 @@ type HostImpl struct {
 }
 
 func NewHostImpl() *HostImpl {
-	h := &HostImpl{
+	return &HostImpl{
 		errorFlag:  false,
 		errorText:  "",
 		keyToKeyId: make(map[string]int32),
 		keyIdToKey: []string{},
 		objIdToObj: []HostObject{},
 	}
+}
 
+func (h *HostImpl) AddObjects() {
 	field.NULL = h.add("<null>", &nullObject{})
 	field.ROOT = h.add("<root>", nil)
 	field.CONFIG = h.add("config", nil)
 	field.PARAMS = h.add("params", nil)
 	field.REQUEST = h.add("request", nil)
 	field.STATE = h.add("state", nil)
-
-	return h
 }
 
 func (h *HostImpl) add(key string, obj HostObject) int32 {

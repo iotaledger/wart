@@ -34,6 +34,7 @@ func main() {
 func runSC() {
 	host.CreateHostModule()
 	ctx := host.NewHostImpl()
+	ctx.AddObjects()
 	runner := executors.NewWasmRunner(ctx)
 	err := runner.Load("D:\\Work\\Go\\src\\github.com\\iotaledger\\wasp\\tools\\cluster\\tests\\wasptest\\wasmtest_bg.wasm")
 	if err != nil {
