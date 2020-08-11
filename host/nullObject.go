@@ -5,6 +5,9 @@ import "github.com/iotaledger/wart/host/interfaces"
 type nullObject struct {
 }
 
+func NewNullObject() HostObject {
+	return &nullObject{}
+}
 func (n *nullObject) GetInt(ctx interfaces.HostInterface, keyId int32) int64 {
 	ctx.SetError("Null object")
 	return 0

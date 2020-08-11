@@ -19,33 +19,18 @@ type HostObject interface {
 
 type HostImpl struct {
 	errorFlag  bool
-	errorText  string
-	keyToKeyId map[string]int32
-	keyIdToKey []string
-	objIdToObj []HostObject
+	tracker Tracker
 }
 
 func NewHostImpl() *HostImpl {
 	return &HostImpl{
 		errorFlag:  false,
-		errorText:  "",
-		keyToKeyId: make(map[string]int32),
-		keyIdToKey: []string{},
-		objIdToObj: []HostObject{},
+		tracker: *NewTracker(),
 	}
 }
 
-func (h *HostImpl) AddObjects() {
-	field.NULL = h.add("<null>", &nullObject{})
-	field.ROOT = h.add("<root>", nil)
-	field.CONFIG = h.add("config", nil)
-	field.PARAMS = h.add("params", nil)
-	field.REQUEST = h.add("request", nil)
-	field.STATE = h.add("state", nil)
-}
-
 func (h *HostImpl) add(key string, obj HostObject) int32 {
-	keyId := h.GetKey(key)
+	keyId := h.tracker.GetKeyId(key)
 	if obj == nil {
 		hostMap := NewHostMap(keyId)
 		hostMap.readonly = key != "state"
@@ -56,17 +41,27 @@ func (h *HostImpl) add(key string, obj HostObject) int32 {
 			root.types[keyId] = objtype.OBJTYPE_MAP
 		}
 	}
-	h.objIdToObj = append(h.objIdToObj, obj)
-	return keyId
+	return h.tracker.AddObject(obj)
+}
+
+func (h *HostImpl) AddObjects() {
+	field.NULL = h.add("<null>", NewNullObject())
+	field.ROOT = h.add("<root>", nil)
+	field.CONFIG = h.add("config", nil)
+	field.PARAMS = h.add("params", nil)
+	field.REQUEST = h.add("request", nil)
+	field.STATE = h.add("state", nil)
+	field.ERROR = h.GetKey("error")
+	field.RANDOM = h.GetKey("random")
 }
 
 func (h *HostImpl) getObject(objId int32) HostObject {
-	if objId < 0 || objId >= int32(len(h.objIdToObj)) {
+	o := h.tracker.GetObject(objId)
+	if o == nil {
 		h.SetError("Invalid objId")
-		return h.objIdToObj[0]
+		return NewNullObject()
 	}
-
-	return h.objIdToObj[objId]
+	return o
 }
 
 func (h *HostImpl) GetInt(objId int32, keyId int32) int64 {
@@ -74,13 +69,7 @@ func (h *HostImpl) GetInt(objId int32, keyId int32) int64 {
 }
 
 func (h *HostImpl) GetKey(key string) int32 {
-	keyId, ok := h.keyToKeyId[key]
-	if !ok {
-		keyId = int32(len(h.keyIdToKey))
-		h.keyToKeyId[key] = keyId
-		h.keyIdToKey = append(h.keyIdToKey, key)
-	}
-	return keyId
+	return h.tracker.GetKeyId(key)
 }
 
 func (h *HostImpl) GetLength(objId int32) int32 {
@@ -107,8 +96,8 @@ func (h *HostImpl) SetError(text string) {
 	if h.errorFlag {
 		return
 	}
-	h.errorText = text
 	h.errorFlag = true
+	h.SetString(field.ROOT, field.ERROR, text)
 }
 
 func (h *HostImpl) SetInt(objId int32, keyId int32, value int64) {
