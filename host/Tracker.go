@@ -14,32 +14,32 @@ func NewTracker() *Tracker {
 	}
 }
 
-func (h *Tracker) AddObject(obj HostObject) int32 {
-	objId := int32(len(h.objIdToObj))
-	h.objIdToObj = append(h.objIdToObj, obj)
+func (t *Tracker) AddObject(obj HostObject) int32 {
+	objId := int32(len(t.objIdToObj))
+	t.objIdToObj = append(t.objIdToObj, obj)
 	return objId
 }
 
-func (h *Tracker) GetKey(keyId int32) string {
-	if keyId < 0 || keyId >= int32(len(h.keyIdToKey)) {
+func (t *Tracker) GetKey(keyId int32) string {
+	if keyId < 0 || keyId >= int32(len(t.keyIdToKey)) {
 		return ""
 	}
-	return h.keyIdToKey[keyId]
+	return t.keyIdToKey[keyId]
 }
 
-func (h *Tracker) GetKeyId(key string) int32 {
-	keyId, ok := h.keyToKeyId[key]
+func (t *Tracker) GetKeyId(key string) int32 {
+	keyId, ok := t.keyToKeyId[key]
 	if !ok {
-		keyId = int32(len(h.keyIdToKey))
-		h.keyToKeyId[key] = keyId
-		h.keyIdToKey = append(h.keyIdToKey, key)
+		keyId = int32(len(t.keyIdToKey))
+		t.keyToKeyId[key] = keyId
+		t.keyIdToKey = append(t.keyIdToKey, key)
 	}
 	return keyId
 }
 
-func (h *Tracker) GetObject(objId int32) HostObject {
-	if objId < 0 || objId >= int32(len(h.objIdToObj)) {
+func (t *Tracker) GetObject(objId int32) HostObject {
+	if objId < 0 || objId >= int32(len(t.objIdToObj)) {
 		return nil
 	}
-	return h.objIdToObj[objId]
+	return t.objIdToObj[objId]
 }

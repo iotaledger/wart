@@ -14,6 +14,9 @@ import (
 	"strings"
 )
 
+const SC_PATH = "D:\\Work\\Rust\\wasmtest\\pkg\\wasmtest_bg.wasm"
+const WASP_PATH = "D:\\Work\\Go\\src\\github.com\\iotaledger\\wasp\\tools\\cluster\\tests\\wasptest\\wasmtest_bg.wasm"
+
 var DEBUG_MODULE = "xxx.wasm"
 
 func main() {
@@ -24,7 +27,11 @@ func main() {
 	//testerTests()
 	//readerTest("D:\\Work\\Rust\\wasmtest\\target\\wasm32-unknown-unknown\\debug\\wasmtest.wasm")
 	//readerTest("D:\\Work\\Rust\\wasmtest\\target\\wasm32-unknown-unknown\\release\\wasmtest.wasm")
-	readerTest("D:\\Work\\Rust\\wasmtest\\pkg\\wasmtest_bg.wasm")
+	readerTest(SC_PATH)
+	file, err := ioutil.ReadFile(SC_PATH)
+	if err == nil {
+		ioutil.WriteFile(WASP_PATH, file, 0644)
+	}
 	//readerTests()
 	//specTests()
 	fmt.Printf("\n%d tests executed, %d failed.\n", executors.TotalNrOfTests, executors.TotalNrFailed)
@@ -36,13 +43,13 @@ func runSC() {
 	ctx := host.NewHostImpl()
 	ctx.AddObjects()
 	runner := executors.NewWasmRunner(ctx)
-	err := runner.Load("D:\\Work\\Go\\src\\github.com\\iotaledger\\wasp\\tools\\cluster\\tests\\wasptest\\wasmtest_bg.wasm")
+	err := runner.Load(WASP_PATH)
 	if err != nil {
 		fmt.Printf("error loading wasm: " + err.Error())
 		return
 	}
 
-	scName := "increment"
+	scName := "incrementRepeat1"
 	module := runner.Module()
 	for _, export := range module.Exports {
 		if export.ImportName == scName {

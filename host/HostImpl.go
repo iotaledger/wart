@@ -19,13 +19,13 @@ type HostObject interface {
 
 type HostImpl struct {
 	errorFlag  bool
-	tracker Tracker
+	tracker *Tracker
 }
 
 func NewHostImpl() *HostImpl {
 	return &HostImpl{
 		errorFlag:  false,
-		tracker: *NewTracker(),
+		tracker: NewTracker(),
 	}
 }
 
