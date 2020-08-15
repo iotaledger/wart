@@ -2,86 +2,102 @@ package host
 
 import (
 	"fmt"
-	"github.com/iotaledger/wart/host/interfaces"
-	"github.com/iotaledger/wart/host/interfaces/field"
+	"github.com/iotaledger/wart/host/interfaces/level"
 	"github.com/iotaledger/wart/host/interfaces/objtype"
-	"strings"
 )
 
 type HostObject interface {
-	GetInt(ctx interfaces.HostInterface, keyId int32) int64
-	GetLength(ctx interfaces.HostInterface) int32
-	GetObject(ctx interfaces.HostInterface, keyId int32, typeId int32) int32
-	GetString(ctx interfaces.HostInterface, keyId int32) string
-	SetInt(ctx interfaces.HostInterface, keyId int32, value int64)
-	SetString(ctx interfaces.HostInterface, keyId int32, value string)
+	GetInt(keyId int32) int64
+	GetLength() int32
+	GetObject(keyId int32, typeId int32) int32
+	GetString(keyId int32) string
+	SetInt(keyId int32, value int64)
+	SetString(keyId int32, value string)
 }
 
 type HostImpl struct {
-	errorFlag  bool
-	tracker *Tracker
+	errorFlag bool
+	tracker   *Tracker
 }
 
 func NewHostImpl() *HostImpl {
 	return &HostImpl{
-		errorFlag:  false,
-		tracker: NewTracker(),
+		errorFlag: false,
+		tracker:   NewTracker(),
 	}
-}
-
-func (h *HostImpl) add(key string, obj HostObject) int32 {
-	keyId := h.tracker.GetKeyId(key)
-	if obj == nil {
-		hostMap := NewHostMap(keyId)
-		hostMap.readonly = key != "state"
-		obj = hostMap
-		if !strings.HasPrefix(key, "<") {
-			root := h.getObject(field.ROOT).(*HostMap)
-			root.fields[keyId] = obj
-			root.types[keyId] = objtype.OBJTYPE_MAP
-		}
-	}
-	return h.tracker.AddObject(obj)
 }
 
 func (h *HostImpl) AddObjects() {
-	field.NULL = h.add("<null>", NewNullObject())
-	field.ROOT = h.add("<root>", nil)
-	field.CONFIG = h.add("config", nil)
-	field.PARAMS = h.add("params", nil)
-	field.REQUEST = h.add("request", nil)
-	field.STATE = h.add("state", nil)
-	field.ERROR = h.GetKey("error")
-	field.RANDOM = h.GetKey("random")
+	keyId := h.tracker.GetKeyId("<null>")
+	h.tracker.AddObject(NewNullObject(h))
+
+	keyId = h.tracker.GetKeyId("<root>")
+	root := NewHostMap(h)
+	root.readonly = true
+	h.tracker.AddObject(root)
+
+	keyId = h.tracker.GetKeyId("config")
+	config := NewHostMap(h)
+	config.readonly = true
+	root.fields[keyId] = h.tracker.AddObject(config)
+	root.types[keyId] = objtype.OBJTYPE_MAP
+
+	keyId = h.tracker.GetKeyId("params")
+	params := NewHostMap(h)
+	params.readonly = true
+	root.fields[keyId] = h.tracker.AddObject(params)
+	root.types[keyId] = objtype.OBJTYPE_MAP
+
+	keyId = h.tracker.GetKeyId("state")
+	root.fields[keyId] = h.tracker.AddObject(NewHostMap(h))
+	root.types[keyId] = objtype.OBJTYPE_MAP
+
+	keyId = h.tracker.GetKeyId("requests")
+	root.fields[keyId] = h.tracker.AddObject(NewHostArray(h, objtype.OBJTYPE_MAP))
+	root.types[keyId] = objtype.OBJTYPE_MAP_ARRAY
 }
 
 func (h *HostImpl) getObject(objId int32) HostObject {
 	o := h.tracker.GetObject(objId)
 	if o == nil {
 		h.SetError("Invalid objId")
-		return NewNullObject()
+		return NewNullObject(h)
 	}
 	return o
 }
 
+func (h *HostImpl) log(format string, a ...interface{}) {
+	h.Log(level.TRACE, fmt.Sprintf(format, a...))
+}
+
 func (h *HostImpl) GetInt(objId int32, keyId int32) int64 {
-	return h.getObject(objId).GetInt(h, keyId)
+	value := h.getObject(objId).GetInt(keyId)
+	h.log("GetInt o%d k%d = %d", objId, keyId, value)
+	return value
 }
 
 func (h *HostImpl) GetKey(key string) int32 {
-	return h.tracker.GetKeyId(key)
+	keyId := h.tracker.GetKeyId(key)
+	h.log("GetKey '%s'=k%d", key, keyId)
+	return keyId
 }
 
 func (h *HostImpl) GetLength(objId int32) int32 {
-	return h.getObject(objId).GetLength(h)
+	length := h.getObject(objId).GetLength()
+	h.log("GetLength o%d = %d", objId, length)
+	return length
 }
 
 func (h *HostImpl) GetObject(objId int32, keyId int32, typeId int32) int32 {
-	return h.getObject(objId).GetObject(h, keyId, typeId)
+	subId := h.getObject(objId).GetObject(keyId, typeId)
+	h.log("GetObject o%d k%d t%d = o%d", objId, keyId, typeId, subId)
+	return subId
 }
 
 func (h *HostImpl) GetString(objId int32, keyId int32) string {
-	return h.getObject(objId).GetString(h, keyId)
+	value := h.getObject(objId).GetString(keyId)
+	h.log("GetString o%d k%d = '%ds'", objId, keyId, value)
+	return value
 }
 
 func (h *HostImpl) HasError() bool {
@@ -89,21 +105,27 @@ func (h *HostImpl) HasError() bool {
 }
 
 func (h *HostImpl) Log(logLevel int, text string) {
-	fmt.Println(text)
+	if logLevel >= level.TRACE {
+		fmt.Println(text)
+	}
 }
 
 func (h *HostImpl) SetError(text string) {
+	h.log("SetError '%s'", text)
 	if h.errorFlag {
 		return
 	}
 	h.errorFlag = true
-	h.SetString(field.ROOT, field.ERROR, text)
+	keyId := h.tracker.GetKeyId("error")
+	h.tracker.GetObject(1).SetString(keyId, text)
 }
 
 func (h *HostImpl) SetInt(objId int32, keyId int32, value int64) {
-	h.getObject(objId).SetInt(h, keyId, value)
+	h.getObject(objId).SetInt(keyId, value)
+	h.log("SetInt o%d k%d v=%d", objId, keyId, value)
 }
 
 func (h *HostImpl) SetString(objId int32, keyId int32, value string) {
-	h.getObject(objId).SetString(h, keyId, value)
+	h.getObject(objId).SetString(keyId, value)
+	h.log("SetString o%d k%d v='%s'", objId, keyId, value)
 }

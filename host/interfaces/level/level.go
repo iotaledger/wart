@@ -1,8 +1,9 @@
 package level
 
 const (
-	TRACE = 0
-	MSG   = 1
-	WARN  = 2
-	ERR   = 3
+	HOST  = 0
+	TRACE = 1
+	MSG   = 2
+	WARN  = 3
+	ERR   = 4
 )
