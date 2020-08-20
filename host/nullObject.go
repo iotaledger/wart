@@ -15,11 +15,6 @@ func (n *nullObject) GetInt(keyId int32) int64 {
 	return 0
 }
 
-func (n *nullObject) GetLength() int32 {
-	n.ctx.SetError("Null.GetLength")
-	return 0
-}
-
 func (n *nullObject) GetObject(keyId int32, typeId int32) int32 {
 	n.ctx.SetError("Null.GetObject")
 	return 0

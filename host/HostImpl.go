@@ -2,13 +2,13 @@ package host
 
 import (
 	"fmt"
+	"github.com/iotaledger/wart/host/interfaces"
 	"github.com/iotaledger/wart/host/interfaces/level"
 	"github.com/iotaledger/wart/host/interfaces/objtype"
 )
 
 type HostObject interface {
 	GetInt(keyId int32) int64
-	GetLength() int32
 	GetObject(keyId int32, typeId int32) int32
 	GetString(keyId int32) string
 	SetInt(keyId int32, value int64)
@@ -16,14 +16,14 @@ type HostObject interface {
 }
 
 type HostImpl struct {
-	errorFlag bool
-	tracker   *Tracker
+	error   string
+	tracker *Tracker
 }
 
 func NewHostImpl() *HostImpl {
 	return &HostImpl{
-		errorFlag: false,
-		tracker:   NewTracker(),
+		error:   "",
+		tracker: NewTracker(),
 	}
 }
 
@@ -55,6 +55,7 @@ func (h *HostImpl) AddObjects() {
 	keyId = h.tracker.GetKeyId("requests")
 	root.fields[keyId] = h.tracker.AddObject(NewHostArray(h, objtype.OBJTYPE_MAP))
 	root.types[keyId] = objtype.OBJTYPE_MAP_ARRAY
+
 }
 
 func (h *HostImpl) getObject(objId int32) HostObject {
@@ -71,6 +72,14 @@ func (h *HostImpl) log(format string, a ...interface{}) {
 }
 
 func (h *HostImpl) GetInt(objId int32, keyId int32) int64 {
+	switch keyId {
+	case interfaces.KeyError:
+		if h.HasError() {
+			return 1
+		}
+		return 0
+	}
+
 	value := h.getObject(objId).GetInt(keyId)
 	h.log("GetInt o%d k%d = %d", objId, keyId, value)
 	return value
@@ -82,12 +91,6 @@ func (h *HostImpl) GetKey(key string) int32 {
 	return keyId
 }
 
-func (h *HostImpl) GetLength(objId int32) int32 {
-	length := h.getObject(objId).GetLength()
-	h.log("GetLength o%d = %d", objId, length)
-	return length
-}
-
 func (h *HostImpl) GetObject(objId int32, keyId int32, typeId int32) int32 {
 	subId := h.getObject(objId).GetObject(keyId, typeId)
 	h.log("GetObject o%d k%d t%d = o%d", objId, keyId, typeId, subId)
@@ -95,13 +98,17 @@ func (h *HostImpl) GetObject(objId int32, keyId int32, typeId int32) int32 {
 }
 
 func (h *HostImpl) GetString(objId int32, keyId int32) string {
+	switch keyId {
+	case interfaces.KeyError:
+		return h.error
+	}
 	value := h.getObject(objId).GetString(keyId)
 	h.log("GetString o%d k%d = '%ds'", objId, keyId, value)
 	return value
 }
 
 func (h *HostImpl) HasError() bool {
-	return h.errorFlag
+	return h.error != ""
 }
 
 func (h *HostImpl) Log(logLevel int, text string) {
@@ -112,12 +119,9 @@ func (h *HostImpl) Log(logLevel int, text string) {
 
 func (h *HostImpl) SetError(text string) {
 	h.log("SetError '%s'", text)
-	if h.errorFlag {
-		return
+	if !h.HasError() {
+		h.error = text
 	}
-	h.errorFlag = true
-	keyId := h.tracker.GetKeyId("error")
-	h.tracker.GetObject(1).SetString(keyId, text)
 }
 
 func (h *HostImpl) SetInt(objId int32, keyId int32, value int64) {
@@ -126,6 +130,15 @@ func (h *HostImpl) SetInt(objId int32, keyId int32, value int64) {
 }
 
 func (h *HostImpl) SetString(objId int32, keyId int32, value string) {
+	switch keyId {
+	case interfaces.KeyLog:
+		h.Log(level.MSG, value)
+		return
+	case interfaces.KeyError:
+		h.SetError(value)
+		return
+	}
+
 	h.getObject(objId).SetString(keyId, value)
 	h.log("SetString o%d k%d v='%s'", objId, keyId, value)
 }

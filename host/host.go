@@ -3,7 +3,7 @@ package host
 import (
 	"encoding/binary"
 	"fmt"
-	"github.com/iotaledger/wart/host/interfaces/level"
+	"github.com/iotaledger/wart/host/interfaces"
 	"github.com/iotaledger/wart/wasm/consts/desc"
 	"github.com/iotaledger/wart/wasm/consts/op"
 	"github.com/iotaledger/wart/wasm/consts/value"
@@ -33,14 +33,10 @@ func addHostCall(m *sections.Module, exportName string, hostCall sections.HostCa
 func CreateHostModule() {
 	m := sections.NewModule()
 	m.ImportName = "wasp"
-	addHostCall(m, "hostError", hostError, []value.DataType{}, []value.DataType{value.I32})
 	addHostCall(m, "hostGetInt", hostGetInt, []value.DataType{value.I32, value.I32}, []value.DataType{value.I64})
 	addHostCall(m, "hostGetKey", hostGetKey, []value.DataType{value.I32, value.I32}, []value.DataType{value.I32})
-	addHostCall(m, "hostGetLength", hostGetLength, []value.DataType{value.I32}, []value.DataType{value.I32})
 	addHostCall(m, "hostGetObject", hostGetObject, []value.DataType{value.I32, value.I32, value.I32}, []value.DataType{value.I32})
 	addHostCall(m, "hostGetString", hostGetString, []value.DataType{value.I32, value.I32, value.I32}, []value.DataType{})
-	addHostCall(m, "hostLog", hostLog, []value.DataType{value.I32, value.I32}, []value.DataType{})
-	addHostCall(m, "hostSetError", hostSetError, []value.DataType{value.I32, value.I32}, []value.DataType{})
 	addHostCall(m, "hostSetInt", hostSetInt, []value.DataType{value.I32, value.I32, value.I64}, []value.DataType{})
 	addHostCall(m, "hostSetString", hostSetString, []value.DataType{value.I32, value.I32, value.I32, value.I32}, []value.DataType{})
 
@@ -70,16 +66,6 @@ func getStringParam(ctx *sections.HostContext, offset int) string {
 	return string(bytes)
 }
 
-func hostError(ctx *sections.HostContext) error {
-	log(ctx, "hostError")
-	value := int32(0)
-	if ctx.Host.HasError() {
-		value = 1
-	}
-	ctx.Frame[ctx.SP].I32 = value
-	return nil
-}
-
 func hostGetInt(ctx *sections.HostContext) error {
 	log(ctx, "hostGetInt")
 	if ctx.Host.HasError() {
@@ -104,18 +90,6 @@ func hostGetKey(ctx *sections.HostContext) error {
 
 	key := getStringParam(ctx, ctx.SP)
 	ctx.Frame[ctx.SP].I32 = ctx.Host.GetKey(key)
-	return nil
-}
-
-func hostGetLength(ctx *sections.HostContext) error {
-	log(ctx, "hostGetLength")
-	if ctx.Host.HasError() {
-		ctx.Frame[ctx.SP].I32 = 0
-		return nil
-	}
-
-	objId := ctx.Frame[ctx.SP].I32
-	ctx.Frame[ctx.SP].I32 = ctx.Host.GetLength(objId)
 	return nil
 }
 
@@ -164,23 +138,6 @@ func hostGetString(ctx *sections.HostContext) error {
 	return nil
 }
 
-func hostLog(ctx *sections.HostContext) error {
-	log(ctx, "hostLog")
-	text := getStringParam(ctx, ctx.SP)
-	ctx.Host.Log(level.MSG, text)
-	return nil
-}
-
-func hostSetError(ctx *sections.HostContext) error {
-	log(ctx, "hostSetError")
-	if ctx.Host.HasError() {
-		return nil
-	}
-	text := getStringParam(ctx, ctx.SP)
-	ctx.Host.SetError(text)
-	return nil
-}
-
 func hostSetInt(ctx *sections.HostContext) error {
 	log(ctx, "hostSetInt")
 	if ctx.Host.HasError() {
@@ -210,5 +167,5 @@ func hostSetString(ctx *sections.HostContext) error {
 }
 
 func log(ctx *sections.HostContext, format string, a ...interface{}) {
-	ctx.Host.Log(level.HOST, fmt.Sprintf(format, a...))
+	ctx.Host.SetString(1, interfaces.KeyLog, fmt.Sprintf(format, a...))
 }

@@ -1,6 +1,7 @@
 package host
 
 import (
+	"github.com/iotaledger/wart/host/interfaces"
 	"github.com/iotaledger/wart/host/interfaces/objtype"
 )
 
@@ -16,6 +17,11 @@ func NewHostArray(h *HostImpl, typeId int32) *HostArray {
 }
 
 func (h *HostArray) GetInt(keyId int32) int64 {
+	switch keyId {
+	case interfaces.KeyLength:
+		return int64(len(h.items))
+	}
+
 	if !h.valid(keyId, objtype.OBJTYPE_INT) {
 		return 0
 	}
