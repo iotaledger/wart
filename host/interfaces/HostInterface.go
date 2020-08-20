@@ -4,6 +4,7 @@ const (
 	KeyError  int32 = -1
 	KeyLength int32 = -2
 	KeyLog    int32 = -3
+	KeyTrace  int32 = -4
 )
 
 type HostInterface interface {

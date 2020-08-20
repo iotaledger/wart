@@ -131,11 +131,14 @@ func (h *HostImpl) SetInt(objId int32, keyId int32, value int64) {
 
 func (h *HostImpl) SetString(objId int32, keyId int32, value string) {
 	switch keyId {
+	case interfaces.KeyError:
+		h.SetError(value)
+		return
 	case interfaces.KeyLog:
 		h.Log(level.MSG, value)
 		return
-	case interfaces.KeyError:
-		h.SetError(value)
+	case interfaces.KeyTrace:
+		h.Log(level.TRACE, value)
 		return
 	}
 

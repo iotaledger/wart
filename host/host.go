@@ -67,7 +67,7 @@ func getStringParam(ctx *sections.HostContext, offset int) string {
 }
 
 func hostGetInt(ctx *sections.HostContext) error {
-	log(ctx, "hostGetInt")
+	trace(ctx, "hostGetInt")
 	if ctx.Host.HasError() {
 		ctx.Frame[ctx.SP].I64 = 0
 		return nil
@@ -76,13 +76,13 @@ func hostGetInt(ctx *sections.HostContext) error {
 	objId := ctx.Frame[ctx.SP].I32
 	keyId := ctx.Frame[ctx.SP+1].I32
 	value := ctx.Host.GetInt(objId, keyId)
-	log(ctx, "hostGetInt o%d k%d v=%d", objId, keyId, value)
+	trace(ctx, "hostGetInt o%d k%d v=%d", objId, keyId, value)
 	ctx.Frame[ctx.SP].I64 = value
 	return nil
 }
 
 func hostGetKey(ctx *sections.HostContext) error {
-	log(ctx, "hostGetKey")
+	trace(ctx, "hostGetKey")
 	if ctx.Host.HasError() {
 		ctx.Frame[ctx.SP].I32 = 0
 		return nil
@@ -94,7 +94,7 @@ func hostGetKey(ctx *sections.HostContext) error {
 }
 
 func hostGetObject(ctx *sections.HostContext) error {
-	log(ctx, "hostGetObject")
+	trace(ctx, "hostGetObject")
 	if ctx.Host.HasError() {
 		ctx.Frame[ctx.SP].I32 = 0
 		return nil
@@ -103,13 +103,13 @@ func hostGetObject(ctx *sections.HostContext) error {
 	objId := ctx.Frame[ctx.SP].I32
 	keyId := ctx.Frame[ctx.SP+1].I32
 	typeId := ctx.Frame[ctx.SP+2].I32
-	log(ctx, "hostGetObject o%d k%d t%d", objId, keyId, typeId)
+	trace(ctx, "hostGetObject o%d k%d t%d", objId, keyId, typeId)
 	ctx.Frame[ctx.SP].I32 = ctx.Host.GetObject(objId, keyId, typeId)
 	return nil
 }
 
 func hostGetString(ctx *sections.HostContext) error {
-	log(ctx, "hostGetString")
+	trace(ctx, "hostGetString")
 	offset := ctx.Frame[ctx.SP+2].I32
 	mem := ctx.Function.Module.Memories
 	if len(mem) == 0 {
@@ -125,7 +125,7 @@ func hostGetString(ctx *sections.HostContext) error {
 	objId := ctx.Frame[ctx.SP].I32
 	keyId := ctx.Frame[ctx.SP+1].I32
 	value := ctx.Host.GetString(objId, keyId)
-	log(ctx, "hostGetString o%d k%d v='%s'", objId, keyId, value)
+	trace(ctx, "hostGetString o%d k%d v='%s'", objId, keyId, value)
 	// length 16, offset[8] == string address, offset[12] == string length
 	// can use space before offset to put string, which will be copied
 	// immediately after returning into a caller environment type string
@@ -139,7 +139,7 @@ func hostGetString(ctx *sections.HostContext) error {
 }
 
 func hostSetInt(ctx *sections.HostContext) error {
-	log(ctx, "hostSetInt")
+	trace(ctx, "hostSetInt")
 	if ctx.Host.HasError() {
 		return nil
 	}
@@ -147,13 +147,13 @@ func hostSetInt(ctx *sections.HostContext) error {
 	objId := ctx.Frame[ctx.SP].I32
 	keyId := ctx.Frame[ctx.SP+1].I32
 	value := ctx.Frame[ctx.SP+2].I64
-	log(ctx, "hostSetInt o%d k%d v=%d", objId, keyId, value)
+	trace(ctx, "hostSetInt o%d k%d v=%d", objId, keyId, value)
 	ctx.Host.SetInt(objId, keyId, value)
 	return nil
 }
 
 func hostSetString(ctx *sections.HostContext) error {
-	log(ctx, "hostSetString")
+	trace(ctx, "hostSetString")
 	if ctx.Host.HasError() {
 		return nil
 	}
@@ -161,11 +161,11 @@ func hostSetString(ctx *sections.HostContext) error {
 	objId := ctx.Frame[ctx.SP].I32
 	keyId := ctx.Frame[ctx.SP+1].I32
 	value := getStringParam(ctx, ctx.SP+2)
-	log(ctx, "hostSetString o%d k%d v='%s'", objId, keyId, value)
+	trace(ctx, "hostSetString o%d k%d v='%s'", objId, keyId, value)
 	ctx.Host.SetString(objId, keyId, value)
 	return nil
 }
 
-func log(ctx *sections.HostContext, format string, a ...interface{}) {
-	ctx.Host.SetString(1, interfaces.KeyLog, fmt.Sprintf(format, a...))
+func trace(ctx *sections.HostContext, format string, a ...interface{}) {
+	ctx.Host.SetString(1, interfaces.KeyTrace, fmt.Sprintf(format, a...))
 }
