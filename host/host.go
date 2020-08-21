@@ -30,15 +30,15 @@ func addHostCall(m *sections.Module, exportName string, hostCall sections.HostCa
 	m.Exports = append(m.Exports, export)
 }
 
-func CreateHostModule() {
+func CreateRustAdapter() {
 	m := sections.NewModule()
 	m.ImportName = "waspRust"
-	addHostCall(m, "hostGetInt", hostGetInt, []value.DataType{value.I32, value.I32}, []value.DataType{value.I64})
-	addHostCall(m, "hostGetKey", hostGetKey, []value.DataType{value.I32, value.I32}, []value.DataType{value.I32})
-	addHostCall(m, "hostGetObject", hostGetObject, []value.DataType{value.I32, value.I32, value.I32}, []value.DataType{value.I32})
-	addHostCall(m, "hostGetString", hostGetString, []value.DataType{value.I32, value.I32, value.I32}, []value.DataType{})
-	addHostCall(m, "hostSetInt", hostSetInt, []value.DataType{value.I32, value.I32, value.I64}, []value.DataType{})
-	addHostCall(m, "hostSetString", hostSetString, []value.DataType{value.I32, value.I32, value.I32, value.I32}, []value.DataType{})
+	addHostCall(m, "hostGetInt", rustGetInt, []value.DataType{value.I32, value.I32}, []value.DataType{value.I64})
+	addHostCall(m, "hostGetKey", rustGetKey, []value.DataType{value.I32, value.I32}, []value.DataType{value.I32})
+	addHostCall(m, "hostGetObject", rustGetObject, []value.DataType{value.I32, value.I32, value.I32}, []value.DataType{value.I32})
+	addHostCall(m, "hostGetString", rustGetString, []value.DataType{value.I32, value.I32, value.I32}, []value.DataType{})
+	addHostCall(m, "hostSetInt", rustSetInt, []value.DataType{value.I32, value.I32, value.I64}, []value.DataType{})
+	addHostCall(m, "hostSetString", rustSetString, []value.DataType{value.I32, value.I32, value.I32, value.I32}, []value.DataType{})
 
 	a := executors.NewWasmAnalyzer(m)
 	err := a.Analyze()
@@ -66,8 +66,8 @@ func getStringParam(ctx *sections.HostContext, offset int) string {
 	return string(bytes)
 }
 
-func hostGetInt(ctx *sections.HostContext) error {
-	trace(ctx, "hostGetInt")
+func rustGetInt(ctx *sections.HostContext) error {
+	trace(ctx, "rustGetInt")
 	if ctx.Host.HasError() {
 		ctx.Frame[ctx.SP].I64 = 0
 		return nil
@@ -76,25 +76,25 @@ func hostGetInt(ctx *sections.HostContext) error {
 	objId := ctx.Frame[ctx.SP].I32
 	keyId := ctx.Frame[ctx.SP+1].I32
 	value := ctx.Host.GetInt(objId, keyId)
-	trace(ctx, "hostGetInt o%d k%d v=%d", objId, keyId, value)
+	trace(ctx, "rustGetInt o%d k%d v=%d", objId, keyId, value)
 	ctx.Frame[ctx.SP].I64 = value
 	return nil
 }
 
-func hostGetKey(ctx *sections.HostContext) error {
-	trace(ctx, "hostGetKey")
+func rustGetKey(ctx *sections.HostContext) error {
+	trace(ctx, "rustGetKey")
 	if ctx.Host.HasError() {
 		ctx.Frame[ctx.SP].I32 = 0
 		return nil
 	}
 
 	key := getStringParam(ctx, ctx.SP)
-	ctx.Frame[ctx.SP].I32 = ctx.Host.GetKey(key)
+	ctx.Frame[ctx.SP].I32 = ctx.Host.GetKeyId(key)
 	return nil
 }
 
-func hostGetObject(ctx *sections.HostContext) error {
-	trace(ctx, "hostGetObject")
+func rustGetObject(ctx *sections.HostContext) error {
+	trace(ctx, "rustGetObject")
 	if ctx.Host.HasError() {
 		ctx.Frame[ctx.SP].I32 = 0
 		return nil
@@ -103,13 +103,13 @@ func hostGetObject(ctx *sections.HostContext) error {
 	objId := ctx.Frame[ctx.SP].I32
 	keyId := ctx.Frame[ctx.SP+1].I32
 	typeId := ctx.Frame[ctx.SP+2].I32
-	trace(ctx, "hostGetObject o%d k%d t%d", objId, keyId, typeId)
-	ctx.Frame[ctx.SP].I32 = ctx.Host.GetObject(objId, keyId, typeId)
+	trace(ctx, "rustGetObject o%d k%d t%d", objId, keyId, typeId)
+	ctx.Frame[ctx.SP].I32 = ctx.Host.GetObjectId(objId, keyId, typeId)
 	return nil
 }
 
-func hostGetString(ctx *sections.HostContext) error {
-	trace(ctx, "hostGetString")
+func rustGetString(ctx *sections.HostContext) error {
+	trace(ctx, "rustGetString")
 	offset := ctx.Frame[ctx.SP+2].I32
 	mem := ctx.Function.Module.Memories
 	if len(mem) == 0 {
@@ -125,7 +125,7 @@ func hostGetString(ctx *sections.HostContext) error {
 	objId := ctx.Frame[ctx.SP].I32
 	keyId := ctx.Frame[ctx.SP+1].I32
 	value := ctx.Host.GetString(objId, keyId)
-	trace(ctx, "hostGetString o%d k%d v='%s'", objId, keyId, value)
+	trace(ctx, "rustGetString o%d k%d v='%s'", objId, keyId, value)
 	// length 16, offset[8] == string address, offset[12] == string length
 	// can use space before offset to put string, which will be copied
 	// immediately after returning into a caller environment type string
@@ -138,8 +138,8 @@ func hostGetString(ctx *sections.HostContext) error {
 	return nil
 }
 
-func hostSetInt(ctx *sections.HostContext) error {
-	trace(ctx, "hostSetInt")
+func rustSetInt(ctx *sections.HostContext) error {
+	trace(ctx, "rustSetInt")
 	if ctx.Host.HasError() {
 		return nil
 	}
@@ -147,13 +147,13 @@ func hostSetInt(ctx *sections.HostContext) error {
 	objId := ctx.Frame[ctx.SP].I32
 	keyId := ctx.Frame[ctx.SP+1].I32
 	value := ctx.Frame[ctx.SP+2].I64
-	trace(ctx, "hostSetInt o%d k%d v=%d", objId, keyId, value)
+	trace(ctx, "rustSetInt o%d k%d v=%d", objId, keyId, value)
 	ctx.Host.SetInt(objId, keyId, value)
 	return nil
 }
 
-func hostSetString(ctx *sections.HostContext) error {
-	trace(ctx, "hostSetString")
+func rustSetString(ctx *sections.HostContext) error {
+	trace(ctx, "rustSetString")
 	if ctx.Host.HasError() {
 		return nil
 	}
@@ -161,7 +161,7 @@ func hostSetString(ctx *sections.HostContext) error {
 	objId := ctx.Frame[ctx.SP].I32
 	keyId := ctx.Frame[ctx.SP+1].I32
 	value := getStringParam(ctx, ctx.SP+2)
-	trace(ctx, "hostSetString o%d k%d v='%s'", objId, keyId, value)
+	trace(ctx, "rustSetString o%d k%d v='%s'", objId, keyId, value)
 	ctx.Host.SetString(objId, keyId, value)
 	return nil
 }

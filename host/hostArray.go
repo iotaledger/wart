@@ -83,7 +83,7 @@ func (h *HostArray) valid(keyId int32, typeId int32) bool {
 		case objtype.OBJTYPE_INT:
 			h.items = append(h.items, int64(0))
 		case objtype.OBJTYPE_MAP:
-			objId := h.ctx.tracker.AddObject(NewHostMap(h.ctx))
+			objId := h.ctx.AddObject(NewHostMap(h.ctx))
 			h.items = append(h.items, objId)
 		case objtype.OBJTYPE_STRING:
 			h.items = append(h.items, "")

@@ -39,9 +39,8 @@ func main() {
 }
 
 func runSC() {
-	host.CreateHostModule()
+	host.CreateRustAdapter()
 	ctx := host.NewHostImpl()
-	ctx.AddObjects()
 	runner := executors.NewWasmRunner(ctx)
 	err := runner.Load(WASP_PATH)
 	if err != nil {

@@ -11,22 +11,14 @@ type HostBase struct {
 	tracker *Tracker
 }
 
-func (h *HostBase) init() {
+func (h *HostBase) Init() {
 	h.error = ""
 	h.tracker = NewTracker()
+	h.AddObject(NewNullObject(h))
 }
 
-func (h *HostBase) getObject(objId int32) interfaces.HostObject {
-	o := h.tracker.GetObject(objId)
-	if o == nil {
-		h.SetError("Invalid objId")
-		return NewNullObject(h)
-	}
-	return o
-}
-
-func (h *HostBase) log(format string, a ...interface{}) {
-	h.Log(level.TRACE, fmt.Sprintf(format, a...))
+func (h *HostBase) AddObject(obj interfaces.HostObject) int32 {
+	return h.tracker.AddObject(obj)
 }
 
 func (h *HostBase) GetInt(objId int32, keyId int32) int64 {
@@ -37,20 +29,29 @@ func (h *HostBase) GetInt(objId int32, keyId int32) int64 {
 		}
 		return 0
 	}
-	value := h.getObject(objId).GetInt(keyId)
-	h.log("GetInt o%d k%d = %d", objId, keyId, value)
+	value := h.GetObject(objId).GetInt(keyId)
+	h.Logf("GetInt o%d k%d = %d", objId, keyId, value)
 	return value
 }
 
-func (h *HostBase) GetKey(key string) int32 {
+func (h *HostBase) GetKeyId(key string) int32 {
 	keyId := h.tracker.GetKeyId(key)
-	h.log("GetKey '%s'=k%d", key, keyId)
+	h.Logf("GetKeyId '%s'=k%d", key, keyId)
 	return keyId
 }
 
-func (h *HostBase) GetObject(objId int32, keyId int32, typeId int32) int32 {
-	subId := h.getObject(objId).GetObject(keyId, typeId)
-	h.log("GetObject o%d k%d t%d = o%d", objId, keyId, typeId, subId)
+func (h *HostBase) GetObject(objId int32) interfaces.HostObject {
+	o := h.tracker.GetObject(objId)
+	if o == nil {
+		h.SetError("Invalid objId")
+		return NewNullObject(h)
+	}
+	return o
+}
+
+func (h *HostBase) GetObjectId(objId int32, keyId int32, typeId int32) int32 {
+	subId := h.GetObject(objId).GetObject(keyId, typeId)
+	h.Logf("GetObjectId o%d k%d t%d = o%d", objId, keyId, typeId, subId)
 	return subId
 }
 
@@ -59,8 +60,8 @@ func (h *HostBase) GetString(objId int32, keyId int32) string {
 	case interfaces.KeyError:
 		return h.error
 	}
-	value := h.getObject(objId).GetString(keyId)
-	h.log("GetString o%d k%d = '%ds'", objId, keyId, value)
+	value := h.GetObject(objId).GetString(keyId)
+	h.Logf("GetString o%d k%d = '%ds'", objId, keyId, value)
 	return value
 }
 
@@ -74,16 +75,20 @@ func (h *HostBase) Log(logLevel int, text string) {
 	}
 }
 
+func (h *HostBase) Logf(format string, a ...interface{}) {
+	h.Log(level.TRACE, fmt.Sprintf(format, a...))
+}
+
 func (h *HostBase) SetError(text string) {
-	h.log("SetError '%s'", text)
+	h.Logf("SetError '%s'", text)
 	if !h.HasError() {
 		h.error = text
 	}
 }
 
 func (h *HostBase) SetInt(objId int32, keyId int32, value int64) {
-	h.getObject(objId).SetInt(keyId, value)
-	h.log("SetInt o%d k%d v=%d", objId, keyId, value)
+	h.GetObject(objId).SetInt(keyId, value)
+	h.Logf("SetInt o%d k%d v=%d", objId, keyId, value)
 }
 
 func (h *HostBase) SetString(objId int32, keyId int32, value string) {
@@ -103,6 +108,6 @@ func (h *HostBase) SetString(objId int32, keyId int32, value string) {
 		return
 	}
 
-	h.getObject(objId).SetString(keyId, value)
-	h.log("SetString o%d k%d v='%s'", objId, keyId, value)
+	h.GetObject(objId).SetString(keyId, value)
+	h.Logf("SetString o%d k%d v='%s'", objId, keyId, value)
 }

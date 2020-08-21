@@ -16,7 +16,7 @@ func (n *nullObject) GetInt(keyId int32) int64 {
 }
 
 func (n *nullObject) GetObject(keyId int32, typeId int32) int32 {
-	n.ctx.SetError("Null.GetObject")
+	n.ctx.SetError("Null.GetObjectId")
 	return 0
 }
 
