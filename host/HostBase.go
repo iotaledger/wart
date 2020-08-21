@@ -34,6 +34,10 @@ func (h *HostBase) GetInt(objId int32, keyId int32) int64 {
 	return value
 }
 
+func (h *HostBase) GetKey(keyId int32) string {
+	return h.tracker.GetKey(keyId)
+}
+
 func (h *HostBase) GetKeyId(key string) int32 {
 	keyId := h.tracker.GetKeyId(key)
 	h.Logf("GetKeyId '%s'=k%d", key, keyId)
@@ -50,7 +54,7 @@ func (h *HostBase) GetObject(objId int32) interfaces.HostObject {
 }
 
 func (h *HostBase) GetObjectId(objId int32, keyId int32, typeId int32) int32 {
-	subId := h.GetObject(objId).GetObject(keyId, typeId)
+	subId := h.GetObject(objId).GetObjectId(keyId, typeId)
 	h.Logf("GetObjectId o%d k%d t%d = o%d", objId, keyId, typeId, subId)
 	return subId
 }

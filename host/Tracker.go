@@ -11,7 +11,7 @@ type Tracker struct {
 func NewTracker() *Tracker {
 	return &Tracker{
 		keyToKeyId: make(map[string]int32),
-		keyIdToKey: []string{ "<null>" },
+		keyIdToKey: []string{"<null>"},
 		objIdToObj: []interfaces.HostObject{},
 	}
 }

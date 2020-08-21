@@ -32,7 +32,7 @@ func (h *HostArray) GetLength() int32 {
 	return int32(len(h.items))
 }
 
-func (h *HostArray) GetObject(keyId int32, typeId int32) int32 {
+func (h *HostArray) GetObjectId(keyId int32, typeId int32) int32 {
 	if !h.valid(keyId, typeId) {
 		return 0
 	}
