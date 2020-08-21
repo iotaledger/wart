@@ -32,7 +32,7 @@ func addHostCall(m *sections.Module, exportName string, hostCall sections.HostCa
 
 func CreateHostModule() {
 	m := sections.NewModule()
-	m.ImportName = "wasp"
+	m.ImportName = "waspRust"
 	addHostCall(m, "hostGetInt", hostGetInt, []value.DataType{value.I32, value.I32}, []value.DataType{value.I64})
 	addHostCall(m, "hostGetKey", hostGetKey, []value.DataType{value.I32, value.I32}, []value.DataType{value.I32})
 	addHostCall(m, "hostGetObject", hostGetObject, []value.DataType{value.I32, value.I32, value.I32}, []value.DataType{value.I32})

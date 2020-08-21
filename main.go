@@ -49,7 +49,7 @@ func runSC() {
 		return
 	}
 
-	scName := "incrementRepeat1"
+	scName := "no_op"
 	module := runner.Module()
 	for _, export := range module.Exports {
 		if export.ImportName == scName {
