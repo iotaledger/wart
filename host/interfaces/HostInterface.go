@@ -4,13 +4,14 @@ const (
 	KeyError     int32 = -1
 	KeyLength    int32 = -2
 	KeyLog       int32 = -3
-	KeyTrace     int32 = -4
-	KeyTraceHost int32 = -5
-	KeyRandom    int32 = -6
-	KeyTimestamp int32 = -7
-	KeyOwner     int32 = -8
-	KeyScAddress int32 = -9
-	KeySender    int32 = -10
+	KeyOwner     int32 = -4
+	KeyRandom    int32 = -5
+	KeyRequestId int32 = -6
+	KeyScAddress int32 = -7
+	KeySender    int32 = -8
+	KeyTimestamp int32 = -9
+	KeyTrace     int32 = -10
+	KeyTraceHost int32 = -11
 )
 
 type HostInterface interface {
