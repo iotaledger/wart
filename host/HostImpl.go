@@ -56,6 +56,9 @@ func (h *HostImpl) AddObjects() {
 	root.fields[keyId] = h.tracker.AddObject(NewHostArray(h, objtype.OBJTYPE_MAP))
 	root.types[keyId] = objtype.OBJTYPE_MAP_ARRAY
 
+	keyId = h.tracker.GetKeyId("transfers")
+	root.fields[keyId] = h.tracker.AddObject(NewHostArray(h, objtype.OBJTYPE_MAP))
+	root.types[keyId] = objtype.OBJTYPE_MAP_ARRAY
 }
 
 func (h *HostImpl) getObject(objId int32) HostObject {
@@ -139,6 +142,9 @@ func (h *HostImpl) SetString(objId int32, keyId int32, value string) {
 		return
 	case interfaces.KeyTrace:
 		h.Log(level.TRACE, value)
+		return
+	case interfaces.KeyTraceHost:
+		h.Log(level.HOST, value)
 		return
 	}
 

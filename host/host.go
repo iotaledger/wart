@@ -167,5 +167,5 @@ func hostSetString(ctx *sections.HostContext) error {
 }
 
 func trace(ctx *sections.HostContext, format string, a ...interface{}) {
-	ctx.Host.SetString(1, interfaces.KeyTrace, fmt.Sprintf(format, a...))
+	ctx.Host.SetString(1, interfaces.KeyTraceHost, fmt.Sprintf(format, a...))
 }

@@ -1,10 +1,11 @@
 package interfaces
 
 const (
-	KeyError  int32 = -1
-	KeyLength int32 = -2
-	KeyLog    int32 = -3
-	KeyTrace  int32 = -4
+	KeyError     int32 = -1
+	KeyLength    int32 = -2
+	KeyLog       int32 = -3
+	KeyTrace     int32 = -4
+	KeyTraceHost int32 = -5
 )
 
 type HostInterface interface {
