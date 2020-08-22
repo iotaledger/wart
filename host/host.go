@@ -110,31 +110,37 @@ func rustGetObject(ctx *sections.HostContext) error {
 
 func rustGetString(ctx *sections.HostContext) error {
 	trace(ctx, "rustGetString")
-	offset := ctx.Frame[ctx.SP+2].I32
 	mem := ctx.Function.Module.Memories
 	if len(mem) == 0 {
 		mem = ctx.Module.Memories
 	}
 	pool := mem[0].Pool
 
+	// offset[0] == string address, offset[4] == string length
+	offset := ctx.Frame[ctx.SP].I32
 	if ctx.Host.HasError() {
-		copy(pool[offset+8:offset+16], make([]byte, 8))
+		// set pointer and length to zero
+		copy(pool[offset:offset+8], make([]byte, 8))
 		return nil
 	}
 
-	objId := ctx.Frame[ctx.SP].I32
-	keyId := ctx.Frame[ctx.SP+1].I32
+	objId := ctx.Frame[ctx.SP+1].I32
+	keyId := ctx.Frame[ctx.SP+2].I32
+	trace(ctx, "rustGetString o%d k%d", objId, keyId)
 	value := ctx.Host.GetString(objId, keyId)
 	trace(ctx, "rustGetString o%d k%d v='%s'", objId, keyId, value)
-	// length 16, offset[8] == string address, offset[12] == string length
-	// can use space before offset to put string, which will be copied
-	// immediately after returning into a caller environment type string
+
+	// we use unused allocate space at address 1024 to put string data,
+	// which immediately after returning should be copied into a caller
+	// environment type string
+
+	//TODO can we do better than using this magic address 1024
 	bytes := []byte(value)
 	length := uint32(len(bytes))
-	start := uint32(offset) - length
-	copy(pool[start:offset], bytes)
-	binary.LittleEndian.PutUint32(pool[offset+8:offset+12], start)
-	binary.LittleEndian.PutUint32(pool[offset+12:offset+16], length)
+	start := uint32(1024)
+	copy(pool[start:start+length], bytes)
+	binary.LittleEndian.PutUint32(pool[offset:offset+4], start)
+	binary.LittleEndian.PutUint32(pool[offset+4:offset+8], length)
 	return nil
 }
 

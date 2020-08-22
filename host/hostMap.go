@@ -42,10 +42,27 @@ func (h *HostMap) GetObjectId(keyId int32, typeId int32) int32 {
 		return 0
 	}
 	value, ok := h.fields[keyId]
-	if !ok {
+	if ok {
+		return value.(int32)
+	}
+
+	var o interfaces.HostObject
+	switch typeId {
+	case objtype.OBJTYPE_INT_ARRAY:
+		o = NewHostArray(h.ctx, objtype.OBJTYPE_INT)
+	case objtype.OBJTYPE_MAP:
+		o = NewHostMap(h.ctx)
+	case objtype.OBJTYPE_MAP_ARRAY:
+		o = NewHostArray(h.ctx, objtype.OBJTYPE_MAP)
+	case objtype.OBJTYPE_STRING_ARRAY:
+		o = NewHostArray(h.ctx, objtype.OBJTYPE_STRING)
+	default:
+		h.ctx.SetError("Invalid type id")
 		return 0
 	}
-	return value.(int32)
+	objId := h.ctx.AddObject(o)
+	h.fields[keyId] = objId
+	return objId
 }
 
 func (h *HostMap) GetString(keyId int32) string {
@@ -60,22 +77,22 @@ func (h *HostMap) GetString(keyId int32) string {
 }
 
 func (h *HostMap) SetInt(keyId int32, value int64) {
-	if !h.valid(keyId, objtype.OBJTYPE_INT) {
-		return
-	}
 	if h.readonly {
 		h.ctx.SetError("Readonly")
+		return
+	}
+	if !h.valid(keyId, objtype.OBJTYPE_INT) {
 		return
 	}
 	h.fields[keyId] = value
 }
 
 func (h *HostMap) SetString(keyId int32, value string) {
-	if !h.valid(keyId, objtype.OBJTYPE_STRING) {
-		return
-	}
 	if h.readonly {
 		h.ctx.SetError("Readonly")
+		return
+	}
+	if !h.valid(keyId, objtype.OBJTYPE_STRING) {
 		return
 	}
 	h.fields[keyId] = value

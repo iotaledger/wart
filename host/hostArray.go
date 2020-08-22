@@ -47,22 +47,22 @@ func (h *HostArray) GetString(keyId int32) string {
 }
 
 func (h *HostArray) SetInt(keyId int32, value int64) {
-	if !h.valid(keyId, objtype.OBJTYPE_INT_ARRAY) {
-		return
-	}
 	if h.readonly {
 		h.ctx.SetError("Readonly")
+		return
+	}
+	if !h.valid(keyId, objtype.OBJTYPE_INT) {
 		return
 	}
 	h.items[keyId] = value
 }
 
 func (h *HostArray) SetString(keyId int32, value string) {
-	if !h.valid(keyId, objtype.OBJTYPE_STRING_ARRAY) {
-		return
-	}
 	if h.readonly {
 		h.ctx.SetError("Readonly")
+		return
+	}
+	if !h.valid(keyId, objtype.OBJTYPE_STRING) {
 		return
 	}
 	h.items[keyId] = value
@@ -74,11 +74,7 @@ func (h *HostArray) valid(keyId int32, typeId int32) bool {
 		return false
 	}
 	max := int32(len(h.items))
-	if keyId == max {
-		if h.readonly {
-			h.ctx.SetError("Readonly")
-			return false
-		}
+	if keyId == max && !h.readonly {
 		switch typeId {
 		case objtype.OBJTYPE_INT:
 			h.items = append(h.items, int64(0))
@@ -93,7 +89,7 @@ func (h *HostArray) valid(keyId int32, typeId int32) bool {
 		}
 		return true
 	}
-	if keyId < 0 || keyId > max {
+	if keyId < 0 || keyId >= max {
 		h.ctx.SetError("Invalid index")
 		return false
 	}

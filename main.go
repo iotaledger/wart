@@ -3,6 +3,8 @@ package main
 import (
 	"fmt"
 	"github.com/iotaledger/wart/host"
+	"github.com/iotaledger/wart/host/interfaces"
+	"github.com/iotaledger/wart/host/interfaces/objtype"
 	"github.com/iotaledger/wart/wasm/consts/desc"
 	"github.com/iotaledger/wart/wasm/executors"
 	"github.com/iotaledger/wart/wasm/instructions"
@@ -21,6 +23,10 @@ var DEBUG_MODULE = "xxx.wasm"
 
 func main() {
 	fmt.Println("Hello, Wart!")
+	file, err := ioutil.ReadFile(SC_PATH)
+	if err == nil {
+		ioutil.WriteFile(WASP_PATH, file, 0644)
+	}
 	runSC()
 	fmt.Println()
 	//listInstructions()
@@ -28,10 +34,6 @@ func main() {
 	//readerTest("D:\\Work\\Rust\\wasmtest\\target\\wasm32-unknown-unknown\\debug\\wasmtest.wasm")
 	//readerTest("D:\\Work\\Rust\\wasmtest\\target\\wasm32-unknown-unknown\\release\\wasmtest.wasm")
 	readerTest(SC_PATH)
-	file, err := ioutil.ReadFile(SC_PATH)
-	if err == nil {
-		ioutil.WriteFile(WASP_PATH, file, 0644)
-	}
 	//readerTests()
 	//specTests()
 	fmt.Printf("\n%d tests executed, %d failed.\n", executors.TotalNrOfTests, executors.TotalNrFailed)
@@ -48,7 +50,16 @@ func runSC() {
 		return
 	}
 
-	scName := "incrementRepeat1"
+	// set up placeBet
+	root := ctx.GetObject(1)
+	reqBalanceId := root.GetObjectId(interfaces.KeyReqBalance, objtype.OBJTYPE_MAP)
+	ctx.GetObject(reqBalanceId).SetInt(ctx.GetKeyId("iota"),500)
+	paramsId := root.GetObjectId(interfaces.KeyParams, objtype.OBJTYPE_MAP)
+	ctx.GetObject(paramsId).SetInt(ctx.GetKeyId("color"),3)
+	root.SetString(ctx.GetKeyId("reqHash"), "HASHHASHHASHHASHHASH")
+	root.SetString(ctx.GetKeyId("sender"), "SENDERSENDERSENDER")
+
+	scName := "placeBet"
 	module := runner.Module()
 	for _, export := range module.Exports {
 		if export.ImportName == scName {

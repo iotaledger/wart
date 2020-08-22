@@ -6,48 +6,29 @@ import (
 	"github.com/iotaledger/wart/host/interfaces/level"
 )
 
-var keyMap = map[string]int32{
-	"balance":     interfaces.KeyBalance,
-	"config":      interfaces.KeyConfig,
-	"error":       interfaces.KeyError,
-	"length":      interfaces.KeyLength,
-	"log":         interfaces.KeyLog,
-	"owner":       interfaces.KeyOwner,
-	"params":      interfaces.KeyParams,
-	"random":      interfaces.KeyRandom,
-	"reqAddress":  interfaces.KeyReqAddress,
-	"reqBalance":  interfaces.KeyReqBalance,
-	"reqCode":     interfaces.KeyReqCode,
-	"reqDelay":    interfaces.KeyReqDelay,
-	"reqHash":     interfaces.KeyReqHash,
-	"requests":    interfaces.KeyRequests,
-	"scAddress":   interfaces.KeyScAddress,
-	"sender":      interfaces.KeySender,
-	"state":       interfaces.KeyState,
-	"timestamp":   interfaces.KeyTimestamp,
-	"trace":       interfaces.KeyTrace,
-	"traceHost":   interfaces.KeyTraceHost,
-	"transfers":   interfaces.KeyTransfers,
-	"xferAddress": interfaces.KeyXferAddress,
-	"xferAmount":  interfaces.KeyXferAmount,
-	"xferColor":   interfaces.KeyXferColor,
-}
-
 type LogInterface interface {
 	Log(logLevel int, text string)
 }
 
 type HostBase struct {
 	error   string
+	keyMap  *map[string]int32
 	logger  LogInterface
 	tracker *Tracker
 }
 
-func (h *HostBase) Init(logger LogInterface) {
+func (h *HostBase) Init(logger LogInterface, keyMap *map[string]int32) {
 	h.error = ""
+	h.keyMap = keyMap
 	h.logger = logger
 	h.tracker = NewTracker()
 	h.AddObject(NewNullObject(h))
+}
+
+func (h *HostBase) Log(logLevel int, text string) {
+	if logLevel >= level.TRACE {
+		fmt.Println(text)
+	}
 }
 
 func (h *HostBase) AddObject(obj interfaces.HostObject) int32 {
@@ -72,7 +53,7 @@ func (h *HostBase) GetKey(keyId int32) string {
 }
 
 func (h *HostBase) GetKeyId(key string) int32 {
-	keyId, ok := keyMap[key]
+	keyId, ok := (*h.keyMap)[key]
 	if !ok {
 		keyId = h.tracker.GetKeyId(key)
 	}
@@ -101,18 +82,12 @@ func (h *HostBase) GetString(objId int32, keyId int32) string {
 		return h.error
 	}
 	value := h.GetObject(objId).GetString(keyId)
-	h.Logf("GetString o%d k%d = '%ds'", objId, keyId, value)
+	h.Logf("GetString o%d k%d = '%s'", objId, keyId, value)
 	return value
 }
 
 func (h *HostBase) HasError() bool {
 	return h.error != ""
-}
-
-func (h *HostBase) Log(logLevel int, text string) {
-	if logLevel >= level.TRACE {
-		fmt.Println(text)
-	}
 }
 
 func (h *HostBase) Logf(format string, a ...interface{}) {
