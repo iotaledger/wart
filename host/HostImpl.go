@@ -11,7 +11,7 @@ type HostImpl struct {
 
 func NewHostImpl() *HostImpl {
 	h := &HostImpl{}
-	h.Init()
+	h.Init(h)
 
 	root := NewHostMap(h)
 	root.readonly = true

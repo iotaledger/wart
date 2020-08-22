@@ -6,13 +6,19 @@ import (
 	"github.com/iotaledger/wart/host/interfaces/level"
 )
 
+type LogInterface interface {
+	Log(logLevel int, text string)
+}
+
 type HostBase struct {
 	error   string
+	logger  LogInterface
 	tracker *Tracker
 }
 
-func (h *HostBase) Init() {
+func (h *HostBase) Init(logger LogInterface) {
 	h.error = ""
+	h.logger = logger
 	h.tracker = NewTracker()
 	h.AddObject(NewNullObject(h))
 }
@@ -80,7 +86,7 @@ func (h *HostBase) Log(logLevel int, text string) {
 }
 
 func (h *HostBase) Logf(format string, a ...interface{}) {
-	h.Log(level.TRACE, fmt.Sprintf(format, a...))
+	h.logger.Log(level.TRACE, fmt.Sprintf(format, a...))
 }
 
 func (h *HostBase) SetError(text string) {
@@ -102,13 +108,13 @@ func (h *HostBase) SetString(objId int32, keyId int32, value string) {
 		h.SetError(value)
 		return
 	case interfaces.KeyLog:
-		h.Log(level.MSG, value)
+		h.logger.Log(level.MSG, value)
 		return
 	case interfaces.KeyTrace:
-		h.Log(level.TRACE, value)
+		h.logger.Log(level.TRACE, value)
 		return
 	case interfaces.KeyTraceHost:
-		h.Log(level.HOST, value)
+		h.logger.Log(level.HOST, value)
 		return
 	}
 
