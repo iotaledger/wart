@@ -6,6 +6,33 @@ import (
 	"github.com/iotaledger/wart/host/interfaces/level"
 )
 
+var keyMap = map[string]int32{
+	"balance":     interfaces.KeyBalance,
+	"config":      interfaces.KeyConfig,
+	"error":       interfaces.KeyError,
+	"length":      interfaces.KeyLength,
+	"log":         interfaces.KeyLog,
+	"owner":       interfaces.KeyOwner,
+	"params":      interfaces.KeyParams,
+	"random":      interfaces.KeyRandom,
+	"reqAddress":  interfaces.KeyReqAddress,
+	"reqBalance":  interfaces.KeyReqBalance,
+	"reqCode":     interfaces.KeyReqCode,
+	"reqDelay":    interfaces.KeyReqDelay,
+	"reqHash":     interfaces.KeyReqHash,
+	"requests":    interfaces.KeyRequests,
+	"scAddress":   interfaces.KeyScAddress,
+	"sender":      interfaces.KeySender,
+	"state":       interfaces.KeyState,
+	"timestamp":   interfaces.KeyTimestamp,
+	"trace":       interfaces.KeyTrace,
+	"traceHost":   interfaces.KeyTraceHost,
+	"transfers":   interfaces.KeyTransfers,
+	"xferAddress": interfaces.KeyXferAddress,
+	"xferAmount":  interfaces.KeyXferAmount,
+	"xferColor":   interfaces.KeyXferColor,
+}
+
 type LogInterface interface {
 	Log(logLevel int, text string)
 }
@@ -45,7 +72,10 @@ func (h *HostBase) GetKey(keyId int32) string {
 }
 
 func (h *HostBase) GetKeyId(key string) int32 {
-	keyId := h.tracker.GetKeyId(key)
+	keyId, ok := keyMap[key]
+	if !ok {
+		keyId = h.tracker.GetKeyId(key)
+	}
 	h.Logf("GetKeyId '%s'=k%d", key, keyId)
 	return keyId
 }
