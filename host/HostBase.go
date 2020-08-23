@@ -6,6 +6,14 @@ import (
 	"github.com/iotaledger/wart/host/interfaces/level"
 )
 
+var baseKeyMap = map[string]int32{
+	"error":     interfaces.KeyError,
+	"length":    interfaces.KeyLength,
+	"log":       interfaces.KeyLog,
+	"trace":     interfaces.KeyTrace,
+	"traceHost": interfaces.KeyTraceHost,
+}
+
 type LogInterface interface {
 	Log(logLevel int, text string)
 }
@@ -18,6 +26,9 @@ type HostBase struct {
 }
 
 func (h *HostBase) Init(logger LogInterface, keyMap *map[string]int32) {
+	if keyMap == nil {
+		keyMap = &baseKeyMap
+	}
 	h.error = ""
 	h.keyMap = keyMap
 	h.logger = logger

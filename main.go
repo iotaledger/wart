@@ -3,8 +3,6 @@ package main
 import (
 	"fmt"
 	"github.com/iotaledger/wart/host"
-	"github.com/iotaledger/wart/host/interfaces"
-	"github.com/iotaledger/wart/host/interfaces/objtype"
 	"github.com/iotaledger/wart/wasm/consts/desc"
 	"github.com/iotaledger/wart/wasm/executors"
 	"github.com/iotaledger/wart/wasm/instructions"
@@ -51,14 +49,11 @@ func runSC() {
 	}
 
 	// set up placeBet
-	root := ctx.GetObject(1)
-	reqBalanceId := root.GetObjectId(interfaces.KeyReqBalance, objtype.OBJTYPE_MAP)
-	ctx.GetObject(reqBalanceId).SetInt(ctx.GetKeyId("iota"),500)
-	paramsId := root.GetObjectId(interfaces.KeyParams, objtype.OBJTYPE_MAP)
-	ctx.GetObject(paramsId).SetInt(ctx.GetKeyId("color"),3)
-	root.SetString(ctx.GetKeyId("reqHash"), "HASHHASHHASHHASHHASH")
-	root.SetString(ctx.GetKeyId("scAddress"), "SENDERSENDERSENDER")
-	root.SetString(ctx.GetKeyId("sender"), "SENDERSENDERSENDER")
+	ctx.AddReqBalance("iota", 500)
+	ctx.AddParamInt("color", 3)
+	ctx.RootString("reqHash", "HASHHASHHASHHASHHASH")
+	ctx.RootString("scAddress", "SENDERSENDERSENDER")
+	ctx.RootString("sender", "SENDERSENDERSENDER")
 
 	scName := "payWinners"
 	module := runner.Module()

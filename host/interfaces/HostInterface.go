@@ -1,19 +1,12 @@
 package interfaces
 
 const (
-	KeyBalance     = int32(-1)
-	KeyConfig      = KeyBalance - 1
-	KeyError       = KeyConfig - 1
+	KeyError       = int32(-1)
 	KeyLength      = KeyError - 1
 	KeyLog         = KeyLength - 1
-	KeyParams      = KeyLog - 1
-	KeyReqBalance  = KeyParams - 1
-	KeyRequests    = KeyReqBalance - 1
-	KeyState       = KeyRequests - 1
-	KeyTrace       = KeyState - 1
+	KeyTrace       = KeyLog - 1
 	KeyTraceHost   = KeyTrace - 1
-	KeyTransfers   = KeyTraceHost - 1
-	KeyUserDefined = KeyTransfers - 1
+	KeyUserDefined = KeyTraceHost - 1
 )
 
 type HostInterface interface {
