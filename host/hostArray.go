@@ -47,6 +47,17 @@ func (h *HostArray) GetString(keyId int32) string {
 }
 
 func (h *HostArray) SetInt(keyId int32, value int64) {
+	if keyId == interfaces.KeyLength {
+		if h.typeId == objtype.OBJTYPE_MAP {
+			// tell objects to clear themselves
+			for i := len(h.items) - 1; i >= 0; i-- {
+				h.ctx.SetInt(h.items[i].(int32), keyId, 0)
+			}
+			//TODO move to pool for reuse of transfers
+		}
+		h.items = nil
+		return
+	}
 	if h.readonly {
 		h.ctx.SetError("Readonly")
 		return
