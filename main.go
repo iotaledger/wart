@@ -57,9 +57,10 @@ func runSC() {
 	paramsId := root.GetObjectId(interfaces.KeyParams, objtype.OBJTYPE_MAP)
 	ctx.GetObject(paramsId).SetInt(ctx.GetKeyId("color"),3)
 	root.SetString(ctx.GetKeyId("reqHash"), "HASHHASHHASHHASHHASH")
+	root.SetString(ctx.GetKeyId("scAddress"), "SENDERSENDERSENDER")
 	root.SetString(ctx.GetKeyId("sender"), "SENDERSENDERSENDER")
 
-	scName := "placeBet"
+	scName := "payWinners"
 	module := runner.Module()
 	for _, export := range module.Exports {
 		if export.ImportName == scName {
