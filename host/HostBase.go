@@ -37,9 +37,9 @@ func (h *HostBase) Init(logger LogInterface, keyMap *map[string]int32) {
 }
 
 func (h *HostBase) Log(logLevel int, text string) {
-	if logLevel >= level.TRACE {
+	//if logLevel >= level.TRACE {
 		fmt.Println(text)
-	}
+	//}
 }
 
 func (h *HostBase) AddObject(obj interfaces.HostObject) int32 {

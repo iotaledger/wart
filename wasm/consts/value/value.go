@@ -2,6 +2,7 @@
 // It also can generate their String() representations,
 // and Check() them for validity.
 package value
+
 //todo rename to val in tandem with Java version after implementing changes in Java
 
 import (

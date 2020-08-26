@@ -1,36 +1,73 @@
 package wasp
 
-//TODO define external functions to be linked from interface module "waspGo"
-//#[no_mangle]
-//extern {
-//	func hostGetInt(objId: int32, keyId: int32) int64;
-//	func hostGetKey(key: string) int32;
-//	func hostGetObject(objId: int32, keyId: int32, typeId: ScType) int32;
-//	func hostGetString(objId: int32, keyId: int32) string;
-//	func hostSetInt(objId: int32, keyId: int32, value: int64);
-//	func hostSetString(objId: int32, keyId: int32, value: string);
-//}
+const (
+	OBJTYPE_INT          int32 = 0
+	OBJTYPE_INT_ARRAY    int32 = 1
+	OBJTYPE_MAP          int32 = 2
+	OBJTYPE_MAP_ARRAY    int32 = 3
+	OBJTYPE_STRING       int32 = 4
+	OBJTYPE_STRING_ARRAY int32 = 5
+)
 
-//TODO actually call external functions here
+//go:wasm-module waspGo
+//export hostGetInt
+func hostGetInt(objId int32, keyId int32, value *int64)
+
+//go:wasm-module waspGo
+//export hostGetKey
+func hostGetKey(key string) int32
+
+//go:wasm-module waspGo
+//export hostGetObject
+func hostGetObject(objId int32, keyId int32, typeId int32) int32
+
+//go:wasm-module waspGo
+//export hostGetString
+func hostGetString(objId int32, keyId int32, value *string)
+
+//go:wasm-module waspGo
+//export hostSetInt
+func hostSetInt(objId int32, keyId int32, value *int64)
+
+//go:wasm-module waspGo
+//export hostSetString
+func hostSetString(objId int32, keyId int32, value string)
 
 func GetInt(objId int32, keyId int32) int64 {
-	return 0
+	// Go is still geared towards Javascript, which does not have int64
+	// To combat this we pass a reference to a preallocated int64 instead
+	var value int64
+	hostGetInt(objId, keyId, &value)
+	return value
 }
 
 func GetKey(key string) int32 {
-	return 0
+	return hostGetKey(key)
 }
 
 func GetObject(objId int32, keyId int32, typeId int32) int32 {
-	return 0
+	return hostGetObject(objId, keyId, typeId)
 }
 
 func GetString(objId int32, keyId int32) string {
-	return ""
+	// returning the string as we did in Rust seems to have problems
+	// it looks like the string at some point gets deallocated and
+	// overwritten by the Go runtime, so we counter this by passing
+	// a reference to a dummy static string, which will be directly
+	// modified to point to the returned temporary static string
+	value := "dummy"
+	hostGetString(objId, keyId, &value)
+
+	// now copy the bytes of the static string to a new byte array
+	deepCopy := append([]byte(nil), value...)
+	// ad turn the deep copy into the final string
+	return string(deepCopy)
 }
 
 func SetInt(objId int32, keyId int32, value int64) {
+	hostSetInt(objId, keyId, &value)
 }
 
 func SetString(objId int32, keyId int32, value string) {
+	hostSetString(objId, keyId, value)
 }

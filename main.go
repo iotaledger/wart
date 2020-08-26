@@ -14,14 +14,15 @@ import (
 	"strings"
 )
 
-const SC_PATH = "D:\\Work\\Rust\\wasmtest\\pkg\\wasmtest_bg.wasm"
+const RUST_PATH = "D:\\Work\\Rust\\wasmtest\\pkg\\wasmtest_bg.wasm"
+const TINYGO_PATH = "D:\\Work\\Go\\src\\github.com\\iotaledger\\wart\\wasm.wasm"
 const WASP_PATH = "D:\\Work\\Go\\src\\github.com\\iotaledger\\wasp\\tools\\cluster\\tests\\wasptest\\wasmtest_bg.wasm"
 
 var DEBUG_MODULE = "xxx.wasm"
 
 func main() {
 	fmt.Println("Hello, Wart!")
-	file, err := ioutil.ReadFile(SC_PATH)
+	file, err := ioutil.ReadFile(RUST_PATH)
 	if err == nil {
 		ioutil.WriteFile(WASP_PATH, file, 0644)
 	}
@@ -31,7 +32,8 @@ func main() {
 	//testerTests()
 	//readerTest("D:\\Work\\Rust\\wasmtest\\target\\wasm32-unknown-unknown\\debug\\wasmtest.wasm")
 	//readerTest("D:\\Work\\Rust\\wasmtest\\target\\wasm32-unknown-unknown\\release\\wasmtest.wasm")
-	readerTest(SC_PATH)
+	readerTest(RUST_PATH)
+	readerTest(TINYGO_PATH)
 	//readerTests()
 	//specTests()
 	fmt.Printf("\n%d tests executed, %d failed.\n", executors.TotalNrOfTests, executors.TotalNrFailed)
@@ -40,22 +42,23 @@ func main() {
 
 func runSC() {
 	host.CreateRustAdapter()
+	host.CreateGoAdapter()
 	ctx := host.NewHostImpl()
 	runner := executors.NewWasmRunner(ctx)
-	err := runner.Load(WASP_PATH)
+	err := runner.Load(TINYGO_PATH)
 	if err != nil {
 		fmt.Printf("error loading wasm: " + err.Error())
 		return
 	}
 
 	// set up placeBet
-	ctx.AddReqBalance("iota", 500)
-	ctx.AddParamInt("color", 3)
-	ctx.RootString("reqHash", "HASHHASHHASHHASHHASH")
-	ctx.RootString("scAddress", "SENDERSENDERSENDER")
-	ctx.RootString("sender", "SENDERSENDERSENDER")
+	//ctx.AddReqBalance("iota", 500)
+	//ctx.AddParamInt("color", 3)
+	//ctx.RootString("reqHash", "HASHHASHHASHHASHHASH")
+	//ctx.RootString("scAddress", "SENDERSENDERSENDER")
+	//ctx.RootString("sender", "SENDERSENDERSENDER")
 
-	scName := "payWinners"
+	scName := "increment"
 	module := runner.Module()
 	for _, export := range module.Exports {
 		if export.ImportName == scName {

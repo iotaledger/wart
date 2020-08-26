@@ -27,13 +27,29 @@ type BetInfo struct {
 	amount  int64
 }
 
-// #[no_mangle]
+func main() {
+}
+
+//export test
+func test() {
+	keyId := wasp.GetKey("timestamp")
+	wasp.SetInt(1, keyId, 123456789)
+	timestamp := wasp.GetInt(1, keyId)
+	wasp.SetInt(1, keyId, timestamp)
+
+	keyId2 := wasp.GetKey("error2")
+	wasp.SetString(1, keyId2, "Test")
+	error2 := wasp.GetString(1, keyId2)
+	wasp.SetString(1, keyId2, error2)
+}
+
+//export no_op
 func no_op() {
 	ctx := wasp.NewScContext()
 	ctx.Log("Doing nothing as requested. Oh, wait...")
 }
 
-// #[no_mangle]
+//export increment
 func increment() {
 	ctx := wasp.NewScContext()
 	ctx.Log("Increment...")
@@ -41,7 +57,7 @@ func increment() {
 	counter.SetValue(counter.Value() + 1)
 }
 
-// #[no_mangle]
+//export incrementRepeat1
 func incrementRepeat1() {
 	ctx := wasp.NewScContext()
 	ctx.Log("incrementRepeat1...")
@@ -55,15 +71,15 @@ func incrementRepeat1() {
 	}
 }
 
-// #[no_mangle]
+//export incrementRepeatMany
 func incrementRepeatMany() {
 	ctx := wasp.NewScContext()
 	ctx.Log("incrementRepeatMany...")
 	counter := ctx.State().GetInt("counter")
 	value := counter.Value()
 	counter.SetValue(value + 1)
-	repeats := ctx.Params().GetInt("numrepeats").Value()
-	stateRepeats := ctx.State().GetInt("numrepeats")
+	repeats := ctx.Params().GetInt("numRepeats").Value()
+	stateRepeats := ctx.State().GetInt("numRepeats")
 	if repeats == 0 {
 		repeats = stateRepeats.Value()
 		if repeats == 0 {
@@ -76,7 +92,7 @@ func incrementRepeatMany() {
 	request.GetInt("reqDelay").SetValue(3)
 }
 
-// #[no_mangle]
+//export placeBet
 func placeBet() {
 	ctx := wasp.NewScContext()
 	ctx.Log("Place bet...")
@@ -118,7 +134,7 @@ func placeBet() {
 	}
 }
 
-// #[no_mangle]
+//export lockBets
 func lockBets() {
 	ctx := wasp.NewScContext()
 	ctx.Log("Lock bets...")
@@ -142,7 +158,7 @@ func lockBets() {
 	request.GetInt("reqCode").SetValue(RequestPayWinners)
 }
 
-// #[no_mangle]
+//export payWinners
 func payWinners() {
 	ctx := wasp.NewScContext()
 	ctx.Log("Pay winners...")
@@ -203,7 +219,7 @@ func payWinners() {
 	}
 }
 
-// #[no_mangle]
+//export playPeriod
 func playPeriod() {
 	ctx := wasp.NewScContext()
 	ctx.Log("Play period...")
@@ -233,7 +249,7 @@ type TokenInfo struct {
 	userDefined string
 }
 
-// #[no_mangle]
+//export tokenMint
 func tokenMint() {
 	ctx := wasp.NewScContext()
 	ctx.Log("Token mint...")

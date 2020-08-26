@@ -1,7 +1,5 @@
 package wasp
 
-import "github.com/iotaledger/wart/host/interfaces/objtype"
-
 type ScMutableInt struct {
 	objId int32
 	keyId int32
@@ -52,18 +50,18 @@ func (o *ScMutableMap) GetInt(key string) *ScMutableInt {
 }
 
 func (o *ScMutableMap) GetIntArray(key string) *ScMutableIntArray {
-	objId := GetObject(o.objId, GetKey(key), objtype.OBJTYPE_INT_ARRAY)
-	return &ScMutableIntArray{objId: objId}
+	arrId := GetObject(o.objId, GetKey(key), OBJTYPE_INT_ARRAY)
+	return &ScMutableIntArray{objId: arrId}
 }
 
 func (o *ScMutableMap) GetMap(key string) *ScMutableMap {
-	objId := GetObject(o.objId, GetKey(key), objtype.OBJTYPE_MAP)
-	return &ScMutableMap{objId: objId}
+	mapId := GetObject(o.objId, GetKey(key), OBJTYPE_MAP)
+	return &ScMutableMap{objId: mapId}
 }
 
 func (o *ScMutableMap) GetMapArray(key string) *ScMutableMapArray {
-	objId := GetObject(o.objId, GetKey(key), objtype.OBJTYPE_MAP_ARRAY)
-	return &ScMutableMapArray{objId: objId}
+	arrId := GetObject(o.objId, GetKey(key), OBJTYPE_MAP_ARRAY)
+	return &ScMutableMapArray{objId: arrId}
 }
 
 func (o *ScMutableMap) GetString(key string) *ScMutableString {
@@ -71,8 +69,8 @@ func (o *ScMutableMap) GetString(key string) *ScMutableString {
 }
 
 func (o *ScMutableMap) GetStringArray(key string) *ScMutableStringArray {
-	objId := GetObject(o.objId, GetKey(key), objtype.OBJTYPE_STRING_ARRAY)
-	return &ScMutableStringArray{objId: objId}
+	arrId := GetObject(o.objId, GetKey(key), OBJTYPE_STRING_ARRAY)
+	return &ScMutableStringArray{objId: arrId}
 }
 
 func (o *ScMutableMap) Immutable() *ScImmutableMap {
@@ -90,8 +88,8 @@ func (o *ScMutableMapArray) Clear() {
 }
 
 func (o *ScMutableMapArray) GetMap(index int32) *ScMutableMap {
-	objId := GetObject(o.objId, index, objtype.OBJTYPE_MAP)
-	return &ScMutableMap{objId: objId}
+	mapId := GetObject(o.objId, index, OBJTYPE_MAP)
+	return &ScMutableMap{objId: mapId}
 }
 
 func (o *ScMutableMapArray) Immutable() *ScImmutableMapArray {

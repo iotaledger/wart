@@ -60,6 +60,10 @@ func (o *Call) analyzeCallType(a *context.Analyzer, typeIndex uint32) {
 	a.PushMulti(funcType.ResultTypes)
 }
 
+func (o *Call) Index() uint32 {
+	return o.index
+}
+
 func (o *Call) Read(r *context.Reader) {
 	switch o.opcode {
 	case op.CALL:

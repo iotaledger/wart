@@ -1,7 +1,5 @@
 package wasp
 
-import "github.com/iotaledger/wart/host/interfaces/objtype"
-
 type ScImmutableInt struct {
 	objId int32
 	keyId int32
@@ -36,18 +34,18 @@ func (o *ScImmutableMap) GetInt(key string) *ScImmutableInt {
 }
 
 func (o *ScImmutableMap) GetIntArray(key string) *ScImmutableIntArray {
-	objId := GetObject(o.objId, GetKey(key), objtype.OBJTYPE_INT_ARRAY)
-	return &ScImmutableIntArray{objId: objId}
+	arrId := GetObject(o.objId, GetKey(key), OBJTYPE_INT_ARRAY)
+	return &ScImmutableIntArray{objId: arrId}
 }
 
 func (o *ScImmutableMap) GetMap(key string) *ScImmutableMap {
-	objId := GetObject(o.objId, GetKey(key), objtype.OBJTYPE_MAP)
-	return &ScImmutableMap{objId: objId}
+	mapId := GetObject(o.objId, GetKey(key), OBJTYPE_MAP)
+	return &ScImmutableMap{objId: mapId}
 }
 
 func (o *ScImmutableMap) GetMaprray(key string) *ScImmutableMapArray {
-	objId := GetObject(o.objId, GetKey(key), objtype.OBJTYPE_MAP_ARRAY)
-	return &ScImmutableMapArray{objId: objId}
+	arrId := GetObject(o.objId, GetKey(key), OBJTYPE_MAP_ARRAY)
+	return &ScImmutableMapArray{objId: arrId}
 }
 
 func (o *ScImmutableMap) GetString(key string) *ScImmutableString {
@@ -55,8 +53,8 @@ func (o *ScImmutableMap) GetString(key string) *ScImmutableString {
 }
 
 func (o *ScImmutableMap) GetStringArray(key string) *ScImmutableStringArray {
-	objId := GetObject(o.objId, GetKey(key), objtype.OBJTYPE_STRING_ARRAY)
-	return &ScImmutableStringArray{objId: objId}
+	arrId := GetObject(o.objId, GetKey(key), OBJTYPE_STRING_ARRAY)
+	return &ScImmutableStringArray{objId: arrId}
 }
 
 // \\ // \\ // \\ // \\ // \\ // \\ // \\ // \\ // \\ // \\ // \\ // \\ // \\
@@ -66,8 +64,8 @@ type ScImmutableMapArray struct {
 }
 
 func (o *ScImmutableMapArray) GetMap(index int32) *ScImmutableMap {
-	objId := GetObject(o.objId, index, objtype.OBJTYPE_MAP)
-	return &ScImmutableMap{objId: objId}
+	mapId := GetObject(o.objId, index, OBJTYPE_MAP)
+	return &ScImmutableMap{objId: mapId}
 }
 
 func (o *ScImmutableMapArray) Length() int32 {

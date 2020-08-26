@@ -5,6 +5,7 @@ import (
 	"github.com/iotaledger/wart/utils"
 	"github.com/iotaledger/wart/wasm/consts/op"
 	"github.com/iotaledger/wart/wasm/consts/value"
+	"github.com/iotaledger/wart/wasm/instructions"
 	"github.com/iotaledger/wart/wasm/instructions/helper"
 	"github.com/iotaledger/wart/wasm/sections"
 	"io"
@@ -251,7 +252,17 @@ func (ctx *WatWriter) writeFunctions(code bool) bool {
 					info := fmt.Sprintf("(;%d:%d;)", instr.GetIP(), stack)
 					fmt.Fprintf(ctx.w, "    %-9s", info)
 				}
-				fmt.Fprintf(ctx.w, "%v%v\n", ctx.tab, instr)
+				name := ""
+				if instr.Opcode() == op.CALL {
+					f := ctx.m.Functions[instr.(*instructions.Call).Index()]
+					if f.ModuleName != "" {
+						name = f.ModuleName + "::"
+					}
+					if f.ImportName != "" {
+						name = "  " + name + f.ImportName
+					}
+				}
+				fmt.Fprintf(ctx.w, "%v%v%s\n", ctx.tab, instr, name)
 				if debug {
 					ctx.tab.Indent(2)
 				}
