@@ -1,4 +1,4 @@
-package wasp
+package wasplib
 
 const (
 	OBJTYPE_INT          int32 = 0

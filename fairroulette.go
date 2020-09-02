@@ -1,7 +1,7 @@
 package main
 
 import (
-	"github.com/iotaledger/wart/wasp"
+	"github.com/iotaledger/wart/wasplib"
 	"strconv"
 	"strings"
 )
@@ -32,26 +32,26 @@ func main() {
 
 //export test
 func test() {
-	keyId := wasp.GetKey("timestamp")
-	wasp.SetInt(1, keyId, 123456789)
-	timestamp := wasp.GetInt(1, keyId)
-	wasp.SetInt(1, keyId, timestamp)
+	keyId := wasplib.GetKey("timestamp")
+	wasplib.SetInt(1, keyId, 123456789)
+	timestamp := wasplib.GetInt(1, keyId)
+	wasplib.SetInt(1, keyId, timestamp)
 
-	keyId2 := wasp.GetKey("error2")
-	wasp.SetString(1, keyId2, "Test")
-	error2 := wasp.GetString(1, keyId2)
-	wasp.SetString(1, keyId2, error2)
+	keyId2 := wasplib.GetKey("error2")
+	wasplib.SetString(1, keyId2, "Test")
+	error2 := wasplib.GetString(1, keyId2)
+	wasplib.SetString(1, keyId2, error2)
 }
 
 //export no_op
 func no_op() {
-	ctx := wasp.NewScContext()
+	ctx := wasplib.NewScContext()
 	ctx.Log("Doing nothing as requested. Oh, wait...")
 }
 
 //export increment
 func increment() {
-	ctx := wasp.NewScContext()
+	ctx := wasplib.NewScContext()
 	ctx.Log("Increment...")
 	counter := ctx.State().GetInt("counter")
 	counter.SetValue(counter.Value() + 1)
@@ -59,26 +59,26 @@ func increment() {
 
 //export incrementRepeat1
 func incrementRepeat1() {
-	ctx := wasp.NewScContext()
+	ctx := wasplib.NewScContext()
 	ctx.Log("incrementRepeat1...")
 	counter := ctx.State().GetInt("counter")
 	value := counter.Value()
 	counter.SetValue(value + 1)
 	if value == 0 {
-		request := ctx.Requests().GetMap(0)
-		request.GetInt("reqCode").SetValue(RequestInc)
-		request.GetInt("reqDelay").SetValue(5)
+		event := ctx.Event(0)
+		event.Code(RequestInc)
+		event.Delay(5)
 	}
 }
 
 //export incrementRepeatMany
 func incrementRepeatMany() {
-	ctx := wasp.NewScContext()
+	ctx := wasplib.NewScContext()
 	ctx.Log("incrementRepeatMany...")
 	counter := ctx.State().GetInt("counter")
 	value := counter.Value()
 	counter.SetValue(value + 1)
-	repeats := ctx.Params().GetInt("numRepeats").Value()
+	repeats := ctx.Request().Params().GetInt("numRepeats").Value()
 	stateRepeats := ctx.State().GetInt("numRepeats")
 	if repeats == 0 {
 		repeats = stateRepeats.Value()
@@ -87,21 +87,22 @@ func incrementRepeatMany() {
 		}
 	}
 	stateRepeats.SetValue(repeats - 1)
-	request := ctx.Requests().GetMap(0)
-	request.GetInt("reqCode").SetValue(RequestIncMany)
-	request.GetInt("reqDelay").SetValue(3)
+	event := ctx.Event(0)
+	event.Code(RequestIncMany)
+	event.Delay(3)
 }
 
 //export placeBet
 func placeBet() {
-	ctx := wasp.NewScContext()
+	ctx := wasplib.NewScContext()
 	ctx.Log("Place bet...")
-	amount := ctx.RequestBalance("iota")
+	request := ctx.Request()
+	amount := request.Balance("iota")
 	if amount == 0 {
 		ctx.Log("Empty bet...")
 		return
 	}
-	color := ctx.Params().GetInt("color").Value()
+	color := request.Params().GetInt("color").Value()
 	if color == 0 {
 		ctx.Log("No color...")
 		return
@@ -112,8 +113,8 @@ func placeBet() {
 	}
 
 	bet := &BetInfo{
-		reqHash: ctx.RequestHash(),
-		sender:  ctx.Sender(),
+		reqHash: request.Hash(),
+		sender:  request.Address(),
 		color:   color,
 		amount:  amount,
 	}
@@ -128,19 +129,19 @@ func placeBet() {
 		if playPeriod < 10 {
 			playPeriod = PLAY_PERIOD
 		}
-		request := ctx.Requests().GetMap(0)
-		request.GetInt("reqCode").SetValue(RequestLockBets)
-		request.GetInt("reqDelay").SetValue(playPeriod)
+		event := ctx.Event(0)
+		event.Code(RequestLockBets)
+		event.Delay(playPeriod)
 	}
 }
 
 //export lockBets
 func lockBets() {
-	ctx := wasp.NewScContext()
+	ctx := wasplib.NewScContext()
 	ctx.Log("Lock bets...")
 
 	// can only be sent by SC itself
-	if ctx.Sender() != ctx.ScAddress() {
+	if ctx.Request().Address() != ctx.Contract().Address() {
 		ctx.Log("Cancel spoofed request")
 		return
 	}
@@ -154,18 +155,18 @@ func lockBets() {
 	}
 	bets.Clear()
 
-	request := ctx.Requests().GetMap(0)
-	request.GetInt("reqCode").SetValue(RequestPayWinners)
+	event := ctx.Event(0)
+	event.Code(RequestPayWinners)
 }
 
 //export payWinners
 func payWinners() {
-	ctx := wasp.NewScContext()
+	ctx := wasplib.NewScContext()
 	ctx.Log("Pay winners...")
 
 	// can only be sent by SC itself
-	scAddress := ctx.ScAddress()
-	if ctx.Sender() != scAddress {
+	scAddress := ctx.Contract().Address()
+	if ctx.Request().Address() != scAddress {
 		ctx.Log("Cancel spoofed request")
 		return
 	}
@@ -192,9 +193,9 @@ func payWinners() {
 	if len(winners) == 0 {
 		ctx.Log("Nobody wins!")
 		// compact separate UTXOs into a single one
-		transfer := ctx.Transfers().GetMap(0)
-		transfer.GetString("xferAddress").SetValue(scAddress)
-		transfer.GetInt("xferAmount").SetValue(totalBetAmount)
+		transfer := ctx.Transfer(0)
+		transfer.Address(scAddress)
+		transfer.Amount(totalBetAmount)
 		return
 	}
 
@@ -204,9 +205,9 @@ func payWinners() {
 		payout := totalBetAmount * bet.amount / totalWinAmount
 		if payout != 0 {
 			totalPayout += payout
-			transfer := ctx.Transfers().GetMap(int32(i))
-			transfer.GetString("xferAddress").SetValue(bet.sender)
-			transfer.GetInt("xferAmount").SetValue(payout)
+			transfer := ctx.Transfer(int32(i))
+			transfer.Address(bet.sender)
+			transfer.Amount(payout)
 		}
 		text := "Pay " + strconv.FormatInt(payout, 10) + " to " + bet.sender
 		ctx.Log(text)
@@ -221,16 +222,16 @@ func payWinners() {
 
 //export playPeriod
 func playPeriod() {
-	ctx := wasp.NewScContext()
+	ctx := wasplib.NewScContext()
 	ctx.Log("Play period...")
 
 	// can only be sent by SC itself
-	if ctx.Sender() != ctx.Owner() {
+	if ctx.Request().Address() != ctx.Contract().Owner() {
 		ctx.Log("Cancel spoofed request")
 		return
 	}
 
-	playPeriod := ctx.Params().GetInt("playPeriod").Value()
+	playPeriod := ctx.Request().Params().GetInt("playPeriod").Value()
 	if playPeriod < 10 {
 		ctx.Log("Invalid play period...")
 		return
@@ -251,7 +252,7 @@ type TokenInfo struct {
 
 //export tokenMint
 func tokenMint() {
-	ctx := wasp.NewScContext()
+	ctx := wasplib.NewScContext()
 	ctx.Log("Token mint...")
 	//TBD
 }

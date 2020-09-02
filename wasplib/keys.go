@@ -1,4 +1,4 @@
-package wasp
+package wasplib
 
 var keyLength int32
 var keyLog int32

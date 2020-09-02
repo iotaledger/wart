@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	"github.com/iotaledger/wart/host"
+	"github.com/iotaledger/wart/host/interfaces/objtype"
 	"github.com/iotaledger/wart/wasm/consts/desc"
 	"github.com/iotaledger/wart/wasm/executors"
 	"github.com/iotaledger/wart/wasm/instructions"
@@ -52,11 +53,14 @@ func runSC() {
 	}
 
 	// set up placeBet
-	//ctx.AddReqBalance("iota", 500)
-	//ctx.AddParamInt("color", 3)
-	//ctx.RootString("reqHash", "HASHHASHHASHHASHHASH")
-	//ctx.RootString("scAddress", "SENDERSENDERSENDER")
-	//ctx.RootString("sender", "SENDERSENDERSENDER")
+	contract := ctx.Object(nil, "contract", objtype.OBJTYPE_MAP)
+	contract.SetString(ctx.GetKeyId("address"), "smartContractAddress")
+	request := ctx.Object(nil, "request", objtype.OBJTYPE_MAP)
+	request.SetString(ctx.GetKeyId("hash"), "requestTransactionHash")
+	request.SetString(ctx.GetKeyId("address"), "requestInitiatorAddress")
+	params := ctx.Object(request, "params", objtype.OBJTYPE_MAP)
+	params.SetInt(ctx.GetKeyId("color"), 3)
+	ctx.AddBalance(request,"iota", 500)
 
 	scName := "increment"
 	module := runner.Module()

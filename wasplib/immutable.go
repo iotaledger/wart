@@ -1,4 +1,4 @@
-package wasp
+package wasplib
 
 type ScImmutableInt struct {
 	objId int32
