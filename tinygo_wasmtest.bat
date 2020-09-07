@@ -1,1 +1,1 @@
-tinygo build -o wasm.wasm -target wasm ./wasmtest.go
+tinygo build -o wasm.wasm -target wasm ./fairroulette.go

@@ -6,10 +6,10 @@ import (
 )
 
 type HostMap struct {
-	ctx      *HostImpl
-	fields   map[int32]interface{}
-	readonly bool
-	types    map[int32]int32
+	ctx       *HostImpl
+	fields    map[int32]interface{}
+	immutable bool
+	types     map[int32]int32
 }
 
 func NewHostMap(h *HostImpl) *HostMap {
@@ -57,7 +57,7 @@ func (h *HostMap) GetObjectId(keyId int32, typeId int32) int32 {
 	case objtype.OBJTYPE_STRING_ARRAY:
 		o = NewHostArray(h.ctx, objtype.OBJTYPE_STRING)
 	default:
-		h.ctx.SetError("Invalid type id")
+		h.ctx.SetError("Map.GetObjectId: Invalid type id")
 		return 0
 	}
 	objId := h.ctx.AddObject(o)
@@ -77,8 +77,8 @@ func (h *HostMap) GetString(keyId int32) string {
 }
 
 func (h *HostMap) SetInt(keyId int32, value int64) {
-	if h.readonly {
-		h.ctx.SetError("Readonly")
+	if EnableImmutableChecks && h.immutable {
+		h.ctx.SetError("Map.SetInt: Immutable")
 		return
 	}
 	if !h.valid(keyId, objtype.OBJTYPE_INT) {
@@ -88,8 +88,8 @@ func (h *HostMap) SetInt(keyId int32, value int64) {
 }
 
 func (h *HostMap) SetString(keyId int32, value string) {
-	if h.readonly {
-		h.ctx.SetError("Readonly")
+	if EnableImmutableChecks && h.immutable {
+		h.ctx.SetError("Map.SetString: Immutable")
 		return
 	}
 	if !h.valid(keyId, objtype.OBJTYPE_STRING) {
@@ -101,15 +101,15 @@ func (h *HostMap) SetString(keyId int32, value string) {
 func (h *HostMap) valid(keyId int32, typeId int32) bool {
 	fieldType, ok := h.types[keyId]
 	if !ok {
-		if h.readonly {
-			h.ctx.SetError("Readonly")
+		if EnableImmutableChecks && h.immutable {
+			h.ctx.SetError("Map.valid: Immutable")
 			return false
 		}
 		h.types[keyId] = typeId
 		return true
 	}
 	if fieldType != typeId {
-		h.ctx.SetError("Invalid access")
+		h.ctx.SetError("Map.valid: Invalid typeId")
 		return false
 	}
 	return true

@@ -53,6 +53,7 @@ func runSC() {
 	}
 
 	// set up placeBet
+	host.EnableImmutableChecks = false
 	contract := ctx.Object(nil, "contract", objtype.OBJTYPE_MAP)
 	contract.SetString(ctx.GetKeyId("address"), "smartContractAddress")
 	request := ctx.Object(nil, "request", objtype.OBJTYPE_MAP)
@@ -61,8 +62,9 @@ func runSC() {
 	params := ctx.Object(request, "params", objtype.OBJTYPE_MAP)
 	params.SetInt(ctx.GetKeyId("color"), 3)
 	ctx.AddBalance(request,"iota", 500)
+	host.EnableImmutableChecks = true
 
-	scName := "increment"
+	scName := "placeBet"
 	module := runner.Module()
 	for _, export := range module.Exports {
 		if export.ImportName == scName {

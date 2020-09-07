@@ -6,10 +6,10 @@ import (
 )
 
 type HostArray struct {
-	ctx      *HostImpl
-	items    []interface{}
-	readonly bool
-	typeId   int32
+	ctx       *HostImpl
+	items     []interface{}
+	immutable bool
+	typeId    int32
 }
 
 func NewHostArray(h *HostImpl, typeId int32) *HostArray {
@@ -47,6 +47,10 @@ func (h *HostArray) GetString(keyId int32) string {
 }
 
 func (h *HostArray) SetInt(keyId int32, value int64) {
+	if EnableImmutableChecks && h.immutable {
+		h.ctx.SetError("Array.SetInt: Immutable")
+		return
+	}
 	if keyId == interfaces.KeyLength {
 		if h.typeId == objtype.OBJTYPE_MAP {
 			// tell objects to clear themselves
@@ -58,10 +62,6 @@ func (h *HostArray) SetInt(keyId int32, value int64) {
 		h.items = nil
 		return
 	}
-	if h.readonly {
-		h.ctx.SetError("Readonly")
-		return
-	}
 	if !h.valid(keyId, objtype.OBJTYPE_INT) {
 		return
 	}
@@ -69,8 +69,8 @@ func (h *HostArray) SetInt(keyId int32, value int64) {
 }
 
 func (h *HostArray) SetString(keyId int32, value string) {
-	if h.readonly {
-		h.ctx.SetError("Readonly")
+	if EnableImmutableChecks && h.immutable {
+		h.ctx.SetError("Array.SetString: Immutable")
 		return
 	}
 	if !h.valid(keyId, objtype.OBJTYPE_STRING) {
@@ -81,11 +81,11 @@ func (h *HostArray) SetString(keyId int32, value string) {
 
 func (h *HostArray) valid(keyId int32, typeId int32) bool {
 	if h.typeId != typeId {
-		h.ctx.SetError("Invalid access")
+		h.ctx.SetError("Array.valid: Invalid access")
 		return false
 	}
 	max := int32(len(h.items))
-	if keyId == max && !h.readonly {
+	if keyId == max && !h.immutable {
 		switch typeId {
 		case objtype.OBJTYPE_INT:
 			h.items = append(h.items, int64(0))
@@ -95,13 +95,13 @@ func (h *HostArray) valid(keyId int32, typeId int32) bool {
 		case objtype.OBJTYPE_STRING:
 			h.items = append(h.items, "")
 		default:
-			h.ctx.SetError("Invalid type id")
+			h.ctx.SetError("Array.valid: Invalid typeId")
 			return false
 		}
 		return true
 	}
 	if keyId < 0 || keyId >= max {
-		h.ctx.SetError("Invalid index")
+		h.ctx.SetError("Array.valid: Invalid index")
 		return false
 	}
 	return true

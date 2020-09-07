@@ -5,6 +5,8 @@ import (
 	"github.com/iotaledger/wart/host/interfaces/objtype"
 )
 
+var EnableImmutableChecks = true
+
 type HostImpl struct {
 	HostBase
 	root interfaces.HostObject

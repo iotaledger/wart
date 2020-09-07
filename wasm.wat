@@ -3,147 +3,155 @@
   (type (;1;) (func (param i32 i32 i32)))
   (type (;2;) (func (param i32 i32) (result i32)))
   (type (;3;) (func (param i32 i32 i32 i32)))
-  (type (;4;) (func (param i32 i32 i32 i32) (result i32)))
-  (type (;5;) (func (param i32 i32 i32) (result i32)))
+  (type (;4;) (func (param i32 i32 i32) (result i32)))
+  (type (;5;) (func (param i32 i32 i32 i32) (result i32)))
   (type (;6;) (func))
   (type (;7;) (func (param i32 i32) (result i64)))
   (type (;8;) (func (param i32 i32 i32 i32 i32 i32 i32)))
   (type (;9;) (func (result i32)))
   (type (;10;) (func (param i32) (result i32)))
-  (type (;11;) (func (param i32 i32 i64)))
-  (type (;12;) (func (param i32 i32)))
-  (type (;13;) (func (param i32 i32 i32 i32 i32)))
-  (type (;14;) (func (param i32 i32 i32) (result f64)))
-  (type (;15;) (func (param i32 i32 i32) (result i64)))
-  (type (;16;) (func (param i32 i64)))
+  (type (;11;) (func (param i32 i32)))
+  (type (;12;) (func (param i32 i64)))
+  (type (;13;) (func (param i32 i32 i64)))
+  (type (;14;) (func (param i32 i32 i32 i32 i32)))
+  (type (;15;) (func (param i32 i32 i32) (result f64)))
+  (type (;16;) (func (param i32 i32 i32) (result i64)))
   (type (;17;) (func (param i32 i32 i32 i32 i32 i32) (result i32)))
-  (type (;18;) (func (param i32) (result i64)))
-  (type (;19;) (func (param f64)))
-  (type (;20;) (func (param i64)))
+  (type (;18;) (func (param f64)))
+  (type (;19;) (func (param i64)))
 
   (import "waspGo" "hostGetInt" (func (;0;) (type 1) (param i32 i32 i32)))
   (import "waspGo" "hostGetString" (func (;1;) (type 1) (param i32 i32 i32)))
   (import "waspGo" "hostGetKey" (func (;2;) (type 2) (param i32 i32) (result i32)))
-  (import "waspGo" "hostSetInt" (func (;3;) (type 1) (param i32 i32 i32)))
-  (import "waspGo" "hostSetString" (func (;4;) (type 3) (param i32 i32 i32 i32)))
-  (import "wasi_unstable" "fd_write" (func (;5;) (type 4) (param i32 i32 i32 i32) (result i32)))
-  (import "waspGo" "hostGetObject" (func (;6;) (type 5) (param i32 i32 i32) (result i32)))
+  (import "waspGo" "hostSetString" (func (;3;) (type 3) (param i32 i32 i32 i32)))
+  (import "waspGo" "hostGetObject" (func (;4;) (type 4) (param i32 i32 i32) (result i32)))
+  (import "waspGo" "hostSetInt" (func (;5;) (type 1) (param i32 i32 i32)))
+  (import "wasi_unstable" "fd_write" (func (;6;) (type 5) (param i32 i32 i32 i32) (result i32)))
 
   (func "__wasm_call_ctors" (;7;) (type 6))
-  (func "memcpy" (;8;) (type 5) (param i32 i32 i32) (result i32))
-  (func "memset" (;9;) (type 5) (param i32 i32 i32) (result i32))
-  (func "memmove" (;10;) (type 5) (param i32 i32 i32) (result i32))
-  (func "github.com/iotaledger/wart/wasp.GetInt" (;11;) (type 7) (param i32 i32) (result i64))
-  (func "github.com/iotaledger/wart/wasp.GetString" (;12;) (type 1) (param i32 i32 i32))
+  (func "memcpy" (;8;) (type 4) (param i32 i32 i32) (result i32))
+  (func "memset" (;9;) (type 4) (param i32 i32 i32) (result i32))
+  (func "memmove" (;10;) (type 4) (param i32 i32 i32) (result i32))
+  (func "github.com/iotaledger/wart/wasplib.GetInt" (;11;) (type 7) (param i32 i32) (result i64))
+  (func "github.com/iotaledger/wart/wasplib.GetString" (;12;) (type 1) (param i32 i32 i32))
   (func "runtime.sliceAppend" (;13;) (type 8) (param i32 i32 i32 i32 i32 i32 i32))
   (func "runtime.stringFromBytes" (;14;) (type 3) (param i32 i32 i32 i32))
-  (func "github.com/iotaledger/wart/wasp.KeyLength" (;15;) (type 9) (result i32))
-  (func "github.com/iotaledger/wart/wasp.NewScContext" (;16;) (type 9) (result i32))
-  (func "runtime.alloc" (;17;) (type 10) (param i32) (result i32))
-  (func "github.com/iotaledger/wart/wasp.SetInt" (;18;) (type 11) (param i32 i32 i64))
-  (func "(reflect.Type).Align" (;19;) (type 10) (param i32) (result i32))
-  (func "(reflect.Type).Kind" (;20;) (type 10) (param i32) (result i32))
-  (func "(reflect.Type).NumField" (;21;) (type 10) (param i32) (result i32))
-  (func "(reflect.Type).Field" (;22;) (type 1) (param i32 i32 i32))
-  (func "(reflect.Type).Elem" (;23;) (type 10) (param i32) (result i32))
-  (func "runtime._panic" (;24;) (type 12) (param i32 i32))
-  (func "(reflect.Type).stripPrefix" (;25;) (type 10) (param i32) (result i32))
-  (func "reflect.readVarint" (;26;) (type 12) (param i32 i32))
-  (func "(reflect.Type).Size" (;27;) (type 10) (param i32) (result i32))
-  (func "reflect.readStringSidetable" (;28;) (type 12) (param i32 i32))
-  (func "(reflect.Type).Len" (;29;) (type 10) (param i32) (result i32))
-  (func "(reflect.Value).Bool" (;30;) (type 5) (param i32 i32 i32) (result i32))
-  (func "(reflect.Value).Kind" (;31;) (type 5) (param i32 i32 i32) (result i32))
-  (func "(reflect.Value).isIndirect" (;32;) (type 5) (param i32 i32 i32) (result i32))
-  (func "(reflect.Value).Complex" (;33;) (type 3) (param i32 i32 i32 i32))
-  (func "(reflect.Value).Field" (;34;) (type 13) (param i32 i32 i32 i32 i32))
-  (func "(reflect.Value).Type" (;35;) (type 5) (param i32 i32 i32) (result i32))
-  (func "reflect.loadValue" (;36;) (type 2) (param i32 i32) (result i32))
-  (func "(reflect.Value).Float" (;37;) (type 14) (param i32 i32 i32) (result f64))
-  (func "(reflect.Value).Index" (;38;) (type 13) (param i32 i32 i32 i32 i32))
-  (func "(reflect.Value).Int" (;39;) (type 15) (param i32 i32 i32) (result i64))
-  (func "(reflect.Value).Pointer" (;40;) (type 5) (param i32 i32 i32) (result i32))
-  (func "runtime.nilPanic" (;41;) (type 6))
-  (func "(reflect.Value).String" (;42;) (type 3) (param i32 i32 i32 i32))
-  (func "(reflect.Value).Uint" (;43;) (type 15) (param i32 i32 i32) (result i64))
-  (func "reflect.ValueOf" (;44;) (type 1) (param i32 i32 i32))
-  (func "strconv.FormatInt" (;45;) (type 16) (param i32 i64))
-  (func "runtime.lookupPanic" (;46;) (type 6))
-  (func "strconv.ParseInt" (;47;) (type 1) (param i32 i32 i32))
-  (func "strconv.syntaxError" (;48;) (type 4) (param i32 i32 i32 i32) (result i32))
-  (func "strconv.rangeError" (;49;) (type 4) (param i32 i32 i32 i32) (result i32))
-  (func "runtime.interfaceTypeAssert" (;50;) (type 0) (param i32))
-  (func "runtime.reflectValueEqual" (;51;) (type 17) (param i32 i32 i32 i32 i32 i32) (result i32))
-  (func "strconv.bsearch16" (;52;) (type 5) (param i32 i32 i32) (result i32))
-  (func "increment" (;53;) (type 6))
-  (func "(*github.com/iotaledger/wart/wasp.ScContext).Log" (;54;) (type 12) (param i32 i32))
-  (func "(*github.com/iotaledger/wart/wasp.ScContext).State" (;55;) (type 10) (param i32) (result i32))
-  (func "(*github.com/iotaledger/wart/wasp.ScMutableMap).GetInt" (;56;) (type 5) (param i32 i32 i32) (result i32))
-  (func "(*github.com/iotaledger/wart/wasp.ScMutableInt).Value" (;57;) (type 18) (param i32) (result i64))
-  (func "(*github.com/iotaledger/wart/wasp.ScMutableInt).SetValue" (;58;) (type 16) (param i32 i64))
-  (func "incrementRepeat1" (;59;) (type 6))
-  (func "(*github.com/iotaledger/wart/wasp.ScContext).Requests" (;60;) (type 10) (param i32) (result i32))
-  (func "(*github.com/iotaledger/wart/wasp.ScMutableMapArray).GetMap" (;61;) (type 2) (param i32 i32) (result i32))
-  (func "incrementRepeatMany" (;62;) (type 6))
-  (func "(*github.com/iotaledger/wart/wasp.ScContext).Params" (;63;) (type 10) (param i32) (result i32))
-  (func "(*github.com/iotaledger/wart/wasp.ScImmutableMap).GetInt" (;64;) (type 5) (param i32 i32 i32) (result i32))
-  (func "(*github.com/iotaledger/wart/wasp.ScImmutableInt).Value" (;65;) (type 18) (param i32) (result i64))
-  (func "lockBets" (;66;) (type 6))
-  (func "(*github.com/iotaledger/wart/wasp.ScContext).Sender" (;67;) (type 12) (param i32 i32))
-  (func "(*github.com/iotaledger/wart/wasp.ScContext).ScAddress" (;68;) (type 12) (param i32 i32))
-  (func "(*github.com/iotaledger/wart/wasp.ScMutableMap).GetStringArray" (;69;) (type 5) (param i32 i32 i32) (result i32))
-  (func "(*github.com/iotaledger/wart/wasp.ScMutableStringArray).Length" (;70;) (type 10) (param i32) (result i32))
-  (func "(*github.com/iotaledger/wart/wasp.ScMutableStringArray).GetString" (;71;) (type 2) (param i32 i32) (result i32))
-  (func "(*github.com/iotaledger/wart/wasp.ScMutableString).Value" (;72;) (type 12) (param i32 i32))
-  (func "(*github.com/iotaledger/wart/wasp.ScMutableString).SetValue" (;73;) (type 1) (param i32 i32 i32))
-  (func "(*github.com/iotaledger/wart/wasp.ScMutableStringArray).Clear" (;74;) (type 0) (param i32))
-  (func "command-line-arguments.main" (;75;) (type 12) (param i32 i32))
-  (func "no_op" (;76;) (type 6))
-  (func "payWinners" (;77;) (type 6))
-  (func "runtime.stringConcat" (;78;) (type 13) (param i32 i32 i32 i32 i32))
-  (func "(*github.com/iotaledger/wart/wasp.ScContext).Transfers" (;79;) (type 10) (param i32) (result i32))
-  (func "(*github.com/iotaledger/wart/wasp.ScMutableMap).GetString" (;80;) (type 5) (param i32 i32 i32) (result i32))
-  (func "runtime.slicePanic" (;81;) (type 6))
-  (func "placeBet" (;82;) (type 6))
-  (func "(*github.com/iotaledger/wart/wasp.ScMutableMap).GetMap" (;83;) (type 5) (param i32 i32 i32) (result i32))
-  (func "playPeriod" (;84;) (type 6))
-  (func "test" (;85;) (type 6))
-  (func "tokenMint" (;86;) (type 6))
-  (func "runtime.printstring" (;87;) (type 12) (param i32 i32))
-  (func "runtime.printitf" (;88;) (type 12) (param i32 i32))
-  (func "runtime.printnl" (;89;) (type 6))
-  (func "_start" (;90;) (type 6))
-  (func "runtime.scheduler" (;91;) (type 6))
-  (func "runtime.markRoot" (;92;) (type 0) (param i32))
-  (func "(runtime.gcBlock).state" (;93;) (type 10) (param i32) (result i32))
-  (func "(runtime.gcBlock).markFree" (;94;) (type 0) (param i32))
-  (func "runtime.startMark" (;95;) (type 0) (param i32))
-  (func "runtime.runtimePanic" (;96;) (type 12) (param i32 i32))
-  (func "(runtime.gcBlock).setState" (;97;) (type 12) (param i32 i32))
-  (func "(runtime.gcBlock).findHead" (;98;) (type 10) (param i32) (result i32))
-  (func "go_scheduler" (;99;) (type 6))
-  (func "runtime.printfloat64" (;100;) (type 19) (param f64))
-  (func "runtime.putchar" (;101;) (type 0) (param i32))
-  (func "runtime.printint32" (;102;) (type 0) (param i32))
-  (func "runtime.printuint64" (;103;) (type 20) (param i64))
-  (func "runtime.printptr" (;104;) (type 0) (param i32))
-  (func "(error).Error" (;105;) (type 1) (param i32 i32 i32))
-  (func "resume" (;106;) (type 6))
-  (func "runtime.resume$1" (;107;) (type 6))
-  (func "(*github.com/iotaledger/wart/wasp.ScMutableMap).GetMapArray" (;108;) (type 5) (param i32 i32 i32) (result i32))
+  (func "github.com/iotaledger/wart/wasplib.KeyLength" (;15;) (type 9) (result i32))
+  (func "github.com/iotaledger/wart/wasplib.NewScContext" (;16;) (type 9) (result i32))
+  (func "(github.com/iotaledger/wart/wasplib.ScContext).Contract" (;17;) (type 10) (param i32) (result i32))
+  (func "(github.com/iotaledger/wart/wasplib.ScMutableMap).GetMap" (;18;) (type 4) (param i32 i32 i32) (result i32))
+  (func "(github.com/iotaledger/wart/wasplib.ScMutableMap).Immutable" (;19;) (type 10) (param i32) (result i32))
+  (func "(github.com/iotaledger/wart/wasplib.ScContext).Event" (;20;) (type 10) (param i32) (result i32))
+  (func "(github.com/iotaledger/wart/wasplib.ScMutableMap).GetMapArray" (;21;) (type 4) (param i32 i32 i32) (result i32))
+  (func "(github.com/iotaledger/wart/wasplib.ScMutableMapArray).GetMap" (;22;) (type 2) (param i32 i32) (result i32))
+  (func "(github.com/iotaledger/wart/wasplib.ScContext).Log" (;23;) (type 1) (param i32 i32 i32))
+  (func "(github.com/iotaledger/wart/wasplib.ScContext).Request" (;24;) (type 10) (param i32) (result i32))
+  (func "(github.com/iotaledger/wart/wasplib.ScContext).State" (;25;) (type 10) (param i32) (result i32))
+  (func "(github.com/iotaledger/wart/wasplib.ScContext).Transfer" (;26;) (type 2) (param i32 i32) (result i32))
+  (func "(github.com/iotaledger/wart/wasplib.ScContract).Address" (;27;) (type 11) (param i32 i32))
+  (func "(github.com/iotaledger/wart/wasplib.ScImmutableMap).GetString" (;28;) (type 3) (param i32 i32 i32 i32))
+  (func "(github.com/iotaledger/wart/wasplib.ScImmutableString).Value" (;29;) (type 1) (param i32 i32 i32))
+  (func "(github.com/iotaledger/wart/wasplib.ScEvent).Code" (;30;) (type 12) (param i32 i64))
+  (func "(github.com/iotaledger/wart/wasplib.ScMutableMap).GetInt" (;31;) (type 3) (param i32 i32 i32 i32))
+  (func "(github.com/iotaledger/wart/wasplib.ScMutableInt).SetValue" (;32;) (type 13) (param i32 i32 i64))
+  (func "(github.com/iotaledger/wart/wasplib.ScEvent).Delay" (;33;) (type 12) (param i32 i64))
+  (func "(github.com/iotaledger/wart/wasplib.ScImmutableInt).Value" (;34;) (type 7) (param i32 i32) (result i64))
+  (func "(github.com/iotaledger/wart/wasplib.ScImmutableMap).GetInt" (;35;) (type 3) (param i32 i32 i32 i32))
+  (func "(github.com/iotaledger/wart/wasplib.ScImmutableMap).GetMap" (;36;) (type 4) (param i32 i32 i32) (result i32))
+  (func "github.com/iotaledger/wart/wasplib.SetInt" (;37;) (type 13) (param i32 i32 i64))
+  (func "(github.com/iotaledger/wart/wasplib.ScMutableInt).Value" (;38;) (type 7) (param i32 i32) (result i64))
+  (func "(github.com/iotaledger/wart/wasplib.ScMutableMap).GetStringArray" (;39;) (type 4) (param i32 i32 i32) (result i32))
+  (func "(github.com/iotaledger/wart/wasplib.ScMutableString).SetValue" (;40;) (type 3) (param i32 i32 i32 i32))
+  (func "(github.com/iotaledger/wart/wasplib.ScMutableString).Value" (;41;) (type 1) (param i32 i32 i32))
+  (func "(github.com/iotaledger/wart/wasplib.ScMutableStringArray).Clear" (;42;) (type 0) (param i32))
+  (func "(github.com/iotaledger/wart/wasplib.ScMutableStringArray).GetString" (;43;) (type 1) (param i32 i32 i32))
+  (func "(github.com/iotaledger/wart/wasplib.ScMutableStringArray).Length" (;44;) (type 10) (param i32) (result i32))
+  (func "(github.com/iotaledger/wart/wasplib.ScRequest).Address" (;45;) (type 11) (param i32 i32))
+  (func "(github.com/iotaledger/wart/wasplib.ScRequest).Params" (;46;) (type 10) (param i32) (result i32))
+  (func "(github.com/iotaledger/wart/wasplib.ScTransfer).Address" (;47;) (type 1) (param i32 i32 i32))
+  (func "(github.com/iotaledger/wart/wasplib.ScTransfer).Amount" (;48;) (type 12) (param i32 i64))
+  (func "(reflect.Type).Align" (;49;) (type 10) (param i32) (result i32))
+  (func "(reflect.Type).Kind" (;50;) (type 10) (param i32) (result i32))
+  (func "(reflect.Type).NumField" (;51;) (type 10) (param i32) (result i32))
+  (func "(reflect.Type).Field" (;52;) (type 1) (param i32 i32 i32))
+  (func "(reflect.Type).Elem" (;53;) (type 10) (param i32) (result i32))
+  (func "runtime._panic" (;54;) (type 11) (param i32 i32))
+  (func "(reflect.Type).stripPrefix" (;55;) (type 10) (param i32) (result i32))
+  (func "reflect.readVarint" (;56;) (type 11) (param i32 i32))
+  (func "(reflect.Type).Size" (;57;) (type 10) (param i32) (result i32))
+  (func "reflect.readStringSidetable" (;58;) (type 11) (param i32 i32))
+  (func "runtime.alloc" (;59;) (type 10) (param i32) (result i32))
+  (func "(reflect.Type).Len" (;60;) (type 10) (param i32) (result i32))
+  (func "(reflect.Value).Bool" (;61;) (type 4) (param i32 i32 i32) (result i32))
+  (func "(reflect.Value).Kind" (;62;) (type 4) (param i32 i32 i32) (result i32))
+  (func "(reflect.Value).isIndirect" (;63;) (type 4) (param i32 i32 i32) (result i32))
+  (func "(reflect.Value).Complex" (;64;) (type 3) (param i32 i32 i32 i32))
+  (func "(reflect.Value).Field" (;65;) (type 14) (param i32 i32 i32 i32 i32))
+  (func "(reflect.Value).Type" (;66;) (type 4) (param i32 i32 i32) (result i32))
+  (func "reflect.loadValue" (;67;) (type 2) (param i32 i32) (result i32))
+  (func "(reflect.Value).Float" (;68;) (type 15) (param i32 i32 i32) (result f64))
+  (func "(reflect.Value).Index" (;69;) (type 14) (param i32 i32 i32 i32 i32))
+  (func "(reflect.Value).Int" (;70;) (type 16) (param i32 i32 i32) (result i64))
+  (func "(reflect.Value).Pointer" (;71;) (type 4) (param i32 i32 i32) (result i32))
+  (func "runtime.nilPanic" (;72;) (type 6))
+  (func "(reflect.Value).String" (;73;) (type 3) (param i32 i32 i32 i32))
+  (func "(reflect.Value).Uint" (;74;) (type 16) (param i32 i32 i32) (result i64))
+  (func "reflect.ValueOf" (;75;) (type 1) (param i32 i32 i32))
+  (func "strconv.FormatInt" (;76;) (type 12) (param i32 i64))
+  (func "runtime.lookupPanic" (;77;) (type 6))
+  (func "strconv.ParseInt" (;78;) (type 1) (param i32 i32 i32))
+  (func "strconv.syntaxError" (;79;) (type 5) (param i32 i32 i32 i32) (result i32))
+  (func "strconv.rangeError" (;80;) (type 5) (param i32 i32 i32 i32) (result i32))
+  (func "runtime.interfaceTypeAssert" (;81;) (type 0) (param i32))
+  (func "runtime.reflectValueEqual" (;82;) (type 17) (param i32 i32 i32 i32 i32 i32) (result i32))
+  (func "strconv.bsearch16" (;83;) (type 4) (param i32 i32 i32) (result i32))
+  (func "increment" (;84;) (type 6))
+  (func "incrementRepeat1" (;85;) (type 6))
+  (func "incrementRepeatMany" (;86;) (type 6))
+  (func "lockBets" (;87;) (type 6))
+  (func "command-line-arguments.main" (;88;) (type 11) (param i32 i32))
+  (func "no_op" (;89;) (type 6))
+  (func "payWinners" (;90;) (type 6))
+  (func "runtime.stringConcat" (;91;) (type 14) (param i32 i32 i32 i32 i32))
+  (func "runtime.slicePanic" (;92;) (type 6))
+  (func "placeBet" (;93;) (type 6))
+  (func "playPeriod" (;94;) (type 6))
+  (func "test" (;95;) (type 6))
+  (func "tokenMint" (;96;) (type 6))
+  (func "runtime.printstring" (;97;) (type 11) (param i32 i32))
+  (func "runtime.printitf" (;98;) (type 11) (param i32 i32))
+  (func "runtime.printnl" (;99;) (type 6))
+  (func "_start" (;100;) (type 6))
+  (func "runtime.scheduler" (;101;) (type 6))
+  (func "runtime.markRoot" (;102;) (type 0) (param i32))
+  (func "(runtime.gcBlock).state" (;103;) (type 10) (param i32) (result i32))
+  (func "(runtime.gcBlock).markFree" (;104;) (type 0) (param i32))
+  (func "runtime.startMark" (;105;) (type 0) (param i32))
+  (func "runtime.runtimePanic" (;106;) (type 11) (param i32 i32))
+  (func "(runtime.gcBlock).setState" (;107;) (type 11) (param i32 i32))
+  (func "(runtime.gcBlock).findHead" (;108;) (type 10) (param i32) (result i32))
+  (func "go_scheduler" (;109;) (type 6))
+  (func "runtime.printfloat64" (;110;) (type 18) (param f64))
+  (func "runtime.putchar" (;111;) (type 0) (param i32))
+  (func "runtime.printint32" (;112;) (type 0) (param i32))
+  (func "runtime.printuint64" (;113;) (type 19) (param i64))
+  (func "runtime.printptr" (;114;) (type 0) (param i32))
+  (func "(error).Error" (;115;) (type 1) (param i32 i32 i32))
+  (func "resume" (;116;) (type 6))
+  (func "runtime.resume$1" (;117;) (type 6))
 
   (table (;0;) (min 1) (max 1)))
 
   (memory (;0;) (min 16)))
 
   (global (;0;) (mut i32) (i32.const 65536))
-  (global (;1;) i32 (i32.const 70832))
-  (global (;2;) i32 (i32.const 70837))
-  (global (;3;) i32 (i32.const 67584))
-  (global (;4;) i32 (i32.const 70796))
-  (global (;5;) i32 (i32.const 67588))
+  (global (;1;) i32 (i32.const 70816))
+  (global (;2;) i32 (i32.const 70821))
+  (global (;3;) i32 (i32.const 67568))
+  (global (;4;) i32 (i32.const 70780))
+  (global (;5;) i32 (i32.const 67572))
   (global (;6;) i32 (i32.const 65536))
-  (global (;7;) i32 (i32.const 70837))
+  (global (;7;) i32 (i32.const 70821))
   (global (;8;) i32 (i32.const 65536))
   (global (;9;) i32 (i32.const 0))
   (global (;10;) i32 (i32.const 1))
@@ -154,24 +162,24 @@
   (export "memcpy" (func 8))
   (export "memmove" (func 10))
   (export "runtime.stackChainStart" (global 1))
-  (export "increment" (func 53))
-  (export "incrementRepeat1" (func 59))
-  (export "incrementRepeatMany" (func 62))
-  (export "lockBets" (func 66))
-  (export "command-line-arguments.main" (func 75))
-  (export "no_op" (func 76))
-  (export "payWinners" (func 77))
-  (export "placeBet" (func 82))
-  (export "playPeriod" (func 84))
-  (export "test" (func 85))
-  (export "tokenMint" (func 86))
-  (export "_start" (func 90))
+  (export "increment" (func 84))
+  (export "incrementRepeat1" (func 85))
+  (export "incrementRepeatMany" (func 86))
+  (export "lockBets" (func 87))
+  (export "command-line-arguments.main" (func 88))
+  (export "no_op" (func 89))
+  (export "payWinners" (func 90))
+  (export "placeBet" (func 93))
+  (export "playPeriod" (func 94))
+  (export "test" (func 95))
+  (export "tokenMint" (func 96))
+  (export "_start" (func 100))
   (export "__heap_base" (global 2))
   (export "runtime.trackedGlobalsLength" (global 3))
-  (export "runtime.trackedGlobalsBitmap.1346" (global 4))
+  (export "runtime.trackedGlobalsBitmap.1335" (global 4))
   (export "runtime.trackedGlobalsStart" (global 5))
-  (export "go_scheduler" (func 99))
-  (export "resume" (func 106))
+  (export "go_scheduler" (func 109))
+  (export "resume" (func 116))
   (export "__dso_handle" (global 6))
   (export "__data_end" (global 7))
   (export "__global_base" (global 8))
@@ -182,7 +190,7 @@
     (;0:0;)    end
   )
 
-  (func "memcpy" (;8;) (type 5) (param (;0;) i32 (;1;) i32 (;2;) i32) (result i32)
+  (func "memcpy" (;8;) (type 4) (param (;0;) i32 (;1;) i32 (;2;) i32) (result i32)
     (local (;3;) i32)
     (local (;4;) i32)
     (local (;5;) i32)
@@ -945,7 +953,7 @@
     (;751:0;)  end
   )
 
-  (func "memset" (;9;) (type 5) (param (;0;) i32 (;1;) i32 (;2;) i32) (result i32)
+  (func "memset" (;9;) (type 4) (param (;0;) i32 (;1;) i32 (;2;) i32) (result i32)
     (local (;3;) i32)
     (local (;4;) i32)
     (local (;5;) i32)
@@ -1146,7 +1154,7 @@
     (;193:0;)  end
   )
 
-  (func "memmove" (;10;) (type 5) (param (;0;) i32 (;1;) i32 (;2;) i32) (result i32)
+  (func "memmove" (;10;) (type 4) (param (;0;) i32 (;1;) i32 (;2;) i32) (result i32)
     (local (;3;) i32)
     (local (;4;) i32)
     (local (;5;) i32)
@@ -1405,7 +1413,7 @@
     (;251:0;)  end
   )
 
-  (func "github.com/iotaledger/wart/wasp.GetInt" (;11;) (type 7) (param (;0;) i32 (;1;) i32) (result i64)
+  (func "github.com/iotaledger/wart/wasplib.GetInt" (;11;) (type 7) (param (;0;) i32 (;1;) i32) (result i64)
     (local (;2;) i32)
     (local (;3;) i64)
     (;0:1;)      global.get 0
@@ -1433,7 +1441,7 @@
     (;22:0;)   end
   )
 
-  (func "github.com/iotaledger/wart/wasp.GetString" (;12;) (type 1) (param (;0;) i32 (;1;) i32 (;2;) i32)
+  (func "github.com/iotaledger/wart/wasplib.GetString" (;12;) (type 1) (param (;0;) i32 (;1;) i32 (;2;) i32)
     (local (;3;) i32)
     (local (;4;) i32)
     (;0:1;)      global.get 0
@@ -1457,13 +1465,13 @@
     (;18:2;)     i32.const 5
     (;19:0;)     i32.store offset=36
     (;20:1;)     i32.const 0
-    (;21:1;)     i32.load offset=70832
+    (;21:1;)     i32.load offset=70816
     (;22:0;)     local.set 4
     (;23:1;)     i32.const 0
     (;24:2;)     local.get 3
     (;25:3;)     i32.const 40
     (;26:2;)     i32.add
-    (;27:0;)     i32.store offset=70832
+    (;27:0;)     i32.store offset=70816
     (;28:1;)     local.get 3
     (;29:2;)     local.get 4
     (;30:0;)     i32.store offset=40
@@ -1510,7 +1518,7 @@
     (;71:0;)     call 14  runtime.stringFromBytes
     (;72:1;)     i32.const 0
     (;73:2;)     local.get 4
-    (;74:0;)     i32.store offset=70832
+    (;74:0;)     i32.store offset=70816
     (;75:1;)     local.get 3
     (;76:2;)     local.get 3
     (;77:2;)     i32.load offset=8
@@ -1547,11 +1555,11 @@
     (;9:2;)      i64.const 2
     (;10:0;)     i64.store offset=4 align=2
     (;11:1;)     i32.const 0
-    (;12:1;)     i32.load offset=70832
+    (;12:1;)     i32.load offset=70816
     (;13:0;)     local.set 8
     (;14:1;)     i32.const 0
     (;15:2;)     local.get 7
-    (;16:0;)     i32.store offset=70832
+    (;16:0;)     i32.store offset=70816
     (;17:1;)     local.get 7
     (;18:2;)     local.get 8
     (;19:0;)     i32.store
@@ -1597,7 +1605,7 @@
     (;59:2;)         local.get 4
     (;60:3;)         local.get 6
     (;61:2;)         i32.mul
-    (;62:2;)         call 17  runtime.alloc
+    (;62:2;)         call 59  runtime.alloc
     (;63:2;)         local.tee 10
     (;64:0;)         i32.store
     (;65:1;)         local.get 3
@@ -1629,7 +1637,7 @@
     (;91:0;)       drop
     (;92:1;)       i32.const 0
     (;93:2;)       local.get 8
-    (;94:0;)       i32.store offset=70832
+    (;94:0;)       i32.store offset=70816
     (;95:1;)       local.get 0
     (;96:2;)       local.get 4
     (;97:0;)       i32.store offset=8
@@ -1647,7 +1655,7 @@
     (;109:0;)    end
     (;110:1;)    i32.const 0
     (;111:2;)    local.get 8
-    (;112:0;)    i32.store offset=70832
+    (;112:0;)    i32.store offset=70816
     (;113:1;)    local.get 0
     (;114:2;)    local.get 4
     (;115:0;)    i32.store offset=8
@@ -1689,13 +1697,13 @@
     (;18:2;)     i64.const 0
     (;19:0;)     i64.store offset=8
     (;20:1;)     i32.const 0
-    (;21:1;)     i32.load offset=70832
+    (;21:1;)     i32.load offset=70816
     (;22:0;)     local.set 5
     (;23:1;)     i32.const 0
     (;24:2;)     local.get 4
     (;25:3;)     i32.const 32
     (;26:2;)     i32.add
-    (;27:0;)     i32.store offset=70832
+    (;27:0;)     i32.store offset=70816
     (;28:1;)     local.get 4
     (;29:2;)     local.get 5
     (;30:0;)     i32.store offset=32
@@ -1706,7 +1714,7 @@
     (;35:0;)     i32.store offset=40
     (;36:1;)     local.get 4
     (;37:2;)     local.get 2
-    (;38:2;)     call 17  runtime.alloc
+    (;38:2;)     call 59  runtime.alloc
     (;39:2;)     local.tee 6
     (;40:0;)     i32.store offset=52
     (;41:1;)     local.get 4
@@ -1722,7 +1730,7 @@
     (;51:0;)     local.set 6
     (;52:1;)     i32.const 0
     (;53:2;)     local.get 5
-    (;54:0;)     i32.store offset=70832
+    (;54:0;)     i32.store offset=70816
     (;55:1;)     local.get 4
     (;56:2;)     i64.const 0
     (;57:0;)     i64.store offset=24
@@ -1744,11 +1752,11 @@
     (;73:0;)   end
   )
 
-  (func "github.com/iotaledger/wart/wasp.KeyLength" (;15;) (type 9) (result i32)
+  (func "github.com/iotaledger/wart/wasplib.KeyLength" (;15;) (type 9) (result i32)
     (local (;0;) i32)
     (;0:0;)      block
     (;1:1;)        i32.const 0
-    (;2:1;)        i32.load offset=70800
+    (;2:1;)        i32.load offset=70784
     (;3:1;)        local.tee 0
     (;4:0;)        br_if 0
     (;5:1;)        i32.const 0
@@ -1756,404 +1764,628 @@
     (;7:3;)        i32.const 6
     (;8:2;)        call 2  waspGo::hostGetKey
     (;9:2;)        local.tee 0
-    (;10:0;)       i32.store offset=70800
+    (;10:0;)       i32.store offset=70784
     (;11:0;)     end
     (;12:1;)     local.get 0
     (;13:0;)   end
   )
 
-  (func "github.com/iotaledger/wart/wasp.NewScContext" (;16;) (type 9) (result i32)
-    (local (;0;) i32)
+  (func "github.com/iotaledger/wart/wasplib.NewScContext" (;16;) (type 9) (result i32)
+    (;0:1;)      global.get 0
+    (;1:2;)      i32.const 16
+    (;2:1;)      i32.sub
+    (;3:2;)      i32.const 0
+    (;4:0;)      i32.store offset=8
+    (;5:1;)      i32.const 1
+    (;6:0;)    end
+  )
+
+  (func "(github.com/iotaledger/wart/wasplib.ScContext).Contract" (;17;) (type 10) (param (;0;) i32) (result i32)
     (local (;1;) i32)
-    (local (;2;) i32)
+    (;0:1;)      global.get 0
+    (;1:2;)      i32.const 16
+    (;2:1;)      i32.sub
+    (;3:1;)      local.tee 1
+    (;4:0;)      global.set 0
+    (;5:1;)      local.get 1
+    (;6:2;)      i32.const 0
+    (;7:0;)      i32.store offset=8
+    (;8:1;)      local.get 1
+    (;9:2;)      i32.const 0
+    (;10:0;)     i32.store
+    (;11:1;)     local.get 0
+    (;12:2;)     i32.const 65550
+    (;13:3;)     i32.const 8
+    (;14:1;)     call 18  (github.com/iotaledger/wart/wasplib.ScMutableMap).GetMap
+    (;15:1;)     call 19  (github.com/iotaledger/wart/wasplib.ScMutableMap).Immutable
+    (;16:0;)     local.set 0
+    (;17:1;)     local.get 1
+    (;18:2;)     i32.const 16
+    (;19:1;)     i32.add
+    (;20:0;)     global.set 0
+    (;21:1;)     local.get 0
+    (;22:0;)   end
+  )
+
+  (func "(github.com/iotaledger/wart/wasplib.ScMutableMap).GetMap" (;18;) (type 4) (param (;0;) i32 (;1;) i32 (;2;) i32) (result i32)
     (local (;3;) i32)
     (;0:1;)      global.get 0
     (;1:2;)      i32.const 16
     (;2:1;)      i32.sub
-    (;3:1;)      local.tee 0
+    (;3:1;)      local.tee 3
     (;4:0;)      global.set 0
-    (;5:1;)      local.get 0
+    (;5:1;)      local.get 3
     (;6:2;)      i32.const 0
-    (;7:0;)      i32.store offset=12
+    (;7:0;)      i32.store
     (;8:1;)      local.get 0
-    (;9:2;)      i64.const 2
-    (;10:0;)     i64.store offset=4 align=2
-    (;11:1;)     i32.const 0
-    (;12:1;)     i32.load offset=70832
-    (;13:0;)     local.set 1
-    (;14:1;)     i32.const 0
-    (;15:2;)     local.get 0
-    (;16:0;)     i32.store offset=70832
-    (;17:1;)     local.get 0
-    (;18:2;)     local.get 1
-    (;19:0;)     i32.store
-    (;20:1;)     local.get 0
-    (;21:2;)     i32.const 4
-    (;22:2;)     call 17  runtime.alloc
-    (;23:2;)     local.tee 2
-    (;24:0;)     i32.store offset=8
-    (;25:1;)     i32.const 4
-    (;26:1;)     call 17  runtime.alloc
-    (;27:1;)     local.tee 3
-    (;28:2;)     i32.const 1
-    (;29:0;)     i32.store
-    (;30:1;)     local.get 2
-    (;31:2;)     local.get 3
-    (;32:0;)     i32.store
-    (;33:1;)     i32.const 0
-    (;34:2;)     local.get 1
-    (;35:0;)     i32.store offset=70832
-    (;36:1;)     local.get 0
-    (;37:2;)     local.get 3
-    (;38:0;)     i32.store offset=12
-    (;39:1;)     local.get 0
-    (;40:2;)     i32.const 16
-    (;41:1;)     i32.add
-    (;42:0;)     global.set 0
-    (;43:1;)     local.get 2
-    (;44:0;)   end
+    (;9:2;)      local.get 1
+    (;10:3;)     local.get 2
+    (;11:2;)     call 2  waspGo::hostGetKey
+    (;12:3;)     i32.const 2
+    (;13:1;)     call 4  waspGo::hostGetObject
+    (;14:0;)     local.set 0
+    (;15:1;)     local.get 3
+    (;16:2;)     i32.const 0
+    (;17:0;)     i32.store offset=8
+    (;18:1;)     local.get 3
+    (;19:2;)     i32.const 16
+    (;20:1;)     i32.add
+    (;21:0;)     global.set 0
+    (;22:1;)     local.get 0
+    (;23:0;)   end
   )
 
-  (func "runtime.alloc" (;17;) (type 10) (param (;0;) i32) (result i32)
+  (func "(github.com/iotaledger/wart/wasplib.ScMutableMap).Immutable" (;19;) (type 10) (param (;0;) i32) (result i32)
     (local (;1;) i32)
+    (;0:1;)      global.get 0
+    (;1:2;)      i32.const 16
+    (;2:1;)      i32.sub
+    (;3:1;)      local.tee 1
+    (;4:2;)      i32.const 0
+    (;5:0;)      i32.store offset=8
+    (;6:1;)      local.get 1
+    (;7:2;)      i32.const 0
+    (;8:0;)      i32.store
+    (;9:1;)      local.get 0
+    (;10:0;)   end
+  )
+
+  (func "(github.com/iotaledger/wart/wasplib.ScContext).Event" (;20;) (type 10) (param (;0;) i32) (result i32)
+    (local (;1;) i32)
+    (;0:1;)      global.get 0
+    (;1:2;)      i32.const 16
+    (;2:1;)      i32.sub
+    (;3:1;)      local.tee 1
+    (;4:0;)      global.set 0
+    (;5:1;)      local.get 1
+    (;6:2;)      i32.const 0
+    (;7:0;)      i32.store offset=8
+    (;8:1;)      local.get 1
+    (;9:2;)      i32.const 0
+    (;10:0;)     i32.store
+    (;11:1;)     local.get 0
+    (;12:2;)     i32.const 65558
+    (;13:3;)     i32.const 6
+    (;14:1;)     call 21  (github.com/iotaledger/wart/wasplib.ScMutableMap).GetMapArray
+    (;15:2;)     i32.const 0
+    (;16:1;)     call 22  (github.com/iotaledger/wart/wasplib.ScMutableMapArray).GetMap
+    (;17:0;)     local.set 0
+    (;18:1;)     local.get 1
+    (;19:2;)     i32.const 16
+    (;20:1;)     i32.add
+    (;21:0;)     global.set 0
+    (;22:1;)     local.get 0
+    (;23:0;)   end
+  )
+
+  (func "(github.com/iotaledger/wart/wasplib.ScMutableMap).GetMapArray" (;21;) (type 4) (param (;0;) i32 (;1;) i32 (;2;) i32) (result i32)
+    (local (;3;) i32)
+    (;0:1;)      global.get 0
+    (;1:2;)      i32.const 16
+    (;2:1;)      i32.sub
+    (;3:1;)      local.tee 3
+    (;4:0;)      global.set 0
+    (;5:1;)      local.get 3
+    (;6:2;)      i32.const 0
+    (;7:0;)      i32.store
+    (;8:1;)      local.get 0
+    (;9:2;)      local.get 1
+    (;10:3;)     local.get 2
+    (;11:2;)     call 2  waspGo::hostGetKey
+    (;12:3;)     i32.const 3
+    (;13:1;)     call 4  waspGo::hostGetObject
+    (;14:0;)     local.set 0
+    (;15:1;)     local.get 3
+    (;16:2;)     i32.const 0
+    (;17:0;)     i32.store offset=8
+    (;18:1;)     local.get 3
+    (;19:2;)     i32.const 16
+    (;20:1;)     i32.add
+    (;21:0;)     global.set 0
+    (;22:1;)     local.get 0
+    (;23:0;)   end
+  )
+
+  (func "(github.com/iotaledger/wart/wasplib.ScMutableMapArray).GetMap" (;22;) (type 2) (param (;0;) i32 (;1;) i32) (result i32)
+    (local (;2;) i32)
+    (;0:1;)      global.get 0
+    (;1:2;)      i32.const 16
+    (;2:1;)      i32.sub
+    (;3:1;)      local.tee 2
+    (;4:0;)      global.set 0
+    (;5:1;)      local.get 2
+    (;6:2;)      i32.const 0
+    (;7:0;)      i32.store
+    (;8:1;)      local.get 0
+    (;9:2;)      local.get 1
+    (;10:3;)     i32.const 2
+    (;11:1;)     call 4  waspGo::hostGetObject
+    (;12:0;)     local.set 0
+    (;13:1;)     local.get 2
+    (;14:2;)     i32.const 0
+    (;15:0;)     i32.store offset=8
+    (;16:1;)     local.get 2
+    (;17:2;)     i32.const 16
+    (;18:1;)     i32.add
+    (;19:0;)     global.set 0
+    (;20:1;)     local.get 0
+    (;21:0;)   end
+  )
+
+  (func "(github.com/iotaledger/wart/wasplib.ScContext).Log" (;23;) (type 1) (param (;0;) i32 (;1;) i32 (;2;) i32)
+    (local (;3;) i32)
+    (;0:1;)      global.get 0
+    (;1:2;)      i32.const 16
+    (;2:1;)      i32.sub
+    (;3:1;)      local.tee 3
+    (;4:0;)      global.set 0
+    (;5:1;)      local.get 3
+    (;6:2;)      local.get 0
+    (;7:0;)      i32.store offset=8
+    (;8:0;)      block
+    (;9:1;)        i32.const 0
+    (;10:1;)       i32.load offset=70788
+    (;11:1;)       local.tee 0
+    (;12:0;)       br_if 0
+    (;13:1;)       i32.const 0
+    (;14:2;)       i32.const 65547
+    (;15:3;)       i32.const 3
+    (;16:2;)       call 2  waspGo::hostGetKey
+    (;17:2;)       local.tee 0
+    (;18:0;)       i32.store offset=70788
+    (;19:0;)     end
+    (;20:1;)     i32.const 1
+    (;21:2;)     local.get 0
+    (;22:3;)     local.get 1
+    (;23:4;)     local.get 2
+    (;24:0;)     call 3  waspGo::hostSetString
+    (;25:1;)     local.get 3
+    (;26:2;)     i32.const 16
+    (;27:1;)     i32.add
+    (;28:0;)     global.set 0
+    (;29:0;)   end
+  )
+
+  (func "(github.com/iotaledger/wart/wasplib.ScContext).Request" (;24;) (type 10) (param (;0;) i32) (result i32)
+    (local (;1;) i32)
+    (;0:1;)      global.get 0
+    (;1:2;)      i32.const 16
+    (;2:1;)      i32.sub
+    (;3:1;)      local.tee 1
+    (;4:0;)      global.set 0
+    (;5:1;)      local.get 1
+    (;6:2;)      i32.const 0
+    (;7:0;)      i32.store offset=8
+    (;8:1;)      local.get 1
+    (;9:2;)      i32.const 0
+    (;10:0;)     i32.store
+    (;11:1;)     local.get 0
+    (;12:2;)     i32.const 65570
+    (;13:3;)     i32.const 7
+    (;14:1;)     call 18  (github.com/iotaledger/wart/wasplib.ScMutableMap).GetMap
+    (;15:1;)     call 19  (github.com/iotaledger/wart/wasplib.ScMutableMap).Immutable
+    (;16:0;)     local.set 0
+    (;17:1;)     local.get 1
+    (;18:2;)     i32.const 16
+    (;19:1;)     i32.add
+    (;20:0;)     global.set 0
+    (;21:1;)     local.get 0
+    (;22:0;)   end
+  )
+
+  (func "(github.com/iotaledger/wart/wasplib.ScContext).State" (;25;) (type 10) (param (;0;) i32) (result i32)
+    (local (;1;) i32)
+    (;0:1;)      global.get 0
+    (;1:2;)      i32.const 16
+    (;2:1;)      i32.sub
+    (;3:1;)      local.tee 1
+    (;4:0;)      global.set 0
+    (;5:1;)      local.get 1
+    (;6:2;)      i32.const 0
+    (;7:0;)      i32.store offset=8
+    (;8:1;)      local.get 0
+    (;9:2;)      i32.const 65577
+    (;10:3;)     i32.const 5
+    (;11:1;)     call 18  (github.com/iotaledger/wart/wasplib.ScMutableMap).GetMap
+    (;12:0;)     local.set 0
+    (;13:1;)     local.get 1
+    (;14:2;)     i32.const 16
+    (;15:1;)     i32.add
+    (;16:0;)     global.set 0
+    (;17:1;)     local.get 0
+    (;18:0;)   end
+  )
+
+  (func "(github.com/iotaledger/wart/wasplib.ScContext).Transfer" (;26;) (type 2) (param (;0;) i32 (;1;) i32) (result i32)
+    (local (;2;) i32)
+    (;0:1;)      global.get 0
+    (;1:2;)      i32.const 16
+    (;2:1;)      i32.sub
+    (;3:1;)      local.tee 2
+    (;4:0;)      global.set 0
+    (;5:1;)      local.get 2
+    (;6:2;)      i32.const 0
+    (;7:0;)      i32.store offset=8
+    (;8:1;)      local.get 2
+    (;9:2;)      i32.const 0
+    (;10:0;)     i32.store
+    (;11:1;)     local.get 0
+    (;12:2;)     i32.const 65582
+    (;13:3;)     i32.const 9
+    (;14:1;)     call 21  (github.com/iotaledger/wart/wasplib.ScMutableMap).GetMapArray
+    (;15:2;)     local.get 1
+    (;16:1;)     call 22  (github.com/iotaledger/wart/wasplib.ScMutableMapArray).GetMap
+    (;17:0;)     local.set 1
+    (;18:1;)     local.get 2
+    (;19:2;)     i32.const 16
+    (;20:1;)     i32.add
+    (;21:0;)     global.set 0
+    (;22:1;)     local.get 1
+    (;23:0;)   end
+  )
+
+  (func "(github.com/iotaledger/wart/wasplib.ScContract).Address" (;27;) (type 11) (param (;0;) i32 (;1;) i32)
     (local (;2;) i32)
     (local (;3;) i32)
-    (local (;4;) i32)
-    (local (;5;) i32)
-    (local (;6;) i32)
-    (;0:0;)      block
-    (;1:1;)        local.get 0
-    (;2:1;)        i32.eqz
-    (;3:0;)        br_if 0
-    (;4:1;)        local.get 0
-    (;5:2;)        i32.const 15
-    (;6:1;)        i32.add
-    (;7:2;)        i32.const 4
-    (;8:1;)        i32.shr_u
-    (;9:0;)        local.set 1
-    (;10:1;)       i32.const 0
-    (;11:1;)       i32.load offset=70816
-    (;12:1;)       local.tee 2
-    (;13:0;)       local.set 3
-    (;14:1;)       i32.const 0
-    (;15:0;)       local.set 4
-    (;16:1;)       i32.const 0
-    (;17:0;)       local.set 5
-    (;18:0;)       loop
-    (;19:0;)         block
-    (;20:1;)           local.get 3
-    (;21:2;)           local.get 2
-    (;22:1;)           i32.ne
-    (;23:0;)           br_if 0
-    (;24:1;)           local.get 5
-    (;25:2;)           i32.const 255
-    (;26:1;)           i32.and
-    (;27:0;)           local.set 2
-    (;28:1;)           i32.const 1
-    (;29:0;)           local.set 5
-    (;30:0;)           block
-    (;31:1;)             local.get 2
-    (;32:2;)             i32.const 1
-    (;33:1;)             i32.gt_u
-    (;34:0;)             br_if 0
-    (;35:0;)             block
-    (;36:1;)               local.get 2
-    (;37:0;)               br_table 2 0 2
-    (;38:0;)             end
-    (;39:1;)             i32.const 0
-    (;40:1;)             i32.load offset=70832
-    (;41:0;)             local.set 5
-    (;42:0;)             block
-    (;43:0;)               loop
-    (;44:0;)                 block
-    (;45:1;)                   local.get 5
-    (;46:0;)                   br_if 0
-    (;47:1;)                   i32.const 0
-    (;48:0;)                   local.set 6
-    (;49:1;)                   i32.const 0
-    (;50:0;)                   local.set 2
-    (;51:0;)                   loop
-    (;52:1;)                     local.get 2
-    (;53:2;)                     i32.const 0
-    (;54:2;)                     i32.load offset=67584
-    (;55:1;)                     i32.ge_u
-    (;56:0;)                     br_if 3
-    (;57:0;)                     block
-    (;58:1;)                       local.get 2
-    (;59:2;)                       i32.const 3
-    (;60:1;)                       i32.shr_u
-    (;61:2;)                       i32.const 70796
-    (;62:1;)                       i32.add
-    (;63:1;)                       i32.load8_u
-    (;64:2;)                       local.get 2
-    (;65:3;)                       i32.const 7
-    (;66:2;)                       i32.and
-    (;67:1;)                       i32.shr_u
-    (;68:2;)                       i32.const 1
-    (;69:1;)                       i32.and
-    (;70:1;)                       i32.eqz
-    (;71:0;)                       br_if 0
-    (;72:1;)                       local.get 6
-    (;73:2;)                       i32.const 0
-    (;74:2;)                       i32.load offset=67588
-    (;75:1;)                       i32.add
-    (;76:1;)                       i32.load
-    (;77:0;)                       call 92  runtime.markRoot
-    (;78:0;)                     end
-    (;79:1;)                     local.get 6
-    (;80:2;)                     i32.const 4
-    (;81:1;)                     i32.add
-    (;82:0;)                     local.set 6
-    (;83:1;)                     local.get 2
-    (;84:2;)                     i32.const 1
-    (;85:1;)                     i32.add
-    (;86:0;)                     local.set 2
-    (;87:0;)                     br 0
-    (;88:0;)                   end
-    (;89:0;)                 end
-    (;90:1;)                 local.get 5
-    (;91:2;)                 i32.const 8
-    (;92:1;)                 i32.add
-    (;93:0;)                 local.set 6
-    (;94:1;)                 local.get 5
-    (;95:1;)                 i32.load offset=4
-    (;96:2;)                 i32.const 2
-    (;97:1;)                 i32.shl
-    (;98:0;)                 local.set 2
-    (;99:0;)                 block
-    (;100:0;)                  loop
-    (;101:1;)                    local.get 2
-    (;102:1;)                    i32.eqz
-    (;103:0;)                    br_if 1
-    (;104:1;)                    local.get 6
-    (;105:1;)                    i32.load
-    (;106:0;)                    call 92  runtime.markRoot
-    (;107:1;)                    local.get 2
-    (;108:2;)                    i32.const -4
-    (;109:1;)                    i32.add
-    (;110:0;)                    local.set 2
-    (;111:1;)                    local.get 6
-    (;112:2;)                    i32.const 4
-    (;113:1;)                    i32.add
-    (;114:0;)                    local.set 6
-    (;115:0;)                    br 0
-    (;116:0;)                  end
-    (;117:0;)                end
-    (;118:1;)                local.get 5
-    (;119:1;)                i32.load
-    (;120:0;)                local.set 5
-    (;121:0;)                br 0
-    (;122:0;)              end
-    (;123:0;)            end
-    (;124:0;)            loop
-    (;125:0;)              block
-    (;126:1;)                i32.const 0
-    (;127:1;)                i32.load8_u offset=70828
-    (;128:0;)                br_if 0
-    (;129:1;)                i32.const 0
-    (;130:0;)                local.set 5
-    (;131:1;)                i32.const 0
-    (;132:0;)                local.set 2
-    (;133:0;)                loop
-    (;134:0;)                  block
-    (;135:1;)                    local.get 2
-    (;136:2;)                    i32.const 0
-    (;137:2;)                    i32.load offset=70820
-    (;138:1;)                    i32.lt_u
-    (;139:0;)                    br_if 0
-    (;140:1;)                    i32.const 2
-    (;141:0;)                    local.set 5
-    (;142:0;)                    br 5
-    (;143:0;)                  end
-    (;144:0;)                  block
-    (;145:1;)                    local.get 2
-    (;146:1;)                    call 93  (runtime.gcBlock).state
-    (;147:2;)                    i32.const 255
-    (;148:1;)                    i32.and
-    (;149:2;)                    i32.const -1
-    (;150:1;)                    i32.add
-    (;151:1;)                    local.tee 6
-    (;152:2;)                    i32.const 2
-    (;153:1;)                    i32.gt_u
-    (;154:0;)                    br_if 0
-    (;155:0;)                    block
-    (;156:0;)                      block
-    (;157:0;)                        block
-    (;158:1;)                          local.get 6
-    (;159:0;)                          br_table 1 0 2 1
-    (;160:0;)                        end
-    (;161:1;)                        local.get 5
-    (;162:2;)                        i32.const 1
-    (;163:1;)                        i32.and
-    (;164:0;)                        local.set 6
-    (;165:1;)                        i32.const 0
-    (;166:0;)                        local.set 5
-    (;167:1;)                        local.get 6
-    (;168:1;)                        i32.eqz
-    (;169:0;)                        br_if 2
-    (;170:0;)                      end
-    (;171:1;)                      local.get 2
-    (;172:0;)                      call 94  (runtime.gcBlock).markFree
-    (;173:1;)                      i32.const 1
-    (;174:0;)                      local.set 5
-    (;175:0;)                      br 1
-    (;176:0;)                    end
-    (;177:1;)                    local.get 2
-    (;178:2;)                    i32.const 2
-    (;179:1;)                    i32.shr_u
-    (;180:2;)                    i32.const 70837
-    (;181:1;)                    i32.add
-    (;182:1;)                    local.tee 6
-    (;183:2;)                    local.get 6
-    (;184:2;)                    i32.load8_u
-    (;185:3;)                    i32.const 2
-    (;186:4;)                    local.get 2
-    (;187:5;)                    i32.const 1
-    (;188:4;)                    i32.shl
-    (;189:5;)                    i32.const 6
-    (;190:4;)                    i32.and
-    (;191:3;)                    i32.shl
-    (;192:4;)                    i32.const -1
-    (;193:3;)                    i32.xor
-    (;194:2;)                    i32.and
-    (;195:0;)                    i32.store8
-    (;196:1;)                    i32.const 0
-    (;197:0;)                    local.set 5
-    (;198:0;)                  end
-    (;199:1;)                  local.get 2
-    (;200:2;)                  i32.const 1
-    (;201:1;)                  i32.add
-    (;202:0;)                  local.set 2
-    (;203:0;)                  br 0
-    (;204:0;)                end
-    (;205:0;)              end
-    (;206:1;)              i32.const 0
-    (;207:0;)              local.set 2
-    (;208:1;)              i32.const 0
-    (;209:2;)              i32.const 0
-    (;210:0;)              i32.store8 offset=70828
-    (;211:0;)              loop
-    (;212:1;)                local.get 2
-    (;213:2;)                i32.const 0
-    (;214:2;)                i32.load offset=70820
-    (;215:1;)                i32.ge_u
-    (;216:0;)                br_if 1
-    (;217:0;)                block
-    (;218:1;)                  local.get 2
-    (;219:1;)                  call 93  (runtime.gcBlock).state
-    (;220:2;)                  i32.const 255
-    (;221:1;)                  i32.and
-    (;222:2;)                  i32.const 3
-    (;223:1;)                  i32.ne
-    (;224:0;)                  br_if 0
-    (;225:1;)                  local.get 2
-    (;226:0;)                  call 95  runtime.startMark
-    (;227:0;)                end
-    (;228:1;)                local.get 2
-    (;229:2;)                i32.const 1
-    (;230:1;)                i32.add
-    (;231:0;)                local.set 2
-    (;232:0;)                br 0
-    (;233:0;)              end
-    (;234:0;)            end
-    (;235:0;)          end
-    (;236:1;)          i32.const 67079
-    (;237:2;)          i32.const 13
-    (;238:0;)          call 96  runtime.runtimePanic
-    (;239:0;)          unreachable
-    (;240:0;)        end
-    (;241:0;)        block
-    (;242:0;)          block
-    (;243:1;)            i32.const 0
-    (;244:2;)            local.get 3
-    (;245:3;)            local.get 3
-    (;246:4;)            i32.const 0
-    (;247:4;)            i32.load offset=70820
-    (;248:3;)            i32.eq
-    (;249:3;)            local.tee 6
-    (;250:1;)            select
-    (;251:1;)            local.tee 2
-    (;252:1;)            call 93  (runtime.gcBlock).state
-    (;253:2;)            i32.const 255
-    (;254:1;)            i32.and
-    (;255:1;)            i32.eqz
-    (;256:0;)            br_if 0
-    (;257:1;)            local.get 2
-    (;258:2;)            i32.const 1
-    (;259:1;)            i32.add
-    (;260:0;)            local.set 3
-    (;261:1;)            i32.const 0
-    (;262:0;)            local.set 4
-    (;263:0;)            br 1
-    (;264:0;)          end
-    (;265:1;)          local.get 2
-    (;266:2;)          i32.const 1
-    (;267:1;)          i32.add
-    (;268:0;)          local.set 3
-    (;269:1;)          i32.const 1
-    (;270:2;)          local.get 4
-    (;271:3;)          i32.const 1
-    (;272:2;)          i32.add
-    (;273:3;)          local.get 6
-    (;274:1;)          select
-    (;275:1;)          local.tee 4
-    (;276:2;)          local.get 1
-    (;277:1;)          i32.ne
-    (;278:0;)          br_if 0
-    (;279:1;)          i32.const 0
-    (;280:2;)          local.get 3
-    (;281:0;)          i32.store offset=70816
-    (;282:1;)          local.get 3
-    (;283:2;)          local.get 1
-    (;284:1;)          i32.sub
-    (;285:1;)          local.tee 6
-    (;286:2;)          i32.const 1
-    (;287:0;)          call 97  (runtime.gcBlock).setState
-    (;288:1;)          local.get 2
-    (;289:2;)          local.get 1
-    (;290:1;)          i32.sub
-    (;291:2;)          i32.const 2
-    (;292:1;)          i32.add
-    (;293:0;)          local.set 2
-    (;294:0;)          block
-    (;295:0;)            loop
-    (;296:1;)              local.get 2
-    (;297:2;)              i32.const 0
-    (;298:2;)              i32.load offset=70816
-    (;299:1;)              i32.eq
-    (;300:0;)              br_if 1
-    (;301:1;)              local.get 2
-    (;302:2;)              i32.const 2
-    (;303:0;)              call 97  (runtime.gcBlock).setState
-    (;304:1;)              local.get 2
-    (;305:2;)              i32.const 1
-    (;306:1;)              i32.add
-    (;307:0;)              local.set 2
-    (;308:0;)              br 0
-    (;309:0;)            end
-    (;310:0;)          end
-    (;311:1;)          i32.const 0
-    (;312:1;)          i32.load offset=70824
-    (;313:2;)          local.get 6
-    (;314:3;)          i32.const 4
-    (;315:2;)          i32.shl
-    (;316:1;)          i32.add
-    (;317:2;)          i32.const 0
-    (;318:3;)          local.get 0
-    (;319:1;)          call 9  memset
-    (;320:1;)          return
-    (;321:0;)        end
-    (;322:1;)        i32.const 0
-    (;323:1;)        i32.load offset=70816
-    (;324:0;)        local.set 2
-    (;325:0;)        br 0
-    (;326:0;)      end
-    (;327:0;)    end
-    (;328:1;)    i32.const 70812
-    (;329:0;)  end
+    (;0:1;)      global.get 0
+    (;1:2;)      i32.const 48
+    (;2:1;)      i32.sub
+    (;3:1;)      local.tee 2
+    (;4:0;)      global.set 0
+    (;5:1;)      local.get 2
+    (;6:2;)      i32.const 0
+    (;7:0;)      i32.store offset=44
+    (;8:1;)      local.get 2
+    (;9:2;)      i32.const 2
+    (;10:0;)     i32.store offset=36
+    (;11:1;)     local.get 2
+    (;12:2;)     i32.const 0
+    (;13:0;)     i32.store offset=24
+    (;14:1;)     i32.const 0
+    (;15:1;)     i32.load offset=70816
+    (;16:0;)     local.set 3
+    (;17:1;)     i32.const 0
+    (;18:2;)     local.get 2
+    (;19:3;)     i32.const 32
+    (;20:2;)     i32.add
+    (;21:0;)     i32.store offset=70816
+    (;22:1;)     local.get 2
+    (;23:2;)     local.get 3
+    (;24:0;)     i32.store offset=32
+    (;25:1;)     local.get 2
+    (;26:2;)     local.get 2
+    (;27:3;)     i32.const 24
+    (;28:2;)     i32.add
+    (;29:0;)     i32.store offset=40
+    (;30:1;)     local.get 2
+    (;31:2;)     i32.const 16
+    (;32:1;)     i32.add
+    (;33:2;)     local.get 1
+    (;34:3;)     i32.const 65622
+    (;35:4;)     i32.const 7
+    (;36:0;)     call 28  (github.com/iotaledger/wart/wasplib.ScImmutableMap).GetString
+    (;37:1;)     local.get 2
+    (;38:2;)     i32.const 8
+    (;39:1;)     i32.add
+    (;40:2;)     local.get 2
+    (;41:2;)     i32.load offset=16
+    (;42:3;)     local.get 2
+    (;43:3;)     i32.load offset=20
+    (;44:0;)     call 29  (github.com/iotaledger/wart/wasplib.ScImmutableString).Value
+    (;45:1;)     i32.const 0
+    (;46:2;)     local.get 3
+    (;47:0;)     i32.store offset=70816
+    (;48:1;)     local.get 2
+    (;49:2;)     local.get 2
+    (;50:2;)     i32.load offset=8
+    (;51:2;)     local.tee 3
+    (;52:0;)     i32.store offset=44
+    (;53:1;)     local.get 0
+    (;54:2;)     local.get 2
+    (;55:2;)     i32.load offset=12
+    (;56:0;)     i32.store offset=4
+    (;57:1;)     local.get 0
+    (;58:2;)     local.get 3
+    (;59:0;)     i32.store
+    (;60:1;)     local.get 2
+    (;61:2;)     i32.const 48
+    (;62:1;)     i32.add
+    (;63:0;)     global.set 0
+    (;64:0;)   end
   )
 
-  (func "github.com/iotaledger/wart/wasp.SetInt" (;18;) (type 11) (param (;0;) i32 (;1;) i32 (;2;) i64)
+  (func "(github.com/iotaledger/wart/wasplib.ScImmutableMap).GetString" (;28;) (type 3) (param (;0;) i32 (;1;) i32 (;2;) i32 (;3;) i32)
+    (local (;4;) i32)
+    (;0:1;)      global.get 0
+    (;1:2;)      i32.const 16
+    (;2:1;)      i32.sub
+    (;3:1;)      local.tee 4
+    (;4:0;)      global.set 0
+    (;5:1;)      local.get 4
+    (;6:2;)      i64.const 0
+    (;7:0;)      i64.store offset=8
+    (;8:1;)      local.get 4
+    (;9:2;)      i32.const 0
+    (;10:0;)     i32.store
+    (;11:1;)     local.get 0
+    (;12:2;)     local.get 2
+    (;13:3;)     local.get 3
+    (;14:2;)     call 2  waspGo::hostGetKey
+    (;15:0;)     i32.store offset=4
+    (;16:1;)     local.get 0
+    (;17:2;)     local.get 1
+    (;18:0;)     i32.store
+    (;19:1;)     local.get 4
+    (;20:2;)     i32.const 16
+    (;21:1;)     i32.add
+    (;22:0;)     global.set 0
+    (;23:0;)   end
+  )
+
+  (func "(github.com/iotaledger/wart/wasplib.ScImmutableString).Value" (;29;) (type 1) (param (;0;) i32 (;1;) i32 (;2;) i32)
+    (local (;3;) i32)
+    (local (;4;) i32)
+    (;0:1;)      global.get 0
+    (;1:2;)      i32.const 32
+    (;2:1;)      i32.sub
+    (;3:1;)      local.tee 3
+    (;4:0;)      global.set 0
+    (;5:1;)      local.get 3
+    (;6:2;)      i32.const 0
+    (;7:0;)      i32.store offset=28
+    (;8:1;)      local.get 3
+    (;9:2;)      i32.const 2
+    (;10:0;)     i32.store offset=20
+    (;11:1;)     local.get 3
+    (;12:2;)     i64.const 0
+    (;13:0;)     i64.store offset=8
+    (;14:1;)     i32.const 0
+    (;15:1;)     i32.load offset=70816
+    (;16:0;)     local.set 4
+    (;17:1;)     i32.const 0
+    (;18:2;)     local.get 3
+    (;19:3;)     i32.const 16
+    (;20:2;)     i32.add
+    (;21:0;)     i32.store offset=70816
+    (;22:1;)     local.get 3
+    (;23:2;)     local.get 4
+    (;24:0;)     i32.store offset=16
+    (;25:1;)     local.get 3
+    (;26:2;)     local.get 3
+    (;27:3;)     i32.const 8
+    (;28:2;)     i32.add
+    (;29:0;)     i32.store offset=24
+    (;30:1;)     local.get 3
+    (;31:2;)     local.get 1
+    (;32:3;)     local.get 2
+    (;33:0;)     call 12  github.com/iotaledger/wart/wasplib.GetString
+    (;34:1;)     i32.const 0
+    (;35:2;)     local.get 4
+    (;36:0;)     i32.store offset=70816
+    (;37:1;)     local.get 3
+    (;38:2;)     local.get 3
+    (;39:2;)     i32.load
+    (;40:2;)     local.tee 4
+    (;41:0;)     i32.store offset=28
+    (;42:1;)     local.get 0
+    (;43:2;)     local.get 3
+    (;44:2;)     i32.load offset=4
+    (;45:0;)     i32.store offset=4
+    (;46:1;)     local.get 0
+    (;47:2;)     local.get 4
+    (;48:0;)     i32.store
+    (;49:1;)     local.get 3
+    (;50:2;)     i32.const 32
+    (;51:1;)     i32.add
+    (;52:0;)     global.set 0
+    (;53:0;)   end
+  )
+
+  (func "(github.com/iotaledger/wart/wasplib.ScEvent).Code" (;30;) (type 12) (param (;0;) i32 (;1;) i64)
+    (local (;2;) i32)
+    (;0:1;)      global.get 0
+    (;1:2;)      i32.const 16
+    (;2:1;)      i32.sub
+    (;3:1;)      local.tee 2
+    (;4:0;)      global.set 0
+    (;5:1;)      local.get 2
+    (;6:2;)      i32.const 0
+    (;7:0;)      i32.store offset=8
+    (;8:1;)      local.get 2
+    (;9:2;)      local.get 0
+    (;10:3;)     i32.const 65596
+    (;11:4;)     i32.const 4
+    (;12:0;)     call 31  (github.com/iotaledger/wart/wasplib.ScMutableMap).GetInt
+    (;13:1;)     local.get 2
+    (;14:1;)     i32.load
+    (;15:2;)     local.get 2
+    (;16:2;)     i32.load offset=4
+    (;17:3;)     local.get 1
+    (;18:0;)     call 32  (github.com/iotaledger/wart/wasplib.ScMutableInt).SetValue
+    (;19:1;)     local.get 2
+    (;20:2;)     i32.const 16
+    (;21:1;)     i32.add
+    (;22:0;)     global.set 0
+    (;23:0;)   end
+  )
+
+  (func "(github.com/iotaledger/wart/wasplib.ScMutableMap).GetInt" (;31;) (type 3) (param (;0;) i32 (;1;) i32 (;2;) i32 (;3;) i32)
+    (local (;4;) i32)
+    (;0:1;)      global.get 0
+    (;1:2;)      i32.const 16
+    (;2:1;)      i32.sub
+    (;3:1;)      local.tee 4
+    (;4:0;)      global.set 0
+    (;5:1;)      local.get 4
+    (;6:2;)      i64.const 0
+    (;7:0;)      i64.store offset=8
+    (;8:1;)      local.get 4
+    (;9:2;)      i32.const 0
+    (;10:0;)     i32.store
+    (;11:1;)     local.get 0
+    (;12:2;)     local.get 2
+    (;13:3;)     local.get 3
+    (;14:2;)     call 2  waspGo::hostGetKey
+    (;15:0;)     i32.store offset=4
+    (;16:1;)     local.get 0
+    (;17:2;)     local.get 1
+    (;18:0;)     i32.store
+    (;19:1;)     local.get 4
+    (;20:2;)     i32.const 16
+    (;21:1;)     i32.add
+    (;22:0;)     global.set 0
+    (;23:0;)   end
+  )
+
+  (func "(github.com/iotaledger/wart/wasplib.ScMutableInt).SetValue" (;32;) (type 13) (param (;0;) i32 (;1;) i32 (;2;) i64)
+    (local (;3;) i32)
+    (;0:1;)      global.get 0
+    (;1:2;)      i32.const 16
+    (;2:1;)      i32.sub
+    (;3:1;)      local.tee 3
+    (;4:0;)      global.set 0
+    (;5:1;)      local.get 3
+    (;6:2;)      i64.const 0
+    (;7:0;)      i64.store offset=8
+    (;8:1;)      local.get 0
+    (;9:2;)      local.get 1
+    (;10:3;)     local.get 2
+    (;11:0;)     call 37  github.com/iotaledger/wart/wasplib.SetInt
+    (;12:1;)     local.get 3
+    (;13:2;)     i32.const 16
+    (;14:1;)     i32.add
+    (;15:0;)     global.set 0
+    (;16:0;)   end
+  )
+
+  (func "(github.com/iotaledger/wart/wasplib.ScEvent).Delay" (;33;) (type 12) (param (;0;) i32 (;1;) i64)
+    (local (;2;) i32)
+    (;0:1;)      global.get 0
+    (;1:2;)      i32.const 16
+    (;2:1;)      i32.sub
+    (;3:1;)      local.tee 2
+    (;4:0;)      global.set 0
+    (;5:1;)      local.get 2
+    (;6:2;)      i32.const 0
+    (;7:0;)      i32.store offset=8
+    (;8:1;)      local.get 2
+    (;9:2;)      local.get 0
+    (;10:3;)     i32.const 65600
+    (;11:4;)     i32.const 5
+    (;12:0;)     call 31  (github.com/iotaledger/wart/wasplib.ScMutableMap).GetInt
+    (;13:1;)     local.get 2
+    (;14:1;)     i32.load
+    (;15:2;)     local.get 2
+    (;16:2;)     i32.load offset=4
+    (;17:3;)     local.get 1
+    (;18:0;)     call 32  (github.com/iotaledger/wart/wasplib.ScMutableInt).SetValue
+    (;19:1;)     local.get 2
+    (;20:2;)     i32.const 16
+    (;21:1;)     i32.add
+    (;22:0;)     global.set 0
+    (;23:0;)   end
+  )
+
+  (func "(github.com/iotaledger/wart/wasplib.ScImmutableInt).Value" (;34;) (type 7) (param (;0;) i32 (;1;) i32) (result i64)
+    (local (;2;) i32)
+    (local (;3;) i64)
+    (;0:1;)      global.get 0
+    (;1:2;)      i32.const 16
+    (;2:1;)      i32.sub
+    (;3:1;)      local.tee 2
+    (;4:0;)      global.set 0
+    (;5:1;)      local.get 2
+    (;6:2;)      i64.const 0
+    (;7:0;)      i64.store offset=8
+    (;8:1;)      local.get 0
+    (;9:2;)      local.get 1
+    (;10:1;)     call 11  github.com/iotaledger/wart/wasplib.GetInt
+    (;11:0;)     local.set 3
+    (;12:1;)     local.get 2
+    (;13:2;)     i32.const 16
+    (;14:1;)     i32.add
+    (;15:0;)     global.set 0
+    (;16:1;)     local.get 3
+    (;17:0;)   end
+  )
+
+  (func "(github.com/iotaledger/wart/wasplib.ScImmutableMap).GetInt" (;35;) (type 3) (param (;0;) i32 (;1;) i32 (;2;) i32 (;3;) i32)
+    (local (;4;) i32)
+    (;0:1;)      global.get 0
+    (;1:2;)      i32.const 16
+    (;2:1;)      i32.sub
+    (;3:1;)      local.tee 4
+    (;4:0;)      global.set 0
+    (;5:1;)      local.get 4
+    (;6:2;)      i64.const 0
+    (;7:0;)      i64.store offset=8
+    (;8:1;)      local.get 4
+    (;9:2;)      i32.const 0
+    (;10:0;)     i32.store
+    (;11:1;)     local.get 0
+    (;12:2;)     local.get 2
+    (;13:3;)     local.get 3
+    (;14:2;)     call 2  waspGo::hostGetKey
+    (;15:0;)     i32.store offset=4
+    (;16:1;)     local.get 0
+    (;17:2;)     local.get 1
+    (;18:0;)     i32.store
+    (;19:1;)     local.get 4
+    (;20:2;)     i32.const 16
+    (;21:1;)     i32.add
+    (;22:0;)     global.set 0
+    (;23:0;)   end
+  )
+
+  (func "(github.com/iotaledger/wart/wasplib.ScImmutableMap).GetMap" (;36;) (type 4) (param (;0;) i32 (;1;) i32 (;2;) i32) (result i32)
+    (local (;3;) i32)
+    (;0:1;)      global.get 0
+    (;1:2;)      i32.const 16
+    (;2:1;)      i32.sub
+    (;3:1;)      local.tee 3
+    (;4:0;)      global.set 0
+    (;5:1;)      local.get 3
+    (;6:2;)      i32.const 0
+    (;7:0;)      i32.store
+    (;8:1;)      local.get 0
+    (;9:2;)      local.get 1
+    (;10:3;)     local.get 2
+    (;11:2;)     call 2  waspGo::hostGetKey
+    (;12:3;)     i32.const 2
+    (;13:1;)     call 4  waspGo::hostGetObject
+    (;14:0;)     local.set 0
+    (;15:1;)     local.get 3
+    (;16:2;)     i32.const 0
+    (;17:0;)     i32.store offset=8
+    (;18:1;)     local.get 3
+    (;19:2;)     i32.const 16
+    (;20:1;)     i32.add
+    (;21:0;)     global.set 0
+    (;22:1;)     local.get 0
+    (;23:0;)   end
+  )
+
+  (func "github.com/iotaledger/wart/wasplib.SetInt" (;37;) (type 13) (param (;0;) i32 (;1;) i32 (;2;) i64)
     (local (;3;) i32)
     (;0:1;)      global.get 0
     (;1:2;)      i32.const 16
@@ -2168,7 +2400,7 @@
     (;10:3;)     local.get 3
     (;11:4;)     i32.const 8
     (;12:3;)     i32.add
-    (;13:0;)     call 3  waspGo::hostSetInt
+    (;13:0;)     call 5  waspGo::hostSetInt
     (;14:1;)     local.get 3
     (;15:2;)     i32.const 16
     (;16:1;)     i32.add
@@ -2176,7 +2408,355 @@
     (;18:0;)   end
   )
 
-  (func "(reflect.Type).Align" (;19;) (type 10) (param (;0;) i32) (result i32)
+  (func "(github.com/iotaledger/wart/wasplib.ScMutableInt).Value" (;38;) (type 7) (param (;0;) i32 (;1;) i32) (result i64)
+    (local (;2;) i32)
+    (local (;3;) i64)
+    (;0:1;)      global.get 0
+    (;1:2;)      i32.const 16
+    (;2:1;)      i32.sub
+    (;3:1;)      local.tee 2
+    (;4:0;)      global.set 0
+    (;5:1;)      local.get 2
+    (;6:2;)      i64.const 0
+    (;7:0;)      i64.store offset=8
+    (;8:1;)      local.get 0
+    (;9:2;)      local.get 1
+    (;10:1;)     call 11  github.com/iotaledger/wart/wasplib.GetInt
+    (;11:0;)     local.set 3
+    (;12:1;)     local.get 2
+    (;13:2;)     i32.const 16
+    (;14:1;)     i32.add
+    (;15:0;)     global.set 0
+    (;16:1;)     local.get 3
+    (;17:0;)   end
+  )
+
+  (func "(github.com/iotaledger/wart/wasplib.ScMutableMap).GetStringArray" (;39;) (type 4) (param (;0;) i32 (;1;) i32 (;2;) i32) (result i32)
+    (local (;3;) i32)
+    (;0:1;)      global.get 0
+    (;1:2;)      i32.const 16
+    (;2:1;)      i32.sub
+    (;3:1;)      local.tee 3
+    (;4:0;)      global.set 0
+    (;5:1;)      local.get 3
+    (;6:2;)      i32.const 0
+    (;7:0;)      i32.store
+    (;8:1;)      local.get 0
+    (;9:2;)      local.get 1
+    (;10:3;)     local.get 2
+    (;11:2;)     call 2  waspGo::hostGetKey
+    (;12:3;)     i32.const 5
+    (;13:1;)     call 4  waspGo::hostGetObject
+    (;14:0;)     local.set 0
+    (;15:1;)     local.get 3
+    (;16:2;)     i32.const 0
+    (;17:0;)     i32.store offset=8
+    (;18:1;)     local.get 3
+    (;19:2;)     i32.const 16
+    (;20:1;)     i32.add
+    (;21:0;)     global.set 0
+    (;22:1;)     local.get 0
+    (;23:0;)   end
+  )
+
+  (func "(github.com/iotaledger/wart/wasplib.ScMutableString).SetValue" (;40;) (type 3) (param (;0;) i32 (;1;) i32 (;2;) i32 (;3;) i32)
+    (local (;4;) i32)
+    (;0:1;)      global.get 0
+    (;1:2;)      i32.const 16
+    (;2:1;)      i32.sub
+    (;3:1;)      local.tee 4
+    (;4:0;)      global.set 0
+    (;5:1;)      local.get 4
+    (;6:2;)      i64.const 0
+    (;7:0;)      i64.store offset=8
+    (;8:1;)      local.get 0
+    (;9:2;)      local.get 1
+    (;10:3;)     local.get 2
+    (;11:4;)     local.get 3
+    (;12:0;)     call 3  waspGo::hostSetString
+    (;13:1;)     local.get 4
+    (;14:2;)     i32.const 16
+    (;15:1;)     i32.add
+    (;16:0;)     global.set 0
+    (;17:0;)   end
+  )
+
+  (func "(github.com/iotaledger/wart/wasplib.ScMutableString).Value" (;41;) (type 1) (param (;0;) i32 (;1;) i32 (;2;) i32)
+    (local (;3;) i32)
+    (local (;4;) i32)
+    (;0:1;)      global.get 0
+    (;1:2;)      i32.const 32
+    (;2:1;)      i32.sub
+    (;3:1;)      local.tee 3
+    (;4:0;)      global.set 0
+    (;5:1;)      local.get 3
+    (;6:2;)      i32.const 0
+    (;7:0;)      i32.store offset=28
+    (;8:1;)      local.get 3
+    (;9:2;)      i32.const 2
+    (;10:0;)     i32.store offset=20
+    (;11:1;)     local.get 3
+    (;12:2;)     i64.const 0
+    (;13:0;)     i64.store offset=8
+    (;14:1;)     i32.const 0
+    (;15:1;)     i32.load offset=70816
+    (;16:0;)     local.set 4
+    (;17:1;)     i32.const 0
+    (;18:2;)     local.get 3
+    (;19:3;)     i32.const 16
+    (;20:2;)     i32.add
+    (;21:0;)     i32.store offset=70816
+    (;22:1;)     local.get 3
+    (;23:2;)     local.get 4
+    (;24:0;)     i32.store offset=16
+    (;25:1;)     local.get 3
+    (;26:2;)     local.get 3
+    (;27:3;)     i32.const 8
+    (;28:2;)     i32.add
+    (;29:0;)     i32.store offset=24
+    (;30:1;)     local.get 3
+    (;31:2;)     local.get 1
+    (;32:3;)     local.get 2
+    (;33:0;)     call 12  github.com/iotaledger/wart/wasplib.GetString
+    (;34:1;)     i32.const 0
+    (;35:2;)     local.get 4
+    (;36:0;)     i32.store offset=70816
+    (;37:1;)     local.get 3
+    (;38:2;)     local.get 3
+    (;39:2;)     i32.load
+    (;40:2;)     local.tee 4
+    (;41:0;)     i32.store offset=28
+    (;42:1;)     local.get 0
+    (;43:2;)     local.get 3
+    (;44:2;)     i32.load offset=4
+    (;45:0;)     i32.store offset=4
+    (;46:1;)     local.get 0
+    (;47:2;)     local.get 4
+    (;48:0;)     i32.store
+    (;49:1;)     local.get 3
+    (;50:2;)     i32.const 32
+    (;51:1;)     i32.add
+    (;52:0;)     global.set 0
+    (;53:0;)   end
+  )
+
+  (func "(github.com/iotaledger/wart/wasplib.ScMutableStringArray).Clear" (;42;) (type 0) (param (;0;) i32)
+    (local (;1;) i32)
+    (;0:1;)      global.get 0
+    (;1:2;)      i32.const 16
+    (;2:1;)      i32.sub
+    (;3:1;)      local.tee 1
+    (;4:0;)      global.set 0
+    (;5:1;)      local.get 1
+    (;6:2;)      i32.const 0
+    (;7:0;)      i32.store offset=8
+    (;8:1;)      local.get 0
+    (;9:2;)      call 15  github.com/iotaledger/wart/wasplib.KeyLength
+    (;10:3;)     i64.const 0
+    (;11:0;)     call 37  github.com/iotaledger/wart/wasplib.SetInt
+    (;12:1;)     local.get 1
+    (;13:2;)     i32.const 16
+    (;14:1;)     i32.add
+    (;15:0;)     global.set 0
+    (;16:0;)   end
+  )
+
+  (func "(github.com/iotaledger/wart/wasplib.ScMutableStringArray).GetString" (;43;) (type 1) (param (;0;) i32 (;1;) i32 (;2;) i32)
+    (local (;3;) i32)
+    (;0:1;)      global.get 0
+    (;1:2;)      i32.const 16
+    (;2:1;)      i32.sub
+    (;3:1;)      local.tee 3
+    (;4:2;)      i64.const 0
+    (;5:0;)      i64.store offset=8
+    (;6:1;)      local.get 3
+    (;7:2;)      i32.const 0
+    (;8:0;)      i32.store
+    (;9:1;)      local.get 0
+    (;10:2;)     local.get 2
+    (;11:0;)     i32.store offset=4
+    (;12:1;)     local.get 0
+    (;13:2;)     local.get 1
+    (;14:0;)     i32.store
+    (;15:0;)   end
+  )
+
+  (func "(github.com/iotaledger/wart/wasplib.ScMutableStringArray).Length" (;44;) (type 10) (param (;0;) i32) (result i32)
+    (local (;1;) i32)
+    (local (;2;) i64)
+    (;0:1;)      global.get 0
+    (;1:2;)      i32.const 16
+    (;2:1;)      i32.sub
+    (;3:1;)      local.tee 1
+    (;4:0;)      global.set 0
+    (;5:1;)      local.get 1
+    (;6:2;)      i32.const 0
+    (;7:0;)      i32.store offset=8
+    (;8:1;)      local.get 0
+    (;9:2;)      call 15  github.com/iotaledger/wart/wasplib.KeyLength
+    (;10:1;)     call 11  github.com/iotaledger/wart/wasplib.GetInt
+    (;11:0;)     local.set 2
+    (;12:1;)     local.get 1
+    (;13:2;)     i32.const 16
+    (;14:1;)     i32.add
+    (;15:0;)     global.set 0
+    (;16:1;)     local.get 2
+    (;17:1;)     i32.wrap_i64
+    (;18:0;)   end
+  )
+
+  (func "(github.com/iotaledger/wart/wasplib.ScRequest).Address" (;45;) (type 11) (param (;0;) i32 (;1;) i32)
+    (local (;2;) i32)
+    (local (;3;) i32)
+    (;0:1;)      global.get 0
+    (;1:2;)      i32.const 48
+    (;2:1;)      i32.sub
+    (;3:1;)      local.tee 2
+    (;4:0;)      global.set 0
+    (;5:1;)      local.get 2
+    (;6:2;)      i32.const 0
+    (;7:0;)      i32.store offset=44
+    (;8:1;)      local.get 2
+    (;9:2;)      i32.const 2
+    (;10:0;)     i32.store offset=36
+    (;11:1;)     local.get 2
+    (;12:2;)     i32.const 0
+    (;13:0;)     i32.store offset=24
+    (;14:1;)     i32.const 0
+    (;15:1;)     i32.load offset=70816
+    (;16:0;)     local.set 3
+    (;17:1;)     i32.const 0
+    (;18:2;)     local.get 2
+    (;19:3;)     i32.const 32
+    (;20:2;)     i32.add
+    (;21:0;)     i32.store offset=70816
+    (;22:1;)     local.get 2
+    (;23:2;)     local.get 3
+    (;24:0;)     i32.store offset=32
+    (;25:1;)     local.get 2
+    (;26:2;)     local.get 2
+    (;27:3;)     i32.const 24
+    (;28:2;)     i32.add
+    (;29:0;)     i32.store offset=40
+    (;30:1;)     local.get 2
+    (;31:2;)     i32.const 16
+    (;32:1;)     i32.add
+    (;33:2;)     local.get 1
+    (;34:3;)     i32.const 65622
+    (;35:4;)     i32.const 7
+    (;36:0;)     call 28  (github.com/iotaledger/wart/wasplib.ScImmutableMap).GetString
+    (;37:1;)     local.get 2
+    (;38:2;)     i32.const 8
+    (;39:1;)     i32.add
+    (;40:2;)     local.get 2
+    (;41:2;)     i32.load offset=16
+    (;42:3;)     local.get 2
+    (;43:3;)     i32.load offset=20
+    (;44:0;)     call 29  (github.com/iotaledger/wart/wasplib.ScImmutableString).Value
+    (;45:1;)     i32.const 0
+    (;46:2;)     local.get 3
+    (;47:0;)     i32.store offset=70816
+    (;48:1;)     local.get 2
+    (;49:2;)     local.get 2
+    (;50:2;)     i32.load offset=8
+    (;51:2;)     local.tee 3
+    (;52:0;)     i32.store offset=44
+    (;53:1;)     local.get 0
+    (;54:2;)     local.get 2
+    (;55:2;)     i32.load offset=12
+    (;56:0;)     i32.store offset=4
+    (;57:1;)     local.get 0
+    (;58:2;)     local.get 3
+    (;59:0;)     i32.store
+    (;60:1;)     local.get 2
+    (;61:2;)     i32.const 48
+    (;62:1;)     i32.add
+    (;63:0;)     global.set 0
+    (;64:0;)   end
+  )
+
+  (func "(github.com/iotaledger/wart/wasplib.ScRequest).Params" (;46;) (type 10) (param (;0;) i32) (result i32)
+    (local (;1;) i32)
+    (;0:1;)      global.get 0
+    (;1:2;)      i32.const 16
+    (;2:1;)      i32.sub
+    (;3:1;)      local.tee 1
+    (;4:0;)      global.set 0
+    (;5:1;)      local.get 1
+    (;6:2;)      i32.const 0
+    (;7:0;)      i32.store offset=8
+    (;8:1;)      local.get 0
+    (;9:2;)      i32.const 65616
+    (;10:3;)     i32.const 6
+    (;11:1;)     call 36  (github.com/iotaledger/wart/wasplib.ScImmutableMap).GetMap
+    (;12:0;)     local.set 0
+    (;13:1;)     local.get 1
+    (;14:2;)     i32.const 16
+    (;15:1;)     i32.add
+    (;16:0;)     global.set 0
+    (;17:1;)     local.get 0
+    (;18:0;)   end
+  )
+
+  (func "(github.com/iotaledger/wart/wasplib.ScTransfer).Address" (;47;) (type 1) (param (;0;) i32 (;1;) i32 (;2;) i32)
+    (local (;3;) i32)
+    (;0:1;)      global.get 0
+    (;1:2;)      i32.const 32
+    (;2:1;)      i32.sub
+    (;3:1;)      local.tee 3
+    (;4:0;)      global.set 0
+    (;5:1;)      local.get 3
+    (;6:2;)      i32.const 0
+    (;7:0;)      i32.store offset=8
+    (;8:1;)      local.get 3
+    (;9:2;)      i64.const 0
+    (;10:0;)     i64.store offset=24
+    (;11:1;)     local.get 3
+    (;12:2;)     i32.const 0
+    (;13:0;)     i32.store offset=16
+    (;14:1;)     local.get 0
+    (;15:2;)     i32.const 65622
+    (;16:3;)     i32.const 7
+    (;17:2;)     call 2  waspGo::hostGetKey
+    (;18:3;)     local.get 1
+    (;19:4;)     local.get 2
+    (;20:0;)     call 40  (github.com/iotaledger/wart/wasplib.ScMutableString).SetValue
+    (;21:1;)     local.get 3
+    (;22:2;)     i32.const 32
+    (;23:1;)     i32.add
+    (;24:0;)     global.set 0
+    (;25:0;)   end
+  )
+
+  (func "(github.com/iotaledger/wart/wasplib.ScTransfer).Amount" (;48;) (type 12) (param (;0;) i32 (;1;) i64)
+    (local (;2;) i32)
+    (;0:1;)      global.get 0
+    (;1:2;)      i32.const 16
+    (;2:1;)      i32.sub
+    (;3:1;)      local.tee 2
+    (;4:0;)      global.set 0
+    (;5:1;)      local.get 2
+    (;6:2;)      i32.const 0
+    (;7:0;)      i32.store offset=8
+    (;8:1;)      local.get 2
+    (;9:2;)      local.get 0
+    (;10:3;)     i32.const 65629
+    (;11:4;)     i32.const 6
+    (;12:0;)     call 31  (github.com/iotaledger/wart/wasplib.ScMutableMap).GetInt
+    (;13:1;)     local.get 2
+    (;14:1;)     i32.load
+    (;15:2;)     local.get 2
+    (;16:2;)     i32.load offset=4
+    (;17:3;)     local.get 1
+    (;18:0;)     call 32  (github.com/iotaledger/wart/wasplib.ScMutableInt).SetValue
+    (;19:1;)     local.get 2
+    (;20:2;)     i32.const 16
+    (;21:1;)     i32.add
+    (;22:0;)     global.set 0
+    (;23:0;)   end
+  )
+
+  (func "(reflect.Type).Align" (;49;) (type 10) (param (;0;) i32) (result i32)
     (local (;1;) i32)
     (local (;2;) i32)
     (local (;3;) i32)
@@ -2198,13 +2778,13 @@
     (;9:2;)      i64.const 3
     (;10:0;)     i64.store offset=44 align=2
     (;11:1;)     i32.const 0
-    (;12:1;)     i32.load offset=70832
+    (;12:1;)     i32.load offset=70816
     (;13:0;)     local.set 2
     (;14:1;)     i32.const 0
     (;15:2;)     local.get 1
     (;16:3;)     i32.const 40
     (;17:2;)     i32.add
-    (;18:0;)     i32.store offset=70832
+    (;18:0;)     i32.store offset=70816
     (;19:1;)     local.get 1
     (;20:2;)     local.get 2
     (;21:0;)     i32.store offset=40
@@ -2212,7 +2792,7 @@
     (;23:0;)       block
     (;24:0;)         loop
     (;25:1;)           local.get 0
-    (;26:1;)           call 20  (reflect.Type).Kind
+    (;26:1;)           call 50  (reflect.Type).Kind
     (;27:2;)           i32.const -1
     (;28:1;)           i32.add
     (;29:1;)           local.tee 3
@@ -2237,7 +2817,7 @@
     (;48:0;)               br 4
     (;49:0;)             end
     (;50:1;)             local.get 0
-    (;51:1;)             call 21  (reflect.Type).NumField
+    (;51:1;)             call 51  (reflect.Type).NumField
     (;52:0;)             local.set 5
     (;53:1;)             i32.const 0
     (;54:0;)             local.set 3
@@ -2263,7 +2843,7 @@
     (;74:1;)               local.get 1
     (;75:2;)               local.get 0
     (;76:3;)               local.get 3
-    (;77:0;)               call 22  (reflect.Type).Field
+    (;77:0;)               call 52  (reflect.Type).Field
     (;78:1;)               local.get 6
     (;79:2;)               local.get 1
     (;80:2;)               i32.load offset=20
@@ -2278,7 +2858,7 @@
     (;89:0;)               i32.store
     (;90:1;)               local.get 1
     (;91:1;)               i32.load offset=16
-    (;92:1;)               call 19  (reflect.Type).Align
+    (;92:1;)               call 49  (reflect.Type).Align
     (;93:1;)               local.tee 9
     (;94:2;)               local.get 4
     (;95:3;)               local.get 9
@@ -2294,19 +2874,19 @@
     (;105:0;)            end
     (;106:0;)          end
     (;107:1;)          local.get 0
-    (;108:1;)          call 23  (reflect.Type).Elem
+    (;108:1;)          call 53  (reflect.Type).Elem
     (;109:0;)          local.set 0
     (;110:0;)          br 0
     (;111:0;)        end
     (;112:0;)      end
     (;113:1;)      i32.const 34
-    (;114:2;)      i32.const 65872
-    (;115:0;)      call 24  runtime._panic
+    (;114:2;)      i32.const 65968
+    (;115:0;)      call 54  runtime._panic
     (;116:0;)      unreachable
     (;117:0;)    end
     (;118:1;)    i32.const 0
     (;119:2;)    local.get 2
-    (;120:0;)    i32.store offset=70832
+    (;120:0;)    i32.store offset=70816
     (;121:1;)    local.get 1
     (;122:2;)    i32.const 64
     (;123:1;)    i32.add
@@ -2315,7 +2895,7 @@
     (;126:0;)  end
   )
 
-  (func "(reflect.Type).Kind" (;20;) (type 10) (param (;0;) i32) (result i32)
+  (func "(reflect.Type).Kind" (;50;) (type 10) (param (;0;) i32) (result i32)
     (local (;1;) i32)
     (;0:1;)      local.get 0
     (;1:2;)      i32.const 1
@@ -2339,7 +2919,7 @@
     (;19:0;)   end
   )
 
-  (func "(reflect.Type).NumField" (;21;) (type 10) (param (;0;) i32) (result i32)
+  (func "(reflect.Type).NumField" (;51;) (type 10) (param (;0;) i32) (result i32)
     (local (;1;) i32)
     (local (;2;) i32)
     (;0:1;)      global.get 0
@@ -2357,19 +2937,19 @@
     (;12:2;)     i64.const 4
     (;13:0;)     i64.store offset=12 align=2
     (;14:1;)     i32.const 0
-    (;15:1;)     i32.load offset=70832
+    (;15:1;)     i32.load offset=70816
     (;16:0;)     local.set 2
     (;17:1;)     i32.const 0
     (;18:2;)     local.get 1
     (;19:3;)     i32.const 8
     (;20:2;)     i32.add
-    (;21:0;)     i32.store offset=70832
+    (;21:0;)     i32.store offset=70816
     (;22:1;)     local.get 1
     (;23:2;)     local.get 2
     (;24:0;)     i32.store offset=8
     (;25:0;)     block
     (;26:1;)       local.get 0
-    (;27:1;)       call 20  (reflect.Type).Kind
+    (;27:1;)       call 50  (reflect.Type).Kind
     (;28:2;)       i32.const 26
     (;29:1;)       i32.eq
     (;30:0;)       br_if 0
@@ -2379,7 +2959,7 @@
     (;34:2;)       i32.const 8
     (;35:1;)       i32.add
     (;36:2;)       i32.const 8
-    (;37:2;)       call 17  runtime.alloc
+    (;37:2;)       call 59  runtime.alloc
     (;38:2;)       local.tee 0
     (;39:0;)       i32.store
     (;40:1;)       local.get 1
@@ -2391,28 +2971,28 @@
     (;46:2;)       i32.const 8
     (;47:0;)       i32.store offset=4
     (;48:1;)       local.get 0
-    (;49:2;)       i32.const 66015
+    (;49:2;)       i32.const 66111
     (;50:0;)       i32.store
     (;51:1;)       i32.const 4069
     (;52:2;)       local.get 0
-    (;53:0;)       call 24  runtime._panic
+    (;53:0;)       call 54  runtime._panic
     (;54:0;)       unreachable
     (;55:0;)     end
     (;56:1;)     local.get 1
     (;57:2;)     i32.const 24
     (;58:1;)     i32.add
     (;59:2;)     local.get 0
-    (;60:2;)     call 25  (reflect.Type).stripPrefix
-    (;61:3;)     i32.const 67520
+    (;60:2;)     call 55  (reflect.Type).stripPrefix
+    (;61:3;)     i32.const 67504
     (;62:2;)     i32.add
     (;63:2;)     local.tee 0
     (;64:0;)     i32.store
     (;65:1;)     local.get 1
     (;66:2;)     local.get 0
-    (;67:0;)     call 26  reflect.readVarint
+    (;67:0;)     call 56  reflect.readVarint
     (;68:1;)     i32.const 0
     (;69:2;)     local.get 2
-    (;70:0;)     i32.store offset=70832
+    (;70:0;)     i32.store offset=70816
     (;71:1;)     local.get 1
     (;72:2;)     i32.const 28
     (;73:1;)     i32.add
@@ -2430,7 +3010,7 @@
     (;85:0;)   end
   )
 
-  (func "(reflect.Type).Field" (;22;) (type 1) (param (;0;) i32 (;1;) i32 (;2;) i32)
+  (func "(reflect.Type).Field" (;52;) (type 1) (param (;0;) i32 (;1;) i32 (;2;) i32)
     (local (;3;) i32)
     (local (;4;) i32)
     (local (;5;) i32)
@@ -2488,20 +3068,20 @@
     (;30:2;)     i64.const 0
     (;31:0;)     i64.store offset=96
     (;32:1;)     i32.const 0
-    (;33:1;)     i32.load offset=70832
+    (;33:1;)     i32.load offset=70816
     (;34:0;)     local.set 4
     (;35:1;)     i32.const 0
     (;36:2;)     local.get 3
     (;37:3;)     i32.const 88
     (;38:2;)     i32.add
-    (;39:0;)     i32.store offset=70832
+    (;39:0;)     i32.store offset=70816
     (;40:1;)     local.get 3
     (;41:2;)     local.get 4
     (;42:0;)     i32.store offset=88
     (;43:0;)     block
     (;44:0;)       block
     (;45:1;)         local.get 1
-    (;46:1;)         call 20  (reflect.Type).Kind
+    (;46:1;)         call 50  (reflect.Type).Kind
     (;47:2;)         i32.const 26
     (;48:1;)         i32.ne
     (;49:0;)         br_if 0
@@ -2511,8 +3091,8 @@
     (;53:2;)         i32.const 16
     (;54:1;)         i32.add
     (;55:2;)         local.get 1
-    (;56:2;)         call 25  (reflect.Type).stripPrefix
-    (;57:3;)         i32.const 67520
+    (;56:2;)         call 55  (reflect.Type).stripPrefix
+    (;57:3;)         i32.const 67504
     (;58:2;)         i32.add
     (;59:2;)         local.tee 1
     (;60:0;)         i32.store
@@ -2520,7 +3100,7 @@
     (;62:2;)         i32.const 40
     (;63:1;)         i32.add
     (;64:2;)         local.get 1
-    (;65:0;)         call 26  reflect.readVarint
+    (;65:0;)         call 56  reflect.readVarint
     (;66:1;)         local.get 3
     (;67:2;)         i32.const 108
     (;68:1;)         i32.add
@@ -2659,7 +3239,7 @@
     (;201:2;)            local.get 1
     (;202:3;)            i32.const 1
     (;203:2;)            i32.add
-    (;204:0;)            call 26  reflect.readVarint
+    (;204:0;)            call 56  reflect.readVarint
     (;205:1;)            local.get 10
     (;206:2;)            local.get 3
     (;207:2;)            i32.load offset=36
@@ -2675,7 +3255,7 @@
     (;217:1;)            local.get 3
     (;218:2;)            local.get 25
     (;219:3;)            local.get 20
-    (;220:3;)            call 19  (reflect.Type).Align
+    (;220:3;)            call 49  (reflect.Type).Align
     (;221:3;)            local.tee 19
     (;222:2;)            i32.add
     (;223:3;)            i32.const -1
@@ -2687,13 +3267,13 @@
     (;229:2;)            local.tee 16
     (;230:0;)            i32.store offset=80
     (;231:1;)            local.get 20
-    (;232:1;)            call 27  (reflect.Type).Size
+    (;232:1;)            call 57  (reflect.Type).Size
     (;233:0;)            local.set 25
     (;234:1;)            local.get 3
     (;235:2;)            i32.const 24
     (;236:1;)            i32.add
     (;237:2;)            local.get 1
-    (;238:0;)            call 26  reflect.readVarint
+    (;238:0;)            call 56  reflect.readVarint
     (;239:1;)            local.get 11
     (;240:2;)            local.get 3
     (;241:2;)            i32.load offset=28
@@ -2704,7 +3284,7 @@
     (;246:1;)            i32.add
     (;247:2;)            local.get 3
     (;248:2;)            i32.load offset=24
-    (;249:0;)            call 28  reflect.readStringSidetable
+    (;249:0;)            call 58  reflect.readStringSidetable
     (;250:1;)            local.get 12
     (;251:2;)            local.get 3
     (;252:2;)            i32.load offset=16
@@ -2724,7 +3304,7 @@
     (;266:1;)            local.get 3
     (;267:2;)            local.get 24
     (;268:0;)            i32.store offset=48
-    (;269:1;)            i32.const 66015
+    (;269:1;)            i32.const 66111
     (;270:0;)            local.set 19
     (;271:0;)            block
     (;272:1;)              local.get 22
@@ -2736,7 +3316,7 @@
     (;278:2;)              i32.const 8
     (;279:1;)              i32.add
     (;280:2;)              local.get 1
-    (;281:0;)              call 26  reflect.readVarint
+    (;281:0;)              call 56  reflect.readVarint
     (;282:1;)              local.get 14
     (;283:2;)              local.get 3
     (;284:2;)              i32.load offset=12
@@ -2745,7 +3325,7 @@
     (;287:1;)              local.get 3
     (;288:2;)              local.get 3
     (;289:2;)              i32.load offset=8
-    (;290:0;)              call 28  reflect.readStringSidetable
+    (;290:0;)              call 58  reflect.readStringSidetable
     (;291:1;)              local.get 15
     (;292:2;)              local.get 3
     (;293:2;)              i32.load
@@ -2779,8 +3359,8 @@
     (;321:2;)            local.tee 21
     (;322:0;)            i32.store offset=60
     (;323:1;)            local.get 3
-    (;324:2;)            i32.const 66015
-    (;325:3;)            i32.const 66000
+    (;324:2;)            i32.const 66111
+    (;325:3;)            i32.const 66096
     (;326:4;)            local.get 22
     (;327:2;)            select
     (;328:2;)            local.tee 22
@@ -2794,7 +3374,7 @@
     (;336:0;)        end
     (;337:1;)        i32.const 0
     (;338:2;)        local.get 4
-    (;339:0;)        i32.store offset=70832
+    (;339:0;)        i32.store offset=70816
     (;340:1;)        local.get 0
     (;341:2;)        local.get 16
     (;342:0;)        i32.store offset=32
@@ -2836,7 +3416,7 @@
     (;378:2;)      i32.const 8
     (;379:1;)      i32.add
     (;380:2;)      i32.const 8
-    (;381:2;)      call 17  runtime.alloc
+    (;381:2;)      call 59  runtime.alloc
     (;382:2;)      local.tee 1
     (;383:0;)      i32.store
     (;384:1;)      local.get 3
@@ -2848,21 +3428,21 @@
     (;390:2;)      i32.const 5
     (;391:0;)      i32.store offset=4
     (;392:1;)      local.get 1
-    (;393:2;)      i32.const 65936
+    (;393:2;)      i32.const 66032
     (;394:0;)      i32.store
     (;395:1;)      i32.const 4069
     (;396:2;)      local.get 1
-    (;397:0;)      call 24  runtime._panic
+    (;397:0;)      call 54  runtime._panic
     (;398:0;)      unreachable
     (;399:0;)    end
     (;400:1;)    i32.const 34
-    (;401:2;)    i32.const 65992
-    (;402:0;)    call 24  runtime._panic
+    (;401:2;)    i32.const 66088
+    (;402:0;)    call 54  runtime._panic
     (;403:0;)    unreachable
     (;404:0;)  end
   )
 
-  (func "(reflect.Type).Elem" (;23;) (type 10) (param (;0;) i32) (result i32)
+  (func "(reflect.Type).Elem" (;53;) (type 10) (param (;0;) i32) (result i32)
     (local (;1;) i32)
     (local (;2;) i32)
     (local (;3;) i32)
@@ -2878,19 +3458,19 @@
     (;9:2;)      i64.const 2
     (;10:0;)     i64.store offset=20 align=2
     (;11:1;)     i32.const 0
-    (;12:1;)     i32.load offset=70832
+    (;12:1;)     i32.load offset=70816
     (;13:0;)     local.set 2
     (;14:1;)     i32.const 0
     (;15:2;)     local.get 1
     (;16:3;)     i32.const 16
     (;17:2;)     i32.add
-    (;18:0;)     i32.store offset=70832
+    (;18:0;)     i32.store offset=70816
     (;19:1;)     local.get 1
     (;20:2;)     local.get 2
     (;21:0;)     i32.store offset=16
     (;22:0;)     block
     (;23:1;)       local.get 0
-    (;24:1;)       call 20  (reflect.Type).Kind
+    (;24:1;)       call 50  (reflect.Type).Kind
     (;25:2;)       i32.const -19
     (;26:1;)       i32.add
     (;27:1;)       local.tee 3
@@ -2903,11 +3483,11 @@
     (;34:0;)           br_table 0 2 0 0 1 0
     (;35:0;)         end
     (;36:1;)         local.get 0
-    (;37:1;)         call 25  (reflect.Type).stripPrefix
+    (;37:1;)         call 55  (reflect.Type).stripPrefix
     (;38:0;)         local.set 0
     (;39:1;)         i32.const 0
     (;40:2;)         local.get 2
-    (;41:0;)         i32.store offset=70832
+    (;41:0;)         i32.store offset=70816
     (;42:1;)         local.get 1
     (;43:2;)         i32.const 32
     (;44:1;)         i32.add
@@ -2919,8 +3499,8 @@
     (;50:2;)       i32.const 24
     (;51:1;)       i32.add
     (;52:2;)       local.get 0
-    (;53:2;)       call 25  (reflect.Type).stripPrefix
-    (;54:3;)       i32.const 67508
+    (;53:2;)       call 55  (reflect.Type).stripPrefix
+    (;54:3;)       i32.const 67492
     (;55:2;)       i32.add
     (;56:2;)       local.tee 0
     (;57:0;)       i32.store
@@ -2928,10 +3508,10 @@
     (;59:2;)       i32.const 8
     (;60:1;)       i32.add
     (;61:2;)       local.get 0
-    (;62:0;)       call 26  reflect.readVarint
+    (;62:0;)       call 56  reflect.readVarint
     (;63:1;)       i32.const 0
     (;64:2;)       local.get 2
-    (;65:0;)       i32.store offset=70832
+    (;65:0;)       i32.store offset=70816
     (;66:1;)       local.get 1
     (;67:2;)       i32.const 28
     (;68:1;)       i32.add
@@ -2949,26 +3529,26 @@
     (;80:1;)       return
     (;81:0;)     end
     (;82:1;)     i32.const 34
-    (;83:2;)     i32.const 65928
-    (;84:0;)     call 24  runtime._panic
+    (;83:2;)     i32.const 66024
+    (;84:0;)     call 54  runtime._panic
     (;85:0;)     unreachable
     (;86:0;)   end
   )
 
-  (func "runtime._panic" (;24;) (type 12) (param (;0;) i32 (;1;) i32)
-    (;0:1;)      i32.const 67072
+  (func "runtime._panic" (;54;) (type 11) (param (;0;) i32 (;1;) i32)
+    (;0:1;)      i32.const 67120
     (;1:2;)      i32.const 7
-    (;2:0;)      call 87  runtime.printstring
+    (;2:0;)      call 97  runtime.printstring
     (;3:1;)      local.get 0
     (;4:2;)      local.get 1
-    (;5:0;)      call 88  runtime.printitf
-    (;6:0;)      call 89  runtime.printnl
+    (;5:0;)      call 98  runtime.printitf
+    (;6:0;)      call 99  runtime.printnl
     (;7:0;)      unreachable
     (;8:0;)      unreachable
     (;9:0;)    end
   )
 
-  (func "(reflect.Type).stripPrefix" (;25;) (type 10) (param (;0;) i32) (result i32)
+  (func "(reflect.Type).stripPrefix" (;55;) (type 10) (param (;0;) i32) (result i32)
     (local (;1;) i32)
     (;0:1;)      local.get 0
     (;1:2;)      i32.const 5
@@ -2983,7 +3563,7 @@
     (;10:1;)       local.get 1
     (;11:2;)       i32.const 2
     (;12:1;)       i32.shl
-    (;13:2;)       i32.const 67488
+    (;13:2;)       i32.const 67472
     (;14:1;)       i32.add
     (;15:1;)       i32.load
     (;16:1;)       return
@@ -2992,7 +3572,7 @@
     (;19:0;)   end
   )
 
-  (func "reflect.readVarint" (;26;) (type 12) (param (;0;) i32 (;1;) i32)
+  (func "reflect.readVarint" (;56;) (type 11) (param (;0;) i32 (;1;) i32)
     (local (;2;) i32)
     (local (;3;) i32)
     (local (;4;) i32)
@@ -3038,7 +3618,7 @@
     (;39:0;)   end
   )
 
-  (func "(reflect.Type).Size" (;27;) (type 10) (param (;0;) i32) (result i32)
+  (func "(reflect.Type).Size" (;57;) (type 10) (param (;0;) i32) (result i32)
     (local (;1;) i32)
     (local (;2;) i32)
     (local (;3;) i32)
@@ -3058,20 +3638,20 @@
     (;12:2;)     i64.const 4
     (;13:0;)     i64.store offset=92 align=2
     (;14:1;)     i32.const 0
-    (;15:1;)     i32.load offset=70832
+    (;15:1;)     i32.load offset=70816
     (;16:0;)     local.set 2
     (;17:1;)     i32.const 0
     (;18:2;)     local.get 1
     (;19:3;)     i32.const 88
     (;20:2;)     i32.add
-    (;21:0;)     i32.store offset=70832
+    (;21:0;)     i32.store offset=70816
     (;22:1;)     local.get 1
     (;23:2;)     local.get 2
     (;24:0;)     i32.store offset=88
     (;25:0;)     block
     (;26:0;)       block
     (;27:1;)         local.get 0
-    (;28:1;)         call 20  (reflect.Type).Kind
+    (;28:1;)         call 50  (reflect.Type).Kind
     (;29:2;)         i32.const -1
     (;30:1;)         i32.add
     (;31:1;)         local.tee 3
@@ -3111,15 +3691,15 @@
     (;65:0;)             br 3
     (;66:0;)           end
     (;67:1;)           local.get 0
-    (;68:1;)           call 23  (reflect.Type).Elem
-    (;69:1;)           call 27  (reflect.Type).Size
+    (;68:1;)           call 53  (reflect.Type).Elem
+    (;69:1;)           call 57  (reflect.Type).Size
     (;70:0;)           local.set 4
     (;71:1;)           local.get 0
-    (;72:1;)           call 29  (reflect.Type).Len
+    (;72:1;)           call 60  (reflect.Type).Len
     (;73:0;)           local.set 0
     (;74:1;)           i32.const 0
     (;75:2;)           local.get 2
-    (;76:0;)           i32.store offset=70832
+    (;76:0;)           i32.store offset=70816
     (;77:1;)           local.get 1
     (;78:2;)           i32.const 112
     (;79:1;)           i32.add
@@ -3131,7 +3711,7 @@
     (;85:0;)         end
     (;86:0;)         block
     (;87:1;)           local.get 0
-    (;88:1;)           call 21  (reflect.Type).NumField
+    (;88:1;)           call 51  (reflect.Type).NumField
     (;89:1;)           local.tee 4
     (;90:0;)           br_if 0
     (;91:1;)           i32.const 0
@@ -3179,7 +3759,7 @@
     (;133:3;)        local.get 4
     (;134:4;)        i32.const -1
     (;135:3;)        i32.add
-    (;136:0;)        call 22  (reflect.Type).Field
+    (;136:0;)        call 52  (reflect.Type).Field
     (;137:1;)        local.get 1
     (;138:2;)        i32.const 108
     (;139:1;)        i32.add
@@ -3205,11 +3785,11 @@
     (;159:0;)        local.set 4
     (;160:1;)        local.get 1
     (;161:1;)        i32.load offset=24
-    (;162:1;)        call 27  (reflect.Type).Size
+    (;162:1;)        call 57  (reflect.Type).Size
     (;163:0;)        local.set 0
     (;164:1;)        i32.const 0
     (;165:2;)        local.get 2
-    (;166:0;)        i32.store offset=70832
+    (;166:0;)        i32.store offset=70816
     (;167:1;)        local.get 1
     (;168:2;)        i32.const 112
     (;169:1;)        i32.add
@@ -3220,13 +3800,13 @@
     (;174:1;)        return
     (;175:0;)      end
     (;176:1;)      i32.const 34
-    (;177:2;)      i32.const 66064
-    (;178:0;)      call 24  runtime._panic
+    (;177:2;)      i32.const 66160
+    (;178:0;)      call 54  runtime._panic
     (;179:0;)      unreachable
     (;180:0;)    end
     (;181:1;)    i32.const 0
     (;182:2;)    local.get 2
-    (;183:0;)    i32.store offset=70832
+    (;183:0;)    i32.store offset=70816
     (;184:1;)    local.get 1
     (;185:2;)    i32.const 112
     (;186:1;)    i32.add
@@ -3235,7 +3815,7 @@
     (;189:0;)  end
   )
 
-  (func "reflect.readStringSidetable" (;28;) (type 12) (param (;0;) i32 (;1;) i32)
+  (func "reflect.readStringSidetable" (;58;) (type 11) (param (;0;) i32 (;1;) i32)
     (local (;2;) i32)
     (local (;3;) i32)
     (;0:1;)      global.get 0
@@ -3245,9 +3825,9 @@
     (;4:0;)      global.set 0
     (;5:1;)      local.get 2
     (;6:2;)      local.get 1
-    (;7:3;)      i32.const 67552
+    (;7:3;)      i32.const 67536
     (;8:2;)      i32.add
-    (;9:0;)      call 26  reflect.readVarint
+    (;9:0;)      call 56  reflect.readVarint
     (;10:1;)     local.get 2
     (;11:2;)     local.get 2
     (;12:2;)     i32.load offset=4
@@ -3271,7 +3851,346 @@
     (;30:0;)   end
   )
 
-  (func "(reflect.Type).Len" (;29;) (type 10) (param (;0;) i32) (result i32)
+  (func "runtime.alloc" (;59;) (type 10) (param (;0;) i32) (result i32)
+    (local (;1;) i32)
+    (local (;2;) i32)
+    (local (;3;) i32)
+    (local (;4;) i32)
+    (local (;5;) i32)
+    (local (;6;) i32)
+    (;0:0;)      block
+    (;1:1;)        local.get 0
+    (;2:1;)        i32.eqz
+    (;3:0;)        br_if 0
+    (;4:1;)        local.get 0
+    (;5:2;)        i32.const 15
+    (;6:1;)        i32.add
+    (;7:2;)        i32.const 4
+    (;8:1;)        i32.shr_u
+    (;9:0;)        local.set 1
+    (;10:1;)       i32.const 0
+    (;11:1;)       i32.load offset=70800
+    (;12:1;)       local.tee 2
+    (;13:0;)       local.set 3
+    (;14:1;)       i32.const 0
+    (;15:0;)       local.set 4
+    (;16:1;)       i32.const 0
+    (;17:0;)       local.set 5
+    (;18:0;)       loop
+    (;19:0;)         block
+    (;20:1;)           local.get 3
+    (;21:2;)           local.get 2
+    (;22:1;)           i32.ne
+    (;23:0;)           br_if 0
+    (;24:1;)           local.get 5
+    (;25:2;)           i32.const 255
+    (;26:1;)           i32.and
+    (;27:0;)           local.set 2
+    (;28:1;)           i32.const 1
+    (;29:0;)           local.set 5
+    (;30:0;)           block
+    (;31:1;)             local.get 2
+    (;32:2;)             i32.const 1
+    (;33:1;)             i32.gt_u
+    (;34:0;)             br_if 0
+    (;35:0;)             block
+    (;36:1;)               local.get 2
+    (;37:0;)               br_table 2 0 2
+    (;38:0;)             end
+    (;39:1;)             i32.const 0
+    (;40:1;)             i32.load offset=70816
+    (;41:0;)             local.set 5
+    (;42:0;)             block
+    (;43:0;)               loop
+    (;44:0;)                 block
+    (;45:1;)                   local.get 5
+    (;46:0;)                   br_if 0
+    (;47:1;)                   i32.const 0
+    (;48:0;)                   local.set 6
+    (;49:1;)                   i32.const 0
+    (;50:0;)                   local.set 2
+    (;51:0;)                   loop
+    (;52:1;)                     local.get 2
+    (;53:2;)                     i32.const 0
+    (;54:2;)                     i32.load offset=67568
+    (;55:1;)                     i32.ge_u
+    (;56:0;)                     br_if 3
+    (;57:0;)                     block
+    (;58:1;)                       local.get 2
+    (;59:2;)                       i32.const 3
+    (;60:1;)                       i32.shr_u
+    (;61:2;)                       i32.const 70780
+    (;62:1;)                       i32.add
+    (;63:1;)                       i32.load8_u
+    (;64:2;)                       local.get 2
+    (;65:3;)                       i32.const 7
+    (;66:2;)                       i32.and
+    (;67:1;)                       i32.shr_u
+    (;68:2;)                       i32.const 1
+    (;69:1;)                       i32.and
+    (;70:1;)                       i32.eqz
+    (;71:0;)                       br_if 0
+    (;72:1;)                       local.get 6
+    (;73:2;)                       i32.const 0
+    (;74:2;)                       i32.load offset=67572
+    (;75:1;)                       i32.add
+    (;76:1;)                       i32.load
+    (;77:0;)                       call 102  runtime.markRoot
+    (;78:0;)                     end
+    (;79:1;)                     local.get 6
+    (;80:2;)                     i32.const 4
+    (;81:1;)                     i32.add
+    (;82:0;)                     local.set 6
+    (;83:1;)                     local.get 2
+    (;84:2;)                     i32.const 1
+    (;85:1;)                     i32.add
+    (;86:0;)                     local.set 2
+    (;87:0;)                     br 0
+    (;88:0;)                   end
+    (;89:0;)                 end
+    (;90:1;)                 local.get 5
+    (;91:2;)                 i32.const 8
+    (;92:1;)                 i32.add
+    (;93:0;)                 local.set 6
+    (;94:1;)                 local.get 5
+    (;95:1;)                 i32.load offset=4
+    (;96:2;)                 i32.const 2
+    (;97:1;)                 i32.shl
+    (;98:0;)                 local.set 2
+    (;99:0;)                 block
+    (;100:0;)                  loop
+    (;101:1;)                    local.get 2
+    (;102:1;)                    i32.eqz
+    (;103:0;)                    br_if 1
+    (;104:1;)                    local.get 6
+    (;105:1;)                    i32.load
+    (;106:0;)                    call 102  runtime.markRoot
+    (;107:1;)                    local.get 2
+    (;108:2;)                    i32.const -4
+    (;109:1;)                    i32.add
+    (;110:0;)                    local.set 2
+    (;111:1;)                    local.get 6
+    (;112:2;)                    i32.const 4
+    (;113:1;)                    i32.add
+    (;114:0;)                    local.set 6
+    (;115:0;)                    br 0
+    (;116:0;)                  end
+    (;117:0;)                end
+    (;118:1;)                local.get 5
+    (;119:1;)                i32.load
+    (;120:0;)                local.set 5
+    (;121:0;)                br 0
+    (;122:0;)              end
+    (;123:0;)            end
+    (;124:0;)            loop
+    (;125:0;)              block
+    (;126:1;)                i32.const 0
+    (;127:1;)                i32.load8_u offset=70812
+    (;128:0;)                br_if 0
+    (;129:1;)                i32.const 0
+    (;130:0;)                local.set 5
+    (;131:1;)                i32.const 0
+    (;132:0;)                local.set 2
+    (;133:0;)                loop
+    (;134:0;)                  block
+    (;135:1;)                    local.get 2
+    (;136:2;)                    i32.const 0
+    (;137:2;)                    i32.load offset=70804
+    (;138:1;)                    i32.lt_u
+    (;139:0;)                    br_if 0
+    (;140:1;)                    i32.const 2
+    (;141:0;)                    local.set 5
+    (;142:0;)                    br 5
+    (;143:0;)                  end
+    (;144:0;)                  block
+    (;145:1;)                    local.get 2
+    (;146:1;)                    call 103  (runtime.gcBlock).state
+    (;147:2;)                    i32.const 255
+    (;148:1;)                    i32.and
+    (;149:2;)                    i32.const -1
+    (;150:1;)                    i32.add
+    (;151:1;)                    local.tee 6
+    (;152:2;)                    i32.const 2
+    (;153:1;)                    i32.gt_u
+    (;154:0;)                    br_if 0
+    (;155:0;)                    block
+    (;156:0;)                      block
+    (;157:0;)                        block
+    (;158:1;)                          local.get 6
+    (;159:0;)                          br_table 1 0 2 1
+    (;160:0;)                        end
+    (;161:1;)                        local.get 5
+    (;162:2;)                        i32.const 1
+    (;163:1;)                        i32.and
+    (;164:0;)                        local.set 6
+    (;165:1;)                        i32.const 0
+    (;166:0;)                        local.set 5
+    (;167:1;)                        local.get 6
+    (;168:1;)                        i32.eqz
+    (;169:0;)                        br_if 2
+    (;170:0;)                      end
+    (;171:1;)                      local.get 2
+    (;172:0;)                      call 104  (runtime.gcBlock).markFree
+    (;173:1;)                      i32.const 1
+    (;174:0;)                      local.set 5
+    (;175:0;)                      br 1
+    (;176:0;)                    end
+    (;177:1;)                    local.get 2
+    (;178:2;)                    i32.const 2
+    (;179:1;)                    i32.shr_u
+    (;180:2;)                    i32.const 70821
+    (;181:1;)                    i32.add
+    (;182:1;)                    local.tee 6
+    (;183:2;)                    local.get 6
+    (;184:2;)                    i32.load8_u
+    (;185:3;)                    i32.const 2
+    (;186:4;)                    local.get 2
+    (;187:5;)                    i32.const 1
+    (;188:4;)                    i32.shl
+    (;189:5;)                    i32.const 6
+    (;190:4;)                    i32.and
+    (;191:3;)                    i32.shl
+    (;192:4;)                    i32.const -1
+    (;193:3;)                    i32.xor
+    (;194:2;)                    i32.and
+    (;195:0;)                    i32.store8
+    (;196:1;)                    i32.const 0
+    (;197:0;)                    local.set 5
+    (;198:0;)                  end
+    (;199:1;)                  local.get 2
+    (;200:2;)                  i32.const 1
+    (;201:1;)                  i32.add
+    (;202:0;)                  local.set 2
+    (;203:0;)                  br 0
+    (;204:0;)                end
+    (;205:0;)              end
+    (;206:1;)              i32.const 0
+    (;207:0;)              local.set 2
+    (;208:1;)              i32.const 0
+    (;209:2;)              i32.const 0
+    (;210:0;)              i32.store8 offset=70812
+    (;211:0;)              loop
+    (;212:1;)                local.get 2
+    (;213:2;)                i32.const 0
+    (;214:2;)                i32.load offset=70804
+    (;215:1;)                i32.ge_u
+    (;216:0;)                br_if 1
+    (;217:0;)                block
+    (;218:1;)                  local.get 2
+    (;219:1;)                  call 103  (runtime.gcBlock).state
+    (;220:2;)                  i32.const 255
+    (;221:1;)                  i32.and
+    (;222:2;)                  i32.const 3
+    (;223:1;)                  i32.ne
+    (;224:0;)                  br_if 0
+    (;225:1;)                  local.get 2
+    (;226:0;)                  call 105  runtime.startMark
+    (;227:0;)                end
+    (;228:1;)                local.get 2
+    (;229:2;)                i32.const 1
+    (;230:1;)                i32.add
+    (;231:0;)                local.set 2
+    (;232:0;)                br 0
+    (;233:0;)              end
+    (;234:0;)            end
+    (;235:0;)          end
+    (;236:1;)          i32.const 67127
+    (;237:2;)          i32.const 13
+    (;238:0;)          call 106  runtime.runtimePanic
+    (;239:0;)          unreachable
+    (;240:0;)        end
+    (;241:0;)        block
+    (;242:0;)          block
+    (;243:1;)            i32.const 0
+    (;244:2;)            local.get 3
+    (;245:3;)            local.get 3
+    (;246:4;)            i32.const 0
+    (;247:4;)            i32.load offset=70804
+    (;248:3;)            i32.eq
+    (;249:3;)            local.tee 6
+    (;250:1;)            select
+    (;251:1;)            local.tee 2
+    (;252:1;)            call 103  (runtime.gcBlock).state
+    (;253:2;)            i32.const 255
+    (;254:1;)            i32.and
+    (;255:1;)            i32.eqz
+    (;256:0;)            br_if 0
+    (;257:1;)            local.get 2
+    (;258:2;)            i32.const 1
+    (;259:1;)            i32.add
+    (;260:0;)            local.set 3
+    (;261:1;)            i32.const 0
+    (;262:0;)            local.set 4
+    (;263:0;)            br 1
+    (;264:0;)          end
+    (;265:1;)          local.get 2
+    (;266:2;)          i32.const 1
+    (;267:1;)          i32.add
+    (;268:0;)          local.set 3
+    (;269:1;)          i32.const 1
+    (;270:2;)          local.get 4
+    (;271:3;)          i32.const 1
+    (;272:2;)          i32.add
+    (;273:3;)          local.get 6
+    (;274:1;)          select
+    (;275:1;)          local.tee 4
+    (;276:2;)          local.get 1
+    (;277:1;)          i32.ne
+    (;278:0;)          br_if 0
+    (;279:1;)          i32.const 0
+    (;280:2;)          local.get 3
+    (;281:0;)          i32.store offset=70800
+    (;282:1;)          local.get 3
+    (;283:2;)          local.get 1
+    (;284:1;)          i32.sub
+    (;285:1;)          local.tee 6
+    (;286:2;)          i32.const 1
+    (;287:0;)          call 107  (runtime.gcBlock).setState
+    (;288:1;)          local.get 2
+    (;289:2;)          local.get 1
+    (;290:1;)          i32.sub
+    (;291:2;)          i32.const 2
+    (;292:1;)          i32.add
+    (;293:0;)          local.set 2
+    (;294:0;)          block
+    (;295:0;)            loop
+    (;296:1;)              local.get 2
+    (;297:2;)              i32.const 0
+    (;298:2;)              i32.load offset=70800
+    (;299:1;)              i32.eq
+    (;300:0;)              br_if 1
+    (;301:1;)              local.get 2
+    (;302:2;)              i32.const 2
+    (;303:0;)              call 107  (runtime.gcBlock).setState
+    (;304:1;)              local.get 2
+    (;305:2;)              i32.const 1
+    (;306:1;)              i32.add
+    (;307:0;)              local.set 2
+    (;308:0;)              br 0
+    (;309:0;)            end
+    (;310:0;)          end
+    (;311:1;)          i32.const 0
+    (;312:1;)          i32.load offset=70808
+    (;313:2;)          local.get 6
+    (;314:3;)          i32.const 4
+    (;315:2;)          i32.shl
+    (;316:1;)          i32.add
+    (;317:2;)          i32.const 0
+    (;318:3;)          local.get 0
+    (;319:1;)          call 9  memset
+    (;320:1;)          return
+    (;321:0;)        end
+    (;322:1;)        i32.const 0
+    (;323:1;)        i32.load offset=70800
+    (;324:0;)        local.set 2
+    (;325:0;)        br 0
+    (;326:0;)      end
+    (;327:0;)    end
+    (;328:1;)    i32.const 70796
+    (;329:0;)  end
+  )
+
+  (func "(reflect.Type).Len" (;60;) (type 10) (param (;0;) i32) (result i32)
     (local (;1;) i32)
     (local (;2;) i32)
     (;0:1;)      global.get 0
@@ -3292,19 +4211,19 @@
     (;15:2;)     i64.const 6
     (;16:0;)     i64.store offset=36 align=2
     (;17:1;)     i32.const 0
-    (;18:1;)     i32.load offset=70832
+    (;18:1;)     i32.load offset=70816
     (;19:0;)     local.set 2
     (;20:1;)     i32.const 0
     (;21:2;)     local.get 1
     (;22:3;)     i32.const 32
     (;23:2;)     i32.add
-    (;24:0;)     i32.store offset=70832
+    (;24:0;)     i32.store offset=70816
     (;25:1;)     local.get 1
     (;26:2;)     local.get 2
     (;27:0;)     i32.store offset=32
     (;28:0;)     block
     (;29:1;)       local.get 0
-    (;30:1;)       call 20  (reflect.Type).Kind
+    (;30:1;)       call 50  (reflect.Type).Kind
     (;31:2;)       i32.const 23
     (;32:1;)       i32.eq
     (;33:0;)       br_if 0
@@ -3324,7 +4243,7 @@
     (;47:2;)       i32.const 44
     (;48:1;)       i32.add
     (;49:2;)       i32.const 8
-    (;50:2;)       call 17  runtime.alloc
+    (;50:2;)       call 59  runtime.alloc
     (;51:2;)       local.tee 0
     (;52:0;)       i32.store
     (;53:1;)       local.get 1
@@ -3336,19 +4255,19 @@
     (;59:2;)       i32.const 3
     (;60:0;)       i32.store offset=4
     (;61:1;)       local.get 0
-    (;62:2;)       i32.const 66200
+    (;62:2;)       i32.const 66296
     (;63:0;)       i32.store
     (;64:1;)       i32.const 127
     (;65:2;)       local.get 0
-    (;66:0;)       call 24  runtime._panic
+    (;66:0;)       call 54  runtime._panic
     (;67:0;)       unreachable
     (;68:0;)     end
     (;69:1;)     local.get 1
     (;70:2;)     i32.const 52
     (;71:1;)     i32.add
     (;72:2;)     local.get 0
-    (;73:2;)     call 25  (reflect.Type).stripPrefix
-    (;74:3;)     i32.const 67508
+    (;73:2;)     call 55  (reflect.Type).stripPrefix
+    (;74:3;)     i32.const 67492
     (;75:2;)     i32.add
     (;76:2;)     local.tee 0
     (;77:0;)     i32.store
@@ -3356,7 +4275,7 @@
     (;79:2;)     i32.const 16
     (;80:1;)     i32.add
     (;81:2;)     local.get 0
-    (;82:0;)     call 26  reflect.readVarint
+    (;82:0;)     call 56  reflect.readVarint
     (;83:1;)     local.get 1
     (;84:2;)     i32.const 56
     (;85:1;)     i32.add
@@ -3368,10 +4287,10 @@
     (;91:2;)     i32.const 8
     (;92:1;)     i32.add
     (;93:2;)     local.get 0
-    (;94:0;)     call 26  reflect.readVarint
+    (;94:0;)     call 56  reflect.readVarint
     (;95:1;)     i32.const 0
     (;96:2;)     local.get 2
-    (;97:0;)     i32.store offset=70832
+    (;97:0;)     i32.store offset=70816
     (;98:1;)     local.get 1
     (;99:2;)     i32.const 60
     (;100:1;)    i32.add
@@ -3389,7 +4308,7 @@
     (;112:0;)  end
   )
 
-  (func "(reflect.Value).Bool" (;30;) (type 5) (param (;0;) i32 (;1;) i32 (;2;) i32) (result i32)
+  (func "(reflect.Value).Bool" (;61;) (type 4) (param (;0;) i32 (;1;) i32 (;2;) i32) (result i32)
     (local (;3;) i32)
     (local (;4;) i32)
     (;0:1;)      global.get 0
@@ -3410,13 +4329,13 @@
     (;15:2;)     local.get 2
     (;16:0;)     i32.store8 offset=16
     (;17:1;)     i32.const 0
-    (;18:1;)     i32.load offset=70832
+    (;18:1;)     i32.load offset=70816
     (;19:0;)     local.set 4
     (;20:1;)     i32.const 0
     (;21:2;)     local.get 3
     (;22:3;)     i32.const 24
     (;23:2;)     i32.add
-    (;24:0;)     i32.store offset=70832
+    (;24:0;)     i32.store offset=70816
     (;25:1;)     local.get 3
     (;26:2;)     local.get 4
     (;27:0;)     i32.store offset=24
@@ -3436,20 +4355,20 @@
     (;41:1;)         local.get 0
     (;42:2;)         local.get 1
     (;43:3;)         local.get 2
-    (;44:1;)         call 31  (reflect.Value).Kind
+    (;44:1;)         call 62  (reflect.Value).Kind
     (;45:2;)         i32.const 1
     (;46:1;)         i32.ne
     (;47:0;)         br_if 0
     (;48:1;)         local.get 0
     (;49:2;)         local.get 1
     (;50:3;)         local.get 2
-    (;51:1;)         call 32  (reflect.Value).isIndirect
+    (;51:1;)         call 63  (reflect.Value).isIndirect
     (;52:2;)         i32.const 1
     (;53:1;)         i32.and
     (;54:0;)         br_if 1
     (;55:1;)         i32.const 0
     (;56:2;)         local.get 4
-    (;57:0;)         i32.store offset=70832
+    (;57:0;)         i32.store offset=70816
     (;58:1;)         local.get 3
     (;59:2;)         i32.const 48
     (;60:1;)         i32.add
@@ -3463,7 +4382,7 @@
     (;68:2;)       i32.const 36
     (;69:1;)       i32.add
     (;70:2;)       i32.const 8
-    (;71:2;)       call 17  runtime.alloc
+    (;71:2;)       call 59  runtime.alloc
     (;72:2;)       local.tee 1
     (;73:0;)       i32.store
     (;74:1;)       local.get 3
@@ -3475,11 +4394,11 @@
     (;80:2;)       i32.const 4
     (;81:0;)       i32.store offset=4
     (;82:1;)       local.get 1
-    (;83:2;)       i32.const 66072
+    (;83:2;)       i32.const 66168
     (;84:0;)       i32.store
     (;85:1;)       i32.const 3045
     (;86:2;)       local.get 1
-    (;87:0;)       call 24  runtime._panic
+    (;87:0;)       call 54  runtime._panic
     (;88:0;)       unreachable
     (;89:0;)     end
     (;90:1;)     local.get 1
@@ -3487,7 +4406,7 @@
     (;92:0;)     local.set 1
     (;93:1;)     i32.const 0
     (;94:2;)     local.get 4
-    (;95:0;)     i32.store offset=70832
+    (;95:0;)     i32.store offset=70816
     (;96:1;)     local.get 3
     (;97:2;)     i32.const 48
     (;98:1;)     i32.add
@@ -3496,7 +4415,7 @@
     (;101:0;)  end
   )
 
-  (func "(reflect.Value).Kind" (;31;) (type 5) (param (;0;) i32 (;1;) i32 (;2;) i32) (result i32)
+  (func "(reflect.Value).Kind" (;62;) (type 4) (param (;0;) i32 (;1;) i32 (;2;) i32) (result i32)
     (local (;3;) i32)
     (;0:1;)      global.get 0
     (;1:2;)      i32.const 16
@@ -3514,8 +4433,8 @@
     (;13:1;)     local.get 0
     (;14:2;)     local.get 1
     (;15:3;)     local.get 2
-    (;16:1;)     call 35  (reflect.Value).Type
-    (;17:1;)     call 20  (reflect.Type).Kind
+    (;16:1;)     call 66  (reflect.Value).Type
+    (;17:1;)     call 50  (reflect.Type).Kind
     (;18:0;)     local.set 0
     (;19:1;)     local.get 3
     (;20:2;)     i32.const 16
@@ -3525,7 +4444,7 @@
     (;24:0;)   end
   )
 
-  (func "(reflect.Value).isIndirect" (;32;) (type 5) (param (;0;) i32 (;1;) i32 (;2;) i32) (result i32)
+  (func "(reflect.Value).isIndirect" (;63;) (type 4) (param (;0;) i32 (;1;) i32 (;2;) i32) (result i32)
     (local (;3;) i32)
     (;0:1;)      global.get 0
     (;1:2;)      i32.const 16
@@ -3544,7 +4463,7 @@
     (;14:0;)   end
   )
 
-  (func "(reflect.Value).Complex" (;33;) (type 3) (param (;0;) i32 (;1;) i32 (;2;) i32 (;3;) i32)
+  (func "(reflect.Value).Complex" (;64;) (type 3) (param (;0;) i32 (;1;) i32 (;2;) i32 (;3;) i32)
     (local (;4;) i32)
     (local (;5;) i32)
     (local (;6;) i32)
@@ -3568,13 +4487,13 @@
     (;15:2;)     local.get 1
     (;16:0;)     i32.store offset=12
     (;17:1;)     i32.const 0
-    (;18:1;)     i32.load offset=70832
+    (;18:1;)     i32.load offset=70816
     (;19:0;)     local.set 5
     (;20:1;)     i32.const 0
     (;21:2;)     local.get 4
     (;22:3;)     i32.const 24
     (;23:2;)     i32.add
-    (;24:0;)     i32.store offset=70832
+    (;24:0;)     i32.store offset=70816
     (;25:1;)     local.get 4
     (;26:2;)     local.get 5
     (;27:0;)     i32.store offset=24
@@ -3595,7 +4514,7 @@
     (;42:1;)           local.get 1
     (;43:2;)           local.get 2
     (;44:3;)           local.get 3
-    (;45:1;)           call 31  (reflect.Value).Kind
+    (;45:1;)           call 62  (reflect.Value).Kind
     (;46:2;)           i32.const -15
     (;47:1;)           i32.add
     (;48:1;)           local.tee 6
@@ -3609,7 +4528,7 @@
     (;56:2;)         i32.const 36
     (;57:1;)         i32.add
     (;58:2;)         i32.const 8
-    (;59:2;)         call 17  runtime.alloc
+    (;59:2;)         call 59  runtime.alloc
     (;60:2;)         local.tee 2
     (;61:0;)         i32.store
     (;62:1;)         local.get 4
@@ -3621,24 +4540,24 @@
     (;68:2;)         i32.const 7
     (;69:0;)         i32.store offset=4
     (;70:1;)         local.get 2
-    (;71:2;)         i32.const 66076
+    (;71:2;)         i32.const 66172
     (;72:0;)         i32.store
     (;73:1;)         i32.const 3045
     (;74:2;)         local.get 2
-    (;75:0;)         call 24  runtime._panic
+    (;75:0;)         call 54  runtime._panic
     (;76:0;)         unreachable
     (;77:0;)       end
     (;78:1;)       local.get 1
     (;79:2;)       local.get 2
     (;80:3;)       local.get 3
-    (;81:1;)       call 32  (reflect.Value).isIndirect
+    (;81:1;)       call 63  (reflect.Value).isIndirect
     (;82:0;)       drop
     (;83:1;)       local.get 2
     (;84:1;)       f32.load
     (;85:0;)       local.set 7
     (;86:1;)       i32.const 0
     (;87:2;)       local.get 5
-    (;88:0;)       i32.store offset=70832
+    (;88:0;)       i32.store offset=70816
     (;89:1;)       local.get 0
     (;90:2;)       local.get 2
     (;91:2;)       f32.load offset=4
@@ -3656,7 +4575,7 @@
     (;103:0;)    end
     (;104:1;)    i32.const 0
     (;105:2;)    local.get 5
-    (;106:0;)    i32.store offset=70832
+    (;106:0;)    i32.store offset=70816
     (;107:1;)    local.get 2
     (;108:1;)    f64.load
     (;109:0;)    local.set 8
@@ -3674,7 +4593,7 @@
     (;121:0;)  end
   )
 
-  (func "(reflect.Value).Field" (;34;) (type 13) (param (;0;) i32 (;1;) i32 (;2;) i32 (;3;) i32 (;4;) i32)
+  (func "(reflect.Value).Field" (;65;) (type 14) (param (;0;) i32 (;1;) i32 (;2;) i32 (;3;) i32 (;4;) i32)
     (local (;5;) i32)
     (local (;6;) i32)
     (local (;7;) i32)
@@ -3731,13 +4650,13 @@
     (;47:2;)     i64.const 0
     (;48:0;)     i64.store offset=72
     (;49:1;)     i32.const 0
-    (;50:1;)     i32.load offset=70832
+    (;50:1;)     i32.load offset=70816
     (;51:0;)     local.set 6
     (;52:1;)     i32.const 0
     (;53:2;)     local.get 5
     (;54:3;)     i32.const 160
     (;55:2;)     i32.add
-    (;56:0;)     i32.store offset=70832
+    (;56:0;)     i32.store offset=70816
     (;57:1;)     local.get 5
     (;58:2;)     local.get 6
     (;59:0;)     i32.store offset=160
@@ -3764,10 +4683,10 @@
     (;80:2;)     local.get 1
     (;81:3;)     local.get 2
     (;82:4;)     local.get 3
-    (;83:2;)     call 35  (reflect.Value).Type
+    (;83:2;)     call 66  (reflect.Value).Type
     (;84:2;)     local.tee 7
     (;85:3;)     local.get 4
-    (;86:0;)     call 22  (reflect.Type).Field
+    (;86:0;)     call 52  (reflect.Type).Field
     (;87:1;)     local.get 5
     (;88:2;)     i32.const 80
     (;89:1;)     i32.add
@@ -3831,17 +4750,17 @@
     (;147:1;)    local.get 7
     (;148:2;)    local.get 2
     (;149:3;)    local.get 3
-    (;150:1;)    call 35  (reflect.Value).Type
+    (;150:1;)    call 66  (reflect.Value).Type
     (;151:1;)    local.tee 7
-    (;152:1;)    call 27  (reflect.Type).Size
+    (;152:1;)    call 57  (reflect.Type).Size
     (;153:0;)    local.set 9
     (;154:1;)    local.get 4
-    (;155:1;)    call 27  (reflect.Type).Size
+    (;155:1;)    call 57  (reflect.Type).Size
     (;156:0;)    local.set 1
     (;157:1;)    local.get 7
     (;158:2;)    local.get 2
     (;159:3;)    local.get 3
-    (;160:1;)    call 32  (reflect.Value).isIndirect
+    (;160:1;)    call 63  (reflect.Value).isIndirect
     (;161:0;)    local.set 7
     (;162:1;)    local.get 3
     (;163:2;)    i32.const -3
@@ -3870,7 +4789,7 @@
     (;186:0;)          br_if 2
     (;187:1;)          i32.const 0
     (;188:2;)          local.get 6
-    (;189:0;)          i32.store offset=70832
+    (;189:0;)          i32.store offset=70816
     (;190:1;)          local.get 5
     (;191:2;)          i32.const 152
     (;192:1;)          i32.add
@@ -3932,7 +4851,7 @@
     (;248:0;)        end
     (;249:1;)        i32.const 0
     (;250:2;)        local.get 6
-    (;251:0;)        i32.store offset=70832
+    (;251:0;)        i32.store offset=70816
     (;252:1;)        local.get 5
     (;253:2;)        i32.const 104
     (;254:1;)        i32.add
@@ -3967,7 +4886,7 @@
     (;283:0;)      end
     (;284:1;)      i32.const 0
     (;285:2;)      local.get 6
-    (;286:0;)      i32.store offset=70832
+    (;286:0;)      i32.store offset=70816
     (;287:1;)      local.get 5
     (;288:2;)      i32.const 120
     (;289:1;)      i32.add
@@ -4005,7 +4924,7 @@
     (;321:3;)    local.get 10
     (;322:2;)    i32.add
     (;323:3;)    local.get 1
-    (;324:2;)    call 36  reflect.loadValue
+    (;324:2;)    call 67  reflect.loadValue
     (;325:2;)    local.tee 3
     (;326:0;)    i32.store
     (;327:1;)    local.get 5
@@ -4020,7 +4939,7 @@
     (;336:0;)    i32.store8
     (;337:1;)    i32.const 0
     (;338:2;)    local.get 6
-    (;339:0;)    i32.store offset=70832
+    (;339:0;)    i32.store offset=70816
     (;340:1;)    local.get 5
     (;341:2;)    i32.const 204
     (;342:1;)    i32.add
@@ -4047,7 +4966,7 @@
     (;363:0;)  end
   )
 
-  (func "(reflect.Value).Type" (;35;) (type 5) (param (;0;) i32 (;1;) i32 (;2;) i32) (result i32)
+  (func "(reflect.Value).Type" (;66;) (type 4) (param (;0;) i32 (;1;) i32 (;2;) i32) (result i32)
     (local (;3;) i32)
     (;0:1;)      global.get 0
     (;1:2;)      i32.const 16
@@ -4064,7 +4983,7 @@
     (;12:0;)   end
   )
 
-  (func "reflect.loadValue" (;36;) (type 2) (param (;0;) i32 (;1;) i32) (result i32)
+  (func "reflect.loadValue" (;67;) (type 2) (param (;0;) i32 (;1;) i32) (result i32)
     (local (;2;) i32)
     (local (;3;) i32)
     (;0:1;)      i32.const 0
@@ -4107,7 +5026,7 @@
     (;37:0;)   end
   )
 
-  (func "(reflect.Value).Float" (;37;) (type 14) (param (;0;) i32 (;1;) i32 (;2;) i32) (result f64)
+  (func "(reflect.Value).Float" (;68;) (type 15) (param (;0;) i32 (;1;) i32 (;2;) i32) (result f64)
     (local (;3;) i32)
     (local (;4;) i32)
     (local (;5;) i32)
@@ -4134,13 +5053,13 @@
     (;18:2;)     local.get 0
     (;19:0;)     i32.store offset=4
     (;20:1;)     i32.const 0
-    (;21:1;)     i32.load offset=70832
+    (;21:1;)     i32.load offset=70816
     (;22:0;)     local.set 4
     (;23:1;)     i32.const 0
     (;24:2;)     local.get 3
     (;25:3;)     i32.const 16
     (;26:2;)     i32.add
-    (;27:0;)     i32.store offset=70832
+    (;27:0;)     i32.store offset=70816
     (;28:1;)     local.get 3
     (;29:2;)     local.get 4
     (;30:0;)     i32.store offset=16
@@ -4162,7 +5081,7 @@
     (;46:1;)             local.get 0
     (;47:2;)             local.get 1
     (;48:3;)             local.get 2
-    (;49:1;)             call 31  (reflect.Value).Kind
+    (;49:1;)             call 62  (reflect.Value).Kind
     (;50:2;)             i32.const -13
     (;51:1;)             i32.add
     (;52:1;)             local.tee 5
@@ -4176,7 +5095,7 @@
     (;60:2;)           i32.const 28
     (;61:1;)           i32.add
     (;62:2;)           i32.const 8
-    (;63:2;)           call 17  runtime.alloc
+    (;63:2;)           call 59  runtime.alloc
     (;64:2;)           local.tee 1
     (;65:0;)           i32.store
     (;66:1;)           local.get 3
@@ -4188,23 +5107,23 @@
     (;72:2;)           i32.const 5
     (;73:0;)           i32.store offset=4
     (;74:1;)           local.get 1
-    (;75:2;)           i32.const 66083
+    (;75:2;)           i32.const 66179
     (;76:0;)           i32.store
     (;77:1;)           i32.const 3045
     (;78:2;)           local.get 1
-    (;79:0;)           call 24  runtime._panic
+    (;79:0;)           call 54  runtime._panic
     (;80:0;)           unreachable
     (;81:0;)         end
     (;82:1;)         local.get 0
     (;83:2;)         local.get 1
     (;84:3;)         local.get 2
-    (;85:1;)         call 32  (reflect.Value).isIndirect
+    (;85:1;)         call 63  (reflect.Value).isIndirect
     (;86:2;)         i32.const 1
     (;87:1;)         i32.and
     (;88:0;)         br_if 1
     (;89:1;)         i32.const 0
     (;90:2;)         local.get 4
-    (;91:0;)         i32.store offset=70832
+    (;91:0;)         i32.store offset=70816
     (;92:1;)         local.get 3
     (;93:2;)         i32.const 36
     (;94:1;)         i32.add
@@ -4230,11 +5149,11 @@
     (;114:1;)      local.get 0
     (;115:2;)      local.get 1
     (;116:3;)      local.get 2
-    (;117:1;)      call 32  (reflect.Value).isIndirect
+    (;117:1;)      call 63  (reflect.Value).isIndirect
     (;118:0;)      drop
     (;119:1;)      i32.const 0
     (;120:2;)      local.get 4
-    (;121:0;)      i32.store offset=70832
+    (;121:0;)      i32.store offset=70816
     (;122:1;)      local.get 1
     (;123:1;)      f64.load
     (;124:0;)      local.set 6
@@ -4250,7 +5169,7 @@
     (;134:0;)    local.set 7
     (;135:1;)    i32.const 0
     (;136:2;)    local.get 4
-    (;137:0;)    i32.store offset=70832
+    (;137:0;)    i32.store offset=70816
     (;138:1;)    local.get 3
     (;139:2;)    i32.const 48
     (;140:1;)    i32.add
@@ -4260,7 +5179,7 @@
     (;144:0;)  end
   )
 
-  (func "(reflect.Value).Index" (;38;) (type 13) (param (;0;) i32 (;1;) i32 (;2;) i32 (;3;) i32 (;4;) i32)
+  (func "(reflect.Value).Index" (;69;) (type 14) (param (;0;) i32 (;1;) i32 (;2;) i32 (;3;) i32 (;4;) i32)
     (local (;5;) i32)
     (local (;6;) i32)
     (local (;7;) i32)
@@ -4313,13 +5232,13 @@
     (;45:2;)     local.get 3
     (;46:0;)     i32.store8 offset=16
     (;47:1;)     i32.const 0
-    (;48:1;)     i32.load offset=70832
+    (;48:1;)     i32.load offset=70816
     (;49:0;)     local.set 6
     (;50:1;)     i32.const 0
     (;51:2;)     local.get 5
     (;52:3;)     i32.const 144
     (;53:2;)     i32.add
-    (;54:0;)     i32.store offset=70832
+    (;54:0;)     i32.store offset=70816
     (;55:1;)     local.get 5
     (;56:2;)     local.get 1
     (;57:0;)     i32.store offset=8
@@ -4342,7 +5261,7 @@
     (;74:1;)               local.get 1
     (;75:2;)               local.get 2
     (;76:3;)               local.get 3
-    (;77:1;)               call 31  (reflect.Value).Kind
+    (;77:1;)               call 62  (reflect.Value).Kind
     (;78:2;)               i32.const -17
     (;79:1;)               i32.add
     (;80:1;)               local.tee 7
@@ -4397,20 +5316,20 @@
     (;129:1;)                local.get 1
     (;130:2;)                local.get 2
     (;131:3;)                local.get 3
-    (;132:1;)                call 35  (reflect.Value).Type
-    (;133:1;)                call 23  (reflect.Type).Elem
+    (;132:1;)                call 66  (reflect.Value).Type
+    (;133:1;)                call 53  (reflect.Type).Elem
     (;134:2;)                i32.const 0
     (;135:3;)                local.get 3
     (;136:4;)                i32.const 1
     (;137:3;)                i32.or
     (;138:3;)                local.tee 3
-    (;139:1;)                call 35  (reflect.Value).Type
+    (;139:1;)                call 66  (reflect.Value).Type
     (;140:1;)                local.tee 1
-    (;141:1;)                call 27  (reflect.Type).Size
+    (;141:1;)                call 57  (reflect.Type).Size
     (;142:0;)                local.set 2
     (;143:1;)                i32.const 0
     (;144:2;)                local.get 6
-    (;145:0;)                i32.store offset=70832
+    (;145:0;)                i32.store offset=70816
     (;146:1;)                local.get 5
     (;147:2;)                i32.const 164
     (;148:1;)                i32.add
@@ -4504,7 +5423,7 @@
     (;236:0;)              i32.store
     (;237:1;)              i32.const 0
     (;238:2;)              local.get 6
-    (;239:0;)              i32.store offset=70832
+    (;239:0;)              i32.store offset=70816
     (;240:1;)              local.get 0
     (;241:2;)              i32.const 0
     (;242:0;)              i32.store8 offset=8
@@ -4524,7 +5443,7 @@
     (;256:2;)            i32.const 212
     (;257:1;)            i32.add
     (;258:2;)            i32.const 8
-    (;259:2;)            call 17  runtime.alloc
+    (;259:2;)            call 59  runtime.alloc
     (;260:2;)            local.tee 2
     (;261:0;)            i32.store
     (;262:1;)            local.get 5
@@ -4536,27 +5455,27 @@
     (;268:2;)            i32.const 5
     (;269:0;)            i32.store offset=4
     (;270:1;)            local.get 2
-    (;271:2;)            i32.const 66192
+    (;271:2;)            i32.const 66288
     (;272:0;)            i32.store
     (;273:1;)            i32.const 3045
     (;274:2;)            local.get 2
-    (;275:0;)            call 24  runtime._panic
+    (;275:0;)            call 54  runtime._panic
     (;276:0;)            unreachable
     (;277:0;)          end
     (;278:1;)          local.get 1
     (;279:2;)          local.get 2
     (;280:3;)          local.get 3
-    (;281:1;)          call 35  (reflect.Value).Type
+    (;281:1;)          call 66  (reflect.Value).Type
     (;282:1;)          local.tee 7
-    (;283:1;)          call 23  (reflect.Type).Elem
-    (;284:1;)          call 27  (reflect.Type).Size
+    (;283:1;)          call 53  (reflect.Type).Elem
+    (;284:1;)          call 57  (reflect.Type).Size
     (;285:0;)          local.set 1
     (;286:1;)          local.get 7
     (;287:2;)          local.get 2
     (;288:3;)          local.get 3
-    (;289:1;)          call 35  (reflect.Value).Type
+    (;289:1;)          call 66  (reflect.Value).Type
     (;290:1;)          local.tee 7
-    (;291:1;)          call 27  (reflect.Type).Size
+    (;291:1;)          call 57  (reflect.Type).Size
     (;292:1;)          local.tee 8
     (;293:0;)          br_if 2
     (;294:1;)          local.get 5
@@ -4577,12 +5496,12 @@
     (;309:1;)          local.get 7
     (;310:2;)          local.get 2
     (;311:3;)          local.get 3
-    (;312:1;)          call 35  (reflect.Value).Type
-    (;313:1;)          call 23  (reflect.Type).Elem
+    (;312:1;)          call 66  (reflect.Value).Type
+    (;313:1;)          call 53  (reflect.Type).Elem
     (;314:0;)          local.set 2
     (;315:1;)          i32.const 0
     (;316:2;)          local.get 6
-    (;317:0;)          i32.store offset=70832
+    (;317:0;)          i32.store offset=70816
     (;318:1;)          local.get 0
     (;319:2;)          local.get 3
     (;320:0;)          i32.store8 offset=8
@@ -4599,13 +5518,13 @@
     (;331:0;)          return
     (;332:0;)        end
     (;333:1;)        i32.const 34
-    (;334:2;)        i32.const 66136
-    (;335:0;)        call 24  runtime._panic
+    (;334:2;)        i32.const 66232
+    (;335:0;)        call 54  runtime._panic
     (;336:0;)        unreachable
     (;337:0;)      end
     (;338:1;)      i32.const 34
-    (;339:2;)      i32.const 66184
-    (;340:0;)      call 24  runtime._panic
+    (;339:2;)      i32.const 66280
+    (;340:0;)      call 54  runtime._panic
     (;341:0;)      unreachable
     (;342:0;)    end
     (;343:0;)    block
@@ -4636,12 +5555,12 @@
     (;368:1;)        local.get 7
     (;369:2;)        local.get 2
     (;370:3;)        local.get 3
-    (;371:1;)        call 35  (reflect.Value).Type
-    (;372:1;)        call 23  (reflect.Type).Elem
+    (;371:1;)        call 66  (reflect.Value).Type
+    (;372:1;)        call 53  (reflect.Type).Elem
     (;373:0;)        local.set 7
     (;374:1;)        i32.const 0
     (;375:2;)        local.get 6
-    (;376:0;)        i32.store offset=70832
+    (;376:0;)        i32.store offset=70816
     (;377:1;)        local.get 5
     (;378:2;)        i32.const 204
     (;379:1;)        i32.add
@@ -4709,12 +5628,12 @@
     (;441:1;)      local.get 7
     (;442:2;)      local.get 2
     (;443:3;)      local.get 3
-    (;444:1;)      call 35  (reflect.Value).Type
-    (;445:1;)      call 23  (reflect.Type).Elem
+    (;444:1;)      call 66  (reflect.Value).Type
+    (;445:1;)      call 53  (reflect.Type).Elem
     (;446:0;)      local.set 7
     (;447:1;)      i32.const 0
     (;448:2;)      local.get 6
-    (;449:0;)      i32.store offset=70832
+    (;449:0;)      i32.store offset=70816
     (;450:1;)      local.get 0
     (;451:2;)      local.get 3
     (;452:0;)      i32.store8 offset=8
@@ -4752,8 +5671,8 @@
     (;484:1;)    local.get 7
     (;485:2;)    local.get 2
     (;486:3;)    local.get 3
-    (;487:1;)    call 35  (reflect.Value).Type
-    (;488:1;)    call 23  (reflect.Type).Elem
+    (;487:1;)    call 66  (reflect.Value).Type
+    (;488:1;)    call 53  (reflect.Type).Elem
     (;489:0;)    local.set 7
     (;490:1;)    local.get 5
     (;491:2;)    i32.const 228
@@ -4764,7 +5683,7 @@
     (;496:3;)    i32.mul
     (;497:2;)    i32.add
     (;498:3;)    local.get 1
-    (;499:2;)    call 36  reflect.loadValue
+    (;499:2;)    call 67  reflect.loadValue
     (;500:2;)    local.tee 2
     (;501:0;)    i32.store
     (;502:1;)    local.get 5
@@ -4774,7 +5693,7 @@
     (;506:0;)    i32.store
     (;507:1;)    i32.const 0
     (;508:2;)    local.get 6
-    (;509:0;)    i32.store offset=70832
+    (;509:0;)    i32.store offset=70816
     (;510:1;)    local.get 0
     (;511:2;)    local.get 3
     (;512:0;)    i32.store8 offset=8
@@ -4791,7 +5710,7 @@
     (;523:0;)  end
   )
 
-  (func "(reflect.Value).Int" (;39;) (type 15) (param (;0;) i32 (;1;) i32 (;2;) i32) (result i64)
+  (func "(reflect.Value).Int" (;70;) (type 16) (param (;0;) i32 (;1;) i32 (;2;) i32) (result i64)
     (local (;3;) i32)
     (local (;4;) i32)
     (local (;5;) i32)
@@ -4814,13 +5733,13 @@
     (;15:2;)     local.get 2
     (;16:0;)     i32.store8 offset=16
     (;17:1;)     i32.const 0
-    (;18:1;)     i32.load offset=70832
+    (;18:1;)     i32.load offset=70816
     (;19:0;)     local.set 4
     (;20:1;)     i32.const 0
     (;21:2;)     local.get 3
     (;22:3;)     i32.const 24
     (;23:2;)     i32.add
-    (;24:0;)     i32.store offset=70832
+    (;24:0;)     i32.store offset=70816
     (;25:1;)     local.get 3
     (;26:2;)     local.get 4
     (;27:0;)     i32.store offset=24
@@ -4848,7 +5767,7 @@
     (;49:1;)                         local.get 0
     (;50:2;)                         local.get 1
     (;51:3;)                         local.get 2
-    (;52:1;)                         call 31  (reflect.Value).Kind
+    (;52:1;)                         call 62  (reflect.Value).Kind
     (;53:2;)                         i32.const -2
     (;54:1;)                         i32.add
     (;55:1;)                         local.tee 5
@@ -4862,7 +5781,7 @@
     (;63:2;)                       i32.const 36
     (;64:1;)                       i32.add
     (;65:2;)                       i32.const 8
-    (;66:2;)                       call 17  runtime.alloc
+    (;66:2;)                       call 59  runtime.alloc
     (;67:2;)                       local.tee 1
     (;68:0;)                       i32.store
     (;69:1;)                       local.get 3
@@ -4874,23 +5793,23 @@
     (;75:2;)                       i32.const 3
     (;76:0;)                       i32.store offset=4
     (;77:1;)                       local.get 1
-    (;78:2;)                       i32.const 66197
+    (;78:2;)                       i32.const 66293
     (;79:0;)                       i32.store
     (;80:1;)                       i32.const 3045
     (;81:2;)                       local.get 1
-    (;82:0;)                       call 24  runtime._panic
+    (;82:0;)                       call 54  runtime._panic
     (;83:0;)                       unreachable
     (;84:0;)                     end
     (;85:1;)                     local.get 0
     (;86:2;)                     local.get 1
     (;87:3;)                     local.get 2
-    (;88:1;)                     call 32  (reflect.Value).isIndirect
+    (;88:1;)                     call 63  (reflect.Value).isIndirect
     (;89:2;)                     i32.const 1
     (;90:1;)                     i32.and
     (;91:0;)                     br_if 4
     (;92:1;)                     i32.const 0
     (;93:2;)                     local.get 4
-    (;94:0;)                     i32.store offset=70832
+    (;94:0;)                     i32.store offset=70816
     (;95:1;)                     local.get 3
     (;96:2;)                     i32.const 48
     (;97:1;)                     i32.add
@@ -4902,13 +5821,13 @@
     (;103:1;)                  local.get 0
     (;104:2;)                  local.get 1
     (;105:3;)                  local.get 2
-    (;106:1;)                  call 32  (reflect.Value).isIndirect
+    (;106:1;)                  call 63  (reflect.Value).isIndirect
     (;107:2;)                  i32.const 1
     (;108:1;)                  i32.and
     (;109:0;)                  br_if 4
     (;110:1;)                  i32.const 0
     (;111:2;)                  local.get 4
-    (;112:0;)                  i32.store offset=70832
+    (;112:0;)                  i32.store offset=70816
     (;113:1;)                  local.get 3
     (;114:2;)                  i32.const 48
     (;115:1;)                  i32.add
@@ -4924,13 +5843,13 @@
     (;125:1;)                local.get 0
     (;126:2;)                local.get 1
     (;127:3;)                local.get 2
-    (;128:1;)                call 32  (reflect.Value).isIndirect
+    (;128:1;)                call 63  (reflect.Value).isIndirect
     (;129:2;)                i32.const 1
     (;130:1;)                i32.and
     (;131:0;)                br_if 4
     (;132:1;)                i32.const 0
     (;133:2;)                local.get 4
-    (;134:0;)                i32.store offset=70832
+    (;134:0;)                i32.store offset=70816
     (;135:1;)                local.get 3
     (;136:2;)                i32.const 48
     (;137:1;)                i32.add
@@ -4946,13 +5865,13 @@
     (;147:1;)              local.get 0
     (;148:2;)              local.get 1
     (;149:3;)              local.get 2
-    (;150:1;)              call 32  (reflect.Value).isIndirect
+    (;150:1;)              call 63  (reflect.Value).isIndirect
     (;151:2;)              i32.const 1
     (;152:1;)              i32.and
     (;153:0;)              br_if 4
     (;154:1;)              i32.const 0
     (;155:2;)              local.get 4
-    (;156:0;)              i32.store offset=70832
+    (;156:0;)              i32.store offset=70816
     (;157:1;)              local.get 3
     (;158:2;)              i32.const 48
     (;159:1;)              i32.add
@@ -4964,11 +5883,11 @@
     (;165:1;)            local.get 0
     (;166:2;)            local.get 1
     (;167:3;)            local.get 2
-    (;168:1;)            call 32  (reflect.Value).isIndirect
+    (;168:1;)            call 63  (reflect.Value).isIndirect
     (;169:0;)            drop
     (;170:1;)            i32.const 0
     (;171:2;)            local.get 4
-    (;172:0;)            i32.store offset=70832
+    (;172:0;)            i32.store offset=70816
     (;173:1;)            local.get 1
     (;174:1;)            i64.load
     (;175:0;)            local.set 6
@@ -4984,7 +5903,7 @@
     (;185:0;)          local.set 6
     (;186:1;)          i32.const 0
     (;187:2;)          local.get 4
-    (;188:0;)          i32.store offset=70832
+    (;188:0;)          i32.store offset=70816
     (;189:1;)          local.get 3
     (;190:2;)          i32.const 48
     (;191:1;)          i32.add
@@ -4997,7 +5916,7 @@
     (;198:0;)        local.set 6
     (;199:1;)        i32.const 0
     (;200:2;)        local.get 4
-    (;201:0;)        i32.store offset=70832
+    (;201:0;)        i32.store offset=70816
     (;202:1;)        local.get 3
     (;203:2;)        i32.const 48
     (;204:1;)        i32.add
@@ -5010,7 +5929,7 @@
     (;211:0;)      local.set 6
     (;212:1;)      i32.const 0
     (;213:2;)      local.get 4
-    (;214:0;)      i32.store offset=70832
+    (;214:0;)      i32.store offset=70816
     (;215:1;)      local.get 3
     (;216:2;)      i32.const 48
     (;217:1;)      i32.add
@@ -5023,7 +5942,7 @@
     (;224:0;)    local.set 6
     (;225:1;)    i32.const 0
     (;226:2;)    local.get 4
-    (;227:0;)    i32.store offset=70832
+    (;227:0;)    i32.store offset=70816
     (;228:1;)    local.get 3
     (;229:2;)    i32.const 48
     (;230:1;)    i32.add
@@ -5032,7 +5951,7 @@
     (;233:0;)  end
   )
 
-  (func "(reflect.Value).Pointer" (;40;) (type 5) (param (;0;) i32 (;1;) i32 (;2;) i32) (result i32)
+  (func "(reflect.Value).Pointer" (;71;) (type 4) (param (;0;) i32 (;1;) i32 (;2;) i32) (result i32)
     (local (;3;) i32)
     (local (;4;) i32)
     (local (;5;) i32)
@@ -5054,13 +5973,13 @@
     (;15:2;)     local.get 2
     (;16:0;)     i32.store8 offset=16
     (;17:1;)     i32.const 0
-    (;18:1;)     i32.load offset=70832
+    (;18:1;)     i32.load offset=70816
     (;19:0;)     local.set 4
     (;20:1;)     i32.const 0
     (;21:2;)     local.get 3
     (;22:3;)     i32.const 24
     (;23:2;)     i32.add
-    (;24:0;)     i32.store offset=70832
+    (;24:0;)     i32.store offset=70816
     (;25:1;)     local.get 3
     (;26:2;)     local.get 4
     (;27:0;)     i32.store offset=24
@@ -5084,7 +6003,7 @@
     (;45:1;)                 local.get 0
     (;46:2;)                 local.get 1
     (;47:3;)                 local.get 2
-    (;48:1;)                 call 31  (reflect.Value).Kind
+    (;48:1;)                 call 62  (reflect.Value).Kind
     (;49:1;)                 local.tee 5
     (;50:2;)                 i32.const 25
     (;51:1;)                 i32.gt_u
@@ -5108,7 +6027,7 @@
     (;69:2;)               i32.const 36
     (;70:1;)               i32.add
     (;71:2;)               i32.const 8
-    (;72:2;)               call 17  runtime.alloc
+    (;72:2;)               call 59  runtime.alloc
     (;73:2;)               local.tee 1
     (;74:0;)               i32.store
     (;75:1;)               local.get 3
@@ -5120,23 +6039,23 @@
     (;81:2;)               i32.const 7
     (;82:0;)               i32.store offset=4
     (;83:1;)               local.get 1
-    (;84:2;)               i32.const 66256
+    (;84:2;)               i32.const 66352
     (;85:0;)               i32.store
     (;86:1;)               i32.const 3045
     (;87:2;)               local.get 1
-    (;88:0;)               call 24  runtime._panic
+    (;88:0;)               call 54  runtime._panic
     (;89:0;)               unreachable
     (;90:0;)             end
     (;91:1;)             local.get 0
     (;92:2;)             local.get 1
     (;93:3;)             local.get 2
-    (;94:1;)             call 32  (reflect.Value).isIndirect
+    (;94:1;)             call 63  (reflect.Value).isIndirect
     (;95:2;)             i32.const 1
     (;96:1;)             i32.and
     (;97:0;)             br_if 2
     (;98:1;)             i32.const 0
     (;99:2;)             local.get 4
-    (;100:0;)            i32.store offset=70832
+    (;100:0;)            i32.store offset=70816
     (;101:1;)            local.get 3
     (;102:2;)            i32.const 48
     (;103:1;)            i32.add
@@ -5152,7 +6071,7 @@
     (;113:0;)          local.set 1
     (;114:1;)          i32.const 0
     (;115:2;)          local.get 4
-    (;116:0;)          i32.store offset=70832
+    (;116:0;)          i32.store offset=70816
     (;117:1;)          local.get 3
     (;118:2;)          i32.const 48
     (;119:1;)          i32.add
@@ -5161,8 +6080,8 @@
     (;122:1;)          return
     (;123:0;)        end
     (;124:1;)        i32.const 34
-    (;125:2;)        i32.const 66248
-    (;126:0;)        call 24  runtime._panic
+    (;125:2;)        i32.const 66344
+    (;126:0;)        call 54  runtime._panic
     (;127:0;)        unreachable
     (;128:0;)      end
     (;129:1;)      local.get 1
@@ -5170,7 +6089,7 @@
     (;131:0;)      local.set 1
     (;132:1;)      i32.const 0
     (;133:2;)      local.get 4
-    (;134:0;)      i32.store offset=70832
+    (;134:0;)      i32.store offset=70816
     (;135:1;)      local.get 3
     (;136:2;)      i32.const 48
     (;137:1;)      i32.add
@@ -5178,20 +6097,20 @@
     (;139:1;)      local.get 1
     (;140:1;)      return
     (;141:0;)    end
-    (;142:0;)    call 41  runtime.nilPanic
+    (;142:0;)    call 72  runtime.nilPanic
     (;143:0;)    unreachable
     (;144:0;)  end
   )
 
-  (func "runtime.nilPanic" (;41;) (type 6)
-    (;0:1;)      i32.const 67168
+  (func "runtime.nilPanic" (;72;) (type 6)
+    (;0:1;)      i32.const 67216
     (;1:2;)      i32.const 23
-    (;2:0;)      call 96  runtime.runtimePanic
+    (;2:0;)      call 106  runtime.runtimePanic
     (;3:0;)      unreachable
     (;4:0;)    end
   )
 
-  (func "(reflect.Value).String" (;42;) (type 3) (param (;0;) i32 (;1;) i32 (;2;) i32 (;3;) i32)
+  (func "(reflect.Value).String" (;73;) (type 3) (param (;0;) i32 (;1;) i32 (;2;) i32 (;3;) i32)
     (local (;4;) i32)
     (;0:1;)      global.get 0
     (;1:2;)      i32.const 16
@@ -5214,7 +6133,7 @@
     (;18:1;)       local.get 1
     (;19:2;)       local.get 2
     (;20:3;)       local.get 3
-    (;21:1;)       call 31  (reflect.Value).Kind
+    (;21:1;)       call 62  (reflect.Value).Kind
     (;22:2;)       i32.const 17
     (;23:1;)       i32.eq
     (;24:0;)       br_if 0
@@ -5222,7 +6141,7 @@
     (;26:2;)       i32.const 3
     (;27:0;)       i32.store offset=4
     (;28:1;)       local.get 0
-    (;29:2;)       i32.const 66263
+    (;29:2;)       i32.const 66359
     (;30:0;)       i32.store
     (;31:1;)       local.get 4
     (;32:2;)       i32.const 16
@@ -5241,7 +6160,7 @@
     (;45:0;)   end
   )
 
-  (func "(reflect.Value).Uint" (;43;) (type 15) (param (;0;) i32 (;1;) i32 (;2;) i32) (result i64)
+  (func "(reflect.Value).Uint" (;74;) (type 16) (param (;0;) i32 (;1;) i32 (;2;) i32) (result i64)
     (local (;3;) i32)
     (local (;4;) i32)
     (local (;5;) i32)
@@ -5264,13 +6183,13 @@
     (;15:2;)     local.get 2
     (;16:0;)     i32.store8 offset=16
     (;17:1;)     i32.const 0
-    (;18:1;)     i32.load offset=70832
+    (;18:1;)     i32.load offset=70816
     (;19:0;)     local.set 4
     (;20:1;)     i32.const 0
     (;21:2;)     local.get 3
     (;22:3;)     i32.const 24
     (;23:2;)     i32.add
-    (;24:0;)     i32.store offset=70832
+    (;24:0;)     i32.store offset=70816
     (;25:1;)     local.get 3
     (;26:2;)     local.get 4
     (;27:0;)     i32.store offset=24
@@ -5300,7 +6219,7 @@
     (;51:1;)                             local.get 0
     (;52:2;)                             local.get 1
     (;53:3;)                             local.get 2
-    (;54:1;)                             call 31  (reflect.Value).Kind
+    (;54:1;)                             call 62  (reflect.Value).Kind
     (;55:2;)                             i32.const -7
     (;56:1;)                             i32.add
     (;57:1;)                             local.tee 5
@@ -5314,7 +6233,7 @@
     (;65:2;)                           i32.const 36
     (;66:1;)                           i32.add
     (;67:2;)                           i32.const 8
-    (;68:2;)                           call 17  runtime.alloc
+    (;68:2;)                           call 59  runtime.alloc
     (;69:2;)                           local.tee 1
     (;70:0;)                           i32.store
     (;71:1;)                           local.get 3
@@ -5326,23 +6245,23 @@
     (;77:2;)                           i32.const 4
     (;78:0;)                           i32.store offset=4
     (;79:1;)                           local.get 1
-    (;80:2;)                           i32.const 66266
+    (;80:2;)                           i32.const 66362
     (;81:0;)                           i32.store
     (;82:1;)                           i32.const 3045
     (;83:2;)                           local.get 1
-    (;84:0;)                           call 24  runtime._panic
+    (;84:0;)                           call 54  runtime._panic
     (;85:0;)                           unreachable
     (;86:0;)                         end
     (;87:1;)                         local.get 0
     (;88:2;)                         local.get 1
     (;89:3;)                         local.get 2
-    (;90:1;)                         call 32  (reflect.Value).isIndirect
+    (;90:1;)                         call 63  (reflect.Value).isIndirect
     (;91:2;)                         i32.const 1
     (;92:1;)                         i32.and
     (;93:0;)                         br_if 5
     (;94:1;)                         i32.const 0
     (;95:2;)                         local.get 4
-    (;96:0;)                         i32.store offset=70832
+    (;96:0;)                         i32.store offset=70816
     (;97:1;)                         local.get 3
     (;98:2;)                         i32.const 48
     (;99:1;)                         i32.add
@@ -5354,13 +6273,13 @@
     (;105:1;)                      local.get 0
     (;106:2;)                      local.get 1
     (;107:3;)                      local.get 2
-    (;108:1;)                      call 32  (reflect.Value).isIndirect
+    (;108:1;)                      call 63  (reflect.Value).isIndirect
     (;109:2;)                      i32.const 1
     (;110:1;)                      i32.and
     (;111:0;)                      br_if 5
     (;112:1;)                      i32.const 0
     (;113:2;)                      local.get 4
-    (;114:0;)                      i32.store offset=70832
+    (;114:0;)                      i32.store offset=70816
     (;115:1;)                      local.get 3
     (;116:2;)                      i32.const 48
     (;117:1;)                      i32.add
@@ -5372,13 +6291,13 @@
     (;123:1;)                    local.get 0
     (;124:2;)                    local.get 1
     (;125:3;)                    local.get 2
-    (;126:1;)                    call 32  (reflect.Value).isIndirect
+    (;126:1;)                    call 63  (reflect.Value).isIndirect
     (;127:2;)                    i32.const 1
     (;128:1;)                    i32.and
     (;129:0;)                    br_if 5
     (;130:1;)                    i32.const 0
     (;131:2;)                    local.get 4
-    (;132:0;)                    i32.store offset=70832
+    (;132:0;)                    i32.store offset=70816
     (;133:1;)                    local.get 3
     (;134:2;)                    i32.const 48
     (;135:1;)                    i32.add
@@ -5390,13 +6309,13 @@
     (;141:1;)                  local.get 0
     (;142:2;)                  local.get 1
     (;143:3;)                  local.get 2
-    (;144:1;)                  call 32  (reflect.Value).isIndirect
+    (;144:1;)                  call 63  (reflect.Value).isIndirect
     (;145:2;)                  i32.const 1
     (;146:1;)                  i32.and
     (;147:0;)                  br_if 5
     (;148:1;)                  i32.const 0
     (;149:2;)                  local.get 4
-    (;150:0;)                  i32.store offset=70832
+    (;150:0;)                  i32.store offset=70816
     (;151:1;)                  local.get 3
     (;152:2;)                  i32.const 48
     (;153:1;)                  i32.add
@@ -5408,13 +6327,13 @@
     (;159:1;)                local.get 0
     (;160:2;)                local.get 1
     (;161:3;)                local.get 2
-    (;162:1;)                call 32  (reflect.Value).isIndirect
+    (;162:1;)                call 63  (reflect.Value).isIndirect
     (;163:2;)                i32.const 1
     (;164:1;)                i32.and
     (;165:0;)                br_if 5
     (;166:1;)                i32.const 0
     (;167:2;)                local.get 4
-    (;168:0;)                i32.store offset=70832
+    (;168:0;)                i32.store offset=70816
     (;169:1;)                local.get 3
     (;170:2;)                i32.const 48
     (;171:1;)                i32.add
@@ -5426,11 +6345,11 @@
     (;177:1;)              local.get 0
     (;178:2;)              local.get 1
     (;179:3;)              local.get 2
-    (;180:1;)              call 32  (reflect.Value).isIndirect
+    (;180:1;)              call 63  (reflect.Value).isIndirect
     (;181:0;)              drop
     (;182:1;)              i32.const 0
     (;183:2;)              local.get 4
-    (;184:0;)              i32.store offset=70832
+    (;184:0;)              i32.store offset=70816
     (;185:1;)              local.get 1
     (;186:1;)              i64.load
     (;187:0;)              local.set 6
@@ -5446,7 +6365,7 @@
     (;197:0;)            local.set 6
     (;198:1;)            i32.const 0
     (;199:2;)            local.get 4
-    (;200:0;)            i32.store offset=70832
+    (;200:0;)            i32.store offset=70816
     (;201:1;)            local.get 3
     (;202:2;)            i32.const 48
     (;203:1;)            i32.add
@@ -5459,7 +6378,7 @@
     (;210:0;)          local.set 6
     (;211:1;)          i32.const 0
     (;212:2;)          local.get 4
-    (;213:0;)          i32.store offset=70832
+    (;213:0;)          i32.store offset=70816
     (;214:1;)          local.get 3
     (;215:2;)          i32.const 48
     (;216:1;)          i32.add
@@ -5472,7 +6391,7 @@
     (;223:0;)        local.set 6
     (;224:1;)        i32.const 0
     (;225:2;)        local.get 4
-    (;226:0;)        i32.store offset=70832
+    (;226:0;)        i32.store offset=70816
     (;227:1;)        local.get 3
     (;228:2;)        i32.const 48
     (;229:1;)        i32.add
@@ -5485,7 +6404,7 @@
     (;236:0;)      local.set 6
     (;237:1;)      i32.const 0
     (;238:2;)      local.get 4
-    (;239:0;)      i32.store offset=70832
+    (;239:0;)      i32.store offset=70816
     (;240:1;)      local.get 3
     (;241:2;)      i32.const 48
     (;242:1;)      i32.add
@@ -5498,7 +6417,7 @@
     (;249:0;)    local.set 6
     (;250:1;)    i32.const 0
     (;251:2;)    local.get 4
-    (;252:0;)    i32.store offset=70832
+    (;252:0;)    i32.store offset=70816
     (;253:1;)    local.get 3
     (;254:2;)    i32.const 48
     (;255:1;)    i32.add
@@ -5507,7 +6426,7 @@
     (;258:0;)  end
   )
 
-  (func "reflect.ValueOf" (;44;) (type 1) (param (;0;) i32 (;1;) i32 (;2;) i32)
+  (func "reflect.ValueOf" (;75;) (type 1) (param (;0;) i32 (;1;) i32 (;2;) i32)
     (local (;3;) i32)
     (;0:1;)      global.get 0
     (;1:2;)      i32.const 32
@@ -5529,7 +6448,7 @@
     (;17:0;)   end
   )
 
-  (func "strconv.FormatInt" (;45;) (type 16) (param (;0;) i32 (;1;) i64)
+  (func "strconv.FormatInt" (;76;) (type 12) (param (;0;) i32 (;1;) i64)
     (local (;2;) i32)
     (local (;3;) i32)
     (local (;4;) i32)
@@ -5559,13 +6478,13 @@
     (;12:2;)     i64.const 4
     (;13:0;)     i64.store offset=12 align=2
     (;14:1;)     i32.const 0
-    (;15:1;)     i32.load offset=70832
+    (;15:1;)     i32.load offset=70816
     (;16:0;)     local.set 3
     (;17:1;)     i32.const 0
     (;18:2;)     local.get 2
     (;19:3;)     i32.const 8
     (;20:2;)     i32.add
-    (;21:0;)     i32.store offset=70832
+    (;21:0;)     i32.store offset=70816
     (;22:1;)     local.get 2
     (;23:2;)     local.get 3
     (;24:0;)     i32.store offset=8
@@ -5580,7 +6499,7 @@
     (;33:2;)           i32.const 20
     (;34:1;)           i32.add
     (;35:2;)           i32.const 65
-    (;36:2;)           call 17  runtime.alloc
+    (;36:2;)           call 59  runtime.alloc
     (;37:2;)           local.tee 4
     (;38:0;)           i32.store
     (;39:1;)           local.get 1
@@ -5659,7 +6578,7 @@
     (;112:2;)                i32.const 1
     (;113:1;)                i32.add
     (;114:2;)                local.get 14
-    (;115:3;)                i32.const 66416
+    (;115:3;)                i32.const 66512
     (;116:2;)                i32.add
     (;117:2;)                i32.load8_u
     (;118:0;)                i32.store8
@@ -5671,7 +6590,7 @@
     (;124:0;)                br_if 5
     (;125:1;)                local.get 15
     (;126:2;)                local.get 10
-    (;127:3;)                i32.const 66416
+    (;127:3;)                i32.const 66512
     (;128:2;)                i32.add
     (;129:2;)                i32.load8_u
     (;130:0;)                i32.store8
@@ -5708,7 +6627,7 @@
     (;161:2;)            i32.const 1
     (;162:1;)            i32.add
     (;163:2;)            local.get 10
-    (;164:3;)            i32.const 66416
+    (;164:3;)            i32.const 66512
     (;165:2;)            i32.add
     (;166:2;)            i32.load8_u
     (;167:0;)            i32.store8
@@ -5719,19 +6638,19 @@
     (;172:0;)        end
     (;173:1;)        i32.const 0
     (;174:2;)        local.get 3
-    (;175:0;)        i32.store offset=70832
+    (;175:0;)        i32.store offset=70816
     (;176:1;)        local.get 2
     (;177:2;)        i32.const 16
     (;178:1;)        i32.add
     (;179:2;)        local.get 1
     (;180:2;)        i32.wrap_i64
     (;181:2;)        local.tee 11
-    (;182:3;)        i32.const 66368
+    (;182:3;)        i32.const 66464
     (;183:2;)        i32.add
     (;184:3;)        local.get 11
     (;185:4;)        i32.const 1
     (;186:3;)        i32.shl
-    (;187:4;)        i32.const 66416
+    (;187:4;)        i32.const 66512
     (;188:3;)        i32.add
     (;189:4;)        local.get 11
     (;190:5;)        i32.const 10
@@ -5795,7 +6714,7 @@
     (;248:1;)          i32.add
     (;249:1;)          local.tee 14
     (;250:2;)          local.get 13
-    (;251:3;)          i32.const 66416
+    (;251:3;)          i32.const 66512
     (;252:2;)          i32.add
     (;253:2;)          i32.load8_u
     (;254:0;)          i32.store8
@@ -5809,7 +6728,7 @@
     (;262:2;)          i32.const -1
     (;263:1;)          i32.add
     (;264:2;)          local.get 10
-    (;265:3;)          i32.const 66416
+    (;265:3;)          i32.const 66512
     (;266:2;)          i32.add
     (;267:2;)          i32.load8_u
     (;268:0;)          i32.store8
@@ -5841,7 +6760,7 @@
     (;294:1;)      i32.add
     (;295:1;)      local.tee 14
     (;296:2;)      local.get 12
-    (;297:3;)      i32.const 66416
+    (;297:3;)      i32.const 66512
     (;298:2;)      i32.add
     (;299:2;)      i32.load8_u
     (;300:0;)      i32.store8
@@ -5861,7 +6780,7 @@
     (;314:2;)        i32.const -1
     (;315:1;)        i32.add
     (;316:2;)        local.get 13
-    (;317:3;)        i32.const 66416
+    (;317:3;)        i32.const 66512
     (;318:2;)        i32.add
     (;319:2;)        i32.load8_u
     (;320:0;)        i32.store8
@@ -5896,7 +6815,7 @@
     (;349:0;)      call 14  runtime.stringFromBytes
     (;350:1;)      i32.const 0
     (;351:2;)      local.get 3
-    (;352:0;)      i32.store offset=70832
+    (;352:0;)      i32.store offset=70816
     (;353:1;)      local.get 2
     (;354:2;)      i32.const 28
     (;355:1;)      i32.add
@@ -5922,20 +6841,20 @@
     (;375:0;)      global.set 0
     (;376:0;)      return
     (;377:0;)    end
-    (;378:0;)    call 46  runtime.lookupPanic
+    (;378:0;)    call 77  runtime.lookupPanic
     (;379:0;)    unreachable
     (;380:0;)  end
   )
 
-  (func "runtime.lookupPanic" (;46;) (type 6)
-    (;0:1;)      i32.const 67136
+  (func "runtime.lookupPanic" (;77;) (type 6)
+    (;0:1;)      i32.const 67184
     (;1:2;)      i32.const 18
-    (;2:0;)      call 96  runtime.runtimePanic
+    (;2:0;)      call 106  runtime.runtimePanic
     (;3:0;)      unreachable
     (;4:0;)    end
   )
 
-  (func "strconv.ParseInt" (;47;) (type 1) (param (;0;) i32 (;1;) i32 (;2;) i32)
+  (func "strconv.ParseInt" (;78;) (type 1) (param (;0;) i32 (;1;) i32 (;2;) i32)
     (local (;3;) i32)
     (local (;4;) i32)
     (local (;5;) i32)
@@ -5999,13 +6918,13 @@
     (;50:1;)     i32.const 0
     (;51:0;)     local.set 4
     (;52:1;)     i32.const 0
-    (;53:1;)     i32.load offset=70832
+    (;53:1;)     i32.load offset=70816
     (;54:0;)     local.set 5
     (;55:1;)     i32.const 0
     (;56:2;)     local.get 3
     (;57:3;)     i32.const 40
     (;58:2;)     i32.add
-    (;59:0;)     i32.store offset=70832
+    (;59:0;)     i32.store offset=70816
     (;60:1;)     local.get 3
     (;61:2;)     local.get 5
     (;62:0;)     i32.store offset=40
@@ -6017,11 +6936,11 @@
     (;68:1;)       i32.add
     (;69:2;)       i32.const 8
     (;70:1;)       i32.add
-    (;71:2;)       i32.const 66270
+    (;71:2;)       i32.const 66366
     (;72:3;)       i32.const 8
     (;73:4;)       local.get 1
     (;74:5;)       i32.const 0
-    (;75:2;)       call 48  strconv.syntaxError
+    (;75:2;)       call 79  strconv.syntaxError
     (;76:2;)       local.tee 6
     (;77:0;)       i32.store
     (;78:1;)       local.get 3
@@ -6031,7 +6950,7 @@
     (;82:0;)       i32.store
     (;83:1;)       i32.const 0
     (;84:2;)       local.get 5
-    (;85:0;)       i32.store offset=70832
+    (;85:0;)       i32.store offset=70816
     (;86:1;)       local.get 0
     (;87:2;)       local.get 6
     (;88:0;)       i32.store offset=12
@@ -6117,11 +7036,11 @@
     (;168:1;)                local.get 3
     (;169:2;)                i32.const 60
     (;170:1;)                i32.add
-    (;171:2;)                i32.const 66278
+    (;171:2;)                i32.const 66374
     (;172:3;)                i32.const 9
     (;173:4;)                local.get 8
     (;174:5;)                i32.const 0
-    (;175:2;)                call 48  strconv.syntaxError
+    (;175:2;)                call 79  strconv.syntaxError
     (;176:2;)                local.tee 6
     (;177:0;)                i32.store
     (;178:1;)                local.get 3
@@ -6162,7 +7081,7 @@
     (;213:2;)              i32.const 96
     (;214:1;)              i32.add
     (;215:2;)              local.get 7
-    (;216:2;)              call 17  runtime.alloc
+    (;216:2;)              call 59  runtime.alloc
     (;217:2;)              local.tee 10
     (;218:0;)              i32.store
     (;219:1;)              local.get 3
@@ -6215,11 +7134,11 @@
     (;266:1;)                    local.get 3
     (;267:2;)                    i32.const 104
     (;268:1;)                    i32.add
-    (;269:2;)                    i32.const 66278
+    (;269:2;)                    i32.const 66374
     (;270:3;)                    i32.const 9
     (;271:4;)                    local.get 8
     (;272:5;)                    local.get 7
-    (;273:2;)                    call 49  strconv.rangeError
+    (;273:2;)                    call 80  strconv.rangeError
     (;274:2;)                    local.tee 6
     (;275:0;)                    i32.store
     (;276:1;)                    local.get 3
@@ -6250,11 +7169,11 @@
     (;301:1;)                local.get 3
     (;302:2;)                i32.const 112
     (;303:1;)                i32.add
-    (;304:2;)                i32.const 66278
+    (;304:2;)                i32.const 66374
     (;305:3;)                i32.const 9
     (;306:4;)                local.get 8
     (;307:5;)                local.get 7
-    (;308:2;)                call 49  strconv.rangeError
+    (;308:2;)                call 80  strconv.rangeError
     (;309:2;)                local.tee 6
     (;310:0;)                i32.store
     (;311:1;)                local.get 3
@@ -6267,11 +7186,11 @@
     (;318:1;)              local.get 3
     (;319:2;)              i32.const 120
     (;320:1;)              i32.add
-    (;321:2;)              i32.const 66278
+    (;321:2;)              i32.const 66374
     (;322:3;)              i32.const 9
     (;323:4;)              local.get 8
     (;324:5;)              local.get 7
-    (;325:2;)              call 48  strconv.syntaxError
+    (;325:2;)              call 79  strconv.syntaxError
     (;326:2;)              local.tee 6
     (;327:0;)              i32.store
     (;328:1;)              local.get 3
@@ -6292,7 +7211,7 @@
     (;343:0;)          local.set 6
     (;344:0;)          br 2
     (;345:0;)        end
-    (;346:0;)        call 46  runtime.lookupPanic
+    (;346:0;)        call 77  runtime.lookupPanic
     (;347:0;)        unreachable
     (;348:0;)      end
     (;349:1;)      i32.const 997
@@ -6312,7 +7231,7 @@
     (;363:1;)      local.get 7
     (;364:2;)      i32.const 997
     (;365:1;)      i32.eq
-    (;366:0;)      call 50  runtime.interfaceTypeAssert
+    (;366:0;)      call 81  runtime.interfaceTypeAssert
     (;367:0;)      block
     (;368:0;)        block
     (;369:1;)          local.get 6
@@ -6323,7 +7242,7 @@
     (;374:1;)          i32.eq
     (;375:0;)          br_if 1
     (;376:0;)        end
-    (;377:0;)        call 41  runtime.nilPanic
+    (;377:0;)        call 72  runtime.nilPanic
     (;378:0;)        unreachable
     (;379:0;)      end
     (;380:1;)      local.get 6
@@ -6341,7 +7260,7 @@
     (;392:1;)      i32.add
     (;393:2;)      local.get 10
     (;394:3;)      local.get 8
-    (;395:0;)      call 44  reflect.ValueOf
+    (;395:0;)      call 75  reflect.ValueOf
     (;396:1;)      local.get 3
     (;397:2;)      i32.const 152
     (;398:1;)      i32.add
@@ -6354,8 +7273,8 @@
     (;405:0;)      local.set 8
     (;406:1;)      local.get 3
     (;407:2;)      i32.const 5093
-    (;408:3;)      i32.const 70776
-    (;409:0;)      call 44  reflect.ValueOf
+    (;408:3;)      i32.const 70760
+    (;409:0;)      call 75  reflect.ValueOf
     (;410:1;)      local.get 3
     (;411:2;)      i32.const 156
     (;412:1;)      i32.add
@@ -6370,7 +7289,7 @@
     (;421:4;)      i32.load
     (;422:5;)      local.get 11
     (;423:6;)      i32.const 2
-    (;424:1;)      call 51  runtime.reflectValueEqual
+    (;424:1;)      call 82  runtime.reflectValueEqual
     (;425:2;)      i32.const 1
     (;426:1;)      i32.and
     (;427:0;)      br_if 0
@@ -6378,15 +7297,15 @@
     (;429:2;)      i32.const 997
     (;430:1;)      i32.eq
     (;431:1;)      local.tee 10
-    (;432:0;)      call 50  runtime.interfaceTypeAssert
+    (;432:0;)      call 81  runtime.interfaceTypeAssert
     (;433:1;)      local.get 6
     (;434:2;)      i32.const 8
     (;435:0;)      i32.store offset=4
     (;436:1;)      local.get 6
-    (;437:2;)      i32.const 66270
+    (;437:2;)      i32.const 66366
     (;438:0;)      i32.store
     (;439:1;)      local.get 10
-    (;440:0;)      call 50  runtime.interfaceTypeAssert
+    (;440:0;)      call 81  runtime.interfaceTypeAssert
     (;441:1;)      local.get 6
     (;442:2;)      local.get 2
     (;443:0;)      i32.store offset=12
@@ -6395,7 +7314,7 @@
     (;446:0;)      i32.store offset=8
     (;447:1;)      i32.const 0
     (;448:2;)      local.get 5
-    (;449:0;)      i32.store offset=70832
+    (;449:0;)      i32.store offset=70816
     (;450:1;)      local.get 0
     (;451:2;)      local.get 6
     (;452:0;)      i32.store offset=12
@@ -6430,11 +7349,11 @@
     (;481:1;)        local.get 3
     (;482:2;)        i32.const 140
     (;483:1;)        i32.add
-    (;484:2;)        i32.const 66270
+    (;484:2;)        i32.const 66366
     (;485:3;)        i32.const 8
     (;486:4;)        local.get 1
     (;487:5;)        local.get 2
-    (;488:2;)        call 49  strconv.rangeError
+    (;488:2;)        call 80  strconv.rangeError
     (;489:2;)        local.tee 6
     (;490:0;)        i32.store
     (;491:1;)        local.get 3
@@ -6444,7 +7363,7 @@
     (;495:0;)        i32.store
     (;496:1;)        i32.const 0
     (;497:2;)        local.get 5
-    (;498:0;)        i32.store offset=70832
+    (;498:0;)        i32.store offset=70816
     (;499:1;)        local.get 0
     (;500:2;)        local.get 6
     (;501:0;)        i32.store offset=12
@@ -6463,11 +7382,11 @@
     (;514:1;)      local.get 3
     (;515:2;)      i32.const 132
     (;516:1;)      i32.add
-    (;517:2;)      i32.const 66270
+    (;517:2;)      i32.const 66366
     (;518:3;)      i32.const 8
     (;519:4;)      local.get 1
     (;520:5;)      local.get 2
-    (;521:2;)      call 49  strconv.rangeError
+    (;521:2;)      call 80  strconv.rangeError
     (;522:2;)      local.tee 6
     (;523:0;)      i32.store
     (;524:1;)      local.get 3
@@ -6477,7 +7396,7 @@
     (;528:0;)      i32.store
     (;529:1;)      i32.const 0
     (;530:2;)      local.get 5
-    (;531:0;)      i32.store offset=70832
+    (;531:0;)      i32.store offset=70816
     (;532:1;)      local.get 0
     (;533:2;)      local.get 6
     (;534:0;)      i32.store offset=12
@@ -6495,7 +7414,7 @@
     (;546:0;)    end
     (;547:1;)    i32.const 0
     (;548:2;)    local.get 5
-    (;549:0;)    i32.store offset=70832
+    (;549:0;)    i32.store offset=70816
     (;550:1;)    local.get 0
     (;551:2;)    i64.const 0
     (;552:0;)    i64.store offset=8 align=2
@@ -6514,7 +7433,7 @@
     (;565:0;)  end
   )
 
-  (func "strconv.syntaxError" (;48;) (type 4) (param (;0;) i32 (;1;) i32 (;2;) i32 (;3;) i32) (result i32)
+  (func "strconv.syntaxError" (;79;) (type 5) (param (;0;) i32 (;1;) i32 (;2;) i32 (;3;) i32) (result i32)
     (local (;4;) i32)
     (local (;5;) i32)
     (local (;6;) i32)
@@ -6527,18 +7446,18 @@
     (;6:2;)      i64.const 1
     (;7:0;)      i64.store offset=4 align=2
     (;8:1;)      i32.const 0
-    (;9:1;)      i32.load offset=70832
+    (;9:1;)      i32.load offset=70816
     (;10:0;)     local.set 5
     (;11:1;)     i32.const 0
     (;12:2;)     local.get 4
-    (;13:0;)     i32.store offset=70832
+    (;13:0;)     i32.store offset=70816
     (;14:1;)     local.get 4
     (;15:2;)     local.get 5
     (;16:0;)     i32.store
     (;17:1;)     i32.const 24
-    (;18:1;)     call 17  runtime.alloc
+    (;18:1;)     call 59  runtime.alloc
     (;19:1;)     local.tee 6
-    (;20:2;)     i32.const 70784
+    (;20:2;)     i32.const 70768
     (;21:0;)     i32.store offset=20
     (;22:1;)     local.get 6
     (;23:2;)     i32.const 5093
@@ -6557,7 +7476,7 @@
     (;36:0;)     i32.store
     (;37:1;)     i32.const 0
     (;38:2;)     local.get 5
-    (;39:0;)     i32.store offset=70832
+    (;39:0;)     i32.store offset=70816
     (;40:1;)     local.get 4
     (;41:2;)     local.get 6
     (;42:0;)     i32.store offset=8
@@ -6569,7 +7488,7 @@
     (;48:0;)   end
   )
 
-  (func "strconv.rangeError" (;49;) (type 4) (param (;0;) i32 (;1;) i32 (;2;) i32 (;3;) i32) (result i32)
+  (func "strconv.rangeError" (;80;) (type 5) (param (;0;) i32 (;1;) i32 (;2;) i32 (;3;) i32) (result i32)
     (local (;4;) i32)
     (local (;5;) i32)
     (local (;6;) i32)
@@ -6582,18 +7501,18 @@
     (;6:2;)      i64.const 1
     (;7:0;)      i64.store offset=4 align=2
     (;8:1;)      i32.const 0
-    (;9:1;)      i32.load offset=70832
+    (;9:1;)      i32.load offset=70816
     (;10:0;)     local.set 5
     (;11:1;)     i32.const 0
     (;12:2;)     local.get 4
-    (;13:0;)     i32.store offset=70832
+    (;13:0;)     i32.store offset=70816
     (;14:1;)     local.get 4
     (;15:2;)     local.get 5
     (;16:0;)     i32.store
     (;17:1;)     i32.const 24
-    (;18:1;)     call 17  runtime.alloc
+    (;18:1;)     call 59  runtime.alloc
     (;19:1;)     local.tee 6
-    (;20:2;)     i32.const 70776
+    (;20:2;)     i32.const 70760
     (;21:0;)     i32.store offset=20
     (;22:1;)     local.get 6
     (;23:2;)     i32.const 5093
@@ -6612,7 +7531,7 @@
     (;36:0;)     i32.store
     (;37:1;)     i32.const 0
     (;38:2;)     local.get 5
-    (;39:0;)     i32.store offset=70832
+    (;39:0;)     i32.store offset=70816
     (;40:1;)     local.get 4
     (;41:2;)     local.get 6
     (;42:0;)     i32.store offset=8
@@ -6624,7 +7543,7 @@
     (;48:0;)   end
   )
 
-  (func "runtime.interfaceTypeAssert" (;50;) (type 0) (param (;0;) i32)
+  (func "runtime.interfaceTypeAssert" (;81;) (type 0) (param (;0;) i32)
     (;0:0;)      block
     (;1:1;)        local.get 0
     (;2:2;)        i32.const 1
@@ -6633,14 +7552,14 @@
     (;5:0;)        br_if 0
     (;6:0;)        return
     (;7:0;)      end
-    (;8:1;)      i32.const 67104
+    (;8:1;)      i32.const 67152
     (;9:2;)      i32.const 18
-    (;10:0;)     call 96  runtime.runtimePanic
+    (;10:0;)     call 106  runtime.runtimePanic
     (;11:0;)     unreachable
     (;12:0;)   end
   )
 
-  (func "runtime.reflectValueEqual" (;51;) (type 17) (param (;0;) i32 (;1;) i32 (;2;) i32 (;3;) i32 (;4;) i32 (;5;) i32) (result i32)
+  (func "runtime.reflectValueEqual" (;82;) (type 17) (param (;0;) i32 (;1;) i32 (;2;) i32 (;3;) i32 (;4;) i32 (;5;) i32) (result i32)
     (local (;6;) i32)
     (local (;7;) i32)
     (local (;8;) i32)
@@ -6697,13 +7616,13 @@
     (;36:2;)     local.get 5
     (;37:0;)     i32.store8 offset=144
     (;38:1;)     i32.const 0
-    (;39:1;)     i32.load offset=70832
+    (;39:1;)     i32.load offset=70816
     (;40:0;)     local.set 7
     (;41:1;)     i32.const 0
     (;42:2;)     local.get 6
     (;43:3;)     i32.const 168
     (;44:2;)     i32.add
-    (;45:0;)     i32.store offset=70832
+    (;45:0;)     i32.store offset=70816
     (;46:1;)     local.get 6
     (;47:2;)     local.get 7
     (;48:0;)     i32.store offset=168
@@ -6733,14 +7652,14 @@
     (;72:1;)       local.get 0
     (;73:2;)       local.get 1
     (;74:3;)       local.get 2
-    (;75:1;)       call 35  (reflect.Value).Type
+    (;75:1;)       call 66  (reflect.Value).Type
     (;76:1;)       local.tee 0
     (;77:1;)       i32.eqz
     (;78:0;)       br_if 0
     (;79:1;)       local.get 3
     (;80:2;)       local.get 4
     (;81:3;)       local.get 5
-    (;82:1;)       call 35  (reflect.Value).Type
+    (;82:1;)       call 66  (reflect.Value).Type
     (;83:1;)       local.tee 8
     (;84:1;)       i32.eqz
     (;85:0;)       br_if 0
@@ -6750,12 +7669,12 @@
     (;89:1;)         local.get 0
     (;90:2;)         local.get 1
     (;91:3;)         local.get 2
-    (;92:1;)         call 35  (reflect.Value).Type
+    (;92:1;)         call 66  (reflect.Value).Type
     (;93:1;)         local.tee 9
     (;94:2;)         local.get 8
     (;95:3;)         local.get 4
     (;96:4;)         local.get 5
-    (;97:2;)         call 35  (reflect.Value).Type
+    (;97:2;)         call 66  (reflect.Value).Type
     (;98:2;)         local.tee 0
     (;99:1;)         i32.ne
     (;100:0;)        br_if 0
@@ -6766,9 +7685,9 @@
     (;105:1;)                local.get 9
     (;106:2;)                local.get 1
     (;107:3;)                local.get 2
-    (;108:1;)                call 35  (reflect.Value).Type
+    (;108:1;)                call 66  (reflect.Value).Type
     (;109:1;)                local.tee 8
-    (;110:1;)                call 20  (reflect.Type).Kind
+    (;110:1;)                call 50  (reflect.Type).Kind
     (;111:2;)                i32.const -1
     (;112:1;)                i32.add
     (;113:1;)                local.tee 3
@@ -6788,16 +7707,16 @@
     (;127:1;)                            local.get 8
     (;128:2;)                            local.get 1
     (;129:3;)                            local.get 2
-    (;130:1;)                            call 30  (reflect.Value).Bool
+    (;130:1;)                            call 61  (reflect.Value).Bool
     (;131:0;)                            local.set 1
     (;132:1;)                            local.get 0
     (;133:2;)                            local.get 4
     (;134:3;)                            local.get 5
-    (;135:1;)                            call 30  (reflect.Value).Bool
+    (;135:1;)                            call 61  (reflect.Value).Bool
     (;136:0;)                            local.set 2
     (;137:1;)                            i32.const 0
     (;138:2;)                            local.get 7
-    (;139:0;)                            i32.store offset=70832
+    (;139:0;)                            i32.store offset=70816
     (;140:1;)                            local.get 6
     (;141:2;)                            i32.const 224
     (;142:1;)                            i32.add
@@ -6812,16 +7731,16 @@
     (;151:1;)                          local.get 8
     (;152:2;)                          local.get 1
     (;153:3;)                          local.get 2
-    (;154:1;)                          call 39  (reflect.Value).Int
+    (;154:1;)                          call 70  (reflect.Value).Int
     (;155:0;)                          local.set 10
     (;156:1;)                          local.get 0
     (;157:2;)                          local.get 4
     (;158:3;)                          local.get 5
-    (;159:1;)                          call 39  (reflect.Value).Int
+    (;159:1;)                          call 70  (reflect.Value).Int
     (;160:0;)                          local.set 11
     (;161:1;)                          i32.const 0
     (;162:2;)                          local.get 7
-    (;163:0;)                          i32.store offset=70832
+    (;163:0;)                          i32.store offset=70816
     (;164:1;)                          local.get 6
     (;165:2;)                          i32.const 224
     (;166:1;)                          i32.add
@@ -6834,16 +7753,16 @@
     (;173:1;)                        local.get 8
     (;174:2;)                        local.get 1
     (;175:3;)                        local.get 2
-    (;176:1;)                        call 43  (reflect.Value).Uint
+    (;176:1;)                        call 74  (reflect.Value).Uint
     (;177:0;)                        local.set 10
     (;178:1;)                        local.get 0
     (;179:2;)                        local.get 4
     (;180:3;)                        local.get 5
-    (;181:1;)                        call 43  (reflect.Value).Uint
+    (;181:1;)                        call 74  (reflect.Value).Uint
     (;182:0;)                        local.set 11
     (;183:1;)                        i32.const 0
     (;184:2;)                        local.get 7
-    (;185:0;)                        i32.store offset=70832
+    (;185:0;)                        i32.store offset=70816
     (;186:1;)                        local.get 6
     (;187:2;)                        i32.const 224
     (;188:1;)                        i32.add
@@ -6856,16 +7775,16 @@
     (;195:1;)                      local.get 8
     (;196:2;)                      local.get 1
     (;197:3;)                      local.get 2
-    (;198:1;)                      call 37  (reflect.Value).Float
+    (;198:1;)                      call 68  (reflect.Value).Float
     (;199:0;)                      local.set 12
     (;200:1;)                      local.get 0
     (;201:2;)                      local.get 4
     (;202:3;)                      local.get 5
-    (;203:1;)                      call 37  (reflect.Value).Float
+    (;203:1;)                      call 68  (reflect.Value).Float
     (;204:0;)                      local.set 13
     (;205:1;)                      i32.const 0
     (;206:2;)                      local.get 7
-    (;207:0;)                      i32.store offset=70832
+    (;207:0;)                      i32.store offset=70816
     (;208:1;)                      local.get 6
     (;209:2;)                      i32.const 224
     (;210:1;)                      i32.add
@@ -6889,7 +7808,7 @@
     (;228:2;)                    local.get 8
     (;229:3;)                    local.get 1
     (;230:4;)                    local.get 2
-    (;231:0;)                    call 33  (reflect.Value).Complex
+    (;231:0;)                    call 64  (reflect.Value).Complex
     (;232:1;)                    local.get 6
     (;233:1;)                    f64.load offset=24
     (;234:0;)                    local.set 12
@@ -6902,10 +7821,10 @@
     (;241:2;)                    local.get 0
     (;242:3;)                    local.get 4
     (;243:4;)                    local.get 5
-    (;244:0;)                    call 33  (reflect.Value).Complex
+    (;244:0;)                    call 64  (reflect.Value).Complex
     (;245:1;)                    i32.const 0
     (;246:2;)                    local.get 7
-    (;247:0;)                    i32.store offset=70832
+    (;247:0;)                    i32.store offset=70816
     (;248:1;)                    local.get 6
     (;249:1;)                    f64.load offset=16
     (;250:0;)                    local.set 14
@@ -6931,7 +7850,7 @@
     (;270:2;)                  local.get 8
     (;271:3;)                  local.get 1
     (;272:4;)                  local.get 2
-    (;273:0;)                  call 42  (reflect.Value).String
+    (;273:0;)                  call 73  (reflect.Value).String
     (;274:1;)                  local.get 6
     (;275:2;)                  i32.const 200
     (;276:1;)                  i32.add
@@ -6948,7 +7867,7 @@
     (;287:2;)                  local.get 0
     (;288:3;)                  local.get 4
     (;289:4;)                  local.get 5
-    (;290:0;)                  call 42  (reflect.Value).String
+    (;290:0;)                  call 73  (reflect.Value).String
     (;291:1;)                  local.get 6
     (;292:2;)                  i32.const 204
     (;293:1;)                  i32.add
@@ -6996,16 +7915,16 @@
     (;335:1;)                local.get 8
     (;336:2;)                local.get 1
     (;337:3;)                local.get 2
-    (;338:1;)                call 40  (reflect.Value).Pointer
+    (;338:1;)                call 71  (reflect.Value).Pointer
     (;339:0;)                local.set 1
     (;340:1;)                local.get 0
     (;341:2;)                local.get 4
     (;342:3;)                local.get 5
-    (;343:1;)                call 40  (reflect.Value).Pointer
+    (;343:1;)                call 71  (reflect.Value).Pointer
     (;344:0;)                local.set 2
     (;345:1;)                i32.const 0
     (;346:2;)                local.get 7
-    (;347:0;)                i32.store offset=70832
+    (;347:0;)                i32.store offset=70816
     (;348:1;)                local.get 6
     (;349:2;)                i32.const 224
     (;350:1;)                i32.add
@@ -7015,9 +7934,9 @@
     (;354:1;)                i32.eq
     (;355:1;)                return
     (;356:0;)              end
-    (;357:1;)              i32.const 67216
+    (;357:1;)              i32.const 67264
     (;358:2;)              i32.const 28
-    (;359:0;)              call 96  runtime.runtimePanic
+    (;359:0;)              call 106  runtime.runtimePanic
     (;360:0;)              unreachable
     (;361:0;)            end
     (;362:1;)            local.get 6
@@ -7052,9 +7971,9 @@
     (;391:2;)              local.get 8
     (;392:3;)              local.get 1
     (;393:4;)              local.get 2
-    (;394:2;)              call 35  (reflect.Value).Type
+    (;394:2;)              call 66  (reflect.Value).Type
     (;395:2;)              local.tee 3
-    (;396:2;)              call 21  (reflect.Type).NumField
+    (;396:2;)              call 51  (reflect.Type).NumField
     (;397:1;)              i32.ge_s
     (;398:0;)              br_if 2
     (;399:1;)              local.get 6
@@ -7064,7 +7983,7 @@
     (;403:3;)              local.get 1
     (;404:4;)              local.get 2
     (;405:5;)              local.get 9
-    (;406:0;)              call 34  (reflect.Value).Field
+    (;406:0;)              call 65  (reflect.Value).Field
     (;407:1;)              local.get 17
     (;408:2;)              local.get 6
     (;409:2;)              i32.load offset=108
@@ -7083,7 +8002,7 @@
     (;422:3;)              local.get 4
     (;423:4;)              local.get 5
     (;424:5;)              local.get 9
-    (;425:0;)              call 34  (reflect.Value).Field
+    (;425:0;)              call 65  (reflect.Value).Field
     (;426:1;)              local.get 18
     (;427:2;)              local.get 6
     (;428:2;)              i32.load offset=92
@@ -7103,7 +8022,7 @@
     (;442:5;)              local.get 22
     (;443:6;)              local.get 6
     (;444:6;)              i32.load8_u offset=96
-    (;445:1;)              call 51  runtime.reflectValueEqual
+    (;445:1;)              call 82  runtime.reflectValueEqual
     (;446:2;)              i32.const 1
     (;447:1;)              i32.and
     (;448:0;)              br_if 0
@@ -7154,9 +8073,9 @@
     (;493:1;)                          local.get 8
     (;494:2;)                          local.get 1
     (;495:3;)                          local.get 2
-    (;496:1;)                          call 35  (reflect.Value).Type
+    (;496:1;)                          call 66  (reflect.Value).Type
     (;497:1;)                          local.tee 3
-    (;498:1;)                          call 20  (reflect.Type).Kind
+    (;498:1;)                          call 50  (reflect.Type).Kind
     (;499:2;)                          i32.const -17
     (;500:1;)                          i32.add
     (;501:1;)                          local.tee 19
@@ -7170,7 +8089,7 @@
     (;509:2;)                        i32.const 188
     (;510:1;)                        i32.add
     (;511:2;)                        i32.const 8
-    (;512:2;)                        call 17  runtime.alloc
+    (;512:2;)                        call 59  runtime.alloc
     (;513:2;)                        local.tee 1
     (;514:0;)                        i32.store
     (;515:1;)                        local.get 6
@@ -7182,18 +8101,18 @@
     (;521:2;)                        i32.const 3
     (;522:0;)                        i32.store offset=4
     (;523:1;)                        local.get 1
-    (;524:2;)                        i32.const 66200
+    (;524:2;)                        i32.const 66296
     (;525:0;)                        i32.store
     (;526:1;)                        i32.const 3045
     (;527:2;)                        local.get 1
-    (;528:0;)                        call 24  runtime._panic
+    (;528:0;)                        call 54  runtime._panic
     (;529:0;)                        unreachable
     (;530:0;)                      end
     (;531:1;)                      local.get 3
     (;532:2;)                      local.get 1
     (;533:3;)                      local.get 2
-    (;534:1;)                      call 35  (reflect.Value).Type
-    (;535:1;)                      call 29  (reflect.Type).Len
+    (;534:1;)                      call 66  (reflect.Value).Type
+    (;535:1;)                      call 60  (reflect.Type).Len
     (;536:0;)                      local.set 19
     (;537:0;)                      br 4
     (;538:0;)                    end
@@ -7232,7 +8151,7 @@
     (;571:3;)            local.get 1
     (;572:4;)            local.get 2
     (;573:5;)            local.get 9
-    (;574:0;)            call 38  (reflect.Value).Index
+    (;574:0;)            call 69  (reflect.Value).Index
     (;575:1;)            local.get 16
     (;576:2;)            local.get 6
     (;577:2;)            i32.load offset=76
@@ -7251,7 +8170,7 @@
     (;590:3;)            local.get 4
     (;591:4;)            local.get 5
     (;592:5;)            local.get 9
-    (;593:0;)            call 38  (reflect.Value).Index
+    (;593:0;)            call 69  (reflect.Value).Index
     (;594:1;)            local.get 17
     (;595:2;)            local.get 6
     (;596:2;)            i32.load offset=60
@@ -7271,7 +8190,7 @@
     (;610:5;)            local.get 22
     (;611:6;)            local.get 6
     (;612:6;)            i32.load8_u offset=64
-    (;613:1;)            call 51  runtime.reflectValueEqual
+    (;613:1;)            call 82  runtime.reflectValueEqual
     (;614:2;)            i32.const 1
     (;615:1;)            i32.and
     (;616:0;)            br_if 0
@@ -7283,7 +8202,7 @@
     (;622:0;)      end
     (;623:1;)      i32.const 0
     (;624:2;)      local.get 7
-    (;625:0;)      i32.store offset=70832
+    (;625:0;)      i32.store offset=70816
     (;626:1;)      local.get 6
     (;627:2;)      i32.const 224
     (;628:1;)      i32.add
@@ -7294,16 +8213,16 @@
     (;633:1;)    local.get 0
     (;634:2;)    local.get 1
     (;635:3;)    local.get 2
-    (;636:1;)    call 35  (reflect.Value).Type
+    (;636:1;)    call 66  (reflect.Value).Type
     (;637:0;)    local.set 1
     (;638:1;)    local.get 3
     (;639:2;)    local.get 4
     (;640:3;)    local.get 5
-    (;641:1;)    call 35  (reflect.Value).Type
+    (;641:1;)    call 66  (reflect.Value).Type
     (;642:0;)    local.set 2
     (;643:1;)    i32.const 0
     (;644:2;)    local.get 7
-    (;645:0;)    i32.store offset=70832
+    (;645:0;)    i32.store offset=70816
     (;646:1;)    local.get 6
     (;647:2;)    i32.const 224
     (;648:1;)    i32.add
@@ -7314,7 +8233,7 @@
     (;653:0;)  end
   )
 
-  (func "strconv.bsearch16" (;52;) (type 5) (param (;0;) i32 (;1;) i32 (;2;) i32) (result i32)
+  (func "strconv.bsearch16" (;83;) (type 4) (param (;0;) i32 (;1;) i32 (;2;) i32) (result i32)
     (local (;3;) i32)
     (local (;4;) i32)
     (local (;5;) i32)
@@ -7371,12 +8290,12 @@
     (;49:1;)       local.get 3
     (;50:1;)       return
     (;51:0;)     end
-    (;52:0;)     call 46  runtime.lookupPanic
+    (;52:0;)     call 77  runtime.lookupPanic
     (;53:0;)     unreachable
     (;54:0;)   end
   )
 
-  (func "increment" (;53;) (type 6)
+  (func "increment" (;84;) (type 6)
     (local (;0;) i32)
     (local (;1;) i32)
     (local (;2;) i32)
@@ -7386,447 +8305,121 @@
     (;3:1;)      local.tee 0
     (;4:0;)      global.set 0
     (;5:1;)      local.get 0
-    (;6:2;)      i64.const 0
-    (;7:0;)      i64.store offset=20 align=2
-    (;8:1;)      local.get 0
-    (;9:2;)      i64.const 3
-    (;10:0;)     i64.store offset=12 align=2
-    (;11:1;)     i32.const 0
-    (;12:1;)     i32.load offset=70832
-    (;13:0;)     local.set 1
-    (;14:1;)     i32.const 0
-    (;15:2;)     local.get 0
-    (;16:3;)     i32.const 8
-    (;17:2;)     i32.add
-    (;18:0;)     i32.store offset=70832
-    (;19:1;)     local.get 0
-    (;20:2;)     local.get 1
-    (;21:0;)     i32.store offset=8
-    (;22:1;)     local.get 0
-    (;23:2;)     call 16  github.com/iotaledger/wart/wasp.NewScContext
-    (;24:2;)     local.tee 2
-    (;25:0;)     i32.store offset=16
-    (;26:1;)     i32.const 66617
-    (;27:2;)     i32.const 12
-    (;28:0;)     call 54  (*github.com/iotaledger/wart/wasp.ScContext).Log
-    (;29:1;)     local.get 0
-    (;30:2;)     local.get 2
-    (;31:2;)     call 55  (*github.com/iotaledger/wart/wasp.ScContext).State
-    (;32:2;)     local.tee 2
-    (;33:0;)     i32.store offset=20
-    (;34:1;)     local.get 0
-    (;35:2;)     local.get 2
-    (;36:3;)     i32.const 66694
-    (;37:4;)     i32.const 7
-    (;38:2;)     call 56  (*github.com/iotaledger/wart/wasp.ScMutableMap).GetInt
-    (;39:2;)     local.tee 2
-    (;40:0;)     i32.store offset=24
-    (;41:1;)     local.get 2
-    (;42:2;)     local.get 2
-    (;43:2;)     call 57  (*github.com/iotaledger/wart/wasp.ScMutableInt).Value
-    (;44:3;)     i64.const 1
-    (;45:2;)     i64.add
-    (;46:0;)     call 58  (*github.com/iotaledger/wart/wasp.ScMutableInt).SetValue
-    (;47:1;)     i32.const 0
-    (;48:2;)     local.get 1
-    (;49:0;)     i32.store offset=70832
-    (;50:1;)     local.get 0
-    (;51:2;)     i32.const 32
-    (;52:1;)     i32.add
-    (;53:0;)     global.set 0
-    (;54:0;)   end
-  )
-
-  (func "(*github.com/iotaledger/wart/wasp.ScContext).Log" (;54;) (type 12) (param (;0;) i32 (;1;) i32)
-    (local (;2;) i32)
-    (;0:0;)      block
-    (;1:1;)        i32.const 0
-    (;2:1;)        i32.load offset=70804
-    (;3:1;)        local.tee 2
-    (;4:0;)        br_if 0
-    (;5:1;)        i32.const 0
-    (;6:2;)        i32.const 65547
-    (;7:3;)        i32.const 3
-    (;8:2;)        call 2  waspGo::hostGetKey
-    (;9:2;)        local.tee 2
-    (;10:0;)       i32.store offset=70804
-    (;11:0;)     end
-    (;12:1;)     i32.const 1
-    (;13:2;)     local.get 2
-    (;14:3;)     local.get 0
-    (;15:4;)     local.get 1
-    (;16:0;)     call 4  waspGo::hostSetString
-    (;17:0;)   end
-  )
-
-  (func "(*github.com/iotaledger/wart/wasp.ScContext).State" (;55;) (type 10) (param (;0;) i32) (result i32)
-    (local (;1;) i32)
-    (local (;2;) i32)
-    (;0:1;)      global.get 0
-    (;1:2;)      i32.const 16
-    (;2:1;)      i32.sub
-    (;3:1;)      local.tee 1
-    (;4:0;)      global.set 0
-    (;5:1;)      local.get 1
     (;6:2;)      i32.const 0
-    (;7:0;)      i32.store offset=12
-    (;8:1;)      local.get 1
-    (;9:2;)      i64.const 2
-    (;10:0;)     i64.store offset=4 align=2
-    (;11:1;)     i32.const 0
-    (;12:1;)     i32.load offset=70832
-    (;13:0;)     local.set 2
-    (;14:1;)     i32.const 0
-    (;15:2;)     local.get 1
-    (;16:0;)     i32.store offset=70832
-    (;17:1;)     local.get 1
-    (;18:2;)     local.get 2
-    (;19:0;)     i32.store
-    (;20:0;)     block
-    (;21:1;)       local.get 0
-    (;22:0;)       br_if 0
-    (;23:0;)       call 41  runtime.nilPanic
-    (;24:0;)       unreachable
-    (;25:0;)     end
-    (;26:1;)     local.get 1
-    (;27:2;)     i32.const 8
-    (;28:1;)     i32.add
-    (;29:2;)     local.get 0
-    (;30:2;)     i32.load
-    (;31:2;)     local.tee 0
-    (;32:0;)     i32.store
-    (;33:1;)     local.get 0
-    (;34:2;)     i32.const 67408
-    (;35:3;)     i32.const 5
-    (;36:1;)     call 83  (*github.com/iotaledger/wart/wasp.ScMutableMap).GetMap
-    (;37:0;)     local.set 0
-    (;38:1;)     i32.const 0
-    (;39:2;)     local.get 2
-    (;40:0;)     i32.store offset=70832
-    (;41:1;)     local.get 1
-    (;42:2;)     i32.const 12
-    (;43:1;)     i32.add
-    (;44:2;)     local.get 0
-    (;45:0;)     i32.store
-    (;46:1;)     local.get 1
-    (;47:2;)     i32.const 16
-    (;48:1;)     i32.add
-    (;49:0;)     global.set 0
-    (;50:1;)     local.get 0
-    (;51:0;)   end
+    (;7:0;)      i32.store offset=16
+    (;8:1;)      call 16  github.com/iotaledger/wart/wasplib.NewScContext
+    (;9:1;)      local.tee 1
+    (;10:2;)     i32.const 66713
+    (;11:3;)     i32.const 12
+    (;12:0;)     call 23  (github.com/iotaledger/wart/wasplib.ScContext).Log
+    (;13:1;)     local.get 0
+    (;14:2;)     i64.const 0
+    (;15:0;)     i64.store offset=24
+    (;16:1;)     local.get 0
+    (;17:2;)     i32.const 8
+    (;18:1;)     i32.add
+    (;19:2;)     local.get 1
+    (;20:2;)     call 25  (github.com/iotaledger/wart/wasplib.ScContext).State
+    (;21:3;)     i32.const 66790
+    (;22:4;)     i32.const 7
+    (;23:0;)     call 31  (github.com/iotaledger/wart/wasplib.ScMutableMap).GetInt
+    (;24:1;)     local.get 0
+    (;25:1;)     i32.load offset=8
+    (;26:1;)     local.tee 1
+    (;27:2;)     local.get 0
+    (;28:2;)     i32.load offset=12
+    (;29:2;)     local.tee 2
+    (;30:3;)     local.get 1
+    (;31:4;)     local.get 2
+    (;32:3;)     call 38  (github.com/iotaledger/wart/wasplib.ScMutableInt).Value
+    (;33:4;)     i64.const 1
+    (;34:3;)     i64.add
+    (;35:0;)     call 32  (github.com/iotaledger/wart/wasplib.ScMutableInt).SetValue
+    (;36:1;)     local.get 0
+    (;37:2;)     i32.const 32
+    (;38:1;)     i32.add
+    (;39:0;)     global.set 0
+    (;40:0;)   end
   )
 
-  (func "(*github.com/iotaledger/wart/wasp.ScMutableMap).GetInt" (;56;) (type 5) (param (;0;) i32 (;1;) i32 (;2;) i32) (result i32)
-    (local (;3;) i32)
-    (local (;4;) i32)
-    (local (;5;) i32)
-    (;0:1;)      global.get 0
-    (;1:2;)      i32.const 16
-    (;2:1;)      i32.sub
-    (;3:1;)      local.tee 3
-    (;4:0;)      global.set 0
-    (;5:1;)      local.get 3
-    (;6:2;)      i64.const 1
-    (;7:0;)      i64.store offset=4 align=2
-    (;8:1;)      i32.const 0
-    (;9:1;)      i32.load offset=70832
-    (;10:0;)     local.set 4
-    (;11:1;)     i32.const 0
-    (;12:2;)     local.get 3
-    (;13:0;)     i32.store offset=70832
-    (;14:1;)     local.get 3
-    (;15:2;)     local.get 4
-    (;16:0;)     i32.store
-    (;17:1;)     local.get 3
-    (;18:2;)     i32.const 8
-    (;19:2;)     call 17  runtime.alloc
-    (;20:2;)     local.tee 5
-    (;21:0;)     i32.store offset=8
-    (;22:0;)     block
-    (;23:1;)       local.get 0
-    (;24:0;)       br_if 0
-    (;25:0;)       call 41  runtime.nilPanic
-    (;26:0;)       unreachable
-    (;27:0;)     end
-    (;28:1;)     local.get 0
-    (;29:1;)     i32.load
-    (;30:0;)     local.set 0
-    (;31:1;)     local.get 5
-    (;32:2;)     local.get 1
-    (;33:3;)     local.get 2
-    (;34:2;)     call 2  waspGo::hostGetKey
-    (;35:0;)     i32.store offset=4
-    (;36:1;)     local.get 5
-    (;37:2;)     local.get 0
-    (;38:0;)     i32.store
-    (;39:1;)     i32.const 0
-    (;40:2;)     local.get 4
-    (;41:0;)     i32.store offset=70832
-    (;42:1;)     local.get 3
-    (;43:2;)     i32.const 16
-    (;44:1;)     i32.add
-    (;45:0;)     global.set 0
-    (;46:1;)     local.get 5
-    (;47:0;)   end
-  )
-
-  (func "(*github.com/iotaledger/wart/wasp.ScMutableInt).Value" (;57;) (type 18) (param (;0;) i32) (result i64)
-    (;0:0;)      block
-    (;1:1;)        local.get 0
-    (;2:0;)        br_if 0
-    (;3:0;)        call 41  runtime.nilPanic
-    (;4:0;)        unreachable
-    (;5:0;)      end
-    (;6:1;)      local.get 0
-    (;7:1;)      i32.load
-    (;8:2;)      local.get 0
-    (;9:2;)      i32.load offset=4
-    (;10:1;)     call 11  github.com/iotaledger/wart/wasp.GetInt
-    (;11:0;)   end
-  )
-
-  (func "(*github.com/iotaledger/wart/wasp.ScMutableInt).SetValue" (;58;) (type 16) (param (;0;) i32 (;1;) i64)
-    (;0:0;)      block
-    (;1:1;)        local.get 0
-    (;2:0;)        br_if 0
-    (;3:0;)        call 41  runtime.nilPanic
-    (;4:0;)        unreachable
-    (;5:0;)      end
-    (;6:1;)      local.get 0
-    (;7:1;)      i32.load
-    (;8:2;)      local.get 0
-    (;9:2;)      i32.load offset=4
-    (;10:3;)     local.get 1
-    (;11:0;)     call 18  github.com/iotaledger/wart/wasp.SetInt
-    (;12:0;)   end
-  )
-
-  (func "incrementRepeat1" (;59;) (type 6)
+  (func "incrementRepeat1" (;85;) (type 6)
     (local (;0;) i32)
     (local (;1;) i32)
     (local (;2;) i32)
     (local (;3;) i32)
     (local (;4;) i64)
     (;0:1;)      global.get 0
-    (;1:2;)      i32.const 48
+    (;1:2;)      i32.const 32
     (;2:1;)      i32.sub
     (;3:1;)      local.tee 0
     (;4:0;)      global.set 0
     (;5:1;)      local.get 0
-    (;6:2;)      i64.const 0
-    (;7:0;)      i64.store offset=36 align=2
-    (;8:1;)      local.get 0
-    (;9:2;)      i64.const 0
-    (;10:0;)     i64.store offset=28 align=2
-    (;11:1;)     local.get 0
-    (;12:2;)     i64.const 0
-    (;13:0;)     i64.store offset=20 align=2
-    (;14:1;)     local.get 0
-    (;15:2;)     i64.const 7
-    (;16:0;)     i64.store offset=12 align=2
-    (;17:1;)     i32.const 0
-    (;18:1;)     i32.load offset=70832
-    (;19:0;)     local.set 1
-    (;20:1;)     i32.const 0
-    (;21:2;)     local.get 0
-    (;22:3;)     i32.const 8
-    (;23:2;)     i32.add
-    (;24:0;)     i32.store offset=70832
-    (;25:1;)     local.get 0
-    (;26:2;)     local.get 1
-    (;27:0;)     i32.store offset=8
-    (;28:1;)     local.get 0
-    (;29:2;)     call 16  github.com/iotaledger/wart/wasp.NewScContext
-    (;30:2;)     local.tee 2
-    (;31:0;)     i32.store offset=16
-    (;32:1;)     i32.const 66640
-    (;33:2;)     i32.const 19
-    (;34:0;)     call 54  (*github.com/iotaledger/wart/wasp.ScContext).Log
-    (;35:1;)     local.get 0
-    (;36:2;)     local.get 2
-    (;37:2;)     call 55  (*github.com/iotaledger/wart/wasp.ScContext).State
-    (;38:2;)     local.tee 3
-    (;39:0;)     i32.store offset=20
-    (;40:1;)     local.get 0
-    (;41:2;)     local.get 3
-    (;42:3;)     i32.const 66694
-    (;43:4;)     i32.const 7
-    (;44:2;)     call 56  (*github.com/iotaledger/wart/wasp.ScMutableMap).GetInt
-    (;45:2;)     local.tee 3
-    (;46:0;)     i32.store offset=24
-    (;47:1;)     local.get 3
-    (;48:2;)     local.get 3
-    (;49:2;)     call 57  (*github.com/iotaledger/wart/wasp.ScMutableInt).Value
-    (;50:2;)     local.tee 4
-    (;51:3;)     i64.const 1
-    (;52:2;)     i64.add
-    (;53:0;)     call 58  (*github.com/iotaledger/wart/wasp.ScMutableInt).SetValue
-    (;54:0;)     block
-    (;55:1;)       local.get 4
-    (;56:2;)       i64.const 0
-    (;57:1;)       i64.ne
-    (;58:0;)       br_if 0
-    (;59:1;)       local.get 0
-    (;60:2;)       i32.const 28
-    (;61:1;)       i32.add
-    (;62:2;)       local.get 2
-    (;63:2;)       call 60  (*github.com/iotaledger/wart/wasp.ScContext).Requests
-    (;64:2;)       local.tee 3
-    (;65:0;)       i32.store
-    (;66:1;)       local.get 0
-    (;67:2;)       i32.const 32
-    (;68:1;)       i32.add
-    (;69:2;)       local.get 3
-    (;70:3;)       i32.const 0
-    (;71:2;)       call 61  (*github.com/iotaledger/wart/wasp.ScMutableMapArray).GetMap
-    (;72:2;)       local.tee 3
-    (;73:0;)       i32.store
-    (;74:1;)       local.get 0
-    (;75:2;)       i32.const 36
-    (;76:1;)       i32.add
-    (;77:2;)       local.get 3
-    (;78:3;)       i32.const 66933
-    (;79:4;)       i32.const 7
-    (;80:2;)       call 56  (*github.com/iotaledger/wart/wasp.ScMutableMap).GetInt
-    (;81:2;)       local.tee 2
-    (;82:0;)       i32.store
-    (;83:1;)       local.get 2
-    (;84:2;)       i64.const 2
-    (;85:0;)       call 58  (*github.com/iotaledger/wart/wasp.ScMutableInt).SetValue
-    (;86:1;)       local.get 0
-    (;87:2;)       i32.const 40
-    (;88:1;)       i32.add
-    (;89:2;)       local.get 3
-    (;90:3;)       i32.const 66940
-    (;91:4;)       i32.const 8
-    (;92:2;)       call 56  (*github.com/iotaledger/wart/wasp.ScMutableMap).GetInt
-    (;93:2;)       local.tee 3
-    (;94:0;)       i32.store
-    (;95:1;)       local.get 3
-    (;96:2;)       i64.const 5
-    (;97:0;)       call 58  (*github.com/iotaledger/wart/wasp.ScMutableInt).SetValue
-    (;98:0;)     end
-    (;99:1;)     i32.const 0
-    (;100:2;)    local.get 1
-    (;101:0;)    i32.store offset=70832
-    (;102:1;)    local.get 0
-    (;103:2;)    i32.const 48
-    (;104:1;)    i32.add
-    (;105:0;)    global.set 0
-    (;106:0;)  end
-  )
-
-  (func "(*github.com/iotaledger/wart/wasp.ScContext).Requests" (;60;) (type 10) (param (;0;) i32) (result i32)
-    (local (;1;) i32)
-    (local (;2;) i32)
-    (;0:1;)      global.get 0
-    (;1:2;)      i32.const 16
-    (;2:1;)      i32.sub
-    (;3:1;)      local.tee 1
-    (;4:0;)      global.set 0
-    (;5:1;)      local.get 1
     (;6:2;)      i32.const 0
-    (;7:0;)      i32.store offset=12
-    (;8:1;)      local.get 1
-    (;9:2;)      i64.const 2
-    (;10:0;)     i64.store offset=4 align=2
-    (;11:1;)     i32.const 0
-    (;12:1;)     i32.load offset=70832
-    (;13:0;)     local.set 2
-    (;14:1;)     i32.const 0
-    (;15:2;)     local.get 1
-    (;16:0;)     i32.store offset=70832
-    (;17:1;)     local.get 1
-    (;18:2;)     local.get 2
-    (;19:0;)     i32.store
-    (;20:0;)     block
-    (;21:1;)       local.get 0
-    (;22:0;)       br_if 0
-    (;23:0;)       call 41  runtime.nilPanic
-    (;24:0;)       unreachable
-    (;25:0;)     end
-    (;26:1;)     local.get 1
-    (;27:2;)     i32.const 8
-    (;28:1;)     i32.add
-    (;29:2;)     local.get 0
-    (;30:2;)     i32.load
-    (;31:2;)     local.tee 0
-    (;32:0;)     i32.store
-    (;33:1;)     local.get 0
-    (;34:2;)     i32.const 67430
-    (;35:3;)     i32.const 8
-    (;36:1;)     call 108  (*github.com/iotaledger/wart/wasp.ScMutableMap).GetMapArray
-    (;37:0;)     local.set 0
-    (;38:1;)     i32.const 0
-    (;39:2;)     local.get 2
-    (;40:0;)     i32.store offset=70832
-    (;41:1;)     local.get 1
-    (;42:2;)     i32.const 12
-    (;43:1;)     i32.add
-    (;44:2;)     local.get 0
-    (;45:0;)     i32.store
-    (;46:1;)     local.get 1
-    (;47:2;)     i32.const 16
-    (;48:1;)     i32.add
-    (;49:0;)     global.set 0
-    (;50:1;)     local.get 0
-    (;51:0;)   end
+    (;7:0;)      i32.store offset=8
+    (;8:1;)      local.get 0
+    (;9:2;)      call 16  github.com/iotaledger/wart/wasplib.NewScContext
+    (;10:2;)     local.tee 1
+    (;11:0;)     i32.store offset=8
+    (;12:1;)     local.get 1
+    (;13:2;)     i32.const 66736
+    (;14:3;)     i32.const 19
+    (;15:0;)     call 23  (github.com/iotaledger/wart/wasplib.ScContext).Log
+    (;16:1;)     local.get 0
+    (;17:2;)     i64.const 0
+    (;18:0;)     i64.store offset=16
+    (;19:1;)     local.get 0
+    (;20:2;)     local.get 1
+    (;21:2;)     call 25  (github.com/iotaledger/wart/wasplib.ScContext).State
+    (;22:3;)     i32.const 66790
+    (;23:4;)     i32.const 7
+    (;24:0;)     call 31  (github.com/iotaledger/wart/wasplib.ScMutableMap).GetInt
+    (;25:1;)     local.get 0
+    (;26:2;)     local.get 0
+    (;27:2;)     i32.load offset=4
+    (;28:2;)     local.tee 2
+    (;29:0;)     i32.store offset=20
+    (;30:1;)     local.get 0
+    (;31:2;)     local.get 0
+    (;32:2;)     i32.load
+    (;33:2;)     local.tee 3
+    (;34:0;)     i32.store offset=16
+    (;35:1;)     local.get 3
+    (;36:2;)     local.get 2
+    (;37:3;)     local.get 3
+    (;38:4;)     local.get 2
+    (;39:3;)     call 38  (github.com/iotaledger/wart/wasplib.ScMutableInt).Value
+    (;40:3;)     local.tee 4
+    (;41:4;)     i64.const 1
+    (;42:3;)     i64.add
+    (;43:0;)     call 32  (github.com/iotaledger/wart/wasplib.ScMutableInt).SetValue
+    (;44:0;)     block
+    (;45:1;)       local.get 4
+    (;46:2;)       i64.const 0
+    (;47:1;)       i64.ne
+    (;48:0;)       br_if 0
+    (;49:1;)       local.get 0
+    (;50:2;)       i32.const 0
+    (;51:0;)       i32.store offset=24
+    (;52:1;)       local.get 0
+    (;53:2;)       local.get 1
+    (;54:2;)       call 20  (github.com/iotaledger/wart/wasplib.ScContext).Event
+    (;55:2;)       local.tee 1
+    (;56:0;)       i32.store offset=24
+    (;57:1;)       local.get 1
+    (;58:2;)       i64.const 2
+    (;59:0;)       call 30  (github.com/iotaledger/wart/wasplib.ScEvent).Code
+    (;60:1;)       local.get 1
+    (;61:2;)       i64.const 5
+    (;62:0;)       call 33  (github.com/iotaledger/wart/wasplib.ScEvent).Delay
+    (;63:0;)     end
+    (;64:1;)     local.get 0
+    (;65:2;)     i32.const 32
+    (;66:1;)     i32.add
+    (;67:0;)     global.set 0
+    (;68:0;)   end
   )
 
-  (func "(*github.com/iotaledger/wart/wasp.ScMutableMapArray).GetMap" (;61;) (type 2) (param (;0;) i32 (;1;) i32) (result i32)
-    (local (;2;) i32)
-    (local (;3;) i32)
-    (;0:1;)      global.get 0
-    (;1:2;)      i32.const 16
-    (;2:1;)      i32.sub
-    (;3:1;)      local.tee 2
-    (;4:0;)      global.set 0
-    (;5:1;)      local.get 2
-    (;6:2;)      i64.const 1
-    (;7:0;)      i64.store offset=4 align=2
-    (;8:1;)      i32.const 0
-    (;9:1;)      i32.load offset=70832
-    (;10:0;)     local.set 3
-    (;11:1;)     i32.const 0
-    (;12:2;)     local.get 2
-    (;13:0;)     i32.store offset=70832
-    (;14:1;)     local.get 2
-    (;15:2;)     local.get 3
-    (;16:0;)     i32.store
-    (;17:0;)     block
-    (;18:1;)       local.get 0
-    (;19:0;)       br_if 0
-    (;20:0;)       call 41  runtime.nilPanic
-    (;21:0;)       unreachable
-    (;22:0;)     end
-    (;23:1;)     local.get 0
-    (;24:1;)     i32.load
-    (;25:2;)     local.get 1
-    (;26:3;)     i32.const 2
-    (;27:1;)     call 6  waspGo::hostGetObject
-    (;28:0;)     local.set 1
-    (;29:1;)     i32.const 4
-    (;30:1;)     call 17  runtime.alloc
-    (;31:1;)     local.tee 0
-    (;32:2;)     local.get 1
-    (;33:0;)     i32.store
-    (;34:1;)     local.get 2
-    (;35:2;)     i32.const 8
-    (;36:1;)     i32.add
-    (;37:2;)     local.get 0
-    (;38:0;)     i32.store
-    (;39:1;)     i32.const 0
-    (;40:2;)     local.get 3
-    (;41:0;)     i32.store offset=70832
-    (;42:1;)     local.get 2
-    (;43:2;)     i32.const 16
-    (;44:1;)     i32.add
-    (;45:0;)     global.set 0
-    (;46:1;)     local.get 0
-    (;47:0;)   end
-  )
-
-  (func "incrementRepeatMany" (;62;) (type 6)
+  (func "incrementRepeatMany" (;86;) (type 6)
     (local (;0;) i32)
     (local (;1;) i32)
     (local (;2;) i32)
@@ -7838,308 +8431,125 @@
     (;3:1;)      local.tee 0
     (;4:0;)      global.set 0
     (;5:1;)      local.get 0
-    (;6:2;)      i64.const 0
-    (;7:0;)      i64.store offset=52 align=2
-    (;8:1;)      local.get 0
-    (;9:2;)      i64.const 0
-    (;10:0;)     i64.store offset=44 align=2
-    (;11:1;)     local.get 0
-    (;12:2;)     i64.const 0
-    (;13:0;)     i64.store offset=36 align=2
-    (;14:1;)     local.get 0
-    (;15:2;)     i64.const 0
-    (;16:0;)     i64.store offset=28 align=2
-    (;17:1;)     local.get 0
-    (;18:2;)     i64.const 0
-    (;19:0;)     i64.store offset=20 align=2
-    (;20:1;)     local.get 0
-    (;21:2;)     i64.const 11
-    (;22:0;)     i64.store offset=12 align=2
-    (;23:1;)     i32.const 0
-    (;24:1;)     i32.load offset=70832
-    (;25:0;)     local.set 1
-    (;26:1;)     i32.const 0
-    (;27:2;)     local.get 0
-    (;28:3;)     i32.const 8
-    (;29:2;)     i32.add
-    (;30:0;)     i32.store offset=70832
-    (;31:1;)     local.get 0
-    (;32:2;)     local.get 1
-    (;33:0;)     i32.store offset=8
-    (;34:1;)     local.get 0
-    (;35:2;)     call 16  github.com/iotaledger/wart/wasp.NewScContext
-    (;36:2;)     local.tee 2
-    (;37:0;)     i32.store offset=16
-    (;38:1;)     i32.const 66672
-    (;39:2;)     i32.const 22
-    (;40:0;)     call 54  (*github.com/iotaledger/wart/wasp.ScContext).Log
-    (;41:1;)     local.get 0
-    (;42:2;)     local.get 2
-    (;43:2;)     call 55  (*github.com/iotaledger/wart/wasp.ScContext).State
-    (;44:2;)     local.tee 3
-    (;45:0;)     i32.store offset=20
-    (;46:1;)     local.get 0
-    (;47:2;)     local.get 3
-    (;48:3;)     i32.const 66694
-    (;49:4;)     i32.const 7
-    (;50:2;)     call 56  (*github.com/iotaledger/wart/wasp.ScMutableMap).GetInt
-    (;51:2;)     local.tee 3
-    (;52:0;)     i32.store offset=24
-    (;53:1;)     local.get 3
-    (;54:2;)     local.get 3
-    (;55:2;)     call 57  (*github.com/iotaledger/wart/wasp.ScMutableInt).Value
-    (;56:3;)     i64.const 1
-    (;57:2;)     i64.add
-    (;58:0;)     call 58  (*github.com/iotaledger/wart/wasp.ScMutableInt).SetValue
-    (;59:1;)     local.get 0
-    (;60:2;)     local.get 2
-    (;61:2;)     call 63  (*github.com/iotaledger/wart/wasp.ScContext).Params
-    (;62:2;)     local.tee 3
-    (;63:0;)     i32.store offset=28
-    (;64:1;)     local.get 0
-    (;65:2;)     local.get 3
-    (;66:3;)     i32.const 66701
-    (;67:4;)     i32.const 10
-    (;68:2;)     call 64  (*github.com/iotaledger/wart/wasp.ScImmutableMap).GetInt
-    (;69:2;)     local.tee 3
-    (;70:0;)     i32.store offset=32
-    (;71:1;)     local.get 3
-    (;72:1;)     call 65  (*github.com/iotaledger/wart/wasp.ScImmutableInt).Value
-    (;73:0;)     local.set 4
-    (;74:1;)     local.get 0
-    (;75:2;)     local.get 2
-    (;76:2;)     call 55  (*github.com/iotaledger/wart/wasp.ScContext).State
-    (;77:2;)     local.tee 3
-    (;78:0;)     i32.store offset=36
-    (;79:1;)     local.get 0
-    (;80:2;)     local.get 3
-    (;81:3;)     i32.const 66701
-    (;82:4;)     i32.const 10
-    (;83:2;)     call 56  (*github.com/iotaledger/wart/wasp.ScMutableMap).GetInt
-    (;84:2;)     local.tee 3
-    (;85:0;)     i32.store offset=40
-    (;86:0;)     block
-    (;87:1;)       local.get 4
-    (;88:2;)       i64.const 0
-    (;89:1;)       i64.ne
-    (;90:0;)       br_if 0
-    (;91:1;)       local.get 3
-    (;92:1;)       call 57  (*github.com/iotaledger/wart/wasp.ScMutableInt).Value
-    (;93:1;)       local.tee 4
-    (;94:2;)       i64.const 0
-    (;95:1;)       i64.ne
-    (;96:0;)       br_if 0
-    (;97:1;)       i32.const 0
-    (;98:2;)       local.get 1
-    (;99:0;)       i32.store offset=70832
-    (;100:1;)      local.get 0
-    (;101:2;)      i32.const 64
-    (;102:1;)      i32.add
-    (;103:0;)      global.set 0
-    (;104:0;)      return
-    (;105:0;)    end
-    (;106:1;)    local.get 3
-    (;107:2;)    local.get 4
-    (;108:3;)    i64.const -1
-    (;109:2;)    i64.add
-    (;110:0;)    call 58  (*github.com/iotaledger/wart/wasp.ScMutableInt).SetValue
-    (;111:1;)    local.get 0
-    (;112:2;)    i32.const 44
-    (;113:1;)    i32.add
-    (;114:2;)    local.get 2
-    (;115:2;)    call 60  (*github.com/iotaledger/wart/wasp.ScContext).Requests
-    (;116:2;)    local.tee 2
-    (;117:0;)    i32.store
-    (;118:1;)    local.get 0
-    (;119:2;)    i32.const 48
-    (;120:1;)    i32.add
-    (;121:2;)    local.get 2
-    (;122:3;)    i32.const 0
-    (;123:2;)    call 61  (*github.com/iotaledger/wart/wasp.ScMutableMapArray).GetMap
-    (;124:2;)    local.tee 2
-    (;125:0;)    i32.store
-    (;126:1;)    local.get 0
-    (;127:2;)    i32.const 52
-    (;128:1;)    i32.add
-    (;129:2;)    local.get 2
-    (;130:3;)    i32.const 66933
-    (;131:4;)    i32.const 7
-    (;132:2;)    call 56  (*github.com/iotaledger/wart/wasp.ScMutableMap).GetInt
-    (;133:2;)    local.tee 3
-    (;134:0;)    i32.store
-    (;135:1;)    local.get 3
-    (;136:2;)    i64.const 4
-    (;137:0;)    call 58  (*github.com/iotaledger/wart/wasp.ScMutableInt).SetValue
-    (;138:1;)    local.get 0
-    (;139:2;)    i32.const 56
-    (;140:1;)    i32.add
-    (;141:2;)    local.get 2
-    (;142:3;)    i32.const 66940
-    (;143:4;)    i32.const 8
-    (;144:2;)    call 56  (*github.com/iotaledger/wart/wasp.ScMutableMap).GetInt
-    (;145:2;)    local.tee 2
-    (;146:0;)    i32.store
-    (;147:1;)    local.get 2
-    (;148:2;)    i64.const 3
-    (;149:0;)    call 58  (*github.com/iotaledger/wart/wasp.ScMutableInt).SetValue
-    (;150:1;)    i32.const 0
-    (;151:2;)    local.get 1
-    (;152:0;)    i32.store offset=70832
-    (;153:1;)    local.get 0
-    (;154:2;)    i32.const 64
-    (;155:1;)    i32.add
-    (;156:0;)    global.set 0
-    (;157:0;)  end
-  )
-
-  (func "(*github.com/iotaledger/wart/wasp.ScContext).Params" (;63;) (type 10) (param (;0;) i32) (result i32)
-    (local (;1;) i32)
-    (local (;2;) i32)
-    (local (;3;) i32)
-    (;0:1;)      global.get 0
-    (;1:2;)      i32.const 32
-    (;2:1;)      i32.sub
-    (;3:1;)      local.tee 1
-    (;4:0;)      global.set 0
-    (;5:1;)      local.get 1
     (;6:2;)      i32.const 0
-    (;7:0;)      i32.store offset=28
-    (;8:1;)      local.get 1
-    (;9:2;)      i64.const 0
-    (;10:0;)     i64.store offset=20 align=2
-    (;11:1;)     local.get 1
-    (;12:2;)     i64.const 4
-    (;13:0;)     i64.store offset=12 align=2
-    (;14:1;)     i32.const 0
-    (;15:1;)     i32.load offset=70832
-    (;16:0;)     local.set 2
-    (;17:1;)     i32.const 0
-    (;18:2;)     local.get 1
-    (;19:3;)     i32.const 8
-    (;20:2;)     i32.add
-    (;21:0;)     i32.store offset=70832
-    (;22:1;)     local.get 1
-    (;23:2;)     local.get 2
-    (;24:0;)     i32.store offset=8
-    (;25:0;)     block
-    (;26:1;)       local.get 0
-    (;27:0;)       br_if 0
-    (;28:0;)       call 41  runtime.nilPanic
-    (;29:0;)       unreachable
-    (;30:0;)     end
-    (;31:1;)     local.get 1
-    (;32:2;)     i32.const 16
-    (;33:1;)     i32.add
-    (;34:2;)     local.get 0
-    (;35:2;)     i32.load
-    (;36:2;)     local.tee 0
-    (;37:0;)     i32.store
-    (;38:1;)     local.get 1
-    (;39:2;)     i32.const 20
-    (;40:1;)     i32.add
-    (;41:2;)     local.get 0
-    (;42:3;)     i32.const 67402
-    (;43:4;)     i32.const 6
-    (;44:2;)     call 83  (*github.com/iotaledger/wart/wasp.ScMutableMap).GetMap
-    (;45:2;)     local.tee 3
-    (;46:0;)     i32.store
-    (;47:1;)     local.get 1
-    (;48:2;)     i32.const 24
-    (;49:1;)     i32.add
-    (;50:2;)     i32.const 4
-    (;51:2;)     call 17  runtime.alloc
-    (;52:2;)     local.tee 0
-    (;53:0;)     i32.store
-    (;54:1;)     local.get 1
-    (;55:2;)     i32.const 28
-    (;56:1;)     i32.add
-    (;57:2;)     local.get 0
-    (;58:0;)     i32.store
-    (;59:1;)     i32.const 0
-    (;60:2;)     local.get 2
-    (;61:0;)     i32.store offset=70832
-    (;62:1;)     local.get 0
-    (;63:2;)     local.get 3
-    (;64:2;)     i32.load
-    (;65:0;)     i32.store
-    (;66:1;)     local.get 1
-    (;67:2;)     i32.const 32
-    (;68:1;)     i32.add
-    (;69:0;)     global.set 0
-    (;70:1;)     local.get 0
-    (;71:0;)   end
+    (;7:0;)      i32.store offset=32
+    (;8:1;)      local.get 0
+    (;9:2;)      call 16  github.com/iotaledger/wart/wasplib.NewScContext
+    (;10:2;)     local.tee 1
+    (;11:0;)     i32.store offset=32
+    (;12:1;)     local.get 1
+    (;13:2;)     i32.const 66768
+    (;14:3;)     i32.const 22
+    (;15:0;)     call 23  (github.com/iotaledger/wart/wasplib.ScContext).Log
+    (;16:1;)     local.get 0
+    (;17:2;)     i64.const 0
+    (;18:0;)     i64.store offset=40
+    (;19:1;)     local.get 0
+    (;20:2;)     i32.const 24
+    (;21:1;)     i32.add
+    (;22:2;)     local.get 1
+    (;23:2;)     call 25  (github.com/iotaledger/wart/wasplib.ScContext).State
+    (;24:3;)     i32.const 66790
+    (;25:4;)     i32.const 7
+    (;26:0;)     call 31  (github.com/iotaledger/wart/wasplib.ScMutableMap).GetInt
+    (;27:1;)     local.get 0
+    (;28:2;)     local.get 0
+    (;29:2;)     i32.load offset=28
+    (;30:2;)     local.tee 2
+    (;31:0;)     i32.store offset=44
+    (;32:1;)     local.get 0
+    (;33:2;)     local.get 0
+    (;34:2;)     i32.load offset=24
+    (;35:2;)     local.tee 3
+    (;36:0;)     i32.store offset=40
+    (;37:1;)     local.get 3
+    (;38:2;)     local.get 2
+    (;39:3;)     local.get 3
+    (;40:4;)     local.get 2
+    (;41:3;)     call 38  (github.com/iotaledger/wart/wasplib.ScMutableInt).Value
+    (;42:4;)     i64.const 1
+    (;43:3;)     i64.add
+    (;44:0;)     call 32  (github.com/iotaledger/wart/wasplib.ScMutableInt).SetValue
+    (;45:1;)     local.get 0
+    (;46:2;)     i32.const 16
+    (;47:1;)     i32.add
+    (;48:2;)     local.get 1
+    (;49:2;)     call 24  (github.com/iotaledger/wart/wasplib.ScContext).Request
+    (;50:2;)     call 46  (github.com/iotaledger/wart/wasplib.ScRequest).Params
+    (;51:3;)     i32.const 66797
+    (;52:4;)     i32.const 10
+    (;53:0;)     call 35  (github.com/iotaledger/wart/wasplib.ScImmutableMap).GetInt
+    (;54:1;)     local.get 0
+    (;55:1;)     i32.load offset=16
+    (;56:2;)     local.get 0
+    (;57:2;)     i32.load offset=20
+    (;58:1;)     call 34  (github.com/iotaledger/wart/wasplib.ScImmutableInt).Value
+    (;59:0;)     local.set 4
+    (;60:1;)     local.get 0
+    (;61:2;)     i64.const 0
+    (;62:0;)     i64.store offset=48
+    (;63:1;)     local.get 0
+    (;64:2;)     i32.const 8
+    (;65:1;)     i32.add
+    (;66:2;)     local.get 1
+    (;67:2;)     call 25  (github.com/iotaledger/wart/wasplib.ScContext).State
+    (;68:3;)     i32.const 66797
+    (;69:4;)     i32.const 10
+    (;70:0;)     call 31  (github.com/iotaledger/wart/wasplib.ScMutableMap).GetInt
+    (;71:1;)     local.get 0
+    (;72:2;)     local.get 0
+    (;73:2;)     i32.load offset=12
+    (;74:2;)     local.tee 2
+    (;75:0;)     i32.store offset=52
+    (;76:1;)     local.get 0
+    (;77:2;)     local.get 0
+    (;78:2;)     i32.load offset=8
+    (;79:2;)     local.tee 3
+    (;80:0;)     i32.store offset=48
+    (;81:0;)     block
+    (;82:0;)       block
+    (;83:1;)         local.get 4
+    (;84:1;)         i64.eqz
+    (;85:1;)         i32.eqz
+    (;86:0;)         br_if 0
+    (;87:1;)         local.get 3
+    (;88:2;)         local.get 2
+    (;89:1;)         call 38  (github.com/iotaledger/wart/wasplib.ScMutableInt).Value
+    (;90:1;)         local.tee 4
+    (;91:1;)         i64.eqz
+    (;92:0;)         br_if 1
+    (;93:0;)       end
+    (;94:1;)       local.get 3
+    (;95:2;)       local.get 2
+    (;96:3;)       local.get 4
+    (;97:4;)       i64.const -1
+    (;98:3;)       i64.add
+    (;99:0;)       call 32  (github.com/iotaledger/wart/wasplib.ScMutableInt).SetValue
+    (;100:1;)      local.get 0
+    (;101:2;)      i32.const 0
+    (;102:0;)      i32.store offset=56
+    (;103:1;)      local.get 1
+    (;104:1;)      call 20  (github.com/iotaledger/wart/wasplib.ScContext).Event
+    (;105:1;)      local.tee 1
+    (;106:2;)      i64.const 4
+    (;107:0;)      call 30  (github.com/iotaledger/wart/wasplib.ScEvent).Code
+    (;108:1;)      local.get 1
+    (;109:2;)      i64.const 3
+    (;110:0;)      call 33  (github.com/iotaledger/wart/wasplib.ScEvent).Delay
+    (;111:1;)      local.get 0
+    (;112:2;)      i32.const 64
+    (;113:1;)      i32.add
+    (;114:0;)      global.set 0
+    (;115:0;)      return
+    (;116:0;)    end
+    (;117:1;)    local.get 0
+    (;118:2;)    i32.const 64
+    (;119:1;)    i32.add
+    (;120:0;)    global.set 0
+    (;121:0;)  end
   )
 
-  (func "(*github.com/iotaledger/wart/wasp.ScImmutableMap).GetInt" (;64;) (type 5) (param (;0;) i32 (;1;) i32 (;2;) i32) (result i32)
-    (local (;3;) i32)
-    (local (;4;) i32)
-    (local (;5;) i32)
-    (;0:1;)      global.get 0
-    (;1:2;)      i32.const 16
-    (;2:1;)      i32.sub
-    (;3:1;)      local.tee 3
-    (;4:0;)      global.set 0
-    (;5:1;)      local.get 3
-    (;6:2;)      i64.const 1
-    (;7:0;)      i64.store offset=4 align=2
-    (;8:1;)      i32.const 0
-    (;9:1;)      i32.load offset=70832
-    (;10:0;)     local.set 4
-    (;11:1;)     i32.const 0
-    (;12:2;)     local.get 3
-    (;13:0;)     i32.store offset=70832
-    (;14:1;)     local.get 3
-    (;15:2;)     local.get 4
-    (;16:0;)     i32.store
-    (;17:1;)     local.get 3
-    (;18:2;)     i32.const 8
-    (;19:2;)     call 17  runtime.alloc
-    (;20:2;)     local.tee 5
-    (;21:0;)     i32.store offset=8
-    (;22:0;)     block
-    (;23:1;)       local.get 0
-    (;24:0;)       br_if 0
-    (;25:0;)       call 41  runtime.nilPanic
-    (;26:0;)       unreachable
-    (;27:0;)     end
-    (;28:1;)     local.get 0
-    (;29:1;)     i32.load
-    (;30:0;)     local.set 0
-    (;31:1;)     local.get 5
-    (;32:2;)     local.get 1
-    (;33:3;)     local.get 2
-    (;34:2;)     call 2  waspGo::hostGetKey
-    (;35:0;)     i32.store offset=4
-    (;36:1;)     local.get 5
-    (;37:2;)     local.get 0
-    (;38:0;)     i32.store
-    (;39:1;)     i32.const 0
-    (;40:2;)     local.get 4
-    (;41:0;)     i32.store offset=70832
-    (;42:1;)     local.get 3
-    (;43:2;)     i32.const 16
-    (;44:1;)     i32.add
-    (;45:0;)     global.set 0
-    (;46:1;)     local.get 5
-    (;47:0;)   end
-  )
-
-  (func "(*github.com/iotaledger/wart/wasp.ScImmutableInt).Value" (;65;) (type 18) (param (;0;) i32) (result i64)
-    (;0:0;)      block
-    (;1:1;)        local.get 0
-    (;2:0;)        br_if 0
-    (;3:0;)        call 41  runtime.nilPanic
-    (;4:0;)        unreachable
-    (;5:0;)      end
-    (;6:1;)      local.get 0
-    (;7:1;)      i32.load
-    (;8:2;)      local.get 0
-    (;9:2;)      i32.load offset=4
-    (;10:1;)     call 11  github.com/iotaledger/wart/wasp.GetInt
-    (;11:0;)   end
-  )
-
-  (func "lockBets" (;66;) (type 6)
+  (func "lockBets" (;87;) (type 6)
     (local (;0;) i32)
     (local (;1;) i32)
     (local (;2;) i32)
@@ -8149,642 +8559,283 @@
     (local (;6;) i32)
     (local (;7;) i32)
     (local (;8;) i32)
-    (local (;9;) i32)
-    (local (;10;) i32)
-    (local (;11;) i32)
     (;0:1;)      global.get 0
-    (;1:2;)      i32.const 80
+    (;1:2;)      i32.const 128
     (;2:1;)      i32.sub
     (;3:1;)      local.tee 0
     (;4:0;)      global.set 0
     (;5:1;)      local.get 0
     (;6:2;)      i32.const 0
-    (;7:0;)      i32.store offset=76
+    (;7:0;)      i32.store offset=124
     (;8:1;)      local.get 0
     (;9:2;)      i64.const 0
-    (;10:0;)     i64.store offset=68 align=2
+    (;10:0;)     i64.store offset=116 align=2
     (;11:1;)     local.get 0
     (;12:2;)     i64.const 0
-    (;13:0;)     i64.store offset=60 align=2
+    (;13:0;)     i64.store offset=108 align=2
     (;14:1;)     local.get 0
     (;15:2;)     i64.const 0
-    (;16:0;)     i64.store offset=52 align=2
+    (;16:0;)     i64.store offset=100 align=2
     (;17:1;)     local.get 0
-    (;18:2;)     i64.const 0
-    (;19:0;)     i64.store offset=44 align=2
-    (;20:1;)     local.get 0
-    (;21:2;)     i64.const 0
-    (;22:0;)     i64.store offset=36 align=2
-    (;23:1;)     local.get 0
-    (;24:2;)     i64.const 12
-    (;25:0;)     i64.store offset=28 align=2
-    (;26:1;)     i32.const 0
-    (;27:1;)     i32.load offset=70832
-    (;28:0;)     local.set 1
-    (;29:1;)     i32.const 0
-    (;30:2;)     local.get 0
-    (;31:3;)     i32.const 24
-    (;32:2;)     i32.add
-    (;33:0;)     i32.store offset=70832
-    (;34:1;)     local.get 0
-    (;35:2;)     local.get 1
-    (;36:0;)     i32.store offset=24
-    (;37:1;)     local.get 0
-    (;38:2;)     call 16  github.com/iotaledger/wart/wasp.NewScContext
-    (;39:2;)     local.tee 2
-    (;40:0;)     i32.store offset=32
-    (;41:1;)     i32.const 66711
-    (;42:2;)     i32.const 12
-    (;43:0;)     call 54  (*github.com/iotaledger/wart/wasp.ScContext).Log
-    (;44:1;)     local.get 0
-    (;45:2;)     i32.const 16
-    (;46:1;)     i32.add
-    (;47:2;)     local.get 2
-    (;48:0;)     call 67  (*github.com/iotaledger/wart/wasp.ScContext).Sender
-    (;49:1;)     local.get 0
-    (;50:2;)     local.get 0
-    (;51:2;)     i32.load offset=16
-    (;52:2;)     local.tee 3
-    (;53:0;)     i32.store offset=36
-    (;54:1;)     local.get 0
-    (;55:1;)     i32.load offset=20
-    (;56:0;)     local.set 4
-    (;57:1;)     local.get 0
-    (;58:2;)     i32.const 8
-    (;59:1;)     i32.add
-    (;60:2;)     local.get 2
-    (;61:0;)     call 68  (*github.com/iotaledger/wart/wasp.ScContext).ScAddress
-    (;62:1;)     local.get 0
-    (;63:2;)     local.get 0
-    (;64:2;)     i32.load offset=8
-    (;65:2;)     local.tee 5
-    (;66:0;)     i32.store offset=40
-    (;67:0;)     block
-    (;68:0;)       block
-    (;69:1;)         local.get 4
-    (;70:2;)         local.get 0
-    (;71:2;)         i32.load offset=12
-    (;72:1;)         i32.ne
-    (;73:0;)         br_if 0
-    (;74:1;)         i32.const 0
-    (;75:0;)         local.set 6
-    (;76:0;)         loop
-    (;77:1;)           local.get 6
-    (;78:2;)           local.get 4
-    (;79:1;)           i32.ge_s
-    (;80:0;)           br_if 2
-    (;81:1;)           local.get 5
-    (;82:2;)           local.get 6
-    (;83:1;)           i32.add
-    (;84:0;)           local.set 7
-    (;85:1;)           local.get 3
-    (;86:2;)           local.get 6
-    (;87:1;)           i32.add
-    (;88:0;)           local.set 8
-    (;89:1;)           local.get 6
-    (;90:2;)           i32.const 1
-    (;91:1;)           i32.add
-    (;92:0;)           local.set 6
-    (;93:1;)           local.get 8
-    (;94:1;)           i32.load8_u
-    (;95:2;)           local.get 7
-    (;96:2;)           i32.load8_u
-    (;97:1;)           i32.eq
-    (;98:0;)           br_if 0
-    (;99:0;)         end
-    (;100:0;)      end
-    (;101:1;)      i32.const 66976
-    (;102:2;)      i32.const 22
-    (;103:0;)      call 54  (*github.com/iotaledger/wart/wasp.ScContext).Log
-    (;104:1;)      i32.const 0
-    (;105:2;)      local.get 1
-    (;106:0;)      i32.store offset=70832
-    (;107:1;)      local.get 0
-    (;108:2;)      i32.const 80
-    (;109:1;)      i32.add
-    (;110:0;)      global.set 0
-    (;111:0;)      return
-    (;112:0;)    end
-    (;113:1;)    local.get 0
-    (;114:2;)    i32.const 44
-    (;115:1;)    i32.add
-    (;116:2;)    local.get 2
-    (;117:2;)    call 55  (*github.com/iotaledger/wart/wasp.ScContext).State
-    (;118:2;)    local.tee 6
-    (;119:0;)    i32.store
-    (;120:1;)    local.get 0
-    (;121:2;)    i32.const 48
-    (;122:1;)    i32.add
-    (;123:2;)    local.get 6
-    (;124:3;)    i32.const 66929
-    (;125:4;)    i32.const 4
-    (;126:2;)    call 69  (*github.com/iotaledger/wart/wasp.ScMutableMap).GetStringArray
-    (;127:2;)    local.tee 7
-    (;128:0;)    i32.store
-    (;129:1;)    local.get 0
-    (;130:2;)    i32.const 52
-    (;131:1;)    i32.add
-    (;132:2;)    local.get 6
-    (;133:3;)    i32.const 66805
-    (;134:4;)    i32.const 10
-    (;135:2;)    call 69  (*github.com/iotaledger/wart/wasp.ScMutableMap).GetStringArray
-    (;136:2;)    local.tee 5
-    (;137:0;)    i32.store
-    (;138:1;)    i32.const 0
-    (;139:0;)    local.set 6
-    (;140:1;)    local.get 0
-    (;141:2;)    i32.const 56
-    (;142:1;)    i32.add
-    (;143:0;)    local.set 9
-    (;144:1;)    local.get 0
-    (;145:2;)    i32.const 60
-    (;146:1;)    i32.add
-    (;147:0;)    local.set 10
-    (;148:1;)    local.get 0
-    (;149:2;)    i32.const 64
-    (;150:1;)    i32.add
-    (;151:0;)    local.set 11
-    (;152:0;)    block
-    (;153:0;)      loop
-    (;154:1;)        local.get 6
-    (;155:2;)        local.get 7
-    (;156:2;)        call 70  (*github.com/iotaledger/wart/wasp.ScMutableStringArray).Length
-    (;157:1;)        i32.ge_s
-    (;158:0;)        br_if 1
-    (;159:1;)        local.get 9
-    (;160:2;)        local.get 7
-    (;161:3;)        local.get 6
-    (;162:2;)        call 71  (*github.com/iotaledger/wart/wasp.ScMutableStringArray).GetString
-    (;163:2;)        local.tee 8
-    (;164:0;)        i32.store
-    (;165:1;)        local.get 0
-    (;166:2;)        local.get 8
-    (;167:0;)        call 72  (*github.com/iotaledger/wart/wasp.ScMutableString).Value
-    (;168:1;)        local.get 10
-    (;169:2;)        local.get 0
-    (;170:2;)        i32.load
-    (;171:2;)        local.tee 8
-    (;172:0;)        i32.store
-    (;173:1;)        local.get 0
-    (;174:1;)        i32.load offset=4
-    (;175:0;)        local.set 4
-    (;176:1;)        local.get 11
-    (;177:2;)        local.get 5
-    (;178:3;)        local.get 6
-    (;179:2;)        call 71  (*github.com/iotaledger/wart/wasp.ScMutableStringArray).GetString
-    (;180:2;)        local.tee 3
-    (;181:0;)        i32.store
-    (;182:1;)        local.get 3
-    (;183:2;)        local.get 8
-    (;184:3;)        local.get 4
-    (;185:0;)        call 73  (*github.com/iotaledger/wart/wasp.ScMutableString).SetValue
-    (;186:1;)        local.get 6
-    (;187:2;)        i32.const 1
-    (;188:1;)        i32.add
-    (;189:0;)        local.set 6
-    (;190:0;)        br 0
-    (;191:0;)      end
-    (;192:0;)    end
-    (;193:1;)    local.get 7
-    (;194:0;)    call 74  (*github.com/iotaledger/wart/wasp.ScMutableStringArray).Clear
-    (;195:1;)    local.get 0
-    (;196:2;)    i32.const 68
-    (;197:1;)    i32.add
-    (;198:2;)    local.get 2
-    (;199:2;)    call 60  (*github.com/iotaledger/wart/wasp.ScContext).Requests
-    (;200:2;)    local.tee 6
-    (;201:0;)    i32.store
-    (;202:1;)    local.get 0
-    (;203:2;)    i32.const 72
-    (;204:1;)    i32.add
-    (;205:2;)    local.get 6
-    (;206:3;)    i32.const 0
-    (;207:2;)    call 61  (*github.com/iotaledger/wart/wasp.ScMutableMapArray).GetMap
-    (;208:2;)    local.tee 6
-    (;209:0;)    i32.store
-    (;210:1;)    local.get 0
-    (;211:2;)    i32.const 76
-    (;212:1;)    i32.add
-    (;213:2;)    local.get 6
-    (;214:3;)    i32.const 66933
-    (;215:4;)    i32.const 7
-    (;216:2;)    call 56  (*github.com/iotaledger/wart/wasp.ScMutableMap).GetInt
-    (;217:2;)    local.tee 6
-    (;218:0;)    i32.store
-    (;219:1;)    local.get 6
-    (;220:2;)    i64.const 7
-    (;221:0;)    call 58  (*github.com/iotaledger/wart/wasp.ScMutableInt).SetValue
-    (;222:1;)    i32.const 0
-    (;223:2;)    local.get 1
-    (;224:0;)    i32.store offset=70832
-    (;225:1;)    local.get 0
-    (;226:2;)    i32.const 80
-    (;227:1;)    i32.add
-    (;228:0;)    global.set 0
-    (;229:0;)  end
-  )
-
-  (func "(*github.com/iotaledger/wart/wasp.ScContext).Sender" (;67;) (type 12) (param (;0;) i32 (;1;) i32)
-    (local (;2;) i32)
-    (local (;3;) i32)
-    (;0:1;)      global.get 0
-    (;1:2;)      i32.const 32
-    (;2:1;)      i32.sub
-    (;3:1;)      local.tee 2
-    (;4:0;)      global.set 0
-    (;5:1;)      local.get 2
-    (;6:2;)      i64.const 0
-    (;7:0;)      i64.store offset=20 align=2
-    (;8:1;)      local.get 2
-    (;9:2;)      i64.const 3
-    (;10:0;)     i64.store offset=12 align=2
-    (;11:1;)     i32.const 0
-    (;12:1;)     i32.load offset=70832
-    (;13:0;)     local.set 3
-    (;14:1;)     i32.const 0
-    (;15:2;)     local.get 2
-    (;16:3;)     i32.const 8
-    (;17:2;)     i32.add
-    (;18:0;)     i32.store offset=70832
-    (;19:1;)     local.get 2
-    (;20:2;)     local.get 3
-    (;21:0;)     i32.store offset=8
-    (;22:0;)     block
-    (;23:1;)       local.get 1
-    (;24:0;)       br_if 0
-    (;25:0;)       call 41  runtime.nilPanic
-    (;26:0;)       unreachable
-    (;27:0;)     end
-    (;28:1;)     local.get 2
-    (;29:2;)     i32.const 16
-    (;30:1;)     i32.add
-    (;31:2;)     local.get 1
-    (;32:2;)     i32.load
-    (;33:2;)     local.tee 1
-    (;34:0;)     i32.store
-    (;35:1;)     local.get 2
-    (;36:2;)     i32.const 20
-    (;37:1;)     i32.add
-    (;38:2;)     local.get 1
-    (;39:3;)     i32.const 67391
-    (;40:4;)     i32.const 6
-    (;41:2;)     call 80  (*github.com/iotaledger/wart/wasp.ScMutableMap).GetString
-    (;42:2;)     local.tee 1
-    (;43:0;)     i32.store
-    (;44:1;)     local.get 2
-    (;45:2;)     local.get 1
-    (;46:0;)     call 72  (*github.com/iotaledger/wart/wasp.ScMutableString).Value
-    (;47:1;)     i32.const 0
-    (;48:2;)     local.get 3
-    (;49:0;)     i32.store offset=70832
-    (;50:1;)     local.get 2
-    (;51:2;)     i32.const 24
-    (;52:1;)     i32.add
-    (;53:2;)     local.get 2
-    (;54:2;)     i32.load
-    (;55:2;)     local.tee 1
-    (;56:0;)     i32.store
-    (;57:1;)     local.get 0
-    (;58:2;)     local.get 2
-    (;59:2;)     i32.load offset=4
-    (;60:0;)     i32.store offset=4
-    (;61:1;)     local.get 0
-    (;62:2;)     local.get 1
-    (;63:0;)     i32.store
-    (;64:1;)     local.get 2
-    (;65:2;)     i32.const 32
-    (;66:1;)     i32.add
-    (;67:0;)     global.set 0
-    (;68:0;)   end
-  )
-
-  (func "(*github.com/iotaledger/wart/wasp.ScContext).ScAddress" (;68;) (type 12) (param (;0;) i32 (;1;) i32)
-    (local (;2;) i32)
-    (local (;3;) i32)
-    (;0:1;)      global.get 0
-    (;1:2;)      i32.const 32
-    (;2:1;)      i32.sub
-    (;3:1;)      local.tee 2
-    (;4:0;)      global.set 0
-    (;5:1;)      local.get 2
-    (;6:2;)      i64.const 0
-    (;7:0;)      i64.store offset=20 align=2
-    (;8:1;)      local.get 2
-    (;9:2;)      i64.const 3
-    (;10:0;)     i64.store offset=12 align=2
-    (;11:1;)     i32.const 0
-    (;12:1;)     i32.load offset=70832
-    (;13:0;)     local.set 3
-    (;14:1;)     i32.const 0
-    (;15:2;)     local.get 2
-    (;16:3;)     i32.const 8
-    (;17:2;)     i32.add
-    (;18:0;)     i32.store offset=70832
-    (;19:1;)     local.get 2
-    (;20:2;)     local.get 3
-    (;21:0;)     i32.store offset=8
-    (;22:0;)     block
-    (;23:1;)       local.get 1
-    (;24:0;)       br_if 0
-    (;25:0;)       call 41  runtime.nilPanic
-    (;26:0;)       unreachable
-    (;27:0;)     end
-    (;28:1;)     local.get 2
-    (;29:2;)     i32.const 16
-    (;30:1;)     i32.add
-    (;31:2;)     local.get 1
-    (;32:2;)     i32.load
-    (;33:2;)     local.tee 1
-    (;34:0;)     i32.store
-    (;35:1;)     local.get 2
-    (;36:2;)     i32.const 20
-    (;37:1;)     i32.add
-    (;38:2;)     local.get 1
-    (;39:3;)     i32.const 67438
-    (;40:4;)     i32.const 9
-    (;41:2;)     call 80  (*github.com/iotaledger/wart/wasp.ScMutableMap).GetString
-    (;42:2;)     local.tee 1
-    (;43:0;)     i32.store
-    (;44:1;)     local.get 2
-    (;45:2;)     local.get 1
-    (;46:0;)     call 72  (*github.com/iotaledger/wart/wasp.ScMutableString).Value
-    (;47:1;)     i32.const 0
-    (;48:2;)     local.get 3
-    (;49:0;)     i32.store offset=70832
-    (;50:1;)     local.get 2
-    (;51:2;)     i32.const 24
-    (;52:1;)     i32.add
-    (;53:2;)     local.get 2
-    (;54:2;)     i32.load
-    (;55:2;)     local.tee 1
-    (;56:0;)     i32.store
-    (;57:1;)     local.get 0
-    (;58:2;)     local.get 2
-    (;59:2;)     i32.load offset=4
-    (;60:0;)     i32.store offset=4
-    (;61:1;)     local.get 0
-    (;62:2;)     local.get 1
-    (;63:0;)     i32.store
-    (;64:1;)     local.get 2
-    (;65:2;)     i32.const 32
-    (;66:1;)     i32.add
-    (;67:0;)     global.set 0
-    (;68:0;)   end
-  )
-
-  (func "(*github.com/iotaledger/wart/wasp.ScMutableMap).GetStringArray" (;69;) (type 5) (param (;0;) i32 (;1;) i32 (;2;) i32) (result i32)
-    (local (;3;) i32)
-    (local (;4;) i32)
-    (;0:1;)      global.get 0
-    (;1:2;)      i32.const 16
-    (;2:1;)      i32.sub
-    (;3:1;)      local.tee 3
-    (;4:0;)      global.set 0
-    (;5:1;)      local.get 3
-    (;6:2;)      i64.const 1
-    (;7:0;)      i64.store offset=4 align=2
-    (;8:1;)      i32.const 0
-    (;9:1;)      i32.load offset=70832
-    (;10:0;)     local.set 4
-    (;11:1;)     i32.const 0
-    (;12:2;)     local.get 3
-    (;13:0;)     i32.store offset=70832
-    (;14:1;)     local.get 3
-    (;15:2;)     local.get 4
-    (;16:0;)     i32.store
-    (;17:0;)     block
-    (;18:1;)       local.get 0
-    (;19:0;)       br_if 0
-    (;20:0;)       call 41  runtime.nilPanic
-    (;21:0;)       unreachable
-    (;22:0;)     end
-    (;23:1;)     local.get 0
-    (;24:1;)     i32.load
-    (;25:2;)     local.get 1
-    (;26:3;)     local.get 2
-    (;27:2;)     call 2  waspGo::hostGetKey
-    (;28:3;)     i32.const 5
-    (;29:1;)     call 6  waspGo::hostGetObject
-    (;30:0;)     local.set 1
-    (;31:1;)     i32.const 4
-    (;32:1;)     call 17  runtime.alloc
-    (;33:1;)     local.tee 0
-    (;34:2;)     local.get 1
-    (;35:0;)     i32.store
-    (;36:1;)     local.get 3
-    (;37:2;)     i32.const 8
-    (;38:1;)     i32.add
-    (;39:2;)     local.get 0
-    (;40:0;)     i32.store
-    (;41:1;)     i32.const 0
-    (;42:2;)     local.get 4
-    (;43:0;)     i32.store offset=70832
-    (;44:1;)     local.get 3
-    (;45:2;)     i32.const 16
-    (;46:1;)     i32.add
-    (;47:0;)     global.set 0
-    (;48:1;)     local.get 0
-    (;49:0;)   end
-  )
-
-  (func "(*github.com/iotaledger/wart/wasp.ScMutableStringArray).Length" (;70;) (type 10) (param (;0;) i32) (result i32)
-    (;0:0;)      block
-    (;1:1;)        local.get 0
-    (;2:0;)        br_if 0
-    (;3:0;)        call 41  runtime.nilPanic
-    (;4:0;)        unreachable
-    (;5:0;)      end
-    (;6:1;)      local.get 0
-    (;7:1;)      i32.load
-    (;8:2;)      call 15  github.com/iotaledger/wart/wasp.KeyLength
-    (;9:1;)      call 11  github.com/iotaledger/wart/wasp.GetInt
-    (;10:1;)     i32.wrap_i64
-    (;11:0;)   end
-  )
-
-  (func "(*github.com/iotaledger/wart/wasp.ScMutableStringArray).GetString" (;71;) (type 2) (param (;0;) i32 (;1;) i32) (result i32)
-    (local (;2;) i32)
-    (local (;3;) i32)
-    (local (;4;) i32)
-    (;0:1;)      global.get 0
-    (;1:2;)      i32.const 16
-    (;2:1;)      i32.sub
-    (;3:1;)      local.tee 2
-    (;4:0;)      global.set 0
-    (;5:1;)      local.get 2
-    (;6:2;)      i64.const 1
-    (;7:0;)      i64.store offset=4 align=2
-    (;8:1;)      i32.const 0
-    (;9:1;)      i32.load offset=70832
-    (;10:0;)     local.set 3
-    (;11:1;)     i32.const 0
-    (;12:2;)     local.get 2
-    (;13:0;)     i32.store offset=70832
-    (;14:1;)     local.get 2
-    (;15:2;)     local.get 3
-    (;16:0;)     i32.store
-    (;17:1;)     local.get 2
     (;18:2;)     i32.const 8
-    (;19:2;)     call 17  runtime.alloc
-    (;20:2;)     local.tee 4
-    (;21:0;)     i32.store offset=8
-    (;22:0;)     block
-    (;23:1;)       local.get 0
-    (;24:0;)       br_if 0
-    (;25:0;)       call 41  runtime.nilPanic
-    (;26:0;)       unreachable
-    (;27:0;)     end
-    (;28:1;)     local.get 4
-    (;29:2;)     local.get 1
-    (;30:0;)     i32.store offset=4
-    (;31:1;)     local.get 4
-    (;32:2;)     local.get 0
-    (;33:2;)     i32.load
-    (;34:0;)     i32.store
-    (;35:1;)     i32.const 0
-    (;36:2;)     local.get 3
-    (;37:0;)     i32.store offset=70832
-    (;38:1;)     local.get 2
-    (;39:2;)     i32.const 16
-    (;40:1;)     i32.add
-    (;41:0;)     global.set 0
-    (;42:1;)     local.get 4
-    (;43:0;)   end
-  )
-
-  (func "(*github.com/iotaledger/wart/wasp.ScMutableString).Value" (;72;) (type 12) (param (;0;) i32 (;1;) i32)
-    (local (;2;) i32)
-    (local (;3;) i32)
-    (;0:1;)      global.get 0
-    (;1:2;)      i32.const 32
-    (;2:1;)      i32.sub
-    (;3:1;)      local.tee 2
-    (;4:0;)      global.set 0
-    (;5:1;)      local.get 2
-    (;6:2;)      i64.const 1
-    (;7:0;)      i64.store offset=20 align=2
-    (;8:1;)      i32.const 0
-    (;9:1;)      i32.load offset=70832
-    (;10:0;)     local.set 3
-    (;11:1;)     i32.const 0
-    (;12:2;)     local.get 2
-    (;13:3;)     i32.const 16
-    (;14:2;)     i32.add
-    (;15:0;)     i32.store offset=70832
-    (;16:1;)     local.get 2
-    (;17:2;)     local.get 3
-    (;18:0;)     i32.store offset=16
-    (;19:0;)     block
-    (;20:1;)       local.get 1
-    (;21:0;)       br_if 0
-    (;22:0;)       call 41  runtime.nilPanic
-    (;23:0;)       unreachable
-    (;24:0;)     end
-    (;25:1;)     local.get 2
-    (;26:2;)     i32.const 8
-    (;27:1;)     i32.add
-    (;28:2;)     local.get 1
-    (;29:2;)     i32.load
-    (;30:3;)     local.get 1
-    (;31:3;)     i32.load offset=4
-    (;32:0;)     call 12  github.com/iotaledger/wart/wasp.GetString
-    (;33:1;)     i32.const 0
-    (;34:2;)     local.get 3
-    (;35:0;)     i32.store offset=70832
-    (;36:1;)     local.get 2
-    (;37:2;)     i32.const 24
-    (;38:1;)     i32.add
-    (;39:2;)     local.get 2
-    (;40:2;)     i32.load offset=8
-    (;41:2;)     local.tee 1
-    (;42:0;)     i32.store
-    (;43:1;)     local.get 0
-    (;44:2;)     local.get 2
-    (;45:2;)     i32.load offset=12
-    (;46:0;)     i32.store offset=4
+    (;19:0;)     i32.store offset=92
+    (;20:1;)     local.get 0
+    (;21:2;)     i32.const 0
+    (;22:0;)     i32.store offset=48
+    (;23:1;)     i32.const 0
+    (;24:1;)     i32.load offset=70816
+    (;25:0;)     local.set 1
+    (;26:1;)     i32.const 0
+    (;27:2;)     local.get 0
+    (;28:3;)     i32.const 88
+    (;29:2;)     i32.add
+    (;30:0;)     i32.store offset=70816
+    (;31:1;)     local.get 0
+    (;32:2;)     local.get 1
+    (;33:0;)     i32.store offset=88
+    (;34:1;)     local.get 0
+    (;35:2;)     local.get 0
+    (;36:3;)     i32.const 48
+    (;37:2;)     i32.add
+    (;38:0;)     i32.store offset=96
+    (;39:1;)     local.get 0
+    (;40:2;)     call 16  github.com/iotaledger/wart/wasplib.NewScContext
+    (;41:2;)     local.tee 2
+    (;42:0;)     i32.store offset=48
+    (;43:1;)     local.get 2
+    (;44:2;)     i32.const 66807
+    (;45:3;)     i32.const 12
+    (;46:0;)     call 23  (github.com/iotaledger/wart/wasplib.ScContext).Log
     (;47:1;)     local.get 0
-    (;48:2;)     local.get 1
-    (;49:0;)     i32.store
-    (;50:1;)     local.get 2
-    (;51:2;)     i32.const 32
-    (;52:1;)     i32.add
-    (;53:0;)     global.set 0
-    (;54:0;)   end
+    (;48:2;)     i32.const 40
+    (;49:1;)     i32.add
+    (;50:2;)     local.get 2
+    (;51:2;)     call 24  (github.com/iotaledger/wart/wasplib.ScContext).Request
+    (;52:0;)     call 45  (github.com/iotaledger/wart/wasplib.ScRequest).Address
+    (;53:1;)     local.get 0
+    (;54:2;)     local.get 0
+    (;55:2;)     i32.load offset=40
+    (;56:2;)     local.tee 3
+    (;57:0;)     i32.store offset=100
+    (;58:1;)     local.get 0
+    (;59:1;)     i32.load offset=44
+    (;60:0;)     local.set 4
+    (;61:1;)     local.get 0
+    (;62:2;)     i32.const 32
+    (;63:1;)     i32.add
+    (;64:2;)     local.get 2
+    (;65:2;)     call 17  (github.com/iotaledger/wart/wasplib.ScContext).Contract
+    (;66:0;)     call 27  (github.com/iotaledger/wart/wasplib.ScContract).Address
+    (;67:1;)     local.get 0
+    (;68:2;)     local.get 0
+    (;69:2;)     i32.load offset=32
+    (;70:2;)     local.tee 5
+    (;71:0;)     i32.store offset=104
+    (;72:0;)     block
+    (;73:0;)       block
+    (;74:1;)         local.get 4
+    (;75:2;)         local.get 0
+    (;76:2;)         i32.load offset=36
+    (;77:1;)         i32.ne
+    (;78:0;)         br_if 0
+    (;79:1;)         i32.const 0
+    (;80:0;)         local.set 6
+    (;81:0;)         loop
+    (;82:1;)           local.get 6
+    (;83:2;)           local.get 4
+    (;84:1;)           i32.ge_s
+    (;85:0;)           br_if 2
+    (;86:1;)           local.get 5
+    (;87:2;)           local.get 6
+    (;88:1;)           i32.add
+    (;89:0;)           local.set 7
+    (;90:1;)           local.get 3
+    (;91:2;)           local.get 6
+    (;92:1;)           i32.add
+    (;93:0;)           local.set 8
+    (;94:1;)           local.get 6
+    (;95:2;)           i32.const 1
+    (;96:1;)           i32.add
+    (;97:0;)           local.set 6
+    (;98:1;)           local.get 8
+    (;99:1;)           i32.load8_u
+    (;100:2;)          local.get 7
+    (;101:2;)          i32.load8_u
+    (;102:1;)          i32.eq
+    (;103:0;)          br_if 0
+    (;104:0;)        end
+    (;105:0;)      end
+    (;106:1;)      local.get 2
+    (;107:2;)      i32.const 67024
+    (;108:3;)      i32.const 22
+    (;109:0;)      call 23  (github.com/iotaledger/wart/wasplib.ScContext).Log
+    (;110:1;)      i32.const 0
+    (;111:2;)      local.get 1
+    (;112:0;)      i32.store offset=70816
+    (;113:1;)      local.get 0
+    (;114:2;)      i32.const 128
+    (;115:1;)      i32.add
+    (;116:0;)      global.set 0
+    (;117:0;)      return
+    (;118:0;)    end
+    (;119:1;)    i32.const 0
+    (;120:0;)    local.set 6
+    (;121:1;)    local.get 0
+    (;122:2;)    i32.const 0
+    (;123:0;)    i32.store offset=56
+    (;124:1;)    local.get 0
+    (;125:2;)    i32.const 108
+    (;126:1;)    i32.add
+    (;127:2;)    local.get 0
+    (;128:3;)    i32.const 56
+    (;129:2;)    i32.add
+    (;130:0;)    i32.store
+    (;131:1;)    local.get 2
+    (;132:1;)    call 25  (github.com/iotaledger/wart/wasplib.ScContext).State
+    (;133:0;)    local.set 8
+    (;134:1;)    local.get 0
+    (;135:2;)    i32.const 0
+    (;136:0;)    i32.store offset=64
+    (;137:1;)    local.get 0
+    (;138:2;)    local.get 8
+    (;139:0;)    i32.store offset=56
+    (;140:1;)    local.get 0
+    (;141:2;)    i32.const 112
+    (;142:1;)    i32.add
+    (;143:2;)    local.get 0
+    (;144:3;)    i32.const 64
+    (;145:2;)    i32.add
+    (;146:0;)    i32.store
+    (;147:1;)    local.get 8
+    (;148:2;)    i32.const 67004
+    (;149:3;)    i32.const 4
+    (;150:1;)    call 39  (github.com/iotaledger/wart/wasplib.ScMutableMap).GetStringArray
+    (;151:0;)    local.set 7
+    (;152:1;)    local.get 0
+    (;153:2;)    i32.const 0
+    (;154:0;)    i32.store offset=72
+    (;155:1;)    local.get 0
+    (;156:2;)    local.get 7
+    (;157:0;)    i32.store offset=64
+    (;158:1;)    local.get 0
+    (;159:2;)    i32.const 116
+    (;160:1;)    i32.add
+    (;161:2;)    local.get 0
+    (;162:3;)    i32.const 72
+    (;163:2;)    i32.add
+    (;164:0;)    i32.store
+    (;165:1;)    local.get 0
+    (;166:2;)    local.get 8
+    (;167:3;)    i32.const 66901
+    (;168:4;)    i32.const 10
+    (;169:2;)    call 39  (github.com/iotaledger/wart/wasplib.ScMutableMap).GetStringArray
+    (;170:2;)    local.tee 3
+    (;171:0;)    i32.store offset=72
+    (;172:1;)    local.get 0
+    (;173:2;)    i32.const 120
+    (;174:1;)    i32.add
+    (;175:0;)    local.set 5
+    (;176:0;)    block
+    (;177:0;)      loop
+    (;178:1;)        local.get 6
+    (;179:2;)        local.get 7
+    (;180:2;)        call 44  (github.com/iotaledger/wart/wasplib.ScMutableStringArray).Length
+    (;181:1;)        i32.ge_s
+    (;182:0;)        br_if 1
+    (;183:1;)        local.get 0
+    (;184:2;)        i32.const 24
+    (;185:1;)        i32.add
+    (;186:2;)        local.get 7
+    (;187:3;)        local.get 6
+    (;188:0;)        call 43  (github.com/iotaledger/wart/wasplib.ScMutableStringArray).GetString
+    (;189:1;)        local.get 0
+    (;190:2;)        i32.const 16
+    (;191:1;)        i32.add
+    (;192:2;)        local.get 0
+    (;193:2;)        i32.load offset=24
+    (;194:3;)        local.get 0
+    (;195:3;)        i32.load offset=28
+    (;196:0;)        call 41  (github.com/iotaledger/wart/wasplib.ScMutableString).Value
+    (;197:1;)        local.get 5
+    (;198:2;)        local.get 0
+    (;199:2;)        i32.load offset=16
+    (;200:2;)        local.tee 8
+    (;201:0;)        i32.store
+    (;202:1;)        local.get 0
+    (;203:1;)        i32.load offset=20
+    (;204:0;)        local.set 4
+    (;205:1;)        local.get 0
+    (;206:2;)        i32.const 8
+    (;207:1;)        i32.add
+    (;208:2;)        local.get 3
+    (;209:3;)        local.get 6
+    (;210:0;)        call 43  (github.com/iotaledger/wart/wasplib.ScMutableStringArray).GetString
+    (;211:1;)        local.get 0
+    (;212:1;)        i32.load offset=8
+    (;213:2;)        local.get 0
+    (;214:2;)        i32.load offset=12
+    (;215:3;)        local.get 8
+    (;216:4;)        local.get 4
+    (;217:0;)        call 40  (github.com/iotaledger/wart/wasplib.ScMutableString).SetValue
+    (;218:1;)        local.get 6
+    (;219:2;)        i32.const 1
+    (;220:1;)        i32.add
+    (;221:0;)        local.set 6
+    (;222:0;)        br 0
+    (;223:0;)      end
+    (;224:0;)    end
+    (;225:1;)    local.get 7
+    (;226:0;)    call 42  (github.com/iotaledger/wart/wasplib.ScMutableStringArray).Clear
+    (;227:1;)    local.get 0
+    (;228:2;)    i32.const 124
+    (;229:1;)    i32.add
+    (;230:2;)    local.get 0
+    (;231:3;)    i32.const 80
+    (;232:2;)    i32.add
+    (;233:0;)    i32.store
+    (;234:1;)    local.get 0
+    (;235:2;)    i32.const 0
+    (;236:0;)    i32.store offset=80
+    (;237:1;)    local.get 2
+    (;238:1;)    call 20  (github.com/iotaledger/wart/wasplib.ScContext).Event
+    (;239:2;)    i64.const 7
+    (;240:0;)    call 30  (github.com/iotaledger/wart/wasplib.ScEvent).Code
+    (;241:1;)    i32.const 0
+    (;242:2;)    local.get 1
+    (;243:0;)    i32.store offset=70816
+    (;244:1;)    local.get 0
+    (;245:2;)    i32.const 128
+    (;246:1;)    i32.add
+    (;247:0;)    global.set 0
+    (;248:0;)  end
   )
 
-  (func "(*github.com/iotaledger/wart/wasp.ScMutableString).SetValue" (;73;) (type 1) (param (;0;) i32 (;1;) i32 (;2;) i32)
-    (;0:0;)      block
-    (;1:1;)        local.get 0
-    (;2:0;)        br_if 0
-    (;3:0;)        call 41  runtime.nilPanic
-    (;4:0;)        unreachable
-    (;5:0;)      end
-    (;6:1;)      local.get 0
-    (;7:1;)      i32.load
-    (;8:2;)      local.get 0
-    (;9:2;)      i32.load offset=4
-    (;10:3;)     local.get 1
-    (;11:4;)     local.get 2
-    (;12:0;)     call 4  waspGo::hostSetString
-    (;13:0;)   end
-  )
-
-  (func "(*github.com/iotaledger/wart/wasp.ScMutableStringArray).Clear" (;74;) (type 0) (param (;0;) i32)
-    (;0:0;)      block
-    (;1:1;)        local.get 0
-    (;2:0;)        br_if 0
-    (;3:0;)        call 41  runtime.nilPanic
-    (;4:0;)        unreachable
-    (;5:0;)      end
-    (;6:1;)      local.get 0
-    (;7:1;)      i32.load
-    (;8:2;)      call 15  github.com/iotaledger/wart/wasp.KeyLength
-    (;9:3;)      i64.const 0
-    (;10:0;)     call 18  github.com/iotaledger/wart/wasp.SetInt
-    (;11:0;)   end
-  )
-
-  (func "command-line-arguments.main" (;75;) (type 12) (param (;0;) i32 (;1;) i32)
+  (func "command-line-arguments.main" (;88;) (type 11) (param (;0;) i32 (;1;) i32)
     (;0:0;)    end
   )
 
-  (func "no_op" (;76;) (type 6)
+  (func "no_op" (;89;) (type 6)
     (local (;0;) i32)
-    (local (;1;) i32)
     (;0:1;)      global.get 0
     (;1:2;)      i32.const 16
     (;2:1;)      i32.sub
     (;3:1;)      local.tee 0
     (;4:0;)      global.set 0
     (;5:1;)      local.get 0
-    (;6:2;)      i64.const 1
-    (;7:0;)      i64.store offset=4 align=2
-    (;8:1;)      i32.const 0
-    (;9:1;)      i32.load offset=70832
-    (;10:0;)     local.set 1
-    (;11:1;)     i32.const 0
-    (;12:2;)     local.get 0
-    (;13:0;)     i32.store offset=70832
-    (;14:1;)     local.get 0
-    (;15:2;)     local.get 1
-    (;16:0;)     i32.store
-    (;17:1;)     local.get 0
-    (;18:2;)     call 16  github.com/iotaledger/wart/wasp.NewScContext
-    (;19:0;)     i32.store offset=8
-    (;20:1;)     i32.const 66736
-    (;21:2;)     i32.const 39
-    (;22:0;)     call 54  (*github.com/iotaledger/wart/wasp.ScContext).Log
-    (;23:1;)     i32.const 0
-    (;24:2;)     local.get 1
-    (;25:0;)     i32.store offset=70832
-    (;26:1;)     local.get 0
-    (;27:2;)     i32.const 16
-    (;28:1;)     i32.add
-    (;29:0;)     global.set 0
-    (;30:0;)   end
+    (;6:2;)      i32.const 0
+    (;7:0;)      i32.store offset=8
+    (;8:1;)      call 16  github.com/iotaledger/wart/wasplib.NewScContext
+    (;9:2;)      i32.const 66832
+    (;10:3;)     i32.const 39
+    (;11:0;)     call 23  (github.com/iotaledger/wart/wasplib.ScContext).Log
+    (;12:1;)     local.get 0
+    (;13:2;)     i32.const 16
+    (;14:1;)     i32.add
+    (;15:0;)     global.set 0
+    (;16:0;)   end
   )
 
-  (func "payWinners" (;77;) (type 6)
+  (func "payWinners" (;90;) (type 6)
     (local (;0;) i32)
     (local (;1;) i32)
     (local (;2;) i32)
@@ -8814,943 +8865,914 @@
     (local (;26;) i32)
     (local (;27;) i32)
     (local (;28;) i32)
-    (local (;29;) i32)
+    (local (;29;) i64)
     (local (;30;) i32)
-    (local (;31;) i64)
+    (local (;31;) i32)
     (local (;32;) i32)
     (local (;33;) i32)
     (local (;34;) i32)
     (local (;35;) i32)
-    (local (;36;) i32)
+    (local (;36;) i64)
     (local (;37;) i32)
-    (local (;38;) i64)
-    (local (;39;) i32)
-    (local (;40;) i32)
+    (local (;38;) i32)
     (;0:1;)      global.get 0
-    (;1:2;)      i32.const 320
+    (;1:2;)      i32.const 352
     (;2:1;)      i32.sub
     (;3:1;)      local.tee 0
     (;4:0;)      global.set 0
     (;5:1;)      local.get 0
-    (;6:2;)      i64.const 0
-    (;7:0;)      i64.store offset=312
+    (;6:2;)      i32.const 0
+    (;7:0;)      i32.store offset=344
     (;8:1;)      local.get 0
     (;9:2;)      i64.const 0
-    (;10:0;)     i64.store offset=304
+    (;10:0;)     i64.store offset=336
     (;11:1;)     local.get 0
     (;12:2;)     i64.const 0
-    (;13:0;)     i64.store offset=296
+    (;13:0;)     i64.store offset=328
     (;14:1;)     local.get 0
     (;15:2;)     i64.const 0
-    (;16:0;)     i64.store offset=288
+    (;16:0;)     i64.store offset=320
     (;17:1;)     local.get 0
     (;18:2;)     i64.const 0
-    (;19:0;)     i64.store offset=280
+    (;19:0;)     i64.store offset=312
     (;20:1;)     local.get 0
     (;21:2;)     i64.const 0
-    (;22:0;)     i64.store offset=272
+    (;22:0;)     i64.store offset=304
     (;23:1;)     local.get 0
     (;24:2;)     i64.const 0
-    (;25:0;)     i64.store offset=264
+    (;25:0;)     i64.store offset=296
     (;26:1;)     local.get 0
     (;27:2;)     i64.const 0
-    (;28:0;)     i64.store offset=256
+    (;28:0;)     i64.store offset=288
     (;29:1;)     local.get 0
     (;30:2;)     i64.const 0
-    (;31:0;)     i64.store offset=248
+    (;31:0;)     i64.store offset=280
     (;32:1;)     local.get 0
     (;33:2;)     i64.const 0
-    (;34:0;)     i64.store offset=240
+    (;34:0;)     i64.store offset=272
     (;35:1;)     local.get 0
     (;36:2;)     i64.const 0
-    (;37:0;)     i64.store offset=232
+    (;37:0;)     i64.store offset=264
     (;38:1;)     local.get 0
     (;39:2;)     i64.const 0
-    (;40:0;)     i64.store offset=224
+    (;40:0;)     i64.store offset=256
     (;41:1;)     local.get 0
     (;42:2;)     i64.const 0
-    (;43:0;)     i64.store offset=216
+    (;43:0;)     i64.store offset=248
     (;44:1;)     local.get 0
     (;45:2;)     i64.const 0
-    (;46:0;)     i64.store offset=208
+    (;46:0;)     i64.store offset=240
     (;47:1;)     local.get 0
     (;48:2;)     i64.const 0
-    (;49:0;)     i64.store offset=200
+    (;49:0;)     i64.store offset=232
     (;50:1;)     local.get 0
     (;51:2;)     i64.const 0
-    (;52:0;)     i64.store offset=192
+    (;52:0;)     i64.store offset=224
     (;53:1;)     local.get 0
     (;54:2;)     i64.const 0
-    (;55:0;)     i64.store offset=184
+    (;55:0;)     i64.store offset=216
     (;56:1;)     local.get 0
     (;57:2;)     i64.const 0
-    (;58:0;)     i64.store offset=176
+    (;58:0;)     i64.store offset=208
     (;59:1;)     local.get 0
-    (;60:2;)     i64.const 0
-    (;61:0;)     i64.store offset=168
+    (;60:2;)     i64.const 150323855360
+    (;61:0;)     i64.store offset=200
     (;62:1;)     local.get 0
-    (;63:2;)     i64.const 0
-    (;64:0;)     i64.store offset=160
+    (;63:2;)     i32.const 0
+    (;64:0;)     i32.store offset=152
     (;65:1;)     local.get 0
-    (;66:2;)     i64.const 0
-    (;67:0;)     i64.store offset=152
-    (;68:1;)     local.get 0
-    (;69:2;)     i64.const 0
-    (;70:0;)     i64.store offset=144
-    (;71:1;)     local.get 0
-    (;72:2;)     i64.const 188978561024
-    (;73:0;)     i64.store offset=136
-    (;74:1;)     local.get 0
-    (;75:2;)     i32.const 0
-    (;76:2;)     i32.load offset=70832
-    (;77:2;)     local.tee 1
-    (;78:0;)     i32.store offset=136
-    (;79:1;)     i32.const 0
-    (;80:2;)     local.get 0
-    (;81:3;)     i32.const 136
-    (;82:2;)     i32.add
-    (;83:0;)     i32.store offset=70832
-    (;84:1;)     local.get 0
-    (;85:2;)     call 16  github.com/iotaledger/wart/wasp.NewScContext
-    (;86:2;)     local.tee 2
-    (;87:0;)     i32.store offset=144
-    (;88:1;)     i32.const 66775
-    (;89:2;)     i32.const 14
-    (;90:0;)     call 54  (*github.com/iotaledger/wart/wasp.ScContext).Log
-    (;91:1;)     local.get 0
-    (;92:2;)     i32.const 120
-    (;93:1;)     i32.add
-    (;94:2;)     local.get 2
-    (;95:0;)     call 68  (*github.com/iotaledger/wart/wasp.ScContext).ScAddress
-    (;96:1;)     local.get 0
-    (;97:2;)     local.get 0
-    (;98:2;)     i32.load offset=120
-    (;99:2;)     local.tee 3
-    (;100:0;)    i32.store offset=148
-    (;101:1;)    local.get 0
-    (;102:1;)    i32.load offset=124
-    (;103:0;)    local.set 4
-    (;104:1;)    local.get 0
-    (;105:2;)    i32.const 112
-    (;106:1;)    i32.add
-    (;107:2;)    local.get 2
-    (;108:0;)    call 67  (*github.com/iotaledger/wart/wasp.ScContext).Sender
-    (;109:1;)    local.get 0
-    (;110:2;)    local.get 0
-    (;111:2;)    i32.load offset=112
-    (;112:2;)    local.tee 5
-    (;113:0;)    i32.store offset=152
-    (;114:0;)    block
-    (;115:0;)      block
-    (;116:1;)        local.get 4
-    (;117:2;)        local.get 0
-    (;118:2;)        i32.load offset=116
-    (;119:1;)        i32.ne
-    (;120:0;)        br_if 0
-    (;121:1;)        i32.const 0
-    (;122:0;)        local.set 6
-    (;123:0;)        loop
-    (;124:1;)          local.get 6
-    (;125:2;)          local.get 4
-    (;126:1;)          i32.ge_s
-    (;127:0;)          br_if 2
-    (;128:1;)          local.get 3
-    (;129:2;)          local.get 6
-    (;130:1;)          i32.add
-    (;131:0;)          local.set 7
-    (;132:1;)          local.get 5
-    (;133:2;)          local.get 6
-    (;134:1;)          i32.add
-    (;135:0;)          local.set 8
-    (;136:1;)          local.get 6
-    (;137:2;)          i32.const 1
-    (;138:1;)          i32.add
-    (;139:0;)          local.set 6
-    (;140:1;)          local.get 8
-    (;141:1;)          i32.load8_u
-    (;142:2;)          local.get 7
-    (;143:2;)          i32.load8_u
-    (;144:1;)          i32.eq
-    (;145:0;)          br_if 0
-    (;146:0;)        end
-    (;147:0;)      end
-    (;148:1;)      i32.const 66976
-    (;149:2;)      i32.const 22
-    (;150:0;)      call 54  (*github.com/iotaledger/wart/wasp.ScContext).Log
+    (;66:2;)     i32.const 0
+    (;67:2;)     i32.load offset=70816
+    (;68:2;)     local.tee 1
+    (;69:0;)     i32.store offset=200
+    (;70:1;)     i32.const 0
+    (;71:2;)     local.get 0
+    (;72:3;)     i32.const 200
+    (;73:2;)     i32.add
+    (;74:0;)     i32.store offset=70816
+    (;75:1;)     local.get 0
+    (;76:2;)     local.get 0
+    (;77:3;)     i32.const 152
+    (;78:2;)     i32.add
+    (;79:0;)     i32.store offset=208
+    (;80:1;)     local.get 0
+    (;81:2;)     call 16  github.com/iotaledger/wart/wasplib.NewScContext
+    (;82:2;)     local.tee 2
+    (;83:0;)     i32.store offset=152
+    (;84:1;)     local.get 2
+    (;85:2;)     i32.const 66871
+    (;86:3;)     i32.const 14
+    (;87:0;)     call 23  (github.com/iotaledger/wart/wasplib.ScContext).Log
+    (;88:1;)     local.get 0
+    (;89:2;)     i32.const 144
+    (;90:1;)     i32.add
+    (;91:2;)     local.get 2
+    (;92:2;)     call 17  (github.com/iotaledger/wart/wasplib.ScContext).Contract
+    (;93:0;)     call 27  (github.com/iotaledger/wart/wasplib.ScContract).Address
+    (;94:1;)     local.get 0
+    (;95:2;)     local.get 0
+    (;96:2;)     i32.load offset=144
+    (;97:2;)     local.tee 3
+    (;98:0;)     i32.store offset=212
+    (;99:1;)     local.get 0
+    (;100:1;)    i32.load offset=148
+    (;101:0;)    local.set 4
+    (;102:1;)    local.get 0
+    (;103:2;)    i32.const 136
+    (;104:1;)    i32.add
+    (;105:2;)    local.get 2
+    (;106:2;)    call 24  (github.com/iotaledger/wart/wasplib.ScContext).Request
+    (;107:0;)    call 45  (github.com/iotaledger/wart/wasplib.ScRequest).Address
+    (;108:1;)    local.get 0
+    (;109:2;)    local.get 0
+    (;110:2;)    i32.load offset=136
+    (;111:2;)    local.tee 5
+    (;112:0;)    i32.store offset=216
+    (;113:0;)    block
+    (;114:0;)      block
+    (;115:1;)        local.get 4
+    (;116:2;)        local.get 0
+    (;117:2;)        i32.load offset=140
+    (;118:1;)        i32.ne
+    (;119:0;)        br_if 0
+    (;120:1;)        i32.const 0
+    (;121:0;)        local.set 6
+    (;122:0;)        loop
+    (;123:1;)          local.get 6
+    (;124:2;)          local.get 4
+    (;125:1;)          i32.ge_s
+    (;126:0;)          br_if 2
+    (;127:1;)          local.get 3
+    (;128:2;)          local.get 6
+    (;129:1;)          i32.add
+    (;130:0;)          local.set 7
+    (;131:1;)          local.get 5
+    (;132:2;)          local.get 6
+    (;133:1;)          i32.add
+    (;134:0;)          local.set 8
+    (;135:1;)          local.get 6
+    (;136:2;)          i32.const 1
+    (;137:1;)          i32.add
+    (;138:0;)          local.set 6
+    (;139:1;)          local.get 8
+    (;140:1;)          i32.load8_u
+    (;141:2;)          local.get 7
+    (;142:2;)          i32.load8_u
+    (;143:1;)          i32.eq
+    (;144:0;)          br_if 0
+    (;145:0;)        end
+    (;146:0;)      end
+    (;147:1;)      local.get 2
+    (;148:2;)      i32.const 67024
+    (;149:3;)      i32.const 22
+    (;150:0;)      call 23  (github.com/iotaledger/wart/wasplib.ScContext).Log
     (;151:1;)      i32.const 0
     (;152:2;)      local.get 1
-    (;153:0;)      i32.store offset=70832
+    (;153:0;)      i32.store offset=70816
     (;154:1;)      local.get 0
-    (;155:2;)      i32.const 320
+    (;155:2;)      i32.const 352
     (;156:1;)      i32.add
     (;157:0;)      global.set 0
     (;158:0;)      return
     (;159:0;)    end
     (;160:1;)    local.get 0
-    (;161:2;)    i32.const 156
+    (;161:2;)    i32.const 264
     (;162:1;)    i32.add
-    (;163:2;)    local.get 2
-    (;164:2;)    i32.load
-    (;165:2;)    local.tee 6
+    (;163:2;)    local.get 0
+    (;164:3;)    i32.const 192
+    (;165:2;)    i32.add
     (;166:0;)    i32.store
     (;167:1;)    local.get 0
-    (;168:2;)    i32.const 160
-    (;169:1;)    i32.add
-    (;170:2;)    local.get 6
-    (;171:3;)    i32.const 67447
-    (;172:4;)    i32.const 6
-    (;173:2;)    call 56  (*github.com/iotaledger/wart/wasp.ScMutableMap).GetInt
-    (;174:2;)    local.tee 6
-    (;175:0;)    i32.store
-    (;176:1;)    local.get 6
-    (;177:1;)    call 57  (*github.com/iotaledger/wart/wasp.ScMutableInt).Value
-    (;178:0;)    local.set 9
-    (;179:1;)    local.get 0
-    (;180:2;)    i32.const 164
-    (;181:1;)    i32.add
-    (;182:2;)    local.get 2
-    (;183:2;)    call 55  (*github.com/iotaledger/wart/wasp.ScContext).State
-    (;184:2;)    local.tee 6
-    (;185:0;)    i32.store
+    (;168:2;)    i32.const 0
+    (;169:0;)    i32.store offset=192
+    (;170:1;)    local.get 0
+    (;171:2;)    i32.const 128
+    (;172:1;)    i32.add
+    (;173:2;)    local.get 2
+    (;174:3;)    i32.const 65564
+    (;175:4;)    i32.const 6
+    (;176:0;)    call 31  (github.com/iotaledger/wart/wasplib.ScMutableMap).GetInt
+    (;177:1;)    local.get 0
+    (;178:1;)    i32.load offset=128
+    (;179:2;)    local.get 0
+    (;180:2;)    i32.load offset=132
+    (;181:1;)    call 38  (github.com/iotaledger/wart/wasplib.ScMutableInt).Value
+    (;182:0;)    local.set 9
+    (;183:1;)    local.get 0
+    (;184:2;)    i32.const 0
+    (;185:0;)    i32.store offset=160
     (;186:1;)    local.get 0
-    (;187:2;)    i32.const 136
+    (;187:2;)    i32.const 268
     (;188:1;)    i32.add
-    (;189:2;)    i32.const 32
-    (;190:1;)    i32.add
-    (;191:2;)    local.get 6
-    (;192:3;)    i32.const 66789
-    (;193:4;)    i32.const 16
-    (;194:2;)    call 56  (*github.com/iotaledger/wart/wasp.ScMutableMap).GetInt
-    (;195:2;)    local.tee 7
-    (;196:0;)    i32.store
-    (;197:1;)    local.get 7
-    (;198:2;)    local.get 9
-    (;199:3;)    i64.const 5
-    (;200:2;)    i64.rem_u
-    (;201:3;)    i64.const 1
-    (;202:2;)    i64.add
-    (;203:2;)    local.tee 10
-    (;204:0;)    call 58  (*github.com/iotaledger/wart/wasp.ScMutableInt).SetValue
+    (;189:2;)    local.get 0
+    (;190:3;)    i32.const 160
+    (;191:2;)    i32.add
+    (;192:0;)    i32.store
+    (;193:1;)    local.get 0
+    (;194:2;)    local.get 2
+    (;195:2;)    call 25  (github.com/iotaledger/wart/wasplib.ScContext).State
+    (;196:2;)    local.tee 6
+    (;197:0;)    i32.store offset=160
+    (;198:1;)    local.get 0
+    (;199:2;)    i32.const 120
+    (;200:1;)    i32.add
+    (;201:2;)    local.get 6
+    (;202:3;)    i32.const 66885
+    (;203:4;)    i32.const 16
+    (;204:0;)    call 31  (github.com/iotaledger/wart/wasplib.ScMutableMap).GetInt
     (;205:1;)    local.get 0
-    (;206:2;)    i32.const 172
-    (;207:1;)    i32.add
-    (;208:2;)    local.get 6
-    (;209:3;)    i32.const 66805
-    (;210:4;)    i32.const 10
-    (;211:2;)    call 69  (*github.com/iotaledger/wart/wasp.ScMutableMap).GetStringArray
-    (;212:2;)    local.tee 11
-    (;213:0;)    i32.store
-    (;214:1;)    local.get 0
-    (;215:2;)    i32.const 176
-    (;216:1;)    i32.add
-    (;217:2;)    i32.const 0
-    (;218:2;)    call 17  runtime.alloc
-    (;219:2;)    local.tee 12
-    (;220:0;)    i32.store
-    (;221:1;)    local.get 0
-    (;222:2;)    i32.const 308
-    (;223:1;)    i32.add
-    (;224:2;)    local.get 0
-    (;225:3;)    i32.const 132
-    (;226:2;)    i32.add
-    (;227:0;)    i32.store
-    (;228:1;)    i64.const 0
-    (;229:0;)    local.set 13
-    (;230:1;)    local.get 0
-    (;231:2;)    i32.const 180
-    (;232:1;)    i32.add
-    (;233:0;)    local.set 14
-    (;234:1;)    local.get 0
-    (;235:2;)    i32.const 184
-    (;236:1;)    i32.add
-    (;237:0;)    local.set 15
-    (;238:1;)    local.get 0
-    (;239:2;)    i32.const 188
-    (;240:1;)    i32.add
-    (;241:0;)    local.set 16
-    (;242:1;)    local.get 0
-    (;243:2;)    i32.const 200
-    (;244:1;)    i32.add
-    (;245:0;)    local.set 17
-    (;246:1;)    local.get 0
-    (;247:2;)    i32.const 204
-    (;248:1;)    i32.add
-    (;249:0;)    local.set 18
-    (;250:1;)    local.get 0
-    (;251:2;)    i32.const 196
-    (;252:1;)    i32.add
-    (;253:0;)    local.set 19
-    (;254:1;)    local.get 0
-    (;255:2;)    i32.const 192
-    (;256:1;)    i32.add
-    (;257:0;)    local.set 20
-    (;258:1;)    local.get 0
-    (;259:2;)    i32.const 208
-    (;260:1;)    i32.add
-    (;261:0;)    local.set 21
-    (;262:1;)    local.get 0
-    (;263:2;)    i32.const 212
-    (;264:1;)    i32.add
-    (;265:0;)    local.set 22
-    (;266:1;)    local.get 0
-    (;267:2;)    i32.const 216
-    (;268:1;)    i32.add
-    (;269:0;)    local.set 23
-    (;270:1;)    local.get 0
-    (;271:2;)    i32.const 220
-    (;272:1;)    i32.add
-    (;273:0;)    local.set 24
-    (;274:1;)    local.get 0
-    (;275:2;)    i32.const 224
-    (;276:1;)    i32.add
-    (;277:0;)    local.set 25
-    (;278:1;)    local.get 0
-    (;279:2;)    i32.const 236
-    (;280:1;)    i32.add
-    (;281:0;)    local.set 26
-    (;282:1;)    local.get 0
-    (;283:2;)    i32.const 228
-    (;284:1;)    i32.add
-    (;285:0;)    local.set 27
-    (;286:1;)    local.get 0
-    (;287:2;)    i32.const 232
-    (;288:1;)    i32.add
-    (;289:0;)    local.set 28
-    (;290:1;)    local.get 0
-    (;291:2;)    i32.const 312
-    (;292:1;)    i32.add
-    (;293:0;)    local.set 29
-    (;294:1;)    local.get 0
-    (;295:2;)    i32.const 240
-    (;296:1;)    i32.add
-    (;297:0;)    local.set 30
-    (;298:1;)    i64.const 0
-    (;299:0;)    local.set 31
-    (;300:1;)    i32.const 0
-    (;301:0;)    local.set 32
-    (;302:1;)    i32.const 0
-    (;303:0;)    local.set 33
-    (;304:1;)    i32.const 0
-    (;305:0;)    local.set 34
-    (;306:0;)    block
-    (;307:0;)      loop
-    (;308:1;)        local.get 14
-    (;309:2;)        local.get 12
-    (;310:0;)        i32.store
-    (;311:0;)        block
-    (;312:0;)          block
-    (;313:0;)            block
-    (;314:0;)              block
-    (;315:1;)                local.get 34
-    (;316:2;)                local.get 11
-    (;317:2;)                call 70  (*github.com/iotaledger/wart/wasp.ScMutableStringArray).Length
-    (;318:1;)                i32.ge_s
-    (;319:0;)                br_if 0
-    (;320:1;)                local.get 15
-    (;321:2;)                local.get 11
-    (;322:3;)                local.get 34
-    (;323:2;)                call 71  (*github.com/iotaledger/wart/wasp.ScMutableStringArray).GetString
-    (;324:2;)                local.tee 6
-    (;325:0;)                i32.store
-    (;326:1;)                local.get 0
-    (;327:2;)                i32.const 56
-    (;328:1;)                i32.add
-    (;329:2;)                local.get 6
-    (;330:0;)                call 72  (*github.com/iotaledger/wart/wasp.ScMutableString).Value
-    (;331:1;)                local.get 16
-    (;332:2;)                local.get 0
-    (;333:2;)                i32.load offset=56
-    (;334:2;)                local.tee 5
-    (;335:0;)                i32.store
-    (;336:1;)                i32.const 0
-    (;337:0;)                local.set 8
-    (;338:1;)                local.get 0
-    (;339:1;)                i32.load offset=60
-    (;340:0;)                local.set 7
-    (;341:1;)                i32.const 0
-    (;342:0;)                local.set 6
-    (;343:0;)                block
-    (;344:0;)                  loop
-    (;345:1;)                    local.get 6
-    (;346:2;)                    local.get 7
-    (;347:1;)                    i32.ge_s
-    (;348:0;)                    br_if 1
-    (;349:1;)                    local.get 8
-    (;350:2;)                    local.get 5
-    (;351:3;)                    local.get 6
-    (;352:2;)                    i32.add
-    (;353:2;)                    i32.load8_u
-    (;354:3;)                    i32.const 124
-    (;355:2;)                    i32.eq
-    (;356:1;)                    i32.add
-    (;357:0;)                    local.set 8
-    (;358:1;)                    local.get 6
-    (;359:2;)                    i32.const 1
-    (;360:1;)                    i32.add
-    (;361:0;)                    local.set 6
-    (;362:0;)                    br 0
-    (;363:0;)                  end
-    (;364:0;)                end
-    (;365:1;)                local.get 8
-    (;366:2;)                i32.const 1
-    (;367:1;)                i32.add
-    (;368:1;)                local.tee 35
-    (;369:2;)                i32.const 0
-    (;370:1;)                i32.lt_s
-    (;371:0;)                br_if 2
-    (;372:1;)                local.get 17
-    (;373:2;)                local.get 35
-    (;374:3;)                i32.const 3
-    (;375:2;)                i32.shl
-    (;376:2;)                call 17  runtime.alloc
-    (;377:2;)                local.tee 36
-    (;378:0;)                i32.store
-    (;379:1;)                local.get 18
-    (;380:2;)                local.get 36
-    (;381:0;)                i32.store
-    (;382:1;)                local.get 19
-    (;383:2;)                local.get 36
-    (;384:0;)                i32.store
-    (;385:1;)                i32.const 0
-    (;386:0;)                local.set 37
-    (;387:0;)                br 1
-    (;388:0;)              end
-    (;389:1;)              local.get 11
-    (;390:0;)              call 74  (*github.com/iotaledger/wart/wasp.ScMutableStringArray).Clear
-    (;391:0;)              block
-    (;392:1;)                local.get 32
-    (;393:1;)                i32.eqz
-    (;394:0;)                br_if 0
-    (;395:1;)                i32.const 0
-    (;396:0;)                local.set 7
-    (;397:1;)                i64.const 0
-    (;398:0;)                local.set 38
-    (;399:1;)                local.get 0
-    (;400:2;)                i32.const 316
-    (;401:1;)                i32.add
-    (;402:0;)                local.set 36
-    (;403:1;)                local.get 0
-    (;404:2;)                i32.const 280
-    (;405:1;)                i32.add
-    (;406:0;)                local.set 37
-    (;407:1;)                local.get 0
-    (;408:2;)                i32.const 284
-    (;409:1;)                i32.add
-    (;410:0;)                local.set 34
-    (;411:1;)                local.get 0
-    (;412:2;)                i32.const 288
-    (;413:1;)                i32.add
-    (;414:0;)                local.set 35
-    (;415:1;)                local.get 0
-    (;416:2;)                i32.const 292
-    (;417:1;)                i32.add
-    (;418:0;)                local.set 11
-    (;419:1;)                local.get 0
-    (;420:2;)                i32.const 296
-    (;421:1;)                i32.add
-    (;422:0;)                local.set 20
-    (;423:1;)                local.get 0
-    (;424:2;)                i32.const 260
-    (;425:1;)                i32.add
-    (;426:0;)                local.set 39
-    (;427:1;)                local.get 0
-    (;428:2;)                i32.const 264
-    (;429:1;)                i32.add
-    (;430:0;)                local.set 4
-    (;431:1;)                local.get 0
-    (;432:2;)                i32.const 268
-    (;433:1;)                i32.add
-    (;434:0;)                local.set 3
-    (;435:1;)                local.get 0
-    (;436:2;)                i32.const 272
-    (;437:1;)                i32.add
-    (;438:0;)                local.set 14
-    (;439:1;)                local.get 0
-    (;440:2;)                i32.const 276
-    (;441:1;)                i32.add
-    (;442:0;)                local.set 15
-    (;443:0;)                loop
-    (;444:0;)                  block
-    (;445:1;)                    local.get 7
-    (;446:2;)                    local.get 32
-    (;447:1;)                    i32.lt_s
-    (;448:0;)                    br_if 0
-    (;449:0;)                    block
-    (;450:1;)                      local.get 13
-    (;451:2;)                      local.get 38
-    (;452:1;)                      i64.eq
-    (;453:0;)                      br_if 0
-    (;454:1;)                      local.get 0
-    (;455:2;)                      i32.const 104
-    (;456:1;)                      i32.add
-    (;457:2;)                      local.get 13
-    (;458:3;)                      local.get 38
-    (;459:2;)                      i64.sub
-    (;460:0;)                      call 45  strconv.FormatInt
-    (;461:1;)                      local.get 0
-    (;462:2;)                      i32.const 300
-    (;463:1;)                      i32.add
-    (;464:2;)                      local.get 0
-    (;465:2;)                      i32.load offset=104
-    (;466:2;)                      local.tee 6
-    (;467:0;)                      i32.store
-    (;468:1;)                      local.get 0
-    (;469:2;)                      i32.const 96
-    (;470:1;)                      i32.add
-    (;471:2;)                      i32.const 66856
-    (;472:3;)                      i32.const 13
-    (;473:4;)                      local.get 6
-    (;474:5;)                      local.get 0
-    (;475:5;)                      i32.load offset=108
-    (;476:0;)                      call 78  runtime.stringConcat
-    (;477:1;)                      local.get 0
-    (;478:2;)                      i32.const 304
-    (;479:1;)                      i32.add
-    (;480:2;)                      local.get 0
-    (;481:2;)                      i32.load offset=96
-    (;482:2;)                      local.tee 6
-    (;483:0;)                      i32.store
-    (;484:1;)                      local.get 6
+    (;206:1;)    i32.load offset=120
+    (;207:2;)    local.get 0
+    (;208:2;)    i32.load offset=124
+    (;209:3;)    local.get 9
+    (;210:4;)    i64.const 5
+    (;211:3;)    i64.rem_u
+    (;212:4;)    i64.const 1
+    (;213:3;)    i64.add
+    (;214:3;)    local.tee 10
+    (;215:0;)    call 32  (github.com/iotaledger/wart/wasplib.ScMutableInt).SetValue
+    (;216:1;)    local.get 0
+    (;217:2;)    i32.const 272
+    (;218:1;)    i32.add
+    (;219:2;)    local.get 0
+    (;220:3;)    i32.const 168
+    (;221:2;)    i32.add
+    (;222:0;)    i32.store
+    (;223:1;)    local.get 0
+    (;224:2;)    i32.const 0
+    (;225:0;)    i32.store offset=168
+    (;226:1;)    local.get 0
+    (;227:2;)    local.get 6
+    (;228:3;)    i32.const 66901
+    (;229:4;)    i32.const 10
+    (;230:2;)    call 39  (github.com/iotaledger/wart/wasplib.ScMutableMap).GetStringArray
+    (;231:2;)    local.tee 11
+    (;232:0;)    i32.store offset=168
+    (;233:1;)    local.get 0
+    (;234:2;)    i32.const 276
+    (;235:1;)    i32.add
+    (;236:2;)    i32.const 0
+    (;237:2;)    call 59  runtime.alloc
+    (;238:2;)    local.tee 12
+    (;239:0;)    i32.store
+    (;240:1;)    local.get 0
+    (;241:2;)    i32.const 332
+    (;242:1;)    i32.add
+    (;243:2;)    local.get 0
+    (;244:3;)    i32.const 188
+    (;245:2;)    i32.add
+    (;246:0;)    i32.store
+    (;247:1;)    i64.const 0
+    (;248:0;)    local.set 13
+    (;249:1;)    local.get 0
+    (;250:2;)    i32.const 220
+    (;251:1;)    i32.add
+    (;252:0;)    local.set 14
+    (;253:1;)    local.get 0
+    (;254:2;)    i32.const 280
+    (;255:1;)    i32.add
+    (;256:0;)    local.set 15
+    (;257:1;)    local.get 0
+    (;258:2;)    i32.const 292
+    (;259:1;)    i32.add
+    (;260:0;)    local.set 16
+    (;261:1;)    local.get 0
+    (;262:2;)    i32.const 296
+    (;263:1;)    i32.add
+    (;264:0;)    local.set 17
+    (;265:1;)    local.get 0
+    (;266:2;)    i32.const 288
+    (;267:1;)    i32.add
+    (;268:0;)    local.set 18
+    (;269:1;)    local.get 0
+    (;270:2;)    i32.const 284
+    (;271:1;)    i32.add
+    (;272:0;)    local.set 19
+    (;273:1;)    local.get 0
+    (;274:2;)    i32.const 300
+    (;275:1;)    i32.add
+    (;276:0;)    local.set 20
+    (;277:1;)    local.get 0
+    (;278:2;)    i32.const 304
+    (;279:1;)    i32.add
+    (;280:0;)    local.set 21
+    (;281:1;)    local.get 0
+    (;282:2;)    i32.const 308
+    (;283:1;)    i32.add
+    (;284:0;)    local.set 22
+    (;285:1;)    local.get 0
+    (;286:2;)    i32.const 312
+    (;287:1;)    i32.add
+    (;288:0;)    local.set 23
+    (;289:1;)    local.get 0
+    (;290:2;)    i32.const 316
+    (;291:1;)    i32.add
+    (;292:0;)    local.set 24
+    (;293:1;)    local.get 0
+    (;294:2;)    i32.const 328
+    (;295:1;)    i32.add
+    (;296:0;)    local.set 25
+    (;297:1;)    local.get 0
+    (;298:2;)    i32.const 320
+    (;299:1;)    i32.add
+    (;300:0;)    local.set 26
+    (;301:1;)    local.get 0
+    (;302:2;)    i32.const 336
+    (;303:1;)    i32.add
+    (;304:0;)    local.set 27
+    (;305:1;)    local.get 0
+    (;306:2;)    i32.const 224
+    (;307:1;)    i32.add
+    (;308:0;)    local.set 28
+    (;309:1;)    i64.const 0
+    (;310:0;)    local.set 29
+    (;311:1;)    i32.const 0
+    (;312:0;)    local.set 30
+    (;313:1;)    i32.const 0
+    (;314:0;)    local.set 31
+    (;315:1;)    i32.const 0
+    (;316:0;)    local.set 32
+    (;317:0;)    block
+    (;318:0;)      loop
+    (;319:1;)        local.get 14
+    (;320:2;)        local.get 12
+    (;321:0;)        i32.store
+    (;322:0;)        block
+    (;323:0;)          block
+    (;324:0;)            block
+    (;325:0;)              block
+    (;326:1;)                local.get 32
+    (;327:2;)                local.get 11
+    (;328:2;)                call 44  (github.com/iotaledger/wart/wasplib.ScMutableStringArray).Length
+    (;329:1;)                i32.ge_s
+    (;330:0;)                br_if 0
+    (;331:1;)                local.get 0
+    (;332:2;)                i32.const 64
+    (;333:1;)                i32.add
+    (;334:2;)                local.get 11
+    (;335:3;)                local.get 32
+    (;336:0;)                call 43  (github.com/iotaledger/wart/wasplib.ScMutableStringArray).GetString
+    (;337:1;)                local.get 0
+    (;338:2;)                i32.const 56
+    (;339:1;)                i32.add
+    (;340:2;)                local.get 0
+    (;341:2;)                i32.load offset=64
+    (;342:3;)                local.get 0
+    (;343:3;)                i32.load offset=68
+    (;344:0;)                call 41  (github.com/iotaledger/wart/wasplib.ScMutableString).Value
+    (;345:1;)                local.get 15
+    (;346:2;)                local.get 0
+    (;347:2;)                i32.load offset=56
+    (;348:2;)                local.tee 5
+    (;349:0;)                i32.store
+    (;350:1;)                i32.const 0
+    (;351:0;)                local.set 8
+    (;352:1;)                local.get 0
+    (;353:1;)                i32.load offset=60
+    (;354:0;)                local.set 7
+    (;355:1;)                i32.const 0
+    (;356:0;)                local.set 6
+    (;357:0;)                block
+    (;358:0;)                  loop
+    (;359:1;)                    local.get 6
+    (;360:2;)                    local.get 7
+    (;361:1;)                    i32.ge_s
+    (;362:0;)                    br_if 1
+    (;363:1;)                    local.get 8
+    (;364:2;)                    local.get 5
+    (;365:3;)                    local.get 6
+    (;366:2;)                    i32.add
+    (;367:2;)                    i32.load8_u
+    (;368:3;)                    i32.const 124
+    (;369:2;)                    i32.eq
+    (;370:1;)                    i32.add
+    (;371:0;)                    local.set 8
+    (;372:1;)                    local.get 6
+    (;373:2;)                    i32.const 1
+    (;374:1;)                    i32.add
+    (;375:0;)                    local.set 6
+    (;376:0;)                    br 0
+    (;377:0;)                  end
+    (;378:0;)                end
+    (;379:1;)                local.get 8
+    (;380:2;)                i32.const 1
+    (;381:1;)                i32.add
+    (;382:1;)                local.tee 33
+    (;383:2;)                i32.const 0
+    (;384:1;)                i32.lt_s
+    (;385:0;)                br_if 2
+    (;386:1;)                local.get 16
+    (;387:2;)                local.get 33
+    (;388:3;)                i32.const 3
+    (;389:2;)                i32.shl
+    (;390:2;)                call 59  runtime.alloc
+    (;391:2;)                local.tee 34
+    (;392:0;)                i32.store
+    (;393:1;)                local.get 17
+    (;394:2;)                local.get 34
+    (;395:0;)                i32.store
+    (;396:1;)                local.get 18
+    (;397:2;)                local.get 34
+    (;398:0;)                i32.store
+    (;399:1;)                i32.const 0
+    (;400:0;)                local.set 35
+    (;401:0;)                br 1
+    (;402:0;)              end
+    (;403:1;)              local.get 11
+    (;404:0;)              call 42  (github.com/iotaledger/wart/wasplib.ScMutableStringArray).Clear
+    (;405:0;)              block
+    (;406:1;)                local.get 30
+    (;407:1;)                i32.eqz
+    (;408:0;)                br_if 0
+    (;409:1;)                local.get 0
+    (;410:2;)                i32.const 228
+    (;411:1;)                i32.add
+    (;412:2;)                local.get 0
+    (;413:3;)                i32.const 184
+    (;414:2;)                i32.add
+    (;415:0;)                i32.store
+    (;416:1;)                i64.const 0
+    (;417:0;)                local.set 36
+    (;418:1;)                local.get 0
+    (;419:2;)                i32.const 344
+    (;420:1;)                i32.add
+    (;421:0;)                local.set 37
+    (;422:1;)                local.get 0
+    (;423:2;)                i32.const 236
+    (;424:1;)                i32.add
+    (;425:0;)                local.set 34
+    (;426:1;)                local.get 0
+    (;427:2;)                i32.const 240
+    (;428:1;)                i32.add
+    (;429:0;)                local.set 35
+    (;430:1;)                local.get 0
+    (;431:2;)                i32.const 244
+    (;432:1;)                i32.add
+    (;433:0;)                local.set 32
+    (;434:1;)                local.get 0
+    (;435:2;)                i32.const 248
+    (;436:1;)                i32.add
+    (;437:0;)                local.set 33
+    (;438:1;)                local.get 0
+    (;439:2;)                i32.const 252
+    (;440:1;)                i32.add
+    (;441:0;)                local.set 11
+    (;442:1;)                local.get 0
+    (;443:2;)                i32.const 232
+    (;444:1;)                i32.add
+    (;445:0;)                local.set 19
+    (;446:1;)                i32.const 0
+    (;447:0;)                local.set 7
+    (;448:0;)                loop
+    (;449:0;)                  block
+    (;450:1;)                    local.get 7
+    (;451:2;)                    local.get 30
+    (;452:1;)                    i32.lt_s
+    (;453:0;)                    br_if 0
+    (;454:0;)                    block
+    (;455:1;)                      local.get 13
+    (;456:2;)                      local.get 36
+    (;457:1;)                      i64.eq
+    (;458:0;)                      br_if 0
+    (;459:1;)                      local.get 0
+    (;460:2;)                      i32.const 112
+    (;461:1;)                      i32.add
+    (;462:2;)                      local.get 13
+    (;463:3;)                      local.get 36
+    (;464:2;)                      i64.sub
+    (;465:0;)                      call 76  strconv.FormatInt
+    (;466:1;)                      local.get 0
+    (;467:2;)                      i32.const 256
+    (;468:1;)                      i32.add
+    (;469:2;)                      local.get 0
+    (;470:2;)                      i32.load offset=112
+    (;471:2;)                      local.tee 6
+    (;472:0;)                      i32.store
+    (;473:1;)                      local.get 0
+    (;474:2;)                      i32.const 104
+    (;475:1;)                      i32.add
+    (;476:2;)                      i32.const 66931
+    (;477:3;)                      i32.const 13
+    (;478:4;)                      local.get 6
+    (;479:5;)                      local.get 0
+    (;480:5;)                      i32.load offset=116
+    (;481:0;)                      call 91  runtime.stringConcat
+    (;482:1;)                      local.get 0
+    (;483:2;)                      i32.const 260
+    (;484:1;)                      i32.add
     (;485:2;)                      local.get 0
-    (;486:2;)                      i32.load offset=100
-    (;487:0;)                      call 54  (*github.com/iotaledger/wart/wasp.ScContext).Log
-    (;488:0;)                    end
-    (;489:1;)                    i32.const 0
-    (;490:2;)                    local.get 1
-    (;491:0;)                    i32.store offset=70832
-    (;492:1;)                    local.get 0
-    (;493:2;)                    i32.const 320
-    (;494:1;)                    i32.add
-    (;495:0;)                    global.set 0
-    (;496:0;)                    return
-    (;497:0;)                  end
-    (;498:1;)                  local.get 36
-    (;499:2;)                  local.get 12
-    (;500:2;)                  i32.load
-    (;501:2;)                  local.tee 6
-    (;502:0;)                  i32.store
-    (;503:0;)                  block
-    (;504:0;)                    block
-    (;505:0;)                      block
-    (;506:1;)                        local.get 6
-    (;507:1;)                        i32.eqz
-    (;508:0;)                        br_if 0
-    (;509:1;)                        local.get 6
-    (;510:1;)                        i64.load offset=24
-    (;511:2;)                        local.get 13
-    (;512:1;)                        i64.mul
-    (;513:2;)                        local.get 31
-    (;514:1;)                        i64.div_s
-    (;515:1;)                        local.tee 9
-    (;516:1;)                        i64.eqz
-    (;517:1;)                        i32.eqz
-    (;518:0;)                        br_if 1
-    (;519:0;)                        br 2
-    (;520:0;)                      end
-    (;521:0;)                      call 41  runtime.nilPanic
-    (;522:0;)                      unreachable
-    (;523:0;)                    end
-    (;524:1;)                    local.get 39
-    (;525:2;)                    local.get 2
-    (;526:2;)                    call 79  (*github.com/iotaledger/wart/wasp.ScContext).Transfers
-    (;527:2;)                    local.tee 8
-    (;528:0;)                    i32.store
-    (;529:1;)                    local.get 4
-    (;530:2;)                    local.get 8
-    (;531:3;)                    local.get 7
-    (;532:2;)                    call 61  (*github.com/iotaledger/wart/wasp.ScMutableMapArray).GetMap
-    (;533:2;)                    local.tee 8
-    (;534:0;)                    i32.store
-    (;535:1;)                    local.get 3
-    (;536:2;)                    local.get 8
-    (;537:3;)                    i32.const 66827
-    (;538:4;)                    i32.const 11
-    (;539:2;)                    call 80  (*github.com/iotaledger/wart/wasp.ScMutableMap).GetString
-    (;540:2;)                    local.tee 5
-    (;541:0;)                    i32.store
-    (;542:1;)                    local.get 14
-    (;543:2;)                    local.get 6
-    (;544:2;)                    i32.load offset=8
-    (;545:2;)                    local.tee 40
-    (;546:0;)                    i32.store
-    (;547:1;)                    local.get 5
-    (;548:2;)                    local.get 40
-    (;549:3;)                    local.get 6
-    (;550:4;)                    i32.const 12
-    (;551:3;)                    i32.add
-    (;552:3;)                    i32.load
-    (;553:0;)                    call 73  (*github.com/iotaledger/wart/wasp.ScMutableString).SetValue
-    (;554:1;)                    local.get 15
-    (;555:2;)                    local.get 8
-    (;556:3;)                    i32.const 66838
-    (;557:4;)                    i32.const 10
-    (;558:2;)                    call 56  (*github.com/iotaledger/wart/wasp.ScMutableMap).GetInt
-    (;559:2;)                    local.tee 8
-    (;560:0;)                    i32.store
-    (;561:1;)                    local.get 8
-    (;562:2;)                    local.get 9
-    (;563:0;)                    call 58  (*github.com/iotaledger/wart/wasp.ScMutableInt).SetValue
-    (;564:1;)                    local.get 9
-    (;565:2;)                    local.get 38
-    (;566:1;)                    i64.add
-    (;567:0;)                    local.set 38
-    (;568:0;)                  end
-    (;569:1;)                  local.get 0
-    (;570:2;)                  i32.const 88
-    (;571:1;)                  i32.add
-    (;572:2;)                  local.get 9
-    (;573:0;)                  call 45  strconv.FormatInt
-    (;574:1;)                  local.get 37
-    (;575:2;)                  local.get 0
-    (;576:2;)                  i32.load offset=88
-    (;577:2;)                  local.tee 8
-    (;578:0;)                  i32.store
-    (;579:1;)                  local.get 0
-    (;580:2;)                  i32.const 80
-    (;581:1;)                  i32.add
-    (;582:2;)                  i32.const 66848
-    (;583:3;)                  i32.const 4
-    (;584:4;)                  local.get 8
-    (;585:5;)                  local.get 0
-    (;586:5;)                  i32.load offset=92
-    (;587:0;)                  call 78  runtime.stringConcat
-    (;588:1;)                  local.get 34
-    (;589:2;)                  local.get 0
-    (;590:2;)                  i32.load offset=80
-    (;591:2;)                  local.tee 8
-    (;592:0;)                  i32.store
-    (;593:1;)                  local.get 0
-    (;594:2;)                  i32.const 72
-    (;595:1;)                  i32.add
-    (;596:2;)                  local.get 8
-    (;597:3;)                  local.get 0
-    (;598:3;)                  i32.load offset=84
-    (;599:4;)                  i32.const 66852
-    (;600:5;)                  i32.const 4
-    (;601:0;)                  call 78  runtime.stringConcat
-    (;602:1;)                  local.get 35
-    (;603:2;)                  local.get 0
-    (;604:2;)                  i32.load offset=72
-    (;605:2;)                  local.tee 8
-    (;606:0;)                  i32.store
-    (;607:1;)                  local.get 11
-    (;608:2;)                  local.get 6
-    (;609:2;)                  i32.load offset=8
-    (;610:2;)                  local.tee 5
-    (;611:0;)                  i32.store
-    (;612:1;)                  local.get 0
-    (;613:2;)                  i32.const 64
-    (;614:1;)                  i32.add
-    (;615:2;)                  local.get 8
-    (;616:3;)                  local.get 0
-    (;617:3;)                  i32.load offset=76
-    (;618:4;)                  local.get 5
-    (;619:5;)                  local.get 6
-    (;620:6;)                  i32.const 12
-    (;621:5;)                  i32.add
-    (;622:5;)                  i32.load
-    (;623:0;)                  call 78  runtime.stringConcat
-    (;624:1;)                  local.get 20
-    (;625:2;)                  local.get 0
-    (;626:2;)                  i32.load offset=64
-    (;627:2;)                  local.tee 6
-    (;628:0;)                  i32.store
-    (;629:1;)                  local.get 6
-    (;630:2;)                  local.get 0
-    (;631:2;)                  i32.load offset=68
-    (;632:0;)                  call 54  (*github.com/iotaledger/wart/wasp.ScContext).Log
-    (;633:1;)                  local.get 12
-    (;634:2;)                  i32.const 4
-    (;635:1;)                  i32.add
-    (;636:0;)                  local.set 12
-    (;637:1;)                  local.get 7
-    (;638:2;)                  i32.const 1
-    (;639:1;)                  i32.add
-    (;640:0;)                  local.set 7
-    (;641:0;)                  br 0
-    (;642:0;)                end
-    (;643:0;)              end
-    (;644:1;)              i32.const 66815
-    (;645:2;)              i32.const 12
-    (;646:0;)              call 54  (*github.com/iotaledger/wart/wasp.ScContext).Log
-    (;647:1;)              local.get 0
-    (;648:2;)              i32.const 244
-    (;649:1;)              i32.add
-    (;650:2;)              local.get 2
-    (;651:2;)              call 79  (*github.com/iotaledger/wart/wasp.ScContext).Transfers
-    (;652:2;)              local.tee 6
-    (;653:0;)              i32.store
-    (;654:1;)              local.get 0
-    (;655:2;)              i32.const 248
-    (;656:1;)              i32.add
-    (;657:2;)              local.get 6
-    (;658:3;)              i32.const 0
-    (;659:2;)              call 61  (*github.com/iotaledger/wart/wasp.ScMutableMapArray).GetMap
-    (;660:2;)              local.tee 6
-    (;661:0;)              i32.store
-    (;662:1;)              local.get 0
-    (;663:2;)              i32.const 252
-    (;664:1;)              i32.add
-    (;665:2;)              local.get 6
-    (;666:3;)              i32.const 66827
-    (;667:4;)              i32.const 11
-    (;668:2;)              call 80  (*github.com/iotaledger/wart/wasp.ScMutableMap).GetString
-    (;669:2;)              local.tee 7
-    (;670:0;)              i32.store
-    (;671:1;)              local.get 7
-    (;672:2;)              local.get 3
-    (;673:3;)              local.get 4
-    (;674:0;)              call 73  (*github.com/iotaledger/wart/wasp.ScMutableString).SetValue
-    (;675:1;)              local.get 0
-    (;676:2;)              i32.const 256
-    (;677:1;)              i32.add
-    (;678:2;)              local.get 6
-    (;679:3;)              i32.const 66838
-    (;680:4;)              i32.const 10
-    (;681:2;)              call 56  (*github.com/iotaledger/wart/wasp.ScMutableMap).GetInt
-    (;682:2;)              local.tee 6
-    (;683:0;)              i32.store
-    (;684:1;)              local.get 6
-    (;685:2;)              local.get 13
-    (;686:0;)              call 58  (*github.com/iotaledger/wart/wasp.ScMutableInt).SetValue
-    (;687:1;)              i32.const 0
-    (;688:2;)              local.get 1
-    (;689:0;)              i32.store offset=70832
-    (;690:1;)              local.get 0
-    (;691:2;)              i32.const 320
-    (;692:1;)              i32.add
-    (;693:0;)              global.set 0
-    (;694:0;)              return
-    (;695:0;)            end
-    (;696:0;)            loop
-    (;697:1;)              local.get 20
-    (;698:2;)              local.get 5
-    (;699:0;)              i32.store
-    (;700:1;)              local.get 37
-    (;701:2;)              local.get 8
-    (;702:1;)              i32.ge_s
-    (;703:0;)              br_if 2
-    (;704:1;)              i32.const 0
-    (;705:0;)              local.set 6
-    (;706:0;)              loop
-    (;707:1;)                local.get 6
-    (;708:2;)                local.get 7
-    (;709:1;)                i32.ge_s
-    (;710:0;)                br_if 3
-    (;711:0;)                block
-    (;712:1;)                  local.get 5
-    (;713:2;)                  local.get 6
+    (;486:2;)                      i32.load offset=104
+    (;487:2;)                      local.tee 6
+    (;488:0;)                      i32.store
+    (;489:1;)                      local.get 2
+    (;490:2;)                      local.get 6
+    (;491:3;)                      local.get 0
+    (;492:3;)                      i32.load offset=108
+    (;493:0;)                      call 23  (github.com/iotaledger/wart/wasplib.ScContext).Log
+    (;494:0;)                    end
+    (;495:1;)                    i32.const 0
+    (;496:2;)                    local.get 1
+    (;497:0;)                    i32.store offset=70816
+    (;498:1;)                    local.get 0
+    (;499:2;)                    i32.const 352
+    (;500:1;)                    i32.add
+    (;501:0;)                    global.set 0
+    (;502:0;)                    return
+    (;503:0;)                  end
+    (;504:1;)                  local.get 37
+    (;505:2;)                  local.get 12
+    (;506:2;)                  i32.load
+    (;507:2;)                  local.tee 6
+    (;508:0;)                  i32.store
+    (;509:0;)                  block
+    (;510:1;)                    local.get 6
+    (;511:1;)                    i32.eqz
+    (;512:0;)                    br_if 0
+    (;513:0;)                    block
+    (;514:1;)                      local.get 6
+    (;515:1;)                      i64.load offset=24
+    (;516:2;)                      local.get 13
+    (;517:1;)                      i64.mul
+    (;518:2;)                      local.get 29
+    (;519:1;)                      i64.div_s
+    (;520:1;)                      local.tee 9
+    (;521:1;)                      i64.eqz
+    (;522:0;)                      br_if 0
+    (;523:1;)                      local.get 0
+    (;524:2;)                      i32.const 0
+    (;525:0;)                      i32.store offset=184
+    (;526:1;)                      local.get 2
+    (;527:2;)                      local.get 7
+    (;528:1;)                      call 26  (github.com/iotaledger/wart/wasplib.ScContext).Transfer
+    (;529:0;)                      local.set 8
+    (;530:1;)                      local.get 19
+    (;531:2;)                      local.get 6
+    (;532:2;)                      i32.load offset=8
+    (;533:2;)                      local.tee 5
+    (;534:0;)                      i32.store
+    (;535:1;)                      local.get 0
+    (;536:2;)                      local.get 8
+    (;537:0;)                      i32.store offset=184
+    (;538:1;)                      local.get 8
+    (;539:2;)                      local.get 5
+    (;540:3;)                      local.get 6
+    (;541:4;)                      i32.const 12
+    (;542:3;)                      i32.add
+    (;543:3;)                      i32.load
+    (;544:0;)                      call 47  (github.com/iotaledger/wart/wasplib.ScTransfer).Address
+    (;545:1;)                      local.get 8
+    (;546:2;)                      local.get 9
+    (;547:0;)                      call 48  (github.com/iotaledger/wart/wasplib.ScTransfer).Amount
+    (;548:1;)                      local.get 9
+    (;549:2;)                      local.get 36
+    (;550:1;)                      i64.add
+    (;551:0;)                      local.set 36
+    (;552:0;)                    end
+    (;553:1;)                    local.get 0
+    (;554:2;)                    i32.const 96
+    (;555:1;)                    i32.add
+    (;556:2;)                    local.get 9
+    (;557:0;)                    call 76  strconv.FormatInt
+    (;558:1;)                    local.get 34
+    (;559:2;)                    local.get 0
+    (;560:2;)                    i32.load offset=96
+    (;561:2;)                    local.tee 8
+    (;562:0;)                    i32.store
+    (;563:1;)                    local.get 0
+    (;564:2;)                    i32.const 88
+    (;565:1;)                    i32.add
+    (;566:2;)                    i32.const 66923
+    (;567:3;)                    i32.const 4
+    (;568:4;)                    local.get 8
+    (;569:5;)                    local.get 0
+    (;570:5;)                    i32.load offset=100
+    (;571:0;)                    call 91  runtime.stringConcat
+    (;572:1;)                    local.get 35
+    (;573:2;)                    local.get 0
+    (;574:2;)                    i32.load offset=88
+    (;575:2;)                    local.tee 8
+    (;576:0;)                    i32.store
+    (;577:1;)                    local.get 0
+    (;578:2;)                    i32.const 80
+    (;579:1;)                    i32.add
+    (;580:2;)                    local.get 8
+    (;581:3;)                    local.get 0
+    (;582:3;)                    i32.load offset=92
+    (;583:4;)                    i32.const 66927
+    (;584:5;)                    i32.const 4
+    (;585:0;)                    call 91  runtime.stringConcat
+    (;586:1;)                    local.get 32
+    (;587:2;)                    local.get 0
+    (;588:2;)                    i32.load offset=80
+    (;589:2;)                    local.tee 8
+    (;590:0;)                    i32.store
+    (;591:1;)                    local.get 33
+    (;592:2;)                    local.get 6
+    (;593:2;)                    i32.load offset=8
+    (;594:2;)                    local.tee 5
+    (;595:0;)                    i32.store
+    (;596:1;)                    local.get 0
+    (;597:2;)                    i32.const 72
+    (;598:1;)                    i32.add
+    (;599:2;)                    local.get 8
+    (;600:3;)                    local.get 0
+    (;601:3;)                    i32.load offset=84
+    (;602:4;)                    local.get 5
+    (;603:5;)                    local.get 6
+    (;604:6;)                    i32.const 12
+    (;605:5;)                    i32.add
+    (;606:5;)                    i32.load
+    (;607:0;)                    call 91  runtime.stringConcat
+    (;608:1;)                    local.get 11
+    (;609:2;)                    local.get 0
+    (;610:2;)                    i32.load offset=72
+    (;611:2;)                    local.tee 6
+    (;612:0;)                    i32.store
+    (;613:1;)                    local.get 2
+    (;614:2;)                    local.get 6
+    (;615:3;)                    local.get 0
+    (;616:3;)                    i32.load offset=76
+    (;617:0;)                    call 23  (github.com/iotaledger/wart/wasplib.ScContext).Log
+    (;618:1;)                    local.get 12
+    (;619:2;)                    i32.const 4
+    (;620:1;)                    i32.add
+    (;621:0;)                    local.set 12
+    (;622:1;)                    local.get 7
+    (;623:2;)                    i32.const 1
+    (;624:1;)                    i32.add
+    (;625:0;)                    local.set 7
+    (;626:0;)                    br 1
+    (;627:0;)                  end
+    (;628:0;)                end
+    (;629:0;)                call 72  runtime.nilPanic
+    (;630:0;)                unreachable
+    (;631:0;)              end
+    (;632:1;)              local.get 2
+    (;633:2;)              i32.const 66911
+    (;634:3;)              i32.const 12
+    (;635:0;)              call 23  (github.com/iotaledger/wart/wasplib.ScContext).Log
+    (;636:1;)              local.get 0
+    (;637:2;)              i32.const 340
+    (;638:1;)              i32.add
+    (;639:2;)              local.get 0
+    (;640:3;)              i32.const 176
+    (;641:2;)              i32.add
+    (;642:0;)              i32.store
+    (;643:1;)              local.get 0
+    (;644:2;)              i32.const 0
+    (;645:0;)              i32.store offset=176
+    (;646:1;)              local.get 2
+    (;647:2;)              i32.const 0
+    (;648:1;)              call 26  (github.com/iotaledger/wart/wasplib.ScContext).Transfer
+    (;649:1;)              local.tee 6
+    (;650:2;)              local.get 3
+    (;651:3;)              local.get 4
+    (;652:0;)              call 47  (github.com/iotaledger/wart/wasplib.ScTransfer).Address
+    (;653:1;)              local.get 6
+    (;654:2;)              local.get 13
+    (;655:0;)              call 48  (github.com/iotaledger/wart/wasplib.ScTransfer).Amount
+    (;656:1;)              i32.const 0
+    (;657:2;)              local.get 1
+    (;658:0;)              i32.store offset=70816
+    (;659:1;)              local.get 0
+    (;660:2;)              i32.const 352
+    (;661:1;)              i32.add
+    (;662:0;)              global.set 0
+    (;663:0;)              return
+    (;664:0;)            end
+    (;665:0;)            loop
+    (;666:1;)              local.get 19
+    (;667:2;)              local.get 5
+    (;668:0;)              i32.store
+    (;669:1;)              local.get 35
+    (;670:2;)              local.get 8
+    (;671:1;)              i32.ge_s
+    (;672:0;)              br_if 2
+    (;673:1;)              i32.const 0
+    (;674:0;)              local.set 6
+    (;675:0;)              loop
+    (;676:1;)                local.get 6
+    (;677:2;)                local.get 7
+    (;678:1;)                i32.ge_s
+    (;679:0;)                br_if 3
+    (;680:0;)                block
+    (;681:1;)                  local.get 5
+    (;682:2;)                  local.get 6
+    (;683:1;)                  i32.add
+    (;684:1;)                  local.tee 37
+    (;685:1;)                  i32.load8_u
+    (;686:2;)                  i32.const 124
+    (;687:1;)                  i32.ne
+    (;688:0;)                  br_if 0
+    (;689:1;)                  local.get 35
+    (;690:2;)                  local.get 33
+    (;691:1;)                  i32.eq
+    (;692:0;)                  br_if 6
+    (;693:1;)                  local.get 6
+    (;694:2;)                  local.get 7
+    (;695:1;)                  i32.gt_u
+    (;696:0;)                  br_if 3
+    (;697:1;)                  local.get 34
+    (;698:2;)                  local.get 35
+    (;699:3;)                  i32.const 3
+    (;700:2;)                  i32.shl
+    (;701:1;)                  i32.add
+    (;702:1;)                  local.tee 38
+    (;703:2;)                  local.get 6
+    (;704:0;)                  i32.store offset=4
+    (;705:1;)                  local.get 38
+    (;706:2;)                  local.get 5
+    (;707:0;)                  i32.store
+    (;708:1;)                  local.get 7
+    (;709:2;)                  local.get 6
+    (;710:1;)                  i32.le_u
+    (;711:0;)                  br_if 3
+    (;712:1;)                  local.get 35
+    (;713:2;)                  i32.const 1
     (;714:1;)                  i32.add
-    (;715:1;)                  local.tee 40
-    (;716:1;)                  i32.load8_u
-    (;717:2;)                  i32.const 124
-    (;718:1;)                  i32.ne
-    (;719:0;)                  br_if 0
-    (;720:1;)                  local.get 37
-    (;721:2;)                  local.get 35
-    (;722:1;)                  i32.eq
-    (;723:0;)                  br_if 6
-    (;724:1;)                  local.get 6
-    (;725:2;)                  local.get 7
-    (;726:1;)                  i32.gt_u
-    (;727:0;)                  br_if 3
-    (;728:1;)                  local.get 36
-    (;729:2;)                  local.get 37
-    (;730:3;)                  i32.const 3
-    (;731:2;)                  i32.shl
-    (;732:1;)                  i32.add
-    (;733:1;)                  local.tee 39
-    (;734:2;)                  local.get 6
-    (;735:0;)                  i32.store offset=4
-    (;736:1;)                  local.get 39
-    (;737:2;)                  local.get 5
-    (;738:0;)                  i32.store
-    (;739:1;)                  local.get 7
-    (;740:2;)                  local.get 6
-    (;741:1;)                  i32.le_u
-    (;742:0;)                  br_if 3
-    (;743:1;)                  local.get 37
-    (;744:2;)                  i32.const 1
-    (;745:1;)                  i32.add
-    (;746:0;)                  local.set 37
-    (;747:1;)                  local.get 6
-    (;748:2;)                  i32.const -1
-    (;749:1;)                  i32.xor
-    (;750:2;)                  local.get 7
-    (;751:1;)                  i32.add
-    (;752:0;)                  local.set 7
-    (;753:1;)                  local.get 40
-    (;754:2;)                  i32.const 1
-    (;755:1;)                  i32.add
-    (;756:0;)                  local.set 5
-    (;757:0;)                  br 2
-    (;758:0;)                end
-    (;759:1;)                local.get 6
-    (;760:2;)                i32.const 1
-    (;761:1;)                i32.add
-    (;762:0;)                local.set 6
-    (;763:0;)                br 0
-    (;764:0;)              end
-    (;765:0;)            end
-    (;766:0;)          end
-    (;767:0;)          call 81  runtime.slicePanic
-    (;768:0;)          unreachable
-    (;769:0;)        end
-    (;770:1;)        local.get 37
-    (;771:2;)        local.get 35
-    (;772:1;)        i32.ge_u
-    (;773:0;)        br_if 1
-    (;774:1;)        local.get 36
-    (;775:2;)        local.get 37
-    (;776:3;)        i32.const 3
-    (;777:2;)        i32.shl
-    (;778:1;)        i32.add
-    (;779:1;)        local.tee 6
-    (;780:2;)        local.get 7
-    (;781:0;)        i32.store offset=4
-    (;782:1;)        local.get 6
-    (;783:2;)        local.get 5
-    (;784:0;)        i32.store
-    (;785:1;)        local.get 37
-    (;786:2;)        i32.const 1
-    (;787:1;)        i32.le_u
-    (;788:0;)        br_if 1
-    (;789:1;)        local.get 21
-    (;790:2;)        local.get 36
-    (;791:2;)        i32.load offset=16
-    (;792:2;)        local.tee 6
-    (;793:0;)        i32.store
-    (;794:1;)        local.get 0
-    (;795:2;)        i32.const 40
-    (;796:1;)        i32.add
-    (;797:2;)        local.get 6
-    (;798:3;)        local.get 36
-    (;799:3;)        i32.load offset=20
-    (;800:0;)        call 47  strconv.ParseInt
-    (;801:1;)        local.get 22
-    (;802:2;)        local.get 0
-    (;803:2;)        i32.load offset=52
+    (;715:0;)                  local.set 35
+    (;716:1;)                  local.get 6
+    (;717:2;)                  i32.const -1
+    (;718:1;)                  i32.xor
+    (;719:2;)                  local.get 7
+    (;720:1;)                  i32.add
+    (;721:0;)                  local.set 7
+    (;722:1;)                  local.get 37
+    (;723:2;)                  i32.const 1
+    (;724:1;)                  i32.add
+    (;725:0;)                  local.set 5
+    (;726:0;)                  br 2
+    (;727:0;)                end
+    (;728:1;)                local.get 6
+    (;729:2;)                i32.const 1
+    (;730:1;)                i32.add
+    (;731:0;)                local.set 6
+    (;732:0;)                br 0
+    (;733:0;)              end
+    (;734:0;)            end
+    (;735:0;)          end
+    (;736:0;)          call 92  runtime.slicePanic
+    (;737:0;)          unreachable
+    (;738:0;)        end
+    (;739:1;)        local.get 35
+    (;740:2;)        local.get 33
+    (;741:1;)        i32.ge_u
+    (;742:0;)        br_if 1
+    (;743:1;)        local.get 34
+    (;744:2;)        local.get 35
+    (;745:3;)        i32.const 3
+    (;746:2;)        i32.shl
+    (;747:1;)        i32.add
+    (;748:1;)        local.tee 6
+    (;749:2;)        local.get 7
+    (;750:0;)        i32.store offset=4
+    (;751:1;)        local.get 6
+    (;752:2;)        local.get 5
+    (;753:0;)        i32.store
+    (;754:1;)        local.get 35
+    (;755:2;)        i32.const 1
+    (;756:1;)        i32.le_u
+    (;757:0;)        br_if 1
+    (;758:1;)        local.get 20
+    (;759:2;)        local.get 34
+    (;760:2;)        i32.load offset=16
+    (;761:2;)        local.tee 6
+    (;762:0;)        i32.store
+    (;763:1;)        local.get 0
+    (;764:2;)        i32.const 40
+    (;765:1;)        i32.add
+    (;766:2;)        local.get 6
+    (;767:3;)        local.get 34
+    (;768:3;)        i32.load offset=20
+    (;769:0;)        call 78  strconv.ParseInt
+    (;770:1;)        local.get 21
+    (;771:2;)        local.get 0
+    (;772:2;)        i32.load offset=52
+    (;773:0;)        i32.store
+    (;774:1;)        local.get 35
+    (;775:2;)        i32.const 2
+    (;776:1;)        i32.eq
+    (;777:0;)        br_if 1
+    (;778:1;)        local.get 0
+    (;779:1;)        i64.load offset=40
+    (;780:0;)        local.set 36
+    (;781:1;)        local.get 22
+    (;782:2;)        local.get 34
+    (;783:2;)        i32.load offset=24
+    (;784:2;)        local.tee 6
+    (;785:0;)        i32.store
+    (;786:1;)        local.get 0
+    (;787:2;)        i32.const 24
+    (;788:1;)        i32.add
+    (;789:2;)        local.get 6
+    (;790:3;)        local.get 34
+    (;791:3;)        i32.load offset=28
+    (;792:0;)        call 78  strconv.ParseInt
+    (;793:1;)        local.get 23
+    (;794:2;)        local.get 0
+    (;795:2;)        i32.load offset=36
+    (;796:0;)        i32.store
+    (;797:1;)        local.get 0
+    (;798:1;)        i64.load offset=24
+    (;799:0;)        local.set 9
+    (;800:1;)        local.get 24
+    (;801:2;)        i32.const 32
+    (;802:2;)        call 59  runtime.alloc
+    (;803:2;)        local.tee 6
     (;804:0;)        i32.store
-    (;805:1;)        local.get 37
-    (;806:2;)        i32.const 2
-    (;807:1;)        i32.eq
-    (;808:0;)        br_if 1
-    (;809:1;)        local.get 0
-    (;810:1;)        i64.load offset=40
-    (;811:0;)        local.set 38
-    (;812:1;)        local.get 23
-    (;813:2;)        local.get 36
-    (;814:2;)        i32.load offset=24
-    (;815:2;)        local.tee 6
-    (;816:0;)        i32.store
-    (;817:1;)        local.get 0
-    (;818:2;)        i32.const 24
-    (;819:1;)        i32.add
-    (;820:2;)        local.get 6
-    (;821:3;)        local.get 36
-    (;822:3;)        i32.load offset=28
-    (;823:0;)        call 47  strconv.ParseInt
-    (;824:1;)        local.get 24
-    (;825:2;)        local.get 0
-    (;826:2;)        i32.load offset=36
+    (;805:1;)        local.get 25
+    (;806:2;)        local.get 6
+    (;807:0;)        i32.store
+    (;808:1;)        local.get 6
+    (;809:2;)        local.get 9
+    (;810:0;)        i64.store offset=24
+    (;811:1;)        local.get 6
+    (;812:2;)        local.get 36
+    (;813:0;)        i64.store offset=16
+    (;814:1;)        local.get 26
+    (;815:2;)        local.get 34
+    (;816:2;)        i32.load
+    (;817:2;)        local.tee 7
+    (;818:0;)        i32.store
+    (;819:1;)        local.get 0
+    (;820:2;)        i32.const 200
+    (;821:1;)        i32.add
+    (;822:2;)        i32.const 124
+    (;823:1;)        i32.add
+    (;824:2;)        local.get 34
+    (;825:2;)        i32.load offset=8
+    (;826:2;)        local.tee 8
     (;827:0;)        i32.store
-    (;828:1;)        local.get 0
-    (;829:1;)        i64.load offset=24
-    (;830:0;)        local.set 9
-    (;831:1;)        local.get 25
-    (;832:2;)        i32.const 32
-    (;833:2;)        call 17  runtime.alloc
-    (;834:2;)        local.tee 6
-    (;835:0;)        i32.store
-    (;836:1;)        local.get 26
-    (;837:2;)        local.get 6
-    (;838:0;)        i32.store
+    (;828:1;)        local.get 6
+    (;829:2;)        local.get 34
+    (;830:2;)        i32.load offset=12
+    (;831:0;)        i32.store offset=12
+    (;832:1;)        local.get 6
+    (;833:2;)        local.get 8
+    (;834:0;)        i32.store offset=8
+    (;835:1;)        local.get 6
+    (;836:2;)        local.get 34
+    (;837:2;)        i32.load offset=4
+    (;838:0;)        i32.store offset=4
     (;839:1;)        local.get 6
-    (;840:2;)        local.get 9
-    (;841:0;)        i64.store offset=24
-    (;842:1;)        local.get 6
-    (;843:2;)        local.get 38
-    (;844:0;)        i64.store offset=16
-    (;845:1;)        local.get 27
-    (;846:2;)        local.get 36
-    (;847:2;)        i32.load
-    (;848:2;)        local.tee 7
-    (;849:0;)        i32.store
-    (;850:1;)        local.get 28
-    (;851:2;)        local.get 36
-    (;852:2;)        i32.load offset=8
-    (;853:2;)        local.tee 8
-    (;854:0;)        i32.store
-    (;855:1;)        local.get 6
-    (;856:2;)        local.get 36
-    (;857:2;)        i32.load offset=12
-    (;858:0;)        i32.store offset=12
-    (;859:1;)        local.get 6
-    (;860:2;)        local.get 8
-    (;861:0;)        i32.store offset=8
-    (;862:1;)        local.get 6
-    (;863:2;)        local.get 36
-    (;864:2;)        i32.load offset=4
-    (;865:0;)        i32.store offset=4
-    (;866:1;)        local.get 6
-    (;867:2;)        local.get 7
-    (;868:0;)        i32.store
-    (;869:0;)        block
-    (;870:1;)          local.get 38
-    (;871:2;)          local.get 10
-    (;872:1;)          i64.ne
-    (;873:0;)          br_if 0
+    (;840:2;)        local.get 7
+    (;841:0;)        i32.store
+    (;842:0;)        block
+    (;843:1;)          local.get 36
+    (;844:2;)          local.get 10
+    (;845:1;)          i64.ne
+    (;846:0;)          br_if 0
+    (;847:1;)          local.get 0
+    (;848:2;)          local.get 6
+    (;849:0;)          i32.store offset=188
+    (;850:1;)          local.get 0
+    (;851:2;)          i32.const 8
+    (;852:1;)          i32.add
+    (;853:2;)          local.get 12
+    (;854:3;)          local.get 0
+    (;855:4;)          i32.const 188
+    (;856:3;)          i32.add
+    (;857:4;)          local.get 30
+    (;858:5;)          local.get 31
+    (;859:6;)          i32.const 1
+    (;860:7;)          i32.const 4
+    (;861:0;)          call 13  runtime.sliceAppend
+    (;862:1;)          local.get 27
+    (;863:2;)          local.get 0
+    (;864:2;)          i32.load offset=8
+    (;865:2;)          local.tee 12
+    (;866:0;)          i32.store
+    (;867:1;)          local.get 9
+    (;868:2;)          local.get 29
+    (;869:1;)          i64.add
+    (;870:0;)          local.set 29
+    (;871:1;)          local.get 0
+    (;872:1;)          i32.load offset=16
+    (;873:0;)          local.set 31
     (;874:1;)          local.get 0
-    (;875:2;)          local.get 6
-    (;876:0;)          i32.store offset=132
-    (;877:1;)          local.get 0
-    (;878:2;)          i32.const 8
-    (;879:1;)          i32.add
-    (;880:2;)          local.get 12
-    (;881:3;)          local.get 0
-    (;882:4;)          i32.const 132
-    (;883:3;)          i32.add
-    (;884:4;)          local.get 32
-    (;885:5;)          local.get 33
-    (;886:6;)          i32.const 1
-    (;887:7;)          i32.const 4
-    (;888:0;)          call 13  runtime.sliceAppend
-    (;889:1;)          local.get 29
-    (;890:2;)          local.get 0
-    (;891:2;)          i32.load offset=8
-    (;892:2;)          local.tee 12
-    (;893:0;)          i32.store
-    (;894:1;)          local.get 9
-    (;895:2;)          local.get 31
-    (;896:1;)          i64.add
-    (;897:0;)          local.set 31
-    (;898:1;)          local.get 0
-    (;899:1;)          i32.load offset=16
-    (;900:0;)          local.set 33
-    (;901:1;)          local.get 0
-    (;902:1;)          i32.load offset=12
-    (;903:0;)          local.set 32
-    (;904:0;)        end
-    (;905:1;)        local.get 9
-    (;906:2;)        local.get 13
-    (;907:1;)        i64.add
-    (;908:0;)        local.set 13
-    (;909:1;)        local.get 30
-    (;910:2;)        local.get 12
-    (;911:0;)        i32.store
-    (;912:1;)        local.get 34
-    (;913:2;)        i32.const 1
-    (;914:1;)        i32.add
-    (;915:0;)        local.set 34
-    (;916:0;)        br 0
-    (;917:0;)      end
-    (;918:0;)    end
-    (;919:0;)    call 46  runtime.lookupPanic
-    (;920:0;)    unreachable
-    (;921:0;)  end
+    (;875:1;)          i32.load offset=12
+    (;876:0;)          local.set 30
+    (;877:0;)        end
+    (;878:1;)        local.get 9
+    (;879:2;)        local.get 13
+    (;880:1;)        i64.add
+    (;881:0;)        local.set 13
+    (;882:1;)        local.get 28
+    (;883:2;)        local.get 12
+    (;884:0;)        i32.store
+    (;885:1;)        local.get 32
+    (;886:2;)        i32.const 1
+    (;887:1;)        i32.add
+    (;888:0;)        local.set 32
+    (;889:0;)        br 0
+    (;890:0;)      end
+    (;891:0;)    end
+    (;892:0;)    call 77  runtime.lookupPanic
+    (;893:0;)    unreachable
+    (;894:0;)  end
   )
 
-  (func "runtime.stringConcat" (;78;) (type 13) (param (;0;) i32 (;1;) i32 (;2;) i32 (;3;) i32 (;4;) i32)
+  (func "runtime.stringConcat" (;91;) (type 14) (param (;0;) i32 (;1;) i32 (;2;) i32 (;3;) i32 (;4;) i32)
     (local (;5;) i32)
     (local (;6;) i32)
     (local (;7;) i32)
@@ -9782,13 +9804,13 @@
     (;24:2;)     local.get 4
     (;25:0;)     i32.store offset=20
     (;26:1;)     i32.const 0
-    (;27:1;)     i32.load offset=70832
+    (;27:1;)     i32.load offset=70816
     (;28:0;)     local.set 6
     (;29:1;)     i32.const 0
     (;30:2;)     local.get 5
     (;31:3;)     i32.const 32
     (;32:2;)     i32.add
-    (;33:0;)     i32.store offset=70832
+    (;33:0;)     i32.store offset=70816
     (;34:1;)     local.get 5
     (;35:2;)     local.get 6
     (;36:0;)     i32.store offset=32
@@ -9817,7 +9839,7 @@
     (;59:3;)         local.get 2
     (;60:2;)         i32.add
     (;61:2;)         local.tee 7
-    (;62:2;)         call 17  runtime.alloc
+    (;62:2;)         call 59  runtime.alloc
     (;63:2;)         local.tee 8
     (;64:0;)         i32.store
     (;65:1;)         local.get 5
@@ -9843,7 +9865,7 @@
     (;85:0;)         drop
     (;86:1;)         i32.const 0
     (;87:2;)         local.get 6
-    (;88:0;)         i32.store offset=70832
+    (;88:0;)         i32.store offset=70816
     (;89:1;)         local.get 5
     (;90:2;)         i64.const 0
     (;91:0;)         i64.store offset=24
@@ -9868,7 +9890,7 @@
     (;110:0;)      end
     (;111:1;)      i32.const 0
     (;112:2;)      local.get 6
-    (;113:0;)      i32.store offset=70832
+    (;113:0;)      i32.store offset=70816
     (;114:1;)      local.get 0
     (;115:2;)      local.get 4
     (;116:0;)      i32.store offset=4
@@ -9883,7 +9905,7 @@
     (;125:0;)    end
     (;126:1;)    i32.const 0
     (;127:2;)    local.get 6
-    (;128:0;)    i32.store offset=70832
+    (;128:0;)    i32.store offset=70816
     (;129:1;)    local.get 0
     (;130:2;)    local.get 2
     (;131:0;)    i32.store offset=4
@@ -9897,688 +9919,543 @@
     (;139:0;)  end
   )
 
-  (func "(*github.com/iotaledger/wart/wasp.ScContext).Transfers" (;79;) (type 10) (param (;0;) i32) (result i32)
-    (local (;1;) i32)
-    (local (;2;) i32)
-    (;0:1;)      global.get 0
-    (;1:2;)      i32.const 16
-    (;2:1;)      i32.sub
-    (;3:1;)      local.tee 1
-    (;4:0;)      global.set 0
-    (;5:1;)      local.get 1
-    (;6:2;)      i32.const 0
-    (;7:0;)      i32.store offset=12
-    (;8:1;)      local.get 1
-    (;9:2;)      i64.const 2
-    (;10:0;)     i64.store offset=4 align=2
-    (;11:1;)     i32.const 0
-    (;12:1;)     i32.load offset=70832
-    (;13:0;)     local.set 2
-    (;14:1;)     i32.const 0
-    (;15:2;)     local.get 1
-    (;16:0;)     i32.store offset=70832
-    (;17:1;)     local.get 1
-    (;18:2;)     local.get 2
-    (;19:0;)     i32.store
-    (;20:0;)     block
-    (;21:1;)       local.get 0
-    (;22:0;)       br_if 0
-    (;23:0;)       call 41  runtime.nilPanic
-    (;24:0;)       unreachable
-    (;25:0;)     end
-    (;26:1;)     local.get 1
-    (;27:2;)     i32.const 8
-    (;28:1;)     i32.add
-    (;29:2;)     local.get 0
-    (;30:2;)     i32.load
-    (;31:2;)     local.tee 0
-    (;32:0;)     i32.store
-    (;33:1;)     local.get 0
-    (;34:2;)     i32.const 67453
-    (;35:3;)     i32.const 9
-    (;36:1;)     call 108  (*github.com/iotaledger/wart/wasp.ScMutableMap).GetMapArray
-    (;37:0;)     local.set 0
-    (;38:1;)     i32.const 0
-    (;39:2;)     local.get 2
-    (;40:0;)     i32.store offset=70832
-    (;41:1;)     local.get 1
-    (;42:2;)     i32.const 12
-    (;43:1;)     i32.add
-    (;44:2;)     local.get 0
-    (;45:0;)     i32.store
-    (;46:1;)     local.get 1
-    (;47:2;)     i32.const 16
-    (;48:1;)     i32.add
-    (;49:0;)     global.set 0
-    (;50:1;)     local.get 0
-    (;51:0;)   end
-  )
-
-  (func "(*github.com/iotaledger/wart/wasp.ScMutableMap).GetString" (;80;) (type 5) (param (;0;) i32 (;1;) i32 (;2;) i32) (result i32)
-    (local (;3;) i32)
-    (local (;4;) i32)
-    (local (;5;) i32)
-    (;0:1;)      global.get 0
-    (;1:2;)      i32.const 16
-    (;2:1;)      i32.sub
-    (;3:1;)      local.tee 3
-    (;4:0;)      global.set 0
-    (;5:1;)      local.get 3
-    (;6:2;)      i64.const 1
-    (;7:0;)      i64.store offset=4 align=2
-    (;8:1;)      i32.const 0
-    (;9:1;)      i32.load offset=70832
-    (;10:0;)     local.set 4
-    (;11:1;)     i32.const 0
-    (;12:2;)     local.get 3
-    (;13:0;)     i32.store offset=70832
-    (;14:1;)     local.get 3
-    (;15:2;)     local.get 4
-    (;16:0;)     i32.store
-    (;17:1;)     local.get 3
-    (;18:2;)     i32.const 8
-    (;19:2;)     call 17  runtime.alloc
-    (;20:2;)     local.tee 5
-    (;21:0;)     i32.store offset=8
-    (;22:0;)     block
-    (;23:1;)       local.get 0
-    (;24:0;)       br_if 0
-    (;25:0;)       call 41  runtime.nilPanic
-    (;26:0;)       unreachable
-    (;27:0;)     end
-    (;28:1;)     local.get 0
-    (;29:1;)     i32.load
-    (;30:0;)     local.set 0
-    (;31:1;)     local.get 5
-    (;32:2;)     local.get 1
-    (;33:3;)     local.get 2
-    (;34:2;)     call 2  waspGo::hostGetKey
-    (;35:0;)     i32.store offset=4
-    (;36:1;)     local.get 5
-    (;37:2;)     local.get 0
-    (;38:0;)     i32.store
-    (;39:1;)     i32.const 0
-    (;40:2;)     local.get 4
-    (;41:0;)     i32.store offset=70832
-    (;42:1;)     local.get 3
-    (;43:2;)     i32.const 16
-    (;44:1;)     i32.add
-    (;45:0;)     global.set 0
-    (;46:1;)     local.get 5
-    (;47:0;)   end
-  )
-
-  (func "runtime.slicePanic" (;81;) (type 6)
-    (;0:1;)      i32.const 67280
+  (func "runtime.slicePanic" (;92;) (type 6)
+    (;0:1;)      i32.const 67328
     (;1:2;)      i32.const 18
-    (;2:0;)      call 96  runtime.runtimePanic
+    (;2:0;)      call 106  runtime.runtimePanic
     (;3:0;)      unreachable
     (;4:0;)    end
   )
 
-  (func "placeBet" (;82;) (type 6)
+  (func "placeBet" (;93;) (type 6)
     (local (;0;) i32)
     (local (;1;) i32)
     (local (;2;) i32)
     (local (;3;) i32)
-    (local (;4;) i32)
+    (local (;4;) i64)
     (local (;5;) i64)
-    (local (;6;) i64)
+    (local (;6;) i32)
     (local (;7;) i32)
     (local (;8;) i32)
     (local (;9;) i32)
     (local (;10;) i32)
-    (local (;11;) i32)
     (;0:1;)      global.get 0
-    (;1:2;)      i32.const 256
+    (;1:2;)      i32.const 304
     (;2:1;)      i32.sub
     (;3:1;)      local.tee 0
     (;4:0;)      global.set 0
     (;5:1;)      local.get 0
-    (;6:2;)      i32.const 0
-    (;7:0;)      i32.store offset=248
+    (;6:2;)      i64.const 94489280512
+    (;7:0;)      i64.store offset=208
     (;8:1;)      local.get 0
     (;9:2;)      i64.const 0
-    (;10:0;)     i64.store offset=240
+    (;10:0;)     i64.store offset=216
     (;11:1;)     local.get 0
     (;12:2;)     i64.const 0
-    (;13:0;)     i64.store offset=232
+    (;13:0;)     i64.store offset=296
     (;14:1;)     local.get 0
     (;15:2;)     i64.const 0
-    (;16:0;)     i64.store offset=224
+    (;16:0;)     i64.store offset=288
     (;17:1;)     local.get 0
     (;18:2;)     i64.const 0
-    (;19:0;)     i64.store offset=216
+    (;19:0;)     i64.store offset=280
     (;20:1;)     local.get 0
     (;21:2;)     i64.const 0
-    (;22:0;)     i64.store offset=208
+    (;22:0;)     i64.store offset=272
     (;23:1;)     local.get 0
     (;24:2;)     i64.const 0
-    (;25:0;)     i64.store offset=200
+    (;25:0;)     i64.store offset=264
     (;26:1;)     local.get 0
     (;27:2;)     i64.const 0
-    (;28:0;)     i64.store offset=192
+    (;28:0;)     i64.store offset=256
     (;29:1;)     local.get 0
     (;30:2;)     i64.const 0
-    (;31:0;)     i64.store offset=184
+    (;31:0;)     i64.store offset=248
     (;32:1;)     local.get 0
     (;33:2;)     i64.const 0
-    (;34:0;)     i64.store offset=176
+    (;34:0;)     i64.store offset=240
     (;35:1;)     local.get 0
     (;36:2;)     i64.const 0
-    (;37:0;)     i64.store offset=168
+    (;37:0;)     i64.store offset=232
     (;38:1;)     local.get 0
     (;39:2;)     i64.const 0
-    (;40:0;)     i64.store offset=160
+    (;40:0;)     i64.store offset=224
     (;41:1;)     local.get 0
-    (;42:2;)     i64.const 0
-    (;43:0;)     i64.store offset=152
-    (;44:1;)     local.get 0
-    (;45:2;)     i64.const 0
-    (;46:0;)     i64.store offset=144
-    (;47:1;)     local.get 0
-    (;48:2;)     i64.const 0
-    (;49:0;)     i64.store offset=136
-    (;50:1;)     local.get 0
-    (;51:2;)     i64.const 0
-    (;52:0;)     i64.store offset=128
-    (;53:1;)     local.get 0
-    (;54:2;)     i64.const 133143986176
-    (;55:0;)     i64.store offset=120
-    (;56:1;)     local.get 0
-    (;57:2;)     i32.const 0
-    (;58:2;)     i32.load offset=70832
-    (;59:2;)     local.tee 1
-    (;60:0;)     i32.store offset=120
-    (;61:1;)     i32.const 0
-    (;62:2;)     local.get 0
-    (;63:3;)     i32.const 120
-    (;64:2;)     i32.add
-    (;65:0;)     i32.store offset=70832
-    (;66:1;)     local.get 0
-    (;67:2;)     call 16  github.com/iotaledger/wart/wasp.NewScContext
-    (;68:2;)     local.tee 2
-    (;69:0;)     i32.store offset=128
-    (;70:1;)     i32.const 66869
-    (;71:2;)     i32.const 12
-    (;72:0;)     call 54  (*github.com/iotaledger/wart/wasp.ScContext).Log
-    (;73:1;)     local.get 0
-    (;74:2;)     local.get 2
-    (;75:2;)     i32.load
-    (;76:2;)     local.tee 3
-    (;77:0;)     i32.store offset=156
-    (;78:1;)     local.get 0
-    (;79:2;)     local.get 3
-    (;80:0;)     i32.store offset=132
+    (;42:2;)     i32.const 0
+    (;43:0;)     i32.store offset=128
+    (;44:1;)     i32.const 0
+    (;45:1;)     i32.load offset=70816
+    (;46:0;)     local.set 1
+    (;47:1;)     i32.const 0
+    (;48:2;)     local.get 0
+    (;49:3;)     i32.const 208
+    (;50:2;)     i32.add
+    (;51:0;)     i32.store offset=70816
+    (;52:1;)     local.get 0
+    (;53:2;)     local.get 1
+    (;54:0;)     i32.store offset=208
+    (;55:1;)     local.get 0
+    (;56:2;)     local.get 0
+    (;57:3;)     i32.const 128
+    (;58:2;)     i32.add
+    (;59:0;)     i32.store offset=216
+    (;60:1;)     local.get 0
+    (;61:2;)     call 16  github.com/iotaledger/wart/wasplib.NewScContext
+    (;62:2;)     local.tee 2
+    (;63:0;)     i32.store offset=128
+    (;64:1;)     local.get 2
+    (;65:2;)     i32.const 66944
+    (;66:3;)     i32.const 12
+    (;67:0;)     call 23  (github.com/iotaledger/wart/wasplib.ScContext).Log
+    (;68:1;)     local.get 0
+    (;69:2;)     i32.const 0
+    (;70:0;)     i32.store offset=136
+    (;71:1;)     local.get 0
+    (;72:2;)     local.get 0
+    (;73:3;)     i32.const 136
+    (;74:2;)     i32.add
+    (;75:0;)     i32.store offset=220
+    (;76:1;)     local.get 0
+    (;77:2;)     local.get 2
+    (;78:2;)     call 24  (github.com/iotaledger/wart/wasplib.ScContext).Request
+    (;79:2;)     local.tee 3
+    (;80:0;)     i32.store offset=136
     (;81:1;)     local.get 0
-    (;82:2;)     local.get 3
-    (;83:3;)     i32.const 67413
-    (;84:4;)     i32.const 10
-    (;85:2;)     call 83  (*github.com/iotaledger/wart/wasp.ScMutableMap).GetMap
-    (;86:2;)     local.tee 4
-    (;87:0;)     i32.store offset=136
-    (;88:1;)     local.get 0
-    (;89:2;)     local.get 4
-    (;90:3;)     i32.const 66881
-    (;91:4;)     i32.const 4
-    (;92:2;)     call 56  (*github.com/iotaledger/wart/wasp.ScMutableMap).GetInt
-    (;93:2;)     local.tee 4
-    (;94:0;)     i32.store offset=140
-    (;95:0;)     block
-    (;96:0;)       block
-    (;97:0;)         block
-    (;98:1;)           local.get 4
-    (;99:1;)           call 57  (*github.com/iotaledger/wart/wasp.ScMutableInt).Value
-    (;100:1;)          local.tee 5
-    (;101:2;)          i64.const 0
-    (;102:1;)          i64.eq
-    (;103:0;)          br_if 0
-    (;104:1;)          local.get 0
-    (;105:2;)          i32.const 144
-    (;106:1;)          i32.add
-    (;107:2;)          local.get 2
-    (;108:2;)          call 63  (*github.com/iotaledger/wart/wasp.ScContext).Params
-    (;109:2;)          local.tee 4
-    (;110:0;)          i32.store
-    (;111:1;)          local.get 0
-    (;112:2;)          i32.const 148
-    (;113:1;)          i32.add
-    (;114:2;)          local.get 4
-    (;115:3;)          i32.const 66897
-    (;116:4;)          i32.const 5
-    (;117:2;)          call 64  (*github.com/iotaledger/wart/wasp.ScImmutableMap).GetInt
-    (;118:2;)          local.tee 4
-    (;119:0;)          i32.store
-    (;120:1;)          local.get 4
-    (;121:1;)          call 65  (*github.com/iotaledger/wart/wasp.ScImmutableInt).Value
-    (;122:1;)          local.tee 6
-    (;123:2;)          i64.const 0
-    (;124:1;)          i64.eq
-    (;125:0;)          br_if 1
-    (;126:1;)          local.get 6
-    (;127:2;)          i64.const -1
-    (;128:1;)          i64.add
-    (;129:2;)          i64.const 5
-    (;130:1;)          i64.ge_u
-    (;131:0;)          br_if 2
-    (;132:1;)          local.get 0
-    (;133:2;)          i64.const 0
-    (;134:0;)          i64.store offset=88
-    (;135:1;)          local.get 0
-    (;136:2;)          i64.const 0
-    (;137:0;)          i64.store offset=96
-    (;138:1;)          local.get 0
-    (;139:2;)          i64.const 0
-    (;140:0;)          i64.store offset=104
-    (;141:1;)          local.get 0
-    (;142:2;)          i64.const 0
-    (;143:0;)          i64.store offset=112
-    (;144:1;)          local.get 0
-    (;145:2;)          i32.const 152
-    (;146:1;)          i32.add
-    (;147:2;)          local.get 0
-    (;148:3;)          i32.const 88
-    (;149:2;)          i32.add
-    (;150:0;)          i32.store
-    (;151:1;)          local.get 0
-    (;152:2;)          i32.const 160
-    (;153:1;)          i32.add
-    (;154:2;)          local.get 3
-    (;155:3;)          i32.const 67423
-    (;156:4;)          i32.const 7
-    (;157:2;)          call 80  (*github.com/iotaledger/wart/wasp.ScMutableMap).GetString
-    (;158:2;)          local.tee 3
-    (;159:0;)          i32.store
-    (;160:1;)          local.get 0
-    (;161:2;)          i32.const 80
-    (;162:1;)          i32.add
-    (;163:2;)          local.get 3
-    (;164:0;)          call 72  (*github.com/iotaledger/wart/wasp.ScMutableString).Value
+    (;82:2;)     local.get 0
+    (;83:3;)     i32.const 200
+    (;84:2;)     i32.add
+    (;85:0;)     i32.store offset=224
+    (;86:1;)     local.get 0
+    (;87:2;)     i32.const 0
+    (;88:0;)     i32.store offset=200
+    (;89:1;)     local.get 0
+    (;90:2;)     i32.const 120
+    (;91:1;)     i32.add
+    (;92:2;)     local.get 3
+    (;93:3;)     i32.const 65605
+    (;94:4;)     i32.const 7
+    (;95:2;)     call 36  (github.com/iotaledger/wart/wasplib.ScImmutableMap).GetMap
+    (;96:3;)     i32.const 66956
+    (;97:4;)     i32.const 4
+    (;98:0;)     call 35  (github.com/iotaledger/wart/wasplib.ScImmutableMap).GetInt
+    (;99:0;)     block
+    (;100:1;)      local.get 0
+    (;101:1;)      i32.load offset=120
+    (;102:2;)      local.get 0
+    (;103:2;)      i32.load offset=124
+    (;104:1;)      call 34  (github.com/iotaledger/wart/wasplib.ScImmutableInt).Value
+    (;105:1;)      local.tee 4
+    (;106:1;)      i64.eqz
+    (;107:1;)      i32.eqz
+    (;108:0;)      br_if 0
+    (;109:1;)      local.get 2
+    (;110:2;)      i32.const 66960
+    (;111:3;)      i32.const 12
+    (;112:0;)      call 23  (github.com/iotaledger/wart/wasplib.ScContext).Log
+    (;113:1;)      i32.const 0
+    (;114:2;)      local.get 1
+    (;115:0;)      i32.store offset=70816
+    (;116:1;)      local.get 0
+    (;117:2;)      i32.const 304
+    (;118:1;)      i32.add
+    (;119:0;)      global.set 0
+    (;120:0;)      return
+    (;121:0;)    end
+    (;122:1;)    local.get 0
+    (;123:2;)    i32.const 112
+    (;124:1;)    i32.add
+    (;125:2;)    local.get 3
+    (;126:2;)    call 46  (github.com/iotaledger/wart/wasplib.ScRequest).Params
+    (;127:3;)    i32.const 66972
+    (;128:4;)    i32.const 5
+    (;129:0;)    call 35  (github.com/iotaledger/wart/wasplib.ScImmutableMap).GetInt
+    (;130:0;)    block
+    (;131:1;)      local.get 0
+    (;132:1;)      i32.load offset=112
+    (;133:2;)      local.get 0
+    (;134:2;)      i32.load offset=116
+    (;135:1;)      call 34  (github.com/iotaledger/wart/wasplib.ScImmutableInt).Value
+    (;136:1;)      local.tee 5
+    (;137:2;)      i64.const 0
+    (;138:1;)      i64.ne
+    (;139:0;)      br_if 0
+    (;140:1;)      local.get 2
+    (;141:2;)      i32.const 66977
+    (;142:3;)      i32.const 11
+    (;143:0;)      call 23  (github.com/iotaledger/wart/wasplib.ScContext).Log
+    (;144:1;)      i32.const 0
+    (;145:2;)      local.get 1
+    (;146:0;)      i32.store offset=70816
+    (;147:1;)      local.get 0
+    (;148:2;)      i32.const 304
+    (;149:1;)      i32.add
+    (;150:0;)      global.set 0
+    (;151:0;)      return
+    (;152:0;)    end
+    (;153:0;)    block
+    (;154:0;)      block
+    (;155:0;)        block
+    (;156:1;)          local.get 5
+    (;157:2;)          i64.const -1
+    (;158:1;)          i64.add
+    (;159:2;)          i64.const 4
+    (;160:1;)          i64.gt_u
+    (;161:0;)          br_if 0
+    (;162:1;)          local.get 0
+    (;163:2;)          i64.const 0
+    (;164:0;)          i64.store offset=168
     (;165:1;)          local.get 0
-    (;166:2;)          i32.const 184
-    (;167:1;)          i32.add
-    (;168:2;)          local.get 0
-    (;169:2;)          i32.load offset=80
-    (;170:2;)          local.tee 3
-    (;171:0;)          i32.store
-    (;172:1;)          local.get 0
-    (;173:2;)          i32.const 168
-    (;174:1;)          i32.add
-    (;175:2;)          local.get 3
-    (;176:0;)          i32.store
-    (;177:1;)          local.get 0
-    (;178:2;)          i32.const 164
-    (;179:1;)          i32.add
-    (;180:2;)          local.get 3
-    (;181:0;)          i32.store
-    (;182:1;)          local.get 0
-    (;183:1;)          i32.load offset=84
-    (;184:0;)          local.set 7
-    (;185:1;)          local.get 0
-    (;186:2;)          i32.const 72
-    (;187:1;)          i32.add
-    (;188:2;)          local.get 2
-    (;189:0;)          call 67  (*github.com/iotaledger/wart/wasp.ScContext).Sender
-    (;190:1;)          local.get 0
-    (;191:2;)          i32.const 192
-    (;192:1;)          i32.add
-    (;193:2;)          local.get 0
-    (;194:2;)          i32.load offset=72
-    (;195:2;)          local.tee 4
-    (;196:0;)          i32.store
-    (;197:1;)          local.get 0
-    (;198:2;)          i32.const 172
-    (;199:1;)          i32.add
-    (;200:2;)          local.get 4
-    (;201:0;)          i32.store
-    (;202:1;)          local.get 0
-    (;203:2;)          i32.const 100
-    (;204:1;)          i32.add
-    (;205:2;)          local.get 0
-    (;206:2;)          i32.load offset=76
-    (;207:2;)          local.tee 8
-    (;208:0;)          i32.store
-    (;209:1;)          local.get 0
-    (;210:2;)          local.get 5
-    (;211:0;)          i64.store offset=112
-    (;212:1;)          local.get 0
-    (;213:2;)          local.get 6
-    (;214:0;)          i64.store offset=104
-    (;215:1;)          local.get 0
-    (;216:2;)          local.get 7
-    (;217:0;)          i32.store offset=92
+    (;166:2;)          i64.const 0
+    (;167:0;)          i64.store offset=176
+    (;168:1;)          local.get 0
+    (;169:2;)          i64.const 0
+    (;170:0;)          i64.store offset=184
+    (;171:1;)          local.get 0
+    (;172:2;)          i64.const 0
+    (;173:0;)          i64.store offset=192
+    (;174:1;)          local.get 0
+    (;175:2;)          i32.const 228
+    (;176:1;)          i32.add
+    (;177:2;)          local.get 0
+    (;178:3;)          i32.const 168
+    (;179:2;)          i32.add
+    (;180:0;)          i32.store
+    (;181:1;)          local.get 0
+    (;182:2;)          i32.const 232
+    (;183:1;)          i32.add
+    (;184:2;)          local.get 0
+    (;185:3;)          i32.const 200
+    (;186:2;)          i32.add
+    (;187:0;)          i32.store
+    (;188:1;)          local.get 0
+    (;189:2;)          i32.const 0
+    (;190:0;)          i32.store offset=200
+    (;191:1;)          local.get 0
+    (;192:2;)          i32.const 104
+    (;193:1;)          i32.add
+    (;194:2;)          local.get 3
+    (;195:3;)          i32.const 65612
+    (;196:4;)          i32.const 4
+    (;197:0;)          call 28  (github.com/iotaledger/wart/wasplib.ScImmutableMap).GetString
+    (;198:1;)          local.get 0
+    (;199:2;)          i32.const 96
+    (;200:1;)          i32.add
+    (;201:2;)          local.get 0
+    (;202:2;)          i32.load offset=104
+    (;203:3;)          local.get 0
+    (;204:3;)          i32.load offset=108
+    (;205:0;)          call 29  (github.com/iotaledger/wart/wasplib.ScImmutableString).Value
+    (;206:1;)          local.get 0
+    (;207:2;)          i32.const 256
+    (;208:1;)          i32.add
+    (;209:2;)          local.get 0
+    (;210:2;)          i32.load offset=96
+    (;211:2;)          local.tee 6
+    (;212:0;)          i32.store
+    (;213:1;)          local.get 0
+    (;214:2;)          i32.const 240
+    (;215:1;)          i32.add
+    (;216:2;)          local.get 6
+    (;217:0;)          i32.store
     (;218:1;)          local.get 0
-    (;219:2;)          local.get 3
-    (;220:0;)          i32.store offset=88
-    (;221:1;)          local.get 0
-    (;222:2;)          local.get 4
-    (;223:0;)          i32.store offset=96
-    (;224:1;)          local.get 0
-    (;225:2;)          i32.const 176
-    (;226:1;)          i32.add
-    (;227:2;)          local.get 2
-    (;228:2;)          call 55  (*github.com/iotaledger/wart/wasp.ScContext).State
-    (;229:2;)          local.tee 9
-    (;230:0;)          i32.store
+    (;219:2;)          i32.const 236
+    (;220:1;)          i32.add
+    (;221:2;)          local.get 6
+    (;222:0;)          i32.store
+    (;223:1;)          local.get 0
+    (;224:1;)          i32.load offset=100
+    (;225:0;)          local.set 7
+    (;226:1;)          local.get 0
+    (;227:2;)          i32.const 88
+    (;228:1;)          i32.add
+    (;229:2;)          local.get 3
+    (;230:0;)          call 45  (github.com/iotaledger/wart/wasplib.ScRequest).Address
     (;231:1;)          local.get 0
-    (;232:2;)          i32.const 180
+    (;232:2;)          i32.const 264
     (;233:1;)          i32.add
-    (;234:2;)          local.get 9
-    (;235:3;)          i32.const 66929
-    (;236:4;)          i32.const 4
-    (;237:2;)          call 69  (*github.com/iotaledger/wart/wasp.ScMutableMap).GetStringArray
-    (;238:2;)          local.tee 10
-    (;239:0;)          i32.store
-    (;240:1;)          local.get 10
-    (;241:1;)          call 70  (*github.com/iotaledger/wart/wasp.ScMutableStringArray).Length
-    (;242:0;)          local.set 11
+    (;234:2;)          local.get 0
+    (;235:2;)          i32.load offset=88
+    (;236:2;)          local.tee 3
+    (;237:0;)          i32.store
+    (;238:1;)          local.get 0
+    (;239:2;)          i32.const 244
+    (;240:1;)          i32.add
+    (;241:2;)          local.get 3
+    (;242:0;)          i32.store
     (;243:1;)          local.get 0
-    (;244:2;)          i32.const 64
+    (;244:2;)          i32.const 180
     (;245:1;)          i32.add
-    (;246:2;)          local.get 3
-    (;247:3;)          local.get 7
-    (;248:4;)          i32.const 66616
-    (;249:5;)          i32.const 1
-    (;250:0;)          call 78  runtime.stringConcat
-    (;251:1;)          local.get 0
-    (;252:2;)          i32.const 188
-    (;253:1;)          i32.add
-    (;254:2;)          local.get 0
-    (;255:2;)          i32.load offset=64
-    (;256:2;)          local.tee 3
-    (;257:0;)          i32.store
-    (;258:1;)          local.get 0
-    (;259:2;)          i32.const 56
-    (;260:1;)          i32.add
-    (;261:2;)          local.get 3
-    (;262:3;)          local.get 0
-    (;263:3;)          i32.load offset=68
-    (;264:4;)          local.get 4
-    (;265:5;)          local.get 8
-    (;266:0;)          call 78  runtime.stringConcat
-    (;267:1;)          local.get 0
-    (;268:2;)          i32.const 196
-    (;269:1;)          i32.add
-    (;270:2;)          local.get 0
-    (;271:2;)          i32.load offset=56
-    (;272:2;)          local.tee 3
-    (;273:0;)          i32.store
-    (;274:1;)          local.get 0
-    (;275:2;)          i32.const 48
-    (;276:1;)          i32.add
-    (;277:2;)          local.get 3
-    (;278:3;)          local.get 0
-    (;279:3;)          i32.load offset=60
-    (;280:4;)          i32.const 66616
-    (;281:5;)          i32.const 1
-    (;282:0;)          call 78  runtime.stringConcat
-    (;283:1;)          local.get 0
-    (;284:2;)          i32.const 200
-    (;285:1;)          i32.add
-    (;286:2;)          local.get 0
-    (;287:2;)          i32.load offset=48
-    (;288:2;)          local.tee 3
-    (;289:0;)          i32.store
-    (;290:1;)          local.get 0
-    (;291:1;)          i32.load offset=52
-    (;292:0;)          local.set 4
-    (;293:1;)          local.get 0
-    (;294:2;)          i32.const 40
-    (;295:1;)          i32.add
-    (;296:2;)          local.get 6
-    (;297:0;)          call 45  strconv.FormatInt
-    (;298:1;)          local.get 0
-    (;299:2;)          i32.const 204
-    (;300:1;)          i32.add
-    (;301:2;)          local.get 0
-    (;302:2;)          i32.load offset=40
-    (;303:2;)          local.tee 7
-    (;304:0;)          i32.store
-    (;305:1;)          local.get 0
-    (;306:2;)          i32.const 32
-    (;307:1;)          i32.add
-    (;308:2;)          local.get 3
-    (;309:3;)          local.get 4
-    (;310:4;)          local.get 7
-    (;311:5;)          local.get 0
-    (;312:5;)          i32.load offset=44
-    (;313:0;)          call 78  runtime.stringConcat
-    (;314:1;)          local.get 0
-    (;315:2;)          i32.const 208
-    (;316:1;)          i32.add
-    (;317:2;)          local.get 0
-    (;318:2;)          i32.load offset=32
-    (;319:2;)          local.tee 3
-    (;320:0;)          i32.store
-    (;321:1;)          local.get 0
-    (;322:2;)          i32.const 24
-    (;323:1;)          i32.add
-    (;324:2;)          local.get 3
-    (;325:3;)          local.get 0
-    (;326:3;)          i32.load offset=36
-    (;327:4;)          i32.const 66616
-    (;328:5;)          i32.const 1
-    (;329:0;)          call 78  runtime.stringConcat
-    (;330:1;)          local.get 0
-    (;331:2;)          i32.const 212
-    (;332:1;)          i32.add
-    (;333:2;)          local.get 0
-    (;334:2;)          i32.load offset=24
-    (;335:2;)          local.tee 3
-    (;336:0;)          i32.store
-    (;337:1;)          local.get 0
-    (;338:1;)          i32.load offset=28
-    (;339:0;)          local.set 4
-    (;340:1;)          local.get 0
-    (;341:2;)          i32.const 16
-    (;342:1;)          i32.add
-    (;343:2;)          local.get 5
-    (;344:0;)          call 45  strconv.FormatInt
-    (;345:1;)          local.get 0
-    (;346:2;)          i32.const 216
-    (;347:1;)          i32.add
-    (;348:2;)          local.get 0
-    (;349:2;)          i32.load offset=16
-    (;350:2;)          local.tee 7
-    (;351:0;)          i32.store
-    (;352:1;)          local.get 0
-    (;353:2;)          i32.const 8
-    (;354:1;)          i32.add
-    (;355:2;)          local.get 3
-    (;356:3;)          local.get 4
-    (;357:4;)          local.get 7
-    (;358:5;)          local.get 0
-    (;359:5;)          i32.load offset=20
-    (;360:0;)          call 78  runtime.stringConcat
-    (;361:1;)          local.get 0
-    (;362:2;)          i32.const 224
-    (;363:1;)          i32.add
-    (;364:2;)          local.get 0
-    (;365:2;)          i32.load offset=8
-    (;366:2;)          local.tee 3
-    (;367:0;)          i32.store
-    (;368:1;)          local.get 0
-    (;369:2;)          i32.const 220
-    (;370:1;)          i32.add
-    (;371:2;)          local.get 3
-    (;372:0;)          i32.store
-    (;373:1;)          local.get 0
-    (;374:1;)          i32.load offset=12
-    (;375:0;)          local.set 4
-    (;376:1;)          local.get 0
-    (;377:2;)          i32.const 228
-    (;378:1;)          i32.add
-    (;379:2;)          local.get 10
-    (;380:3;)          local.get 11
-    (;381:2;)          call 71  (*github.com/iotaledger/wart/wasp.ScMutableStringArray).GetString
-    (;382:2;)          local.tee 7
-    (;383:0;)          i32.store
-    (;384:1;)          local.get 7
-    (;385:2;)          local.get 3
-    (;386:3;)          local.get 4
-    (;387:0;)          call 73  (*github.com/iotaledger/wart/wasp.ScMutableString).SetValue
-    (;388:0;)          block
-    (;389:1;)            local.get 11
-    (;390:0;)            br_if 0
-    (;391:1;)            local.get 0
-    (;392:2;)            i32.const 232
-    (;393:1;)            i32.add
-    (;394:2;)            local.get 9
-    (;395:3;)            i32.const 67030
-    (;396:4;)            i32.const 10
-    (;397:2;)            call 56  (*github.com/iotaledger/wart/wasp.ScMutableMap).GetInt
-    (;398:2;)            local.tee 3
-    (;399:0;)            i32.store
-    (;400:1;)            local.get 3
-    (;401:1;)            call 57  (*github.com/iotaledger/wart/wasp.ScMutableInt).Value
-    (;402:0;)            local.set 6
-    (;403:1;)            local.get 0
-    (;404:2;)            i32.const 236
-    (;405:1;)            i32.add
-    (;406:2;)            local.get 2
-    (;407:2;)            call 60  (*github.com/iotaledger/wart/wasp.ScContext).Requests
-    (;408:2;)            local.tee 3
-    (;409:0;)            i32.store
-    (;410:1;)            local.get 0
-    (;411:2;)            i32.const 240
-    (;412:1;)            i32.add
-    (;413:2;)            local.get 3
-    (;414:3;)            i32.const 0
-    (;415:2;)            call 61  (*github.com/iotaledger/wart/wasp.ScMutableMapArray).GetMap
-    (;416:2;)            local.tee 3
-    (;417:0;)            i32.store
-    (;418:1;)            local.get 0
-    (;419:2;)            i32.const 244
-    (;420:1;)            i32.add
-    (;421:2;)            local.get 3
-    (;422:3;)            i32.const 66933
-    (;423:4;)            i32.const 7
-    (;424:2;)            call 56  (*github.com/iotaledger/wart/wasp.ScMutableMap).GetInt
-    (;425:2;)            local.tee 2
-    (;426:0;)            i32.store
-    (;427:1;)            local.get 2
-    (;428:2;)            i64.const 6
-    (;429:0;)            call 58  (*github.com/iotaledger/wart/wasp.ScMutableInt).SetValue
-    (;430:1;)            local.get 0
-    (;431:2;)            i32.const 248
-    (;432:1;)            i32.add
-    (;433:2;)            local.get 3
-    (;434:3;)            i32.const 66940
-    (;435:4;)            i32.const 8
-    (;436:2;)            call 56  (*github.com/iotaledger/wart/wasp.ScMutableMap).GetInt
-    (;437:2;)            local.tee 3
-    (;438:0;)            i32.store
-    (;439:1;)            local.get 3
-    (;440:2;)            i64.const 120
-    (;441:3;)            local.get 6
-    (;442:4;)            local.get 6
-    (;443:5;)            i64.const 10
-    (;444:4;)            i64.lt_s
-    (;445:2;)            select
-    (;446:0;)            call 58  (*github.com/iotaledger/wart/wasp.ScMutableInt).SetValue
-    (;447:0;)          end
-    (;448:1;)          i32.const 0
-    (;449:2;)          local.get 1
-    (;450:0;)          i32.store offset=70832
-    (;451:1;)          local.get 0
-    (;452:2;)          i32.const 256
-    (;453:1;)          i32.add
-    (;454:0;)          global.set 0
-    (;455:0;)          return
-    (;456:0;)        end
-    (;457:1;)        i32.const 66885
-    (;458:2;)        i32.const 12
-    (;459:0;)        call 54  (*github.com/iotaledger/wart/wasp.ScContext).Log
-    (;460:1;)        i32.const 0
-    (;461:2;)        local.get 1
-    (;462:0;)        i32.store offset=70832
-    (;463:1;)        local.get 0
-    (;464:2;)        i32.const 256
-    (;465:1;)        i32.add
-    (;466:0;)        global.set 0
-    (;467:0;)        return
-    (;468:0;)      end
-    (;469:1;)      i32.const 66902
-    (;470:2;)      i32.const 11
-    (;471:0;)      call 54  (*github.com/iotaledger/wart/wasp.ScContext).Log
-    (;472:1;)      i32.const 0
-    (;473:2;)      local.get 1
-    (;474:0;)      i32.store offset=70832
-    (;475:1;)      local.get 0
-    (;476:2;)      i32.const 256
-    (;477:1;)      i32.add
-    (;478:0;)      global.set 0
-    (;479:0;)      return
-    (;480:0;)    end
-    (;481:1;)    i32.const 66913
-    (;482:2;)    i32.const 16
-    (;483:0;)    call 54  (*github.com/iotaledger/wart/wasp.ScContext).Log
-    (;484:1;)    i32.const 0
-    (;485:2;)    local.get 1
-    (;486:0;)    i32.store offset=70832
-    (;487:1;)    local.get 0
-    (;488:2;)    i32.const 256
-    (;489:1;)    i32.add
-    (;490:0;)    global.set 0
-    (;491:0;)  end
+    (;246:2;)          local.get 0
+    (;247:2;)          i32.load offset=92
+    (;248:2;)          local.tee 8
+    (;249:0;)          i32.store
+    (;250:1;)          local.get 0
+    (;251:2;)          local.get 4
+    (;252:0;)          i64.store offset=192
+    (;253:1;)          local.get 0
+    (;254:2;)          local.get 5
+    (;255:0;)          i64.store offset=184
+    (;256:1;)          local.get 0
+    (;257:2;)          local.get 7
+    (;258:0;)          i32.store offset=172
+    (;259:1;)          local.get 0
+    (;260:2;)          local.get 6
+    (;261:0;)          i32.store offset=168
+    (;262:1;)          local.get 0
+    (;263:2;)          i32.const 0
+    (;264:0;)          i32.store offset=144
+    (;265:1;)          local.get 0
+    (;266:2;)          i32.const 248
+    (;267:1;)          i32.add
+    (;268:2;)          local.get 0
+    (;269:3;)          i32.const 144
+    (;270:2;)          i32.add
+    (;271:0;)          i32.store
+    (;272:1;)          local.get 0
+    (;273:2;)          local.get 3
+    (;274:0;)          i32.store offset=176
+    (;275:1;)          local.get 2
+    (;276:1;)          call 25  (github.com/iotaledger/wart/wasplib.ScContext).State
+    (;277:0;)          local.set 2
+    (;278:1;)          local.get 0
+    (;279:2;)          i32.const 0
+    (;280:0;)          i32.store offset=152
+    (;281:1;)          local.get 0
+    (;282:2;)          local.get 2
+    (;283:0;)          i32.store offset=144
+    (;284:1;)          local.get 0
+    (;285:2;)          i32.const 252
+    (;286:1;)          i32.add
+    (;287:2;)          local.get 0
+    (;288:3;)          i32.const 152
+    (;289:2;)          i32.add
+    (;290:0;)          i32.store
+    (;291:1;)          local.get 0
+    (;292:2;)          local.get 2
+    (;293:3;)          i32.const 67004
+    (;294:4;)          i32.const 4
+    (;295:2;)          call 39  (github.com/iotaledger/wart/wasplib.ScMutableMap).GetStringArray
+    (;296:2;)          local.tee 9
+    (;297:0;)          i32.store offset=152
+    (;298:1;)          local.get 9
+    (;299:1;)          call 44  (github.com/iotaledger/wart/wasplib.ScMutableStringArray).Length
+    (;300:0;)          local.set 10
+    (;301:1;)          local.get 0
+    (;302:2;)          i32.const 80
+    (;303:1;)          i32.add
+    (;304:2;)          local.get 6
+    (;305:3;)          local.get 7
+    (;306:4;)          i32.const 66712
+    (;307:5;)          i32.const 1
+    (;308:0;)          call 91  runtime.stringConcat
+    (;309:1;)          local.get 0
+    (;310:2;)          i32.const 260
+    (;311:1;)          i32.add
+    (;312:2;)          local.get 0
+    (;313:2;)          i32.load offset=80
+    (;314:2;)          local.tee 6
+    (;315:0;)          i32.store
+    (;316:1;)          local.get 0
+    (;317:2;)          i32.const 72
+    (;318:1;)          i32.add
+    (;319:2;)          local.get 6
+    (;320:3;)          local.get 0
+    (;321:3;)          i32.load offset=84
+    (;322:4;)          local.get 3
+    (;323:5;)          local.get 8
+    (;324:0;)          call 91  runtime.stringConcat
+    (;325:1;)          local.get 0
+    (;326:2;)          i32.const 268
+    (;327:1;)          i32.add
+    (;328:2;)          local.get 0
+    (;329:2;)          i32.load offset=72
+    (;330:2;)          local.tee 3
+    (;331:0;)          i32.store
+    (;332:1;)          local.get 0
+    (;333:2;)          i32.const 64
+    (;334:1;)          i32.add
+    (;335:2;)          local.get 3
+    (;336:3;)          local.get 0
+    (;337:3;)          i32.load offset=76
+    (;338:4;)          i32.const 66712
+    (;339:5;)          i32.const 1
+    (;340:0;)          call 91  runtime.stringConcat
+    (;341:1;)          local.get 0
+    (;342:2;)          i32.const 272
+    (;343:1;)          i32.add
+    (;344:2;)          local.get 0
+    (;345:2;)          i32.load offset=64
+    (;346:2;)          local.tee 3
+    (;347:0;)          i32.store
+    (;348:1;)          local.get 0
+    (;349:1;)          i32.load offset=68
+    (;350:0;)          local.set 6
+    (;351:1;)          local.get 0
+    (;352:2;)          i32.const 56
+    (;353:1;)          i32.add
+    (;354:2;)          local.get 5
+    (;355:0;)          call 76  strconv.FormatInt
+    (;356:1;)          local.get 0
+    (;357:2;)          i32.const 276
+    (;358:1;)          i32.add
+    (;359:2;)          local.get 0
+    (;360:2;)          i32.load offset=56
+    (;361:2;)          local.tee 7
+    (;362:0;)          i32.store
+    (;363:1;)          local.get 0
+    (;364:2;)          i32.const 48
+    (;365:1;)          i32.add
+    (;366:2;)          local.get 3
+    (;367:3;)          local.get 6
+    (;368:4;)          local.get 7
+    (;369:5;)          local.get 0
+    (;370:5;)          i32.load offset=60
+    (;371:0;)          call 91  runtime.stringConcat
+    (;372:1;)          local.get 0
+    (;373:2;)          i32.const 280
+    (;374:1;)          i32.add
+    (;375:2;)          local.get 0
+    (;376:2;)          i32.load offset=48
+    (;377:2;)          local.tee 3
+    (;378:0;)          i32.store
+    (;379:1;)          local.get 0
+    (;380:2;)          i32.const 40
+    (;381:1;)          i32.add
+    (;382:2;)          local.get 3
+    (;383:3;)          local.get 0
+    (;384:3;)          i32.load offset=52
+    (;385:4;)          i32.const 66712
+    (;386:5;)          i32.const 1
+    (;387:0;)          call 91  runtime.stringConcat
+    (;388:1;)          local.get 0
+    (;389:2;)          i32.const 284
+    (;390:1;)          i32.add
+    (;391:2;)          local.get 0
+    (;392:2;)          i32.load offset=40
+    (;393:2;)          local.tee 3
+    (;394:0;)          i32.store
+    (;395:1;)          local.get 0
+    (;396:1;)          i32.load offset=44
+    (;397:0;)          local.set 6
+    (;398:1;)          local.get 0
+    (;399:2;)          i32.const 32
+    (;400:1;)          i32.add
+    (;401:2;)          local.get 4
+    (;402:0;)          call 76  strconv.FormatInt
+    (;403:1;)          local.get 0
+    (;404:2;)          i32.const 288
+    (;405:1;)          i32.add
+    (;406:2;)          local.get 0
+    (;407:2;)          i32.load offset=32
+    (;408:2;)          local.tee 7
+    (;409:0;)          i32.store
+    (;410:1;)          local.get 0
+    (;411:2;)          i32.const 24
+    (;412:1;)          i32.add
+    (;413:2;)          local.get 3
+    (;414:3;)          local.get 6
+    (;415:4;)          local.get 7
+    (;416:5;)          local.get 0
+    (;417:5;)          i32.load offset=36
+    (;418:0;)          call 91  runtime.stringConcat
+    (;419:1;)          local.get 0
+    (;420:2;)          i32.const 296
+    (;421:1;)          i32.add
+    (;422:2;)          local.get 0
+    (;423:2;)          i32.load offset=24
+    (;424:2;)          local.tee 3
+    (;425:0;)          i32.store
+    (;426:1;)          local.get 0
+    (;427:2;)          i32.const 292
+    (;428:1;)          i32.add
+    (;429:2;)          local.get 3
+    (;430:0;)          i32.store
+    (;431:1;)          local.get 0
+    (;432:1;)          i32.load offset=28
+    (;433:0;)          local.set 6
+    (;434:1;)          local.get 0
+    (;435:2;)          i32.const 16
+    (;436:1;)          i32.add
+    (;437:2;)          local.get 9
+    (;438:3;)          local.get 10
+    (;439:0;)          call 43  (github.com/iotaledger/wart/wasplib.ScMutableStringArray).GetString
+    (;440:1;)          local.get 0
+    (;441:1;)          i32.load offset=16
+    (;442:2;)          local.get 0
+    (;443:2;)          i32.load offset=20
+    (;444:3;)          local.get 3
+    (;445:4;)          local.get 6
+    (;446:0;)          call 40  (github.com/iotaledger/wart/wasplib.ScMutableString).SetValue
+    (;447:1;)          local.get 10
+    (;448:1;)          i32.eqz
+    (;449:0;)          br_if 1
+    (;450:0;)          br 2
+    (;451:0;)        end
+    (;452:1;)        local.get 2
+    (;453:2;)        i32.const 66988
+    (;454:3;)        i32.const 16
+    (;455:0;)        call 23  (github.com/iotaledger/wart/wasplib.ScContext).Log
+    (;456:1;)        i32.const 0
+    (;457:2;)        local.get 1
+    (;458:0;)        i32.store offset=70816
+    (;459:1;)        local.get 0
+    (;460:2;)        i32.const 304
+    (;461:1;)        i32.add
+    (;462:0;)        global.set 0
+    (;463:0;)        return
+    (;464:0;)      end
+    (;465:1;)      local.get 0
+    (;466:2;)      i32.const 8
+    (;467:1;)      i32.add
+    (;468:2;)      local.get 2
+    (;469:3;)      i32.const 67078
+    (;470:4;)      i32.const 10
+    (;471:0;)      call 31  (github.com/iotaledger/wart/wasplib.ScMutableMap).GetInt
+    (;472:1;)      local.get 0
+    (;473:1;)      i32.load offset=8
+    (;474:2;)      local.get 0
+    (;475:2;)      i32.load offset=12
+    (;476:1;)      call 38  (github.com/iotaledger/wart/wasplib.ScMutableInt).Value
+    (;477:0;)      local.set 5
+    (;478:1;)      local.get 0
+    (;479:2;)      i32.const 300
+    (;480:1;)      i32.add
+    (;481:2;)      local.get 0
+    (;482:3;)      i32.const 160
+    (;483:2;)      i32.add
+    (;484:0;)      i32.store
+    (;485:1;)      local.get 0
+    (;486:2;)      i32.const 0
+    (;487:0;)      i32.store offset=160
+    (;488:1;)      local.get 0
+    (;489:2;)      local.get 0
+    (;490:2;)      i32.load offset=128
+    (;491:2;)      call 20  (github.com/iotaledger/wart/wasplib.ScContext).Event
+    (;492:2;)      local.tee 2
+    (;493:0;)      i32.store offset=160
+    (;494:1;)      local.get 2
+    (;495:2;)      i64.const 6
+    (;496:0;)      call 30  (github.com/iotaledger/wart/wasplib.ScEvent).Code
+    (;497:1;)      local.get 2
+    (;498:2;)      i64.const 120
+    (;499:3;)      local.get 5
+    (;500:4;)      local.get 5
+    (;501:5;)      i64.const 10
+    (;502:4;)      i64.lt_s
+    (;503:2;)      select
+    (;504:0;)      call 33  (github.com/iotaledger/wart/wasplib.ScEvent).Delay
+    (;505:0;)    end
+    (;506:1;)    i32.const 0
+    (;507:2;)    local.get 1
+    (;508:0;)    i32.store offset=70816
+    (;509:1;)    local.get 0
+    (;510:2;)    i32.const 304
+    (;511:1;)    i32.add
+    (;512:0;)    global.set 0
+    (;513:0;)  end
   )
 
-  (func "(*github.com/iotaledger/wart/wasp.ScMutableMap).GetMap" (;83;) (type 5) (param (;0;) i32 (;1;) i32 (;2;) i32) (result i32)
-    (local (;3;) i32)
-    (local (;4;) i32)
-    (;0:1;)      global.get 0
-    (;1:2;)      i32.const 16
-    (;2:1;)      i32.sub
-    (;3:1;)      local.tee 3
-    (;4:0;)      global.set 0
-    (;5:1;)      local.get 3
-    (;6:2;)      i64.const 1
-    (;7:0;)      i64.store offset=4 align=2
-    (;8:1;)      i32.const 0
-    (;9:1;)      i32.load offset=70832
-    (;10:0;)     local.set 4
-    (;11:1;)     i32.const 0
-    (;12:2;)     local.get 3
-    (;13:0;)     i32.store offset=70832
-    (;14:1;)     local.get 3
-    (;15:2;)     local.get 4
-    (;16:0;)     i32.store
-    (;17:0;)     block
-    (;18:1;)       local.get 0
-    (;19:0;)       br_if 0
-    (;20:0;)       call 41  runtime.nilPanic
-    (;21:0;)       unreachable
-    (;22:0;)     end
-    (;23:1;)     local.get 0
-    (;24:1;)     i32.load
-    (;25:2;)     local.get 1
-    (;26:3;)     local.get 2
-    (;27:2;)     call 2  waspGo::hostGetKey
-    (;28:3;)     i32.const 2
-    (;29:1;)     call 6  waspGo::hostGetObject
-    (;30:0;)     local.set 1
-    (;31:1;)     i32.const 4
-    (;32:1;)     call 17  runtime.alloc
-    (;33:1;)     local.tee 0
-    (;34:2;)     local.get 1
-    (;35:0;)     i32.store
-    (;36:1;)     local.get 3
-    (;37:2;)     i32.const 8
-    (;38:1;)     i32.add
-    (;39:2;)     local.get 0
-    (;40:0;)     i32.store
-    (;41:1;)     i32.const 0
-    (;42:2;)     local.get 4
-    (;43:0;)     i32.store offset=70832
-    (;44:1;)     local.get 3
-    (;45:2;)     i32.const 16
-    (;46:1;)     i32.add
-    (;47:0;)     global.set 0
-    (;48:1;)     local.get 0
-    (;49:0;)   end
-  )
-
-  (func "playPeriod" (;84;) (type 6)
+  (func "playPeriod" (;94;) (type 6)
     (local (;0;) i32)
     (local (;1;) i32)
     (local (;2;) i32)
@@ -10590,193 +10467,198 @@
     (local (;8;) i32)
     (local (;9;) i64)
     (;0:1;)      global.get 0
-    (;1:2;)      i32.const 64
+    (;1:2;)      i32.const 96
     (;2:1;)      i32.sub
     (;3:1;)      local.tee 0
     (;4:0;)      global.set 0
     (;5:1;)      local.get 0
-    (;6:2;)      i32.const 0
-    (;7:0;)      i32.store offset=60
+    (;6:2;)      i64.const 0
+    (;7:0;)      i64.store offset=84 align=2
     (;8:1;)      local.get 0
     (;9:2;)      i64.const 0
-    (;10:0;)     i64.store offset=52 align=2
+    (;10:0;)     i64.store offset=76 align=2
     (;11:1;)     local.get 0
-    (;12:2;)     i64.const 0
-    (;13:0;)     i64.store offset=44 align=2
+    (;12:2;)     i32.const 5
+    (;13:0;)     i32.store offset=68
     (;14:1;)     local.get 0
-    (;15:2;)     i64.const 0
-    (;16:0;)     i64.store offset=36 align=2
-    (;17:1;)     local.get 0
-    (;18:2;)     i64.const 0
-    (;19:0;)     i64.store offset=28 align=2
-    (;20:1;)     local.get 0
-    (;21:2;)     i64.const 10
-    (;22:0;)     i64.store offset=20 align=2
-    (;23:1;)     i32.const 0
-    (;24:1;)     i32.load offset=70832
-    (;25:0;)     local.set 1
-    (;26:1;)     i32.const 0
-    (;27:2;)     local.get 0
-    (;28:3;)     i32.const 16
-    (;29:2;)     i32.add
-    (;30:0;)     i32.store offset=70832
-    (;31:1;)     local.get 0
-    (;32:2;)     local.get 1
-    (;33:0;)     i32.store offset=16
-    (;34:1;)     local.get 0
-    (;35:2;)     call 16  github.com/iotaledger/wart/wasp.NewScContext
-    (;36:2;)     local.tee 2
-    (;37:0;)     i32.store offset=24
-    (;38:1;)     i32.const 66948
-    (;39:2;)     i32.const 14
-    (;40:0;)     call 54  (*github.com/iotaledger/wart/wasp.ScContext).Log
+    (;15:2;)     i32.const 0
+    (;16:0;)     i32.store offset=48
+    (;17:1;)     i32.const 0
+    (;18:1;)     i32.load offset=70816
+    (;19:0;)     local.set 1
+    (;20:1;)     i32.const 0
+    (;21:2;)     local.get 0
+    (;22:3;)     i32.const 64
+    (;23:2;)     i32.add
+    (;24:0;)     i32.store offset=70816
+    (;25:1;)     local.get 0
+    (;26:2;)     local.get 1
+    (;27:0;)     i32.store offset=64
+    (;28:1;)     local.get 0
+    (;29:2;)     local.get 0
+    (;30:3;)     i32.const 48
+    (;31:2;)     i32.add
+    (;32:0;)     i32.store offset=72
+    (;33:1;)     local.get 0
+    (;34:2;)     call 16  github.com/iotaledger/wart/wasplib.NewScContext
+    (;35:2;)     local.tee 2
+    (;36:0;)     i32.store offset=48
+    (;37:1;)     local.get 2
+    (;38:2;)     i32.const 67008
+    (;39:3;)     i32.const 14
+    (;40:0;)     call 23  (github.com/iotaledger/wart/wasplib.ScContext).Log
     (;41:1;)     local.get 0
-    (;42:2;)     i32.const 8
+    (;42:2;)     i32.const 40
     (;43:1;)     i32.add
     (;44:2;)     local.get 2
-    (;45:0;)     call 67  (*github.com/iotaledger/wart/wasp.ScContext).Sender
-    (;46:1;)     local.get 0
-    (;47:2;)     local.get 0
-    (;48:2;)     i32.load offset=8
-    (;49:2;)     local.tee 3
-    (;50:0;)     i32.store offset=28
-    (;51:1;)     local.get 0
-    (;52:2;)     local.get 2
-    (;53:2;)     i32.load
-    (;54:2;)     local.tee 4
-    (;55:0;)     i32.store offset=32
-    (;56:1;)     local.get 0
-    (;57:1;)     i32.load offset=12
-    (;58:0;)     local.set 5
-    (;59:1;)     local.get 0
-    (;60:2;)     local.get 4
-    (;61:3;)     i32.const 67397
-    (;62:4;)     i32.const 5
-    (;63:2;)     call 80  (*github.com/iotaledger/wart/wasp.ScMutableMap).GetString
-    (;64:2;)     local.tee 4
-    (;65:0;)     i32.store offset=36
+    (;45:2;)     call 24  (github.com/iotaledger/wart/wasplib.ScContext).Request
+    (;46:0;)     call 45  (github.com/iotaledger/wart/wasplib.ScRequest).Address
+    (;47:1;)     local.get 0
+    (;48:2;)     local.get 0
+    (;49:2;)     i32.load offset=40
+    (;50:2;)     local.tee 3
+    (;51:0;)     i32.store offset=76
+    (;52:1;)     local.get 0
+    (;53:1;)     i32.load offset=44
+    (;54:0;)     local.set 4
+    (;55:1;)     local.get 2
+    (;56:1;)     call 17  (github.com/iotaledger/wart/wasplib.ScContext).Contract
+    (;57:0;)     local.set 5
+    (;58:1;)     local.get 0
+    (;59:2;)     local.get 0
+    (;60:3;)     i32.const 56
+    (;61:2;)     i32.add
+    (;62:0;)     i32.store offset=80
+    (;63:1;)     local.get 0
+    (;64:2;)     i32.const 0
+    (;65:0;)     i32.store offset=56
     (;66:1;)     local.get 0
-    (;67:2;)     local.get 4
-    (;68:0;)     call 72  (*github.com/iotaledger/wart/wasp.ScMutableString).Value
-    (;69:1;)     local.get 0
-    (;70:2;)     local.get 0
-    (;71:2;)     i32.load
-    (;72:2;)     local.tee 6
-    (;73:0;)     i32.store offset=44
-    (;74:1;)     local.get 0
-    (;75:2;)     local.get 6
-    (;76:0;)     i32.store offset=40
-    (;77:0;)     block
-    (;78:0;)       block
-    (;79:1;)         local.get 5
-    (;80:2;)         local.get 0
-    (;81:2;)         i32.load offset=4
-    (;82:1;)         i32.ne
-    (;83:0;)         br_if 0
-    (;84:1;)         i32.const 0
-    (;85:0;)         local.set 4
-    (;86:0;)         loop
-    (;87:1;)           local.get 4
-    (;88:2;)           local.get 5
-    (;89:1;)           i32.ge_s
-    (;90:0;)           br_if 2
-    (;91:1;)           local.get 6
-    (;92:2;)           local.get 4
-    (;93:1;)           i32.add
-    (;94:0;)           local.set 7
-    (;95:1;)           local.get 3
-    (;96:2;)           local.get 4
-    (;97:1;)           i32.add
-    (;98:0;)           local.set 8
-    (;99:1;)           local.get 4
-    (;100:2;)          i32.const 1
-    (;101:1;)          i32.add
-    (;102:0;)          local.set 4
-    (;103:1;)          local.get 8
-    (;104:1;)          i32.load8_u
-    (;105:2;)          local.get 7
-    (;106:2;)          i32.load8_u
-    (;107:1;)          i32.eq
-    (;108:0;)          br_if 0
-    (;109:0;)        end
-    (;110:0;)      end
-    (;111:1;)      i32.const 66976
-    (;112:2;)      i32.const 22
-    (;113:0;)      call 54  (*github.com/iotaledger/wart/wasp.ScContext).Log
-    (;114:1;)      i32.const 0
-    (;115:2;)      local.get 1
-    (;116:0;)      i32.store offset=70832
-    (;117:1;)      local.get 0
-    (;118:2;)      i32.const 64
-    (;119:1;)      i32.add
-    (;120:0;)      global.set 0
-    (;121:0;)      return
-    (;122:0;)    end
-    (;123:1;)    local.get 0
-    (;124:2;)    i32.const 48
-    (;125:1;)    i32.add
-    (;126:2;)    local.get 2
-    (;127:2;)    call 63  (*github.com/iotaledger/wart/wasp.ScContext).Params
-    (;128:2;)    local.tee 4
-    (;129:0;)    i32.store
-    (;130:1;)    local.get 0
-    (;131:2;)    i32.const 52
-    (;132:1;)    i32.add
-    (;133:2;)    local.get 4
-    (;134:3;)    i32.const 67030
-    (;135:4;)    i32.const 10
-    (;136:2;)    call 64  (*github.com/iotaledger/wart/wasp.ScImmutableMap).GetInt
-    (;137:2;)    local.tee 4
-    (;138:0;)    i32.store
-    (;139:0;)    block
-    (;140:1;)      local.get 4
-    (;141:1;)      call 65  (*github.com/iotaledger/wart/wasp.ScImmutableInt).Value
-    (;142:1;)      local.tee 9
-    (;143:2;)      i64.const 9
-    (;144:1;)      i64.gt_s
-    (;145:0;)      br_if 0
-    (;146:1;)      i32.const 67008
-    (;147:2;)      i32.const 22
-    (;148:0;)      call 54  (*github.com/iotaledger/wart/wasp.ScContext).Log
-    (;149:1;)      i32.const 0
-    (;150:2;)      local.get 1
-    (;151:0;)      i32.store offset=70832
-    (;152:1;)      local.get 0
-    (;153:2;)      i32.const 64
-    (;154:1;)      i32.add
-    (;155:0;)      global.set 0
-    (;156:0;)      return
-    (;157:0;)    end
-    (;158:1;)    local.get 0
-    (;159:2;)    i32.const 56
-    (;160:1;)    i32.add
-    (;161:2;)    local.get 2
-    (;162:2;)    call 55  (*github.com/iotaledger/wart/wasp.ScContext).State
-    (;163:2;)    local.tee 4
-    (;164:0;)    i32.store
-    (;165:1;)    local.get 0
-    (;166:2;)    i32.const 60
-    (;167:1;)    i32.add
-    (;168:2;)    local.get 4
-    (;169:3;)    i32.const 67030
-    (;170:4;)    i32.const 10
-    (;171:2;)    call 56  (*github.com/iotaledger/wart/wasp.ScMutableMap).GetInt
-    (;172:2;)    local.tee 4
-    (;173:0;)    i32.store
-    (;174:1;)    local.get 4
-    (;175:2;)    local.get 9
-    (;176:0;)    call 58  (*github.com/iotaledger/wart/wasp.ScMutableInt).SetValue
-    (;177:1;)    i32.const 0
-    (;178:2;)    local.get 1
-    (;179:0;)    i32.store offset=70832
-    (;180:1;)    local.get 0
-    (;181:2;)    i32.const 64
-    (;182:1;)    i32.add
-    (;183:0;)    global.set 0
-    (;184:0;)  end
+    (;67:2;)     i32.const 32
+    (;68:1;)     i32.add
+    (;69:2;)     local.get 5
+    (;70:3;)     i32.const 65591
+    (;71:4;)     i32.const 5
+    (;72:0;)     call 28  (github.com/iotaledger/wart/wasplib.ScImmutableMap).GetString
+    (;73:1;)     local.get 0
+    (;74:2;)     i32.const 24
+    (;75:1;)     i32.add
+    (;76:2;)     local.get 0
+    (;77:2;)     i32.load offset=32
+    (;78:3;)     local.get 0
+    (;79:3;)     i32.load offset=36
+    (;80:0;)     call 29  (github.com/iotaledger/wart/wasplib.ScImmutableString).Value
+    (;81:1;)     local.get 0
+    (;82:2;)     local.get 0
+    (;83:2;)     i32.load offset=24
+    (;84:2;)     local.tee 6
+    (;85:0;)     i32.store offset=88
+    (;86:1;)     local.get 0
+    (;87:2;)     local.get 6
+    (;88:0;)     i32.store offset=84
+    (;89:0;)     block
+    (;90:0;)       block
+    (;91:1;)         local.get 4
+    (;92:2;)         local.get 0
+    (;93:2;)         i32.load offset=28
+    (;94:1;)         i32.ne
+    (;95:0;)         br_if 0
+    (;96:1;)         i32.const 0
+    (;97:0;)         local.set 5
+    (;98:0;)         loop
+    (;99:1;)           local.get 5
+    (;100:2;)          local.get 4
+    (;101:1;)          i32.ge_s
+    (;102:0;)          br_if 2
+    (;103:1;)          local.get 6
+    (;104:2;)          local.get 5
+    (;105:1;)          i32.add
+    (;106:0;)          local.set 7
+    (;107:1;)          local.get 3
+    (;108:2;)          local.get 5
+    (;109:1;)          i32.add
+    (;110:0;)          local.set 8
+    (;111:1;)          local.get 5
+    (;112:2;)          i32.const 1
+    (;113:1;)          i32.add
+    (;114:0;)          local.set 5
+    (;115:1;)          local.get 8
+    (;116:1;)          i32.load8_u
+    (;117:2;)          local.get 7
+    (;118:2;)          i32.load8_u
+    (;119:1;)          i32.eq
+    (;120:0;)          br_if 0
+    (;121:0;)        end
+    (;122:0;)      end
+    (;123:1;)      local.get 2
+    (;124:2;)      i32.const 67024
+    (;125:3;)      i32.const 22
+    (;126:0;)      call 23  (github.com/iotaledger/wart/wasplib.ScContext).Log
+    (;127:1;)      i32.const 0
+    (;128:2;)      local.get 1
+    (;129:0;)      i32.store offset=70816
+    (;130:1;)      local.get 0
+    (;131:2;)      i32.const 96
+    (;132:1;)      i32.add
+    (;133:0;)      global.set 0
+    (;134:0;)      return
+    (;135:0;)    end
+    (;136:1;)    local.get 0
+    (;137:2;)    i32.const 16
+    (;138:1;)    i32.add
+    (;139:2;)    local.get 2
+    (;140:2;)    call 24  (github.com/iotaledger/wart/wasplib.ScContext).Request
+    (;141:2;)    call 46  (github.com/iotaledger/wart/wasplib.ScRequest).Params
+    (;142:3;)    i32.const 67078
+    (;143:4;)    i32.const 10
+    (;144:0;)    call 35  (github.com/iotaledger/wart/wasplib.ScImmutableMap).GetInt
+    (;145:0;)    block
+    (;146:1;)      local.get 0
+    (;147:1;)      i32.load offset=16
+    (;148:2;)      local.get 0
+    (;149:2;)      i32.load offset=20
+    (;150:1;)      call 34  (github.com/iotaledger/wart/wasplib.ScImmutableInt).Value
+    (;151:1;)      local.tee 9
+    (;152:2;)      i64.const 9
+    (;153:1;)      i64.gt_s
+    (;154:0;)      br_if 0
+    (;155:1;)      local.get 2
+    (;156:2;)      i32.const 67056
+    (;157:3;)      i32.const 22
+    (;158:0;)      call 23  (github.com/iotaledger/wart/wasplib.ScContext).Log
+    (;159:1;)      i32.const 0
+    (;160:2;)      local.get 1
+    (;161:0;)      i32.store offset=70816
+    (;162:1;)      local.get 0
+    (;163:2;)      i32.const 96
+    (;164:1;)      i32.add
+    (;165:0;)      global.set 0
+    (;166:0;)      return
+    (;167:0;)    end
+    (;168:1;)    local.get 0
+    (;169:2;)    i32.const 8
+    (;170:1;)    i32.add
+    (;171:2;)    local.get 2
+    (;172:2;)    call 25  (github.com/iotaledger/wart/wasplib.ScContext).State
+    (;173:3;)    i32.const 67078
+    (;174:4;)    i32.const 10
+    (;175:0;)    call 31  (github.com/iotaledger/wart/wasplib.ScMutableMap).GetInt
+    (;176:1;)    local.get 0
+    (;177:1;)    i32.load offset=8
+    (;178:2;)    local.get 0
+    (;179:2;)    i32.load offset=12
+    (;180:3;)    local.get 9
+    (;181:0;)    call 32  (github.com/iotaledger/wart/wasplib.ScMutableInt).SetValue
+    (;182:1;)    i32.const 0
+    (;183:2;)    local.get 1
+    (;184:0;)    i32.store offset=70816
+    (;185:1;)    local.get 0
+    (;186:2;)    i32.const 96
+    (;187:1;)    i32.add
+    (;188:0;)    global.set 0
+    (;189:0;)  end
   )
 
-  (func "test" (;85;) (type 6)
+  (func "test" (;95;) (type 6)
     (local (;0;) i32)
     (local (;1;) i32)
     (local (;2;) i32)
@@ -10790,43 +10672,43 @@
     (;6:2;)      i64.const 1
     (;7:0;)      i64.store offset=20 align=2
     (;8:1;)      i32.const 0
-    (;9:1;)      i32.load offset=70832
+    (;9:1;)      i32.load offset=70816
     (;10:0;)     local.set 1
     (;11:1;)     i32.const 0
     (;12:2;)     local.get 0
     (;13:3;)     i32.const 16
     (;14:2;)     i32.add
-    (;15:0;)     i32.store offset=70832
+    (;15:0;)     i32.store offset=70816
     (;16:1;)     local.get 0
     (;17:2;)     local.get 1
     (;18:0;)     i32.store offset=16
     (;19:1;)     i32.const 1
-    (;20:2;)     i32.const 67040
+    (;20:2;)     i32.const 67088
     (;21:3;)     i32.const 9
     (;22:2;)     call 2  waspGo::hostGetKey
     (;23:2;)     local.tee 2
     (;24:3;)     i64.const 123456789
-    (;25:0;)     call 18  github.com/iotaledger/wart/wasp.SetInt
+    (;25:0;)     call 37  github.com/iotaledger/wart/wasplib.SetInt
     (;26:1;)     i32.const 1
     (;27:2;)     local.get 2
     (;28:3;)     i32.const 1
     (;29:4;)     local.get 2
-    (;30:3;)     call 11  github.com/iotaledger/wart/wasp.GetInt
-    (;31:0;)     call 18  github.com/iotaledger/wart/wasp.SetInt
+    (;30:3;)     call 11  github.com/iotaledger/wart/wasplib.GetInt
+    (;31:0;)     call 37  github.com/iotaledger/wart/wasplib.SetInt
     (;32:1;)     i32.const 1
-    (;33:2;)     i32.const 67049
+    (;33:2;)     i32.const 67097
     (;34:3;)     i32.const 6
     (;35:2;)     call 2  waspGo::hostGetKey
     (;36:2;)     local.tee 2
-    (;37:3;)     i32.const 67055
+    (;37:3;)     i32.const 67103
     (;38:4;)     i32.const 4
-    (;39:0;)     call 4  waspGo::hostSetString
+    (;39:0;)     call 3  waspGo::hostSetString
     (;40:1;)     local.get 0
     (;41:2;)     i32.const 8
     (;42:1;)     i32.add
     (;43:2;)     i32.const 1
     (;44:3;)     local.get 2
-    (;45:0;)     call 12  github.com/iotaledger/wart/wasp.GetString
+    (;45:0;)     call 12  github.com/iotaledger/wart/wasplib.GetString
     (;46:1;)     local.get 0
     (;47:2;)     local.get 0
     (;48:2;)     i32.load offset=8
@@ -10837,10 +10719,10 @@
     (;53:3;)     local.get 3
     (;54:4;)     local.get 0
     (;55:4;)     i32.load offset=12
-    (;56:0;)     call 4  waspGo::hostSetString
+    (;56:0;)     call 3  waspGo::hostSetString
     (;57:1;)     i32.const 0
     (;58:2;)     local.get 1
-    (;59:0;)     i32.store offset=70832
+    (;59:0;)     i32.store offset=70816
     (;60:1;)     local.get 0
     (;61:2;)     i32.const 32
     (;62:1;)     i32.add
@@ -10848,43 +10730,28 @@
     (;64:0;)   end
   )
 
-  (func "tokenMint" (;86;) (type 6)
+  (func "tokenMint" (;96;) (type 6)
     (local (;0;) i32)
-    (local (;1;) i32)
     (;0:1;)      global.get 0
     (;1:2;)      i32.const 16
     (;2:1;)      i32.sub
     (;3:1;)      local.tee 0
     (;4:0;)      global.set 0
     (;5:1;)      local.get 0
-    (;6:2;)      i64.const 1
-    (;7:0;)      i64.store offset=4 align=2
-    (;8:1;)      i32.const 0
-    (;9:1;)      i32.load offset=70832
-    (;10:0;)     local.set 1
-    (;11:1;)     i32.const 0
-    (;12:2;)     local.get 0
-    (;13:0;)     i32.store offset=70832
-    (;14:1;)     local.get 0
-    (;15:2;)     local.get 1
-    (;16:0;)     i32.store
-    (;17:1;)     local.get 0
-    (;18:2;)     call 16  github.com/iotaledger/wart/wasp.NewScContext
-    (;19:0;)     i32.store offset=8
-    (;20:1;)     i32.const 67059
-    (;21:2;)     i32.const 13
-    (;22:0;)     call 54  (*github.com/iotaledger/wart/wasp.ScContext).Log
-    (;23:1;)     i32.const 0
-    (;24:2;)     local.get 1
-    (;25:0;)     i32.store offset=70832
-    (;26:1;)     local.get 0
-    (;27:2;)     i32.const 16
-    (;28:1;)     i32.add
-    (;29:0;)     global.set 0
-    (;30:0;)   end
+    (;6:2;)      i32.const 0
+    (;7:0;)      i32.store offset=8
+    (;8:1;)      call 16  github.com/iotaledger/wart/wasplib.NewScContext
+    (;9:2;)      i32.const 67107
+    (;10:3;)     i32.const 13
+    (;11:0;)     call 23  (github.com/iotaledger/wart/wasplib.ScContext).Log
+    (;12:1;)     local.get 0
+    (;13:2;)     i32.const 16
+    (;14:1;)     i32.add
+    (;15:0;)     global.set 0
+    (;16:0;)   end
   )
 
-  (func "runtime.printstring" (;87;) (type 12) (param (;0;) i32 (;1;) i32)
+  (func "runtime.printstring" (;97;) (type 11) (param (;0;) i32 (;1;) i32)
     (local (;2;) i32)
     (;0:1;)      i32.const 0
     (;1:0;)      local.set 2
@@ -10898,7 +10765,7 @@
     (;9:2;)          local.get 2
     (;10:1;)         i32.add
     (;11:1;)         i32.load8_u
-    (;12:0;)         call 101  runtime.putchar
+    (;12:0;)         call 111  runtime.putchar
     (;13:1;)         local.get 2
     (;14:2;)         i32.const 1
     (;15:1;)         i32.add
@@ -10909,7 +10776,7 @@
     (;20:0;)   end
   )
 
-  (func "runtime.printitf" (;88;) (type 12) (param (;0;) i32 (;1;) i32)
+  (func "runtime.printitf" (;98;) (type 11) (param (;0;) i32 (;1;) i32)
     (local (;2;) i32)
     (local (;3;) i32)
     (local (;4;) i32)
@@ -10933,13 +10800,13 @@
     (;12:2;)     i64.const 5
     (;13:0;)     i64.store offset=36 align=2
     (;14:1;)     i32.const 0
-    (;15:1;)     i32.load offset=70832
+    (;15:1;)     i32.load offset=70816
     (;16:0;)     local.set 3
     (;17:1;)     i32.const 0
     (;18:2;)     local.get 2
     (;19:3;)     i32.const 32
     (;20:2;)     i32.add
-    (;21:0;)     i32.store offset=70832
+    (;21:0;)     i32.store offset=70816
     (;22:1;)     local.get 2
     (;23:2;)     local.get 3
     (;24:0;)     i32.store offset=32
@@ -10977,14 +10844,14 @@
     (;56:1;)                                         i32.and
     (;57:1;)                                         i32.eqz
     (;58:0;)                                         br_if 0
-    (;59:1;)                                         i32.const 67191
+    (;59:1;)                                         i32.const 67239
     (;60:2;)                                         i32.const 4
-    (;61:0;)                                         call 87  runtime.printstring
+    (;61:0;)                                         call 97  runtime.printstring
     (;62:0;)                                         br 17
     (;63:0;)                                       end
-    (;64:1;)                                       i32.const 67195
+    (;64:1;)                                       i32.const 67243
     (;65:2;)                                       i32.const 5
-    (;66:0;)                                       call 87  runtime.printstring
+    (;66:0;)                                       call 97  runtime.printstring
     (;67:0;)                                       br 16
     (;68:0;)                                     end
     (;69:1;)                                     local.get 1
@@ -10992,7 +10859,7 @@
     (;71:1;)                                     i32.shl
     (;72:2;)                                     i32.const 24
     (;73:1;)                                     i32.shr_s
-    (;74:0;)                                     call 102  runtime.printint32
+    (;74:0;)                                     call 112  runtime.printint32
     (;75:0;)                                     br 15
     (;76:0;)                                   end
     (;77:1;)                                   local.get 1
@@ -11000,11 +10867,11 @@
     (;79:1;)                                   i32.shl
     (;80:2;)                                   i32.const 16
     (;81:1;)                                   i32.shr_s
-    (;82:0;)                                   call 102  runtime.printint32
+    (;82:0;)                                   call 112  runtime.printint32
     (;83:0;)                                   br 14
     (;84:0;)                                 end
     (;85:1;)                                 local.get 1
-    (;86:0;)                                 call 102  runtime.printint32
+    (;86:0;)                                 call 112  runtime.printint32
     (;87:0;)                                 br 13
     (;88:0;)                               end
     (;89:0;)                               block
@@ -11015,58 +10882,58 @@
     (;94:1;)                                 i64.gt_s
     (;95:0;)                                 br_if 0
     (;96:1;)                                 i32.const 45
-    (;97:0;)                                 call 101  runtime.putchar
+    (;97:0;)                                 call 111  runtime.putchar
     (;98:1;)                                 i64.const 0
     (;99:2;)                                 local.get 5
     (;100:1;)                                i64.sub
     (;101:0;)                                local.set 5
     (;102:0;)                              end
     (;103:1;)                              local.get 5
-    (;104:0;)                              call 103  runtime.printuint64
+    (;104:0;)                              call 113  runtime.printuint64
     (;105:0;)                              br 12
     (;106:0;)                            end
     (;107:1;)                            local.get 1
     (;108:1;)                            i64.extend_i32_u
-    (;109:0;)                            call 103  runtime.printuint64
+    (;109:0;)                            call 113  runtime.printuint64
     (;110:0;)                            br 11
     (;111:0;)                          end
     (;112:1;)                          local.get 1
     (;113:2;)                          i32.const 255
     (;114:1;)                          i32.and
     (;115:1;)                          i64.extend_i32_u
-    (;116:0;)                          call 103  runtime.printuint64
+    (;116:0;)                          call 113  runtime.printuint64
     (;117:0;)                          br 10
     (;118:0;)                        end
     (;119:1;)                        local.get 1
     (;120:2;)                        i32.const 65535
     (;121:1;)                        i32.and
     (;122:1;)                        i64.extend_i32_u
-    (;123:0;)                        call 103  runtime.printuint64
+    (;123:0;)                        call 113  runtime.printuint64
     (;124:0;)                        br 9
     (;125:0;)                      end
     (;126:1;)                      local.get 1
     (;127:1;)                      i64.extend_i32_u
-    (;128:0;)                      call 103  runtime.printuint64
+    (;128:0;)                      call 113  runtime.printuint64
     (;129:0;)                      br 8
     (;130:0;)                    end
     (;131:1;)                    local.get 1
     (;132:1;)                    i64.load
-    (;133:0;)                    call 103  runtime.printuint64
+    (;133:0;)                    call 113  runtime.printuint64
     (;134:0;)                    br 7
     (;135:0;)                  end
     (;136:1;)                  local.get 1
-    (;137:0;)                  call 104  runtime.printptr
+    (;137:0;)                  call 114  runtime.printptr
     (;138:0;)                  br 6
     (;139:0;)                end
     (;140:1;)                local.get 1
     (;141:1;)                f32.reinterpret_i32
     (;142:1;)                f64.promote_f32
-    (;143:0;)                call 100  runtime.printfloat64
+    (;143:0;)                call 110  runtime.printfloat64
     (;144:0;)                br 5
     (;145:0;)              end
     (;146:1;)              local.get 1
     (;147:1;)              f64.load
-    (;148:0;)              call 100  runtime.printfloat64
+    (;148:0;)              call 110  runtime.printfloat64
     (;149:0;)              br 4
     (;150:0;)            end
     (;151:1;)            local.get 1
@@ -11076,16 +10943,16 @@
     (;155:1;)            f32.load
     (;156:0;)            local.set 7
     (;157:1;)            i32.const 40
-    (;158:0;)            call 101  runtime.putchar
+    (;158:0;)            call 111  runtime.putchar
     (;159:1;)            local.get 7
     (;160:1;)            f64.promote_f32
-    (;161:0;)            call 100  runtime.printfloat64
+    (;161:0;)            call 110  runtime.printfloat64
     (;162:1;)            local.get 6
     (;163:1;)            f64.promote_f32
-    (;164:0;)            call 100  runtime.printfloat64
-    (;165:1;)            i32.const 67200
+    (;164:0;)            call 110  runtime.printfloat64
+    (;165:1;)            i32.const 67248
     (;166:2;)            i32.const 2
-    (;167:0;)            call 87  runtime.printstring
+    (;167:0;)            call 97  runtime.printstring
     (;168:0;)            br 3
     (;169:0;)          end
     (;170:1;)          local.get 1
@@ -11095,21 +10962,21 @@
     (;174:1;)          f64.load
     (;175:0;)          local.set 9
     (;176:1;)          i32.const 40
-    (;177:0;)          call 101  runtime.putchar
+    (;177:0;)          call 111  runtime.putchar
     (;178:1;)          local.get 9
-    (;179:0;)          call 100  runtime.printfloat64
+    (;179:0;)          call 110  runtime.printfloat64
     (;180:1;)          local.get 8
-    (;181:0;)          call 100  runtime.printfloat64
-    (;182:1;)          i32.const 67200
+    (;181:0;)          call 110  runtime.printfloat64
+    (;182:1;)          i32.const 67248
     (;183:2;)          i32.const 2
-    (;184:0;)          call 87  runtime.printstring
+    (;184:0;)          call 97  runtime.printstring
     (;185:0;)          br 2
     (;186:0;)        end
     (;187:1;)        local.get 1
     (;188:1;)        i32.load
     (;189:2;)        local.get 1
     (;190:2;)        i32.load offset=4
-    (;191:0;)        call 87  runtime.printstring
+    (;191:0;)        call 97  runtime.printstring
     (;192:0;)        br 1
     (;193:0;)      end
     (;194:0;)      block
@@ -11131,7 +10998,7 @@
     (;210:1;)        i32.add
     (;211:2;)        local.get 1
     (;212:3;)        local.get 0
-    (;213:0;)        call 105  (error).Error
+    (;213:0;)        call 115  (error).Error
     (;214:1;)        local.get 2
     (;215:2;)        i32.const 40
     (;216:1;)        i32.add
@@ -11142,7 +11009,7 @@
     (;221:1;)        local.get 1
     (;222:2;)        local.get 2
     (;223:2;)        i32.load offset=12
-    (;224:0;)        call 87  runtime.printstring
+    (;224:0;)        call 97  runtime.printstring
     (;225:0;)        br 1
     (;226:0;)      end
     (;227:1;)      local.get 2
@@ -11186,20 +11053,20 @@
     (;265:2;)      i32.add
     (;266:0;)      i32.store
     (;267:1;)      i32.const 40
-    (;268:0;)      call 101  runtime.putchar
+    (;268:0;)      call 111  runtime.putchar
     (;269:1;)      local.get 0
     (;270:1;)      i64.extend_i32_u
-    (;271:0;)      call 103  runtime.printuint64
+    (;271:0;)      call 113  runtime.printuint64
     (;272:1;)      i32.const 58
-    (;273:0;)      call 101  runtime.putchar
+    (;273:0;)      call 111  runtime.putchar
     (;274:1;)      local.get 1
-    (;275:0;)      call 104  runtime.printptr
+    (;275:0;)      call 114  runtime.printptr
     (;276:1;)      i32.const 41
-    (;277:0;)      call 101  runtime.putchar
+    (;277:0;)      call 111  runtime.putchar
     (;278:0;)    end
     (;279:1;)    i32.const 0
     (;280:2;)    local.get 3
-    (;281:0;)    i32.store offset=70832
+    (;281:0;)    i32.store offset=70816
     (;282:1;)    local.get 2
     (;283:2;)    i32.const 64
     (;284:1;)    i32.add
@@ -11207,15 +11074,15 @@
     (;286:0;)  end
   )
 
-  (func "runtime.printnl" (;89;) (type 6)
+  (func "runtime.printnl" (;99;) (type 6)
     (;0:1;)      i32.const 13
-    (;1:0;)      call 101  runtime.putchar
+    (;1:0;)      call 111  runtime.putchar
     (;2:1;)      i32.const 10
-    (;3:0;)      call 101  runtime.putchar
+    (;3:0;)      call 111  runtime.putchar
     (;4:0;)    end
   )
 
-  (func "_start" (;90;) (type 6)
+  (func "_start" (;100;) (type 6)
     (local (;0;) i32)
     (local (;1;) i32)
     (local (;2;) i32)
@@ -11224,50 +11091,50 @@
     (;2:3;)      i32.const 16
     (;3:2;)      i32.shl
     (;4:2;)      local.tee 0
-    (;5:0;)      i32.store offset=70808
+    (;5:0;)      i32.store offset=70792
     (;6:1;)      i32.const 0
     (;7:2;)      local.get 0
-    (;8:3;)      i32.const 70837
+    (;8:3;)      i32.const 70821
     (;9:2;)      i32.sub
     (;10:3;)     i32.const 6
     (;11:2;)     i32.shr_u
     (;12:2;)     local.tee 1
-    (;13:3;)     i32.const 70852
+    (;13:3;)     i32.const 70836
     (;14:2;)     i32.add
     (;15:3;)     i32.const -16
     (;16:2;)     i32.and
     (;17:2;)     local.tee 2
-    (;18:0;)     i32.store offset=70824
+    (;18:0;)     i32.store offset=70808
     (;19:1;)     i32.const 0
     (;20:2;)     local.get 0
     (;21:3;)     local.get 2
     (;22:2;)     i32.sub
     (;23:3;)     i32.const 4
     (;24:2;)     i32.shr_u
-    (;25:0;)     i32.store offset=70820
-    (;26:1;)     i32.const 70837
+    (;25:0;)     i32.store offset=70804
+    (;26:1;)     i32.const 70821
     (;27:2;)     i32.const 0
     (;28:3;)     local.get 1
     (;29:1;)     call 9  memset
     (;30:0;)     drop
     (;31:1;)     i32.const 1637
-    (;32:1;)     call 23  (reflect.Type).Elem
+    (;32:1;)     call 53  (reflect.Type).Elem
     (;33:0;)     drop
     (;34:1;)     memory.size 0
     (;35:0;)     local.set 0
     (;36:1;)     i32.const 0
     (;37:2;)     i32.const 1
-    (;38:0;)     i32.store8 offset=70836
+    (;38:0;)     i32.store8 offset=70820
     (;39:1;)     i32.const 0
     (;40:2;)     local.get 0
     (;41:3;)     i32.const 16
     (;42:2;)     i32.shl
-    (;43:0;)     i32.store offset=70808
-    (;44:0;)     call 91  runtime.scheduler
+    (;43:0;)     i32.store offset=70792
+    (;44:0;)     call 101  runtime.scheduler
     (;45:0;)   end
   )
 
-  (func "runtime.scheduler" (;91;) (type 6)
+  (func "runtime.scheduler" (;101;) (type 6)
     (local (;0;) i32)
     (local (;1;) i32)
     (local (;2;) i32)
@@ -11291,13 +11158,13 @@
     (;12:2;)     i64.const 4
     (;13:0;)     i64.store offset=12 align=2
     (;14:1;)     i32.const 0
-    (;15:1;)     i32.load offset=70832
+    (;15:1;)     i32.load offset=70816
     (;16:0;)     local.set 1
     (;17:1;)     i32.const 0
     (;18:2;)     local.get 0
     (;19:3;)     i32.const 8
     (;20:2;)     i32.add
-    (;21:0;)     i32.store offset=70832
+    (;21:0;)     i32.store offset=70816
     (;22:1;)     local.get 0
     (;23:2;)     local.get 1
     (;24:0;)     i32.store offset=8
@@ -11320,11 +11187,11 @@
     (;41:0;)     block
     (;42:0;)       loop
     (;43:1;)         i32.const 0
-    (;44:1;)         i32.load8_u offset=70836
+    (;44:1;)         i32.load8_u offset=70820
     (;45:0;)         br_if 1
     (;46:1;)         local.get 2
     (;47:2;)         i32.const 0
-    (;48:2;)         i32.load offset=70792
+    (;48:2;)         i32.load offset=70776
     (;49:2;)         local.tee 6
     (;50:0;)         i32.store
     (;51:1;)         local.get 3
@@ -11337,7 +11204,7 @@
     (;58:2;)         local.get 6
     (;59:2;)         i32.load
     (;60:2;)         local.tee 7
-    (;61:0;)         i32.store offset=70792
+    (;61:0;)         i32.store offset=70776
     (;62:1;)         local.get 4
     (;63:2;)         local.get 7
     (;64:0;)         i32.store
@@ -11358,7 +11225,7 @@
     (;79:0;)     end
     (;80:1;)     i32.const 0
     (;81:2;)     local.get 1
-    (;82:0;)     i32.store offset=70832
+    (;82:0;)     i32.store offset=70816
     (;83:1;)     local.get 0
     (;84:2;)     i32.const 32
     (;85:1;)     i32.add
@@ -11366,17 +11233,17 @@
     (;87:0;)   end
   )
 
-  (func "runtime.markRoot" (;92;) (type 0) (param (;0;) i32)
+  (func "runtime.markRoot" (;102;) (type 0) (param (;0;) i32)
     (local (;1;) i32)
     (;0:0;)      block
     (;1:1;)        i32.const 0
-    (;2:1;)        i32.load offset=70824
+    (;2:1;)        i32.load offset=70808
     (;3:1;)        local.tee 1
     (;4:2;)        local.get 0
     (;5:1;)        i32.gt_u
     (;6:0;)        br_if 0
     (;7:1;)        i32.const 0
-    (;8:1;)        i32.load offset=70808
+    (;8:1;)        i32.load offset=70792
     (;9:2;)        local.get 0
     (;10:1;)       i32.le_u
     (;11:0;)       br_if 0
@@ -11386,31 +11253,31 @@
     (;15:2;)       i32.const 4
     (;16:1;)       i32.shr_u
     (;17:1;)       local.tee 0
-    (;18:1;)       call 93  (runtime.gcBlock).state
+    (;18:1;)       call 103  (runtime.gcBlock).state
     (;19:2;)       i32.const 255
     (;20:1;)       i32.and
     (;21:1;)       i32.eqz
     (;22:0;)       br_if 0
     (;23:1;)       local.get 0
-    (;24:1;)       call 98  (runtime.gcBlock).findHead
+    (;24:1;)       call 108  (runtime.gcBlock).findHead
     (;25:1;)       local.tee 0
-    (;26:1;)       call 93  (runtime.gcBlock).state
+    (;26:1;)       call 103  (runtime.gcBlock).state
     (;27:2;)       i32.const 255
     (;28:1;)       i32.and
     (;29:2;)       i32.const 3
     (;30:1;)       i32.eq
     (;31:0;)       br_if 0
     (;32:1;)       local.get 0
-    (;33:0;)       call 95  runtime.startMark
+    (;33:0;)       call 105  runtime.startMark
     (;34:0;)     end
     (;35:0;)   end
   )
 
-  (func "(runtime.gcBlock).state" (;93;) (type 10) (param (;0;) i32) (result i32)
+  (func "(runtime.gcBlock).state" (;103;) (type 10) (param (;0;) i32) (result i32)
     (;0:1;)      local.get 0
     (;1:2;)      i32.const 2
     (;2:1;)      i32.shr_u
-    (;3:2;)      i32.const 70837
+    (;3:2;)      i32.const 70821
     (;4:1;)      i32.add
     (;5:1;)      i32.load8_u
     (;6:2;)      local.get 0
@@ -11424,12 +11291,12 @@
     (;14:0;)   end
   )
 
-  (func "(runtime.gcBlock).markFree" (;94;) (type 0) (param (;0;) i32)
+  (func "(runtime.gcBlock).markFree" (;104;) (type 0) (param (;0;) i32)
     (local (;1;) i32)
     (;0:1;)      local.get 0
     (;1:2;)      i32.const 2
     (;2:1;)      i32.shr_u
-    (;3:2;)      i32.const 70837
+    (;3:2;)      i32.const 70821
     (;4:1;)      i32.add
     (;5:1;)      local.tee 1
     (;6:2;)      local.get 1
@@ -11448,7 +11315,7 @@
     (;19:0;)   end
   )
 
-  (func "runtime.startMark" (;95;) (type 0) (param (;0;) i32)
+  (func "runtime.startMark" (;105;) (type 0) (param (;0;) i32)
     (local (;1;) i32)
     (local (;2;) i32)
     (local (;3;) i32)
@@ -11470,7 +11337,7 @@
     (;11:0;)     i32.store
     (;12:1;)     local.get 0
     (;13:2;)     i32.const 3
-    (;14:0;)     call 97  (runtime.gcBlock).setState
+    (;14:0;)     call 107  (runtime.gcBlock).setState
     (;15:1;)     i32.const 1
     (;16:0;)     local.set 3
     (;17:0;)     block
@@ -11507,19 +11374,19 @@
     (;48:1;)         i32.shl
     (;49:0;)         local.set 0
     (;50:1;)         i32.const 0
-    (;51:1;)         i32.load offset=70824
+    (;51:1;)         i32.load offset=70808
     (;52:0;)         local.set 4
     (;53:0;)         block
     (;54:0;)           block
     (;55:1;)             local.get 1
-    (;56:1;)             call 93  (runtime.gcBlock).state
+    (;56:1;)             call 103  (runtime.gcBlock).state
     (;57:2;)             i32.const 255
     (;58:1;)             i32.and
     (;59:2;)             i32.const 1
     (;60:1;)             i32.eq
     (;61:0;)             br_if 0
     (;62:1;)             local.get 1
-    (;63:1;)             call 93  (runtime.gcBlock).state
+    (;63:1;)             call 103  (runtime.gcBlock).state
     (;64:2;)             i32.const 255
     (;65:1;)             i32.and
     (;66:2;)             i32.const 3
@@ -11553,7 +11420,7 @@
     (;94:1;)           i32.add
     (;95:0;)           local.set 5
     (;96:1;)           local.get 1
-    (;97:1;)           call 93  (runtime.gcBlock).state
+    (;97:1;)           call 103  (runtime.gcBlock).state
     (;98:0;)           local.set 7
     (;99:1;)           local.get 1
     (;100:2;)          i32.const 1
@@ -11567,7 +11434,7 @@
     (;108:0;)          br_if 0
     (;109:0;)        end
     (;110:1;)        i32.const 0
-    (;111:1;)        i32.load offset=70824
+    (;111:1;)        i32.load offset=70808
     (;112:2;)        local.get 6
     (;113:1;)        i32.add
     (;114:0;)        local.set 5
@@ -11581,12 +11448,12 @@
     (;122:1;)            i32.load
     (;123:1;)            local.tee 1
     (;124:2;)            i32.const 0
-    (;125:2;)            i32.load offset=70824
+    (;125:2;)            i32.load offset=70808
     (;126:2;)            local.tee 4
     (;127:1;)            i32.lt_u
     (;128:0;)            br_if 0
     (;129:1;)            i32.const 0
-    (;130:1;)            i32.load offset=70808
+    (;130:1;)            i32.load offset=70792
     (;131:2;)            local.get 1
     (;132:1;)            i32.le_u
     (;133:0;)            br_if 0
@@ -11596,15 +11463,15 @@
     (;137:2;)            i32.const 4
     (;138:1;)            i32.shr_u
     (;139:1;)            local.tee 1
-    (;140:1;)            call 93  (runtime.gcBlock).state
+    (;140:1;)            call 103  (runtime.gcBlock).state
     (;141:2;)            i32.const 255
     (;142:1;)            i32.and
     (;143:1;)            i32.eqz
     (;144:0;)            br_if 0
     (;145:1;)            local.get 1
-    (;146:1;)            call 98  (runtime.gcBlock).findHead
+    (;146:1;)            call 108  (runtime.gcBlock).findHead
     (;147:1;)            local.tee 1
-    (;148:1;)            call 93  (runtime.gcBlock).state
+    (;148:1;)            call 103  (runtime.gcBlock).state
     (;149:2;)            i32.const 255
     (;150:1;)            i32.and
     (;151:2;)            i32.const 3
@@ -11612,7 +11479,7 @@
     (;153:0;)            br_if 0
     (;154:1;)            local.get 1
     (;155:2;)            i32.const 3
-    (;156:0;)            call 97  (runtime.gcBlock).setState
+    (;156:0;)            call 107  (runtime.gcBlock).setState
     (;157:0;)            block
     (;158:1;)              local.get 3
     (;159:2;)              i32.const 16
@@ -11620,7 +11487,7 @@
     (;161:0;)              br_if 0
     (;162:1;)              i32.const 0
     (;163:2;)              i32.const 1
-    (;164:0;)              i32.store8 offset=70828
+    (;164:0;)              i32.store8 offset=70812
     (;165:1;)              i32.const 16
     (;166:0;)              local.set 3
     (;167:0;)              br 1
@@ -11649,30 +11516,30 @@
     (;190:0;)        end
     (;191:0;)      end
     (;192:0;)    end
-    (;193:0;)    call 46  runtime.lookupPanic
+    (;193:0;)    call 77  runtime.lookupPanic
     (;194:0;)    unreachable
     (;195:0;)  end
   )
 
-  (func "runtime.runtimePanic" (;96;) (type 12) (param (;0;) i32 (;1;) i32)
-    (;0:1;)      i32.const 67248
+  (func "runtime.runtimePanic" (;106;) (type 11) (param (;0;) i32 (;1;) i32)
+    (;0:1;)      i32.const 67296
     (;1:2;)      i32.const 22
-    (;2:0;)      call 87  runtime.printstring
+    (;2:0;)      call 97  runtime.printstring
     (;3:1;)      local.get 0
     (;4:2;)      local.get 1
-    (;5:0;)      call 87  runtime.printstring
-    (;6:0;)      call 89  runtime.printnl
+    (;5:0;)      call 97  runtime.printstring
+    (;6:0;)      call 99  runtime.printnl
     (;7:0;)      unreachable
     (;8:0;)      unreachable
     (;9:0;)    end
   )
 
-  (func "(runtime.gcBlock).setState" (;97;) (type 12) (param (;0;) i32 (;1;) i32)
+  (func "(runtime.gcBlock).setState" (;107;) (type 11) (param (;0;) i32 (;1;) i32)
     (local (;2;) i32)
     (;0:1;)      local.get 0
     (;1:2;)      i32.const 2
     (;2:1;)      i32.shr_u
-    (;3:2;)      i32.const 70837
+    (;3:2;)      i32.const 70821
     (;4:1;)      i32.add
     (;5:1;)      local.tee 2
     (;6:2;)      local.get 2
@@ -11689,12 +11556,12 @@
     (;17:0;)   end
   )
 
-  (func "(runtime.gcBlock).findHead" (;98;) (type 10) (param (;0;) i32) (result i32)
+  (func "(runtime.gcBlock).findHead" (;108;) (type 10) (param (;0;) i32) (result i32)
     (local (;1;) i32)
     (local (;2;) i32)
     (;0:0;)      loop
     (;1:1;)        local.get 0
-    (;2:1;)        call 93  (runtime.gcBlock).state
+    (;2:1;)        call 103  (runtime.gcBlock).state
     (;3:0;)        local.set 1
     (;4:1;)        local.get 0
     (;5:2;)        i32.const -1
@@ -11714,12 +11581,12 @@
     (;19:0;)   end
   )
 
-  (func "go_scheduler" (;99;) (type 6)
-    (;0:0;)      call 91  runtime.scheduler
+  (func "go_scheduler" (;109;) (type 6)
+    (;0:0;)      call 101  runtime.scheduler
     (;1:0;)    end
   )
 
-  (func "runtime.printfloat64" (;100;) (type 19) (param (;0;) f64)
+  (func "runtime.printfloat64" (;110;) (type 18) (param (;0;) f64)
     (local (;1;) i32)
     (local (;2;) i32)
     (local (;3;) f64)
@@ -11891,27 +11758,27 @@
     (;153:0;)                br 0
     (;154:0;)              end
     (;155:0;)            end
-    (;156:1;)            i32.const 67209
+    (;156:1;)            i32.const 67257
     (;157:2;)            i32.const 4
-    (;158:0;)            call 87  runtime.printstring
+    (;158:0;)            call 97  runtime.printstring
     (;159:1;)            local.get 1
     (;160:2;)            i32.const 32
     (;161:1;)            i32.add
     (;162:0;)            global.set 0
     (;163:0;)            return
     (;164:0;)          end
-    (;165:1;)          i32.const 67205
+    (;165:1;)          i32.const 67253
     (;166:2;)          i32.const 4
-    (;167:0;)          call 87  runtime.printstring
+    (;167:0;)          call 97  runtime.printstring
     (;168:1;)          local.get 1
     (;169:2;)          i32.const 32
     (;170:1;)          i32.add
     (;171:0;)          global.set 0
     (;172:0;)          return
     (;173:0;)        end
-    (;174:1;)        i32.const 67202
+    (;174:1;)        i32.const 67250
     (;175:2;)        i32.const 3
-    (;176:0;)        call 87  runtime.printstring
+    (;176:0;)        call 97  runtime.printstring
     (;177:1;)        local.get 1
     (;178:2;)        i32.const 32
     (;179:1;)        i32.add
@@ -12115,7 +11982,7 @@
     (;377:2;)      local.get 2
     (;378:1;)      i32.add
     (;379:1;)      i32.load8_u
-    (;380:0;)      call 101  runtime.putchar
+    (;380:0;)      call 111  runtime.putchar
     (;381:1;)      local.get 2
     (;382:2;)      i32.const 1
     (;383:1;)      i32.add
@@ -12125,7 +11992,7 @@
     (;387:0;)  end
   )
 
-  (func "runtime.putchar" (;101;) (type 0) (param (;0;) i32)
+  (func "runtime.putchar" (;111;) (type 0) (param (;0;) i32)
     (local (;1;) i32)
     (;0:1;)      global.get 0
     (;1:2;)      i32.const 16
@@ -12134,17 +12001,17 @@
     (;4:0;)      global.set 0
     (;5:1;)      i32.const 0
     (;6:2;)      local.get 0
-    (;7:0;)      i32.store8 offset=70829
+    (;7:0;)      i32.store8 offset=70813
     (;8:1;)      local.get 1
     (;9:2;)      i32.const 0
     (;10:0;)     i32.store offset=12
     (;11:1;)     i32.const 1
-    (;12:2;)     i32.const 70768
+    (;12:2;)     i32.const 70752
     (;13:3;)     i32.const 1
     (;14:4;)     local.get 1
     (;15:5;)     i32.const 12
     (;16:4;)     i32.add
-    (;17:1;)     call 5  wasi_unstable::fd_write
+    (;17:1;)     call 6  wasi_unstable::fd_write
     (;18:0;)     drop
     (;19:1;)     local.get 1
     (;20:2;)     i32.const 16
@@ -12153,14 +12020,14 @@
     (;23:0;)   end
   )
 
-  (func "runtime.printint32" (;102;) (type 0) (param (;0;) i32)
+  (func "runtime.printint32" (;112;) (type 0) (param (;0;) i32)
     (;0:0;)      block
     (;1:1;)        local.get 0
     (;2:2;)        i32.const -1
     (;3:1;)        i32.gt_s
     (;4:0;)        br_if 0
     (;5:1;)        i32.const 45
-    (;6:0;)        call 101  runtime.putchar
+    (;6:0;)        call 111  runtime.putchar
     (;7:1;)        i32.const 0
     (;8:2;)        local.get 0
     (;9:1;)        i32.sub
@@ -12168,11 +12035,11 @@
     (;11:0;)     end
     (;12:1;)     local.get 0
     (;13:1;)     i64.extend_i32_u
-    (;14:0;)     call 103  runtime.printuint64
+    (;14:0;)     call 113  runtime.printuint64
     (;15:0;)   end
   )
 
-  (func "runtime.printuint64" (;103;) (type 20) (param (;0;) i64)
+  (func "runtime.printuint64" (;113;) (type 19) (param (;0;) i64)
     (local (;1;) i32)
     (local (;2;) i32)
     (local (;3;) i32)
@@ -12218,7 +12085,7 @@
     (;37:2;)             local.get 2
     (;38:1;)             i32.add
     (;39:1;)             i32.load8_u
-    (;40:0;)             call 101  runtime.putchar
+    (;40:0;)             call 111  runtime.putchar
     (;41:1;)             local.get 2
     (;42:2;)             i32.const 1
     (;43:1;)             i32.add
@@ -12269,7 +12136,7 @@
     (;88:0;)   end
   )
 
-  (func "runtime.printptr" (;104;) (type 0) (param (;0;) i32)
+  (func "runtime.printptr" (;114;) (type 0) (param (;0;) i32)
     (local (;1;) i32)
     (local (;2;) i32)
     (;0:0;)      block
@@ -12277,9 +12144,9 @@
     (;2:1;)        i32.eqz
     (;3:0;)        br_if 0
     (;4:1;)        i32.const 48
-    (;5:0;)        call 101  runtime.putchar
+    (;5:0;)        call 111  runtime.putchar
     (;6:1;)        i32.const 120
-    (;7:0;)        call 101  runtime.putchar
+    (;7:0;)        call 111  runtime.putchar
     (;8:1;)        i32.const 8
     (;9:0;)        local.set 1
     (;10:0;)       block
@@ -12300,7 +12167,7 @@
     (;25:4;)           i32.const 10
     (;26:3;)           i32.lt_u
     (;27:1;)           select
-    (;28:0;)           call 101  runtime.putchar
+    (;28:0;)           call 111  runtime.putchar
     (;29:1;)           local.get 1
     (;30:2;)           i32.const -1
     (;31:1;)           i32.add
@@ -12314,13 +12181,13 @@
     (;39:0;)       end
     (;40:0;)       return
     (;41:0;)     end
-    (;42:1;)     i32.const 67213
+    (;42:1;)     i32.const 67261
     (;43:2;)     i32.const 3
-    (;44:0;)     call 87  runtime.printstring
+    (;44:0;)     call 97  runtime.printstring
     (;45:0;)   end
   )
 
-  (func "(error).Error" (;105;) (type 1) (param (;0;) i32 (;1;) i32 (;2;) i32)
+  (func "(error).Error" (;115;) (type 1) (param (;0;) i32 (;1;) i32 (;2;) i32)
     (local (;3;) i32)
     (local (;4;) i32)
     (local (;5;) i32)
@@ -12471,13 +12338,13 @@
     (;105:2;)    i64.const 0
     (;106:0;)    i64.store offset=752
     (;107:1;)    i32.const 0
-    (;108:1;)    i32.load offset=70832
+    (;108:1;)    i32.load offset=70816
     (;109:0;)    local.set 4
     (;110:1;)    i32.const 0
     (;111:2;)    local.get 3
     (;112:3;)    i32.const 496
     (;113:2;)    i32.add
-    (;114:0;)    i32.store offset=70832
+    (;114:0;)    i32.store offset=70816
     (;115:1;)    local.get 3
     (;116:2;)    local.get 4
     (;117:0;)    i32.store offset=496
@@ -12511,7 +12378,7 @@
     (;145:0;)              i32.store
     (;146:1;)              i32.const 0
     (;147:2;)              local.get 4
-    (;148:0;)              i32.store offset=70832
+    (;148:0;)              i32.store offset=70816
     (;149:1;)              local.get 0
     (;150:2;)              local.get 1
     (;151:2;)              i32.load offset=4
@@ -12538,12 +12405,12 @@
     (;172:1;)            local.get 3
     (;173:2;)            i32.const 8
     (;174:1;)            i32.add
-    (;175:2;)            i32.const 67312
+    (;175:2;)            i32.const 67360
     (;176:3;)            i32.const 30
     (;177:4;)            local.get 2
     (;178:5;)            local.get 1
     (;179:5;)            i32.load offset=4
-    (;180:0;)            call 78  runtime.stringConcat
+    (;180:0;)            call 91  runtime.stringConcat
     (;181:1;)            local.get 3
     (;182:2;)            i32.const 496
     (;183:1;)            i32.add
@@ -12557,12 +12424,12 @@
     (;191:2;)            local.get 2
     (;192:3;)            local.get 3
     (;193:3;)            i32.load offset=12
-    (;194:4;)            i32.const 67375
+    (;194:4;)            i32.const 67423
     (;195:5;)            i32.const 16
-    (;196:0;)            call 78  runtime.stringConcat
+    (;196:0;)            call 91  runtime.stringConcat
     (;197:1;)            i32.const 0
     (;198:2;)            local.get 4
-    (;199:0;)            i32.store offset=70832
+    (;199:0;)            i32.store offset=70816
     (;200:1;)            local.get 3
     (;201:2;)            i32.const 516
     (;202:1;)            i32.add
@@ -12596,12 +12463,12 @@
     (;230:1;)          local.get 3
     (;231:2;)          i32.const 24
     (;232:1;)          i32.add
-    (;233:2;)          i32.const 67344
+    (;233:2;)          i32.const 67392
     (;234:3;)          i32.const 31
     (;235:4;)          local.get 2
     (;236:5;)          local.get 1
     (;237:5;)          i32.load offset=4
-    (;238:0;)          call 78  runtime.stringConcat
+    (;238:0;)          call 91  runtime.stringConcat
     (;239:1;)          local.get 3
     (;240:2;)          i32.const 524
     (;241:1;)          i32.add
@@ -12615,12 +12482,12 @@
     (;249:2;)          local.get 2
     (;250:3;)          local.get 3
     (;251:3;)          i32.load offset=28
-    (;252:4;)          i32.const 67375
+    (;252:4;)          i32.const 67423
     (;253:5;)          i32.const 16
-    (;254:0;)          call 78  runtime.stringConcat
+    (;254:0;)          call 91  runtime.stringConcat
     (;255:1;)          i32.const 0
     (;256:2;)          local.get 4
-    (;257:0;)          i32.store offset=70832
+    (;257:0;)          i32.store offset=70816
     (;258:1;)          local.get 3
     (;259:2;)          i32.const 528
     (;260:1;)          i32.add
@@ -12654,12 +12521,12 @@
     (;288:1;)        local.get 3
     (;289:2;)        i32.const 440
     (;290:1;)        i32.add
-    (;291:2;)        i32.const 67462
+    (;291:2;)        i32.const 67439
     (;292:3;)        i32.const 8
     (;293:4;)        local.get 2
     (;294:5;)        local.get 1
     (;295:5;)        i32.load offset=4
-    (;296:0;)        call 78  runtime.stringConcat
+    (;296:0;)        call 91  runtime.stringConcat
     (;297:1;)        local.get 3
     (;298:2;)        i32.const 536
     (;299:1;)        i32.add
@@ -12673,9 +12540,9 @@
     (;307:2;)        local.get 2
     (;308:3;)        local.get 3
     (;309:3;)        i32.load offset=444
-    (;310:4;)        i32.const 67478
+    (;310:4;)        i32.const 67455
     (;311:5;)        i32.const 2
-    (;312:0;)        call 78  runtime.stringConcat
+    (;312:0;)        call 91  runtime.stringConcat
     (;313:1;)        local.get 3
     (;314:2;)        i32.const 540
     (;315:1;)        i32.add
@@ -12689,9 +12556,9 @@
     (;323:2;)        local.get 2
     (;324:3;)        local.get 3
     (;325:3;)        i32.load offset=436
-    (;326:4;)        i32.const 67470
+    (;326:4;)        i32.const 67447
     (;327:5;)        i32.const 8
-    (;328:0;)        call 78  runtime.stringConcat
+    (;328:0;)        call 91  runtime.stringConcat
     (;329:1;)        local.get 3
     (;330:2;)        i32.const 544
     (;331:1;)        i32.add
@@ -12727,7 +12594,7 @@
     (;361:2;)          i32.const 552
     (;362:1;)          i32.add
     (;363:2;)          local.get 2
-    (;364:2;)          call 17  runtime.alloc
+    (;364:2;)          call 59  runtime.alloc
     (;365:2;)          local.tee 8
     (;366:0;)          i32.store
     (;367:1;)          local.get 3
@@ -12778,7 +12645,7 @@
     (;412:2;)            i32.const 720
     (;413:1;)            i32.add
     (;414:2;)            local.get 2
-    (;415:2;)            call 17  runtime.alloc
+    (;415:2;)            call 59  runtime.alloc
     (;416:2;)            local.tee 8
     (;417:0;)            i32.store
     (;418:0;)          end
@@ -13070,7 +12937,7 @@
     (;704:4;)              local.get 2
     (;705:5;)              local.get 3
     (;706:5;)              i32.load offset=388
-    (;707:0;)              call 78  runtime.stringConcat
+    (;707:0;)              call 91  runtime.stringConcat
     (;708:1;)              local.get 3
     (;709:2;)              i32.const 748
     (;710:1;)              i32.add
@@ -13084,9 +12951,9 @@
     (;718:2;)              local.get 2
     (;719:3;)              local.get 3
     (;720:3;)              i32.load offset=380
-    (;721:4;)              i32.const 67478
+    (;721:4;)              i32.const 67455
     (;722:5;)              i32.const 2
-    (;723:0;)              call 78  runtime.stringConcat
+    (;723:0;)              call 91  runtime.stringConcat
     (;724:1;)              local.get 3
     (;725:2;)              i32.const 752
     (;726:1;)              i32.add
@@ -13110,7 +12977,7 @@
     (;744:2;)              local.get 8
     (;745:3;)              local.get 1
     (;746:3;)              i32.load offset=16
-    (;747:0;)              call 105  (error).Error
+    (;747:0;)              call 115  (error).Error
     (;748:1;)              local.get 3
     (;749:2;)              i32.const 760
     (;750:1;)              i32.add
@@ -13126,10 +12993,10 @@
     (;760:4;)              local.get 8
     (;761:5;)              local.get 3
     (;762:5;)              i32.load offset=364
-    (;763:0;)              call 78  runtime.stringConcat
+    (;763:0;)              call 91  runtime.stringConcat
     (;764:1;)              i32.const 0
     (;765:2;)              local.get 4
-    (;766:0;)              i32.store offset=70832
+    (;766:0;)              i32.store offset=70816
     (;767:1;)              local.get 3
     (;768:2;)              i32.const 764
     (;769:1;)              i32.add
@@ -13169,7 +13036,7 @@
     (;803:0;)                  br 1
     (;804:0;)                end
     (;805:1;)                local.get 42
-    (;806:2;)                i32.const 65552
+    (;806:2;)                i32.const 65648
     (;807:1;)                i32.add
     (;808:1;)                i32.load8_u
     (;809:0;)                local.set 8
@@ -13199,14 +13066,14 @@
     (;833:3;)                  i32.const 30
     (;834:2;)                  i32.and
     (;835:2;)                  local.tee 10
-    (;836:3;)                  i32.const 65809
+    (;836:3;)                  i32.const 65905
     (;837:2;)                  i32.add
     (;838:2;)                  i32.load8_u
     (;839:2;)                  local.tee 43
     (;840:0;)                  i32.store8 offset=489
     (;841:1;)                  local.get 3
     (;842:2;)                  local.get 10
-    (;843:3;)                  i32.const 65808
+    (;843:3;)                  i32.const 65904
     (;844:2;)                  i32.add
     (;845:2;)                  i32.load8_u
     (;846:2;)                  local.tee 10
@@ -13361,7 +13228,7 @@
     (;995:2;)                i32.const 64
     (;996:1;)                i32.add
     (;997:2;)                local.get 11
-    (;998:3;)                i32.const 66305
+    (;998:3;)                i32.const 66401
     (;999:4;)                local.get 13
     (;1000:5;)                local.get 12
     (;1001:6;)                i32.const 2
@@ -13382,7 +13249,7 @@
     (;1016:2;)                local.get 8
     (;1017:3;)                i32.const 4
     (;1018:2;)                i32.shr_u
-    (;1019:3;)                i32.const 66307
+    (;1019:3;)                i32.const 66403
     (;1020:2;)                i32.add
     (;1021:2;)                i32.load8_u
     (;1022:0;)                i32.store8 offset=456
@@ -13415,7 +13282,7 @@
     (;1049:2;)                local.get 8
     (;1050:3;)                i32.const 15
     (;1051:2;)                i32.and
-    (;1052:3;)                i32.const 66307
+    (;1052:3;)                i32.const 66403
     (;1053:2;)                i32.add
     (;1054:2;)                i32.load8_u
     (;1055:0;)                i32.store8 offset=452
@@ -13565,10 +13432,10 @@
     (;1199:2;)                                                    i32.const 65535
     (;1200:1;)                                                    i32.gt_s
     (;1201:0;)                                                    br_if 0
-    (;1202:1;)                                                    i32.const 67600
+    (;1202:1;)                                                    i32.const 67584
     (;1203:2;)                                                    i32.const 442
     (;1204:3;)                                                    local.get 42
-    (;1205:1;)                                                    call 52  strconv.bsearch16
+    (;1205:1;)                                                    call 83  strconv.bsearch16
     (;1206:1;)                                                    local.tee 2
     (;1207:2;)                                                    i32.const 441
     (;1208:1;)                                                    i32.gt_s
@@ -13583,7 +13450,7 @@
     (;1217:1;)                                                    local.get 8
     (;1218:2;)                                                    i32.const 1
     (;1219:1;)                                                    i32.shl
-    (;1220:2;)                                                    i32.const 67600
+    (;1220:2;)                                                    i32.const 67584
     (;1221:1;)                                                    i32.add
     (;1222:1;)                                                    i32.load16_u
     (;1223:2;)                                                    local.get 42
@@ -13602,16 +13469,16 @@
     (;1236:1;)                                                    local.get 2
     (;1237:2;)                                                    i32.const 1
     (;1238:1;)                                                    i32.shl
-    (;1239:2;)                                                    i32.const 67600
+    (;1239:2;)                                                    i32.const 67584
     (;1240:1;)                                                    i32.add
     (;1241:1;)                                                    i32.load16_u
     (;1242:2;)                                                    local.get 8
     (;1243:1;)                                                    i32.lt_u
     (;1244:0;)                                                    br_if 5
-    (;1245:1;)                                                    i32.const 68496
+    (;1245:1;)                                                    i32.const 68480
     (;1246:2;)                                                    i32.const 132
     (;1247:3;)                                                    local.get 42
-    (;1248:1;)                                                    call 52  strconv.bsearch16
+    (;1248:1;)                                                    call 83  strconv.bsearch16
     (;1249:1;)                                                    local.tee 2
     (;1250:2;)                                                    i32.const 131
     (;1251:1;)                                                    i32.gt_s
@@ -13623,7 +13490,7 @@
     (;1257:1;)                                                    local.get 2
     (;1258:2;)                                                    i32.const 1
     (;1259:1;)                                                    i32.shl
-    (;1260:2;)                                                    i32.const 68496
+    (;1260:2;)                                                    i32.const 68480
     (;1261:1;)                                                    i32.add
     (;1262:1;)                                                    i32.load16_u
     (;1263:2;)                                                    local.get 8
@@ -13659,7 +13526,7 @@
     (;1293:3;)                                                      local.get 10
     (;1294:4;)                                                      i32.const 2
     (;1295:3;)                                                      i32.shl
-    (;1296:4;)                                                      i32.const 68768
+    (;1296:4;)                                                      i32.const 68752
     (;1297:3;)                                                      i32.add
     (;1298:3;)                                                      i32.load
     (;1299:4;)                                                      local.get 42
@@ -13689,7 +13556,7 @@
     (;1323:1;)                                                  local.get 8
     (;1324:2;)                                                  i32.const 2
     (;1325:1;)                                                  i32.shl
-    (;1326:2;)                                                  i32.const 68768
+    (;1326:2;)                                                  i32.const 68752
     (;1327:1;)                                                  i32.add
     (;1328:1;)                                                  i32.load
     (;1329:2;)                                                  local.get 42
@@ -13705,7 +13572,7 @@
     (;1339:1;)                                                  local.get 2
     (;1340:2;)                                                  i32.const 2
     (;1341:1;)                                                  i32.shl
-    (;1342:2;)                                                  i32.const 68768
+    (;1342:2;)                                                  i32.const 68752
     (;1343:1;)                                                  i32.add
     (;1344:1;)                                                  i32.load
     (;1345:2;)                                                  local.get 42
@@ -13716,10 +13583,10 @@
     (;1350:1;)                                                  i32.gt_s
     (;1351:0;)                                                  br_if 1
     (;1352:0;)                                                  block
-    (;1353:1;)                                                    i32.const 70576
+    (;1353:1;)                                                    i32.const 70560
     (;1354:2;)                                                    i32.const 90
     (;1355:3;)                                                    local.get 42
-    (;1356:1;)                                                    call 52  strconv.bsearch16
+    (;1356:1;)                                                    call 83  strconv.bsearch16
     (;1357:1;)                                                    local.tee 2
     (;1358:2;)                                                    i32.const 89
     (;1359:1;)                                                    i32.gt_s
@@ -13731,7 +13598,7 @@
     (;1365:1;)                                                    local.get 2
     (;1366:2;)                                                    i32.const 1
     (;1367:1;)                                                    i32.shl
-    (;1368:2;)                                                    i32.const 70576
+    (;1368:2;)                                                    i32.const 70560
     (;1369:1;)                                                    i32.add
     (;1370:1;)                                                    i32.load16_u
     (;1371:2;)                                                    local.get 42
@@ -13901,7 +13768,7 @@
     (;1535:2;)                                    i32.const 160
     (;1536:1;)                                    i32.add
     (;1537:2;)                                    local.get 11
-    (;1538:3;)                                    i32.const 66305
+    (;1538:3;)                                    i32.const 66401
     (;1539:4;)                                    local.get 13
     (;1540:5;)                                    local.get 12
     (;1541:6;)                                    i32.const 2
@@ -13921,7 +13788,7 @@
     (;1555:2;)                                    i32.shr_u
     (;1556:3;)                                    i32.const 15
     (;1557:2;)                                    i32.and
-    (;1558:3;)                                    i32.const 66307
+    (;1558:3;)                                    i32.const 66403
     (;1559:2;)                                    i32.add
     (;1560:2;)                                    i32.load8_u
     (;1561:0;)                                    i32.store8 offset=476
@@ -13951,7 +13818,7 @@
     (;1585:2;)                                    local.get 42
     (;1586:3;)                                    i32.const 15
     (;1587:2;)                                    i32.and
-    (;1588:3;)                                    i32.const 66307
+    (;1588:3;)                                    i32.const 66403
     (;1589:2;)                                    i32.add
     (;1590:2;)                                    i32.load8_u
     (;1591:0;)                                    i32.store8 offset=472
@@ -14001,7 +13868,7 @@
     (;1635:2;)                                  i32.const 192
     (;1636:1;)                                  i32.add
     (;1637:2;)                                  local.get 11
-    (;1638:3;)                                  i32.const 66303
+    (;1638:3;)                                  i32.const 66399
     (;1639:4;)                                  local.get 13
     (;1640:5;)                                  local.get 12
     (;1641:6;)                                  i32.const 2
@@ -14042,7 +13909,7 @@
     (;1676:2;)                                    i32.shr_s
     (;1677:3;)                                    i32.const 15
     (;1678:2;)                                    i32.and
-    (;1679:3;)                                    i32.const 66307
+    (;1679:3;)                                    i32.const 66403
     (;1680:2;)                                    i32.add
     (;1681:2;)                                    i32.load8_u
     (;1682:0;)                                    i32.store8 offset=464
@@ -14080,7 +13947,7 @@
     (;1714:2;)                                i32.const 112
     (;1715:1;)                                i32.add
     (;1716:2;)                                local.get 11
-    (;1717:3;)                                i32.const 66301
+    (;1717:3;)                                i32.const 66397
     (;1718:4;)                                local.get 13
     (;1719:5;)                                local.get 12
     (;1720:6;)                                i32.const 2
@@ -14121,7 +13988,7 @@
     (;1755:2;)                                  i32.shr_s
     (;1756:3;)                                  i32.const 15
     (;1757:2;)                                  i32.and
-    (;1758:3;)                                  i32.const 66307
+    (;1758:3;)                                  i32.const 66403
     (;1759:2;)                                  i32.add
     (;1760:2;)                                  i32.load8_u
     (;1761:0;)                                  i32.store8 offset=468
@@ -14159,7 +14026,7 @@
     (;1793:2;)                              i32.const 304
     (;1794:1;)                              i32.add
     (;1795:2;)                              local.get 11
-    (;1796:3;)                              i32.const 66299
+    (;1796:3;)                              i32.const 66395
     (;1797:4;)                              local.get 13
     (;1798:5;)                              local.get 12
     (;1799:6;)                              i32.const 2
@@ -14182,7 +14049,7 @@
     (;1816:2;)                            i32.const 288
     (;1817:1;)                            i32.add
     (;1818:2;)                            local.get 11
-    (;1819:3;)                            i32.const 66297
+    (;1819:3;)                            i32.const 66393
     (;1820:4;)                            local.get 13
     (;1821:5;)                            local.get 12
     (;1822:6;)                            i32.const 2
@@ -14205,7 +14072,7 @@
     (;1839:2;)                          i32.const 272
     (;1840:1;)                          i32.add
     (;1841:2;)                          local.get 11
-    (;1842:3;)                          i32.const 66295
+    (;1842:3;)                          i32.const 66391
     (;1843:4;)                          local.get 13
     (;1844:5;)                          local.get 12
     (;1845:6;)                          i32.const 2
@@ -14228,7 +14095,7 @@
     (;1862:2;)                        i32.const 256
     (;1863:1;)                        i32.add
     (;1864:2;)                        local.get 11
-    (;1865:3;)                        i32.const 66293
+    (;1865:3;)                        i32.const 66389
     (;1866:4;)                        local.get 13
     (;1867:5;)                        local.get 12
     (;1868:6;)                        i32.const 2
@@ -14251,7 +14118,7 @@
     (;1885:2;)                      i32.const 240
     (;1886:1;)                      i32.add
     (;1887:2;)                      local.get 11
-    (;1888:3;)                      i32.const 66291
+    (;1888:3;)                      i32.const 66387
     (;1889:4;)                      local.get 13
     (;1890:5;)                      local.get 12
     (;1891:6;)                      i32.const 2
@@ -14274,7 +14141,7 @@
     (;1908:2;)                    i32.const 224
     (;1909:1;)                    i32.add
     (;1910:2;)                    local.get 11
-    (;1911:3;)                    i32.const 66289
+    (;1911:3;)                    i32.const 66385
     (;1912:4;)                    local.get 13
     (;1913:5;)                    local.get 12
     (;1914:6;)                    i32.const 2
@@ -14297,7 +14164,7 @@
     (;1931:2;)                  i32.const 208
     (;1932:1;)                  i32.add
     (;1933:2;)                  local.get 11
-    (;1934:3;)                  i32.const 66287
+    (;1934:3;)                  i32.const 66383
     (;1935:4;)                  local.get 13
     (;1936:5;)                  local.get 12
     (;1937:6;)                  i32.const 2
@@ -14341,95 +14208,40 @@
     (;1975:0;)            br 0
     (;1976:0;)          end
     (;1977:0;)        end
-    (;1978:0;)        call 81  runtime.slicePanic
+    (;1978:0;)        call 92  runtime.slicePanic
     (;1979:0;)        unreachable
     (;1980:0;)      end
-    (;1981:0;)      call 41  runtime.nilPanic
+    (;1981:0;)      call 72  runtime.nilPanic
     (;1982:0;)      unreachable
     (;1983:0;)    end
-    (;1984:0;)    call 46  runtime.lookupPanic
+    (;1984:0;)    call 77  runtime.lookupPanic
     (;1985:0;)    unreachable
     (;1986:0;)  end
   )
 
-  (func "resume" (;106;) (type 6)
-    (;0:0;)      call 107  runtime.resume$1
+  (func "resume" (;116;) (type 6)
+    (;0:0;)      call 117  runtime.resume$1
     (;1:0;)      unreachable
     (;2:0;)    end
   )
 
-  (func "runtime.resume$1" (;107;) (type 6)
-    (;0:0;)      call 41  runtime.nilPanic
+  (func "runtime.resume$1" (;117;) (type 6)
+    (;0:0;)      call 72  runtime.nilPanic
     (;1:0;)      unreachable
     (;2:0;)    end
   )
 
-  (func "(*github.com/iotaledger/wart/wasp.ScMutableMap).GetMapArray" (;108;) (type 5) (param (;0;) i32 (;1;) i32 (;2;) i32) (result i32)
-    (local (;3;) i32)
-    (local (;4;) i32)
-    (;0:1;)      global.get 0
-    (;1:2;)      i32.const 16
-    (;2:1;)      i32.sub
-    (;3:1;)      local.tee 3
-    (;4:0;)      global.set 0
-    (;5:1;)      local.get 3
-    (;6:2;)      i64.const 1
-    (;7:0;)      i64.store offset=4 align=2
-    (;8:1;)      i32.const 0
-    (;9:1;)      i32.load offset=70832
-    (;10:0;)     local.set 4
-    (;11:1;)     i32.const 0
-    (;12:2;)     local.get 3
-    (;13:0;)     i32.store offset=70832
-    (;14:1;)     local.get 3
-    (;15:2;)     local.get 4
-    (;16:0;)     i32.store
-    (;17:0;)     block
-    (;18:1;)       local.get 0
-    (;19:0;)       br_if 0
-    (;20:0;)       call 41  runtime.nilPanic
-    (;21:0;)       unreachable
-    (;22:0;)     end
-    (;23:1;)     local.get 0
-    (;24:1;)     i32.load
-    (;25:2;)     local.get 1
-    (;26:3;)     local.get 2
-    (;27:2;)     call 2  waspGo::hostGetKey
-    (;28:3;)     i32.const 3
-    (;29:1;)     call 6  waspGo::hostGetObject
-    (;30:0;)     local.set 1
-    (;31:1;)     i32.const 4
-    (;32:1;)     call 17  runtime.alloc
-    (;33:1;)     local.tee 0
-    (;34:2;)     local.get 1
-    (;35:0;)     i32.store
-    (;36:1;)     local.get 3
-    (;37:2;)     i32.const 8
-    (;38:1;)     i32.add
-    (;39:2;)     local.get 0
-    (;40:0;)     i32.store
-    (;41:1;)     i32.const 0
-    (;42:2;)     local.get 4
-    (;43:0;)     i32.store offset=70832
-    (;44:1;)     local.get 3
-    (;45:2;)     i32.const 16
-    (;46:1;)     i32.add
-    (;47:0;)     global.set 0
-    (;48:1;)     local.get 0
-    (;49:0;)   end
-  )
+  (data 0 (offset (i32.const 65536)) "dummylengthlogcontracteventsrandomrequeststatetransfersownercodedelaybalancehashparamsaddressamount\00\00\00\00\00\00\00\00\00\00\00\00\00\f0\f0\f0\f0\f0\f0\f0\f0\f0\f0\f0\f0\f0\f0\f0\f0\f0\f0\f0\f0\f0\f0\f0\f0\f0\f0\f0\f0\f0\f0\f0\f0\f0\f0\f0\f0\f0\f0\f0\f0\f0\f0\f0\f0\f0\f0\f0\f0\f0\f0\f0\f0\f0\f0\f0\f0\f0\f0\f0\f0\f0\f0\f0\f0\f0\f0\f0\f0\f0\f0\f0\f0\f0\f0\f0\f0\f0\f0\f0\f0\f0\f0\f0\f0\f0\f0\f0\f0\f0\f0\f0\f0\f0\f0\f0\f0\f0\f0\f0\f0\f0\f0\f0\f0\f0\f0\f0\f0\f0\f0\f0\f0\f0\f0\f0\f0\f0\f0\f0\f0\f0\f0\f0\f0\f0\f0\f0\f0\f1\f1\f1\f1\f1\f1\f1\f1\f1\f1\f1\f1\f1\f1\f1\f1\f1\f1\f1\f1\f1\f1\f1\f1\f1\f1\f1\f1\f1\f1\f1\f1\f1\f1\f1\f1\f1\f1\f1\f1\f1\f1\f1\f1\f1\f1\f1\f1\f1\f1\f1\f1\f1\f1\f1\f1\f1\f1\f1\f1\f1\f1\f1\f1\f1\f1\02\02\02\02\02\02\02\02\02\02\02\02\02\02\02\02\02\02\02\02\02\02\02\02\02\02\02\02\02\02\13\03\03\03\03\03\03\03\03\03\03\03\03#\03\034\04\04\04D\f1\f1\f1\f1\f1\f1\f1\f1\f1\f1\f1\80\bf\a0\bf\80\9f\90\bf\80\8f\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00unimplemented: alignment of type\90\01\01\00 \00\00\00\00\00\00\00\00\00\00\00unimplemented: (reflect.Type).Elem()\00\00\00\00\c0\01\01\00$\00\00\00Field\00\00\00\00\00\00\00\00\00\00\00reflect: field index out of range\00\00\00\00\00\00\00\00\02\01\00!\00\00\00<unimplemented>NumField\00\00\00\00\00\00\00\00\00unimplemented: size of type\00\00\00\00\00P\02\01\00\1b\00\00\00BoolComplexFloat\00\00\00\00\00\00\00\00reflect: slice index out of range\00\00\00\00\00\00\00\90\02\01\00!\00\00\00reflect: string index out of range\00\00\00\00\00\00\c0\02\01\00"\00\00\00IndexIntLen\00\00\00\00\00unimplemented: (reflect.Value).Pointer()\00\03\01\00(\00\00\00Pointer<T>UintParseIntParseUint\a\b\f\n\r\t\v\u\U\x0123456789abcdef\00\00\00\00\00\00\00\00\00\00\00\00\00value out of rangeinvalid syntax0123456789abcdefghijklmnopqrstuvwxyz\00\00\00\00\00\00\00\00\00\00\00\0000010203040506070809101112131415161718192021222324252627282930313233343536373839404142434445464748495051525354555657585960616263646566676869707172737475767778798081828384858687888990919293949596979899|Increment...\00\00\00\00\00\00\00\00\00\00\00incrementRepeat1...\00\00\00\00\00\00\00\00\00\00\00\00\00incrementRepeatMany...counternumRepeatsLock bets...\00\00\00\00\00\00\00\00\00\00\00\00\00Doing nothing as requested. Oh, wait...Pay winners...lastWinningColorlockedBetsNobody wins!Pay  to Remainder is Place bet...iotaEmpty bet...colorNo color...Invalid color...betsPlay period...\00\00Cancel spoofed request\00\00\00\00\00\00\00\00\00\00Invalid play period...playPeriodtimestamperror2TestToken mint...panic: out of memory\00\00\00\00\00\00\00\00\00\00\00\00type assert failed\00\00\00\00\00\00\00\00\00\00\00\00\00\00index out of range\00\00\00\00\00\00\00\00\00\00\00\00\00\00nil pointer dereferencetruefalsei)NaN+Inf-Infnilcomparing un-comparable type\00\00\00\00panic: runtime error: \00\00\00\00\00\00\00\00\00\00slice out of range\00\00\00\00\00\00\00\00\00\00\00\00\00\00reflect: call of reflect.Type.\00\00reflect: call of reflect.Value. on invalid typestrconv.parsing : \00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\01\00\00\00\0a\00\00\00\0a\00\00\00\0e\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\03\04"\00\04"\05\043\09\01\04"\0d\01\00"\14\00\00\00\00\00\00\00\00\00\00\00\00\00\00\04Func\03Num\03Err\06Method\01s")
+  (data 0 (offset (i32.const 67568)) "\07\00\00\00`\14\01\00\00\00\00\00\00\00\00\00 \00~\00\a1\00w\03z\03\7f\03\84\03V\05Y\05\8a\05\8d\05\c7\05\d0\05\ea\05\ef\05\f4\05\06\06\1b\06\1e\06\0d\07\10\07J\07M\07\b1\07\c0\07\fa\07\fd\07-\080\08[\08^\08j\08\a0\08\bd\08\d3\08\8c\09\8f\09\90\09\93\09\b2\09\b6\09\b9\09\bc\09\c4\09\c7\09\c8\09\cb\09\ce\09\d7\09\d7\09\dc\09\e3\09\e6\09\fe\09\01\0a\0a\0a\0f\0a\10\0a\13\0a9\0a<\0aB\0aG\0aH\0aK\0aM\0aQ\0aQ\0aY\0a^\0af\0av\0a\81\0a\b9\0a\bc\0a\cd\0a\d0\0a\d0\0a\e0\0a\e3\0a\e6\0a\f1\0a\f9\0a\0c\0b\0f\0b\10\0b\13\0b9\0b<\0bD\0bG\0bH\0bK\0bM\0bV\0bW\0b\\0bc\0bf\0bw\0b\82\0b\8a\0b\8e\0b\95\0b\99\0b\9f\0b\a3\0b\a4\0b\a8\0b\aa\0b\ae\0b\b9\0b\be\0b\c2\0b\c6\0b\cd\0b\d0\0b\d0\0b\d7\0b\d7\0b\e6\0b\fa\0b\00\0c9\0c=\0cM\0cU\0cZ\0c`\0cc\0cf\0co\0cw\0c\b9\0c\bc\0c\cd\0c\d5\0c\d6\0c\de\0c\e3\0c\e6\0c\f2\0c\00\0dO\0dT\0dc\0df\0d\7f\0d\82\0d\96\0d\9a\0d\bd\0d\c0\0d\c6\0d\ca\0d\ca\0d\cf\0d\df\0d\e6\0d\ef\0d\f2\0d\f4\0d\01\0e:\0e?\0e[\0e\81\0e\bd\0e\c0\0e\cd\0e\d0\0e\d9\0e\dc\0e\df\0e\00\0fl\0fq\0f\da\0f\00\10\c7\10\cd\10\cd\10\d0\10M\12P\12]\12`\12\8d\12\90\12\b5\12\b8\12\c5\12\c8\12\15\13\18\13Z\13]\13|\13\80\13\99\13\a0\13\f5\13\f8\13\fd\13\00\14\9c\16\a0\16\f8\16\00\17\14\17 \176\17@\17S\17`\17s\17\80\17\dd\17\e0\17\e9\17\f0\17\f9\17\00\18\0d\18\10\18\19\18 \18x\18\80\18\aa\18\b0\18\f5\18\00\19+\190\19;\19@\19@\19D\19m\19p\19t\19\80\19\ab\19\b0\19\c9\19\d0\19\da\19\de\19\1b\1a\1e\1a|\1a\7f\1a\89\1a\90\1a\99\1a\a0\1a\ad\1a\b0\1a\be\1a\00\1bK\1bP\1b|\1b\80\1b\f3\1b\fc\1b7\1c;\1cI\1cM\1c\88\1c\90\1c\ba\1c\bd\1c\c7\1c\d0\1c\fa\1c\00\1d\15\1f\18\1f\1d\1f \1fE\1fH\1fM\1fP\1f}\1f\80\1f\d3\1f\d6\1f\ef\1f\f2\1f\fe\1f\10 ' 0 ^ p q t \9c \a0 \bf \d0 \f0 \00!\8b!\90!&$@$J$`$s+v+\95+\98+\f3,\f9,'-----0-g-o-p-\7f-\96-\a0-O.\80.\f3.\00/\d5/\f0/\fb/\010\960\990\ff0\051\ba1\c01\e31\f01\b5M\c0M\ef\9f\00\a0\8c\a4\90\a4\c6\a4\d0\a4+\a6@\a6\f7\a6\00\a7\bf\a7\c2\a7\c6\a7\f7\a7+\a80\a89\a8@\a8w\a8\80\a8\c5\a8\ce\a8\d9\a8\e0\a8S\a9_\a9|\a9\80\a9\d9\a9\de\a96\aa@\aaM\aaP\aaY\aa\\aa\c2\aa\db\aa\f6\aa\01\ab\06\ab\09\ab\0e\ab\11\ab\16\ab \abg\abp\ab\ed\ab\f0\ab\f9\ab\00\ac\a3\d7\b0\d7\c6\d7\cb\d7\fb\d7\00\f9m\fap\fa\d9\fa\00\fb\06\fb\13\fb\17\fb\1d\fb\c1\fb\d3\fb?\fdP\fd\8f\fd\92\fd\c7\fd\f0\fd\fd\fd\00\fe\19\fe \fek\fep\fe\fc\fe\01\ff\be\ff\c2\ff\c7\ff\ca\ff\cf\ff\d2\ff\d7\ff\da\ff\dc\ff\e0\ff\ee\ff\fc\ff\fd\ff\00\00\00\00\00\00\00\00\00\00\00\00\ad\00\8b\03\8d\03\a2\030\05\90\05\dd\06?\08_\08\b5\08\e2\08\84\09\a9\09\b1\09\de\09\04\0a)\0a1\0a4\0a7\0a=\0a]\0a\84\0a\8e\0a\92\0a\a9\0a\b1\0a\b4\0a\c6\0a\ca\0a\00\0b\04\0b)\0b1\0b4\0b^\0b\84\0b\91\0b\9b\0b\9d\0b\c9\0b\0d\0c\11\0c)\0cE\0cI\0cW\0c\8d\0c\91\0c\a9\0c\b4\0c\c5\0c\c9\0c\df\0c\f0\0c\04\0d\0d\0d\11\0dE\0dI\0d\84\0d\b2\0d\bc\0d\d5\0d\d7\0d\83\0e\85\0e\8b\0e\a4\0e\a6\0e\c5\0e\c7\0eH\0f\98\0f\bd\0f\cd\0f\c6\10I\12W\12Y\12\89\12\b1\12\bf\12\c1\12\d7\12\11\13\80\16\0d\17m\17q\17\1f\19_\1a\fa\1dX\1fZ\1f\\1f^\1f\b5\1f\c5\1f\dc\1f\f5\1f\8f /,_,&-\a7-\af-\b7-\bf-\c7-\cf-\d7-\df-\9a.@001\8f1\1f2\ff2\ce\a9\ff\a9'\ab/\ab7\fb=\fb?\fbB\fbE\fbS\feg\feu\fe\e7\ff\00\00\00\00\00\00\00\00\00\00\01\00M\00\01\00P\00\01\00]\00\01\00\80\00\01\00\fa\00\01\00\00\01\01\00\02\01\01\00\07\01\01\003\01\01\007\01\01\00\9b\01\01\00\a0\01\01\00\a0\01\01\00\d0\01\01\00\fd\01\01\00\80\02\01\00\9c\02\01\00\a0\02\01\00\d0\02\01\00\e0\02\01\00\fb\02\01\00\00\03\01\00#\03\01\00-\03\01\00J\03\01\00P\03\01\00z\03\01\00\80\03\01\00\c3\03\01\00\c8\03\01\00\d5\03\01\00\00\04\01\00\9d\04\01\00\a0\04\01\00\a9\04\01\00\b0\04\01\00\d3\04\01\00\d8\04\01\00\fb\04\01\00\00\05\01\00'\05\01\000\05\01\00c\05\01\00o\05\01\00o\05\01\00\00\06\01\006\07\01\00@\07\01\00U\07\01\00`\07\01\00g\07\01\00\00\08\01\00\05\08\01\00\08\08\01\008\08\01\00<\08\01\00<\08\01\00?\08\01\00\9e\08\01\00\a7\08\01\00\af\08\01\00\e0\08\01\00\f5\08\01\00\fb\08\01\00\1b\09\01\00\1f\09\01\009\09\01\00?\09\01\00?\09\01\00\80\09\01\00\b7\09\01\00\bc\09\01\00\cf\09\01\00\d2\09\01\00\06\0a\01\00\0c\0a\01\005\0a\01\008\0a\01\00:\0a\01\00?\0a\01\00H\0a\01\00P\0a\01\00X\0a\01\00`\0a\01\00\9f\0a\01\00\c0\0a\01\00\e6\0a\01\00\eb\0a\01\00\f6\0a\01\00\00\0b\01\005\0b\01\009\0b\01\00U\0b\01\00X\0b\01\00r\0b\01\00x\0b\01\00\91\0b\01\00\99\0b\01\00\9c\0b\01\00\a9\0b\01\00\af\0b\01\00\00\0c\01\00H\0c\01\00\80\0c\01\00\b2\0c\01\00\c0\0c\01\00\f2\0c\01\00\fa\0c\01\00'\0d\01\000\0d\01\009\0d\01\00`\0e\01\00~\0e\01\00\00\0f\01\00'\0f\01\000\0f\01\00Y\0f\01\00\e0\0f\01\00\f6\0f\01\00\00\10\01\00M\10\01\00R\10\01\00o\10\01\00\7f\10\01\00\c1\10\01\00\d0\10\01\00\e8\10\01\00\f0\10\01\00\f9\10\01\00\00\11\01\00F\11\01\00P\11\01\00v\11\01\00\80\11\01\00\cd\11\01\00\d0\11\01\00\f4\11\01\00\00\12\01\00>\12\01\00\80\12\01\00\a9\12\01\00\b0\12\01\00\ea\12\01\00\f0\12\01\00\f9\12\01\00\00\13\01\00\0c\13\01\00\0f\13\01\00\10\13\01\00\13\13\01\00D\13\01\00G\13\01\00H\13\01\00K\13\01\00M\13\01\00P\13\01\00P\13\01\00W\13\01\00W\13\01\00]\13\01\00c\13\01\00f\13\01\00l\13\01\00p\13\01\00t\13\01\00\00\14\01\00_\14\01\00\80\14\01\00\c7\14\01\00\d0\14\01\00\d9\14\01\00\80\15\01\00\b5\15\01\00\b8\15\01\00\dd\15\01\00\00\16\01\00D\16\01\00P\16\01\00Y\16\01\00`\16\01\00l\16\01\00\80\16\01\00\b8\16\01\00\c0\16\01\00\c9\16\01\00\00\17\01\00\1a\17\01\00\1d\17\01\00+\17\01\000\17\01\00?\17\01\00\00\18\01\00;\18\01\00\a0\18\01\00\f2\18\01\00\ff\18\01\00\ff\18\01\00\a0\19\01\00\a7\19\01\00\aa\19\01\00\d7\19\01\00\da\19\01\00\e4\19\01\00\00\1a\01\00G\1a\01\00P\1a\01\00\a2\1a\01\00\c0\1a\01\00\f8\1a\01\00\00\1c\01\00E\1c\01\00P\1c\01\00l\1c\01\00p\1c\01\00\8f\1c\01\00\92\1c\01\00\b6\1c\01\00\00\1d\01\006\1d\01\00:\1d\01\00G\1d\01\00P\1d\01\00Y\1d\01\00`\1d\01\00\98\1d\01\00\a0\1d\01\00\a9\1d\01\00\e0\1e\01\00\f8\1e\01\00\c0\1f\01\00\f1\1f\01\00\ff\1f\01\00\99#\01\00\00$\01\00t$\01\00\80$\01\00C%\01\00\000\01\00.4\01\00\00D\01\00FF\01\00\00h\01\008j\01\00@j\01\00ij\01\00nj\01\00oj\01\00\d0j\01\00\edj\01\00\f0j\01\00\f5j\01\00\00k\01\00Ek\01\00Pk\01\00wk\01\00}k\01\00\8fk\01\00@n\01\00\9an\01\00\00o\01\00Jo\01\00Oo\01\00\87o\01\00\8fo\01\00\9fo\01\00\e0o\01\00\e3o\01\00\00p\01\00\f7\87\01\00\00\88\01\00\f2\8a\01\00\00\b0\01\00\1e\b1\01\00P\b1\01\00R\b1\01\00d\b1\01\00g\b1\01\00p\b1\01\00\fb\b2\01\00\00\bc\01\00j\bc\01\00p\bc\01\00|\bc\01\00\80\bc\01\00\88\bc\01\00\90\bc\01\00\99\bc\01\00\9c\bc\01\00\9f\bc\01\00\00\d0\01\00\f5\d0\01\00\00\d1\01\00&\d1\01\00)\d1\01\00r\d1\01\00{\d1\01\00\e8\d1\01\00\00\d2\01\00E\d2\01\00\e0\d2\01\00\f3\d2\01\00\00\d3\01\00V\d3\01\00`\d3\01\00x\d3\01\00\00\d4\01\00\9f\d4\01\00\a2\d4\01\00\a2\d4\01\00\a5\d4\01\00\a6\d4\01\00\a9\d4\01\00\0a\d5\01\00\0d\d5\01\00F\d5\01\00J\d5\01\00\a5\d6\01\00\a8\d6\01\00\cb\d7\01\00\ce\d7\01\00\8b\da\01\00\9b\da\01\00\af\da\01\00\00\e0\01\00\18\e0\01\00\1b\e0\01\00*\e0\01\00\00\e1\01\00,\e1\01\000\e1\01\00=\e1\01\00@\e1\01\00I\e1\01\00N\e1\01\00O\e1\01\00\c0\e2\01\00\f9\e2\01\00\ff\e2\01\00\ff\e2\01\00\00\e8\01\00\c4\e8\01\00\c7\e8\01\00\d6\e8\01\00\00\e9\01\00K\e9\01\00P\e9\01\00Y\e9\01\00^\e9\01\00_\e9\01\00q\ec\01\00\b4\ec\01\00\01\ed\01\00=\ed\01\00\00\ee\01\00$\ee\01\00'\ee\01\00;\ee\01\00B\ee\01\00B\ee\01\00G\ee\01\00T\ee\01\00W\ee\01\00d\ee\01\00g\ee\01\00\9b\ee\01\00\a1\ee\01\00\bb\ee\01\00\f0\ee\01\00\f1\ee\01\00\00\f0\01\00+\f0\01\000\f0\01\00\93\f0\01\00\a0\f0\01\00\ae\f0\01\00\b1\f0\01\00\f5\f0\01\00\00\f1\01\00\0c\f1\01\00\10\f1\01\00l\f1\01\00p\f1\01\00\ac\f1\01\00\e6\f1\01\00\02\f2\01\00\10\f2\01\00;\f2\01\00@\f2\01\00H\f2\01\00P\f2\01\00Q\f2\01\00`\f2\01\00e\f2\01\00\00\f3\01\00\d5\f6\01\00\e0\f6\01\00\ec\f6\01\00\f0\f6\01\00\fa\f6\01\00\00\f7\01\00s\f7\01\00\80\f7\01\00\d8\f7\01\00\e0\f7\01\00\eb\f7\01\00\00\f8\01\00\0b\f8\01\00\10\f8\01\00G\f8\01\00P\f8\01\00Y\f8\01\00`\f8\01\00\87\f8\01\00\90\f8\01\00\ad\f8\01\00\00\f9\01\00v\f9\01\00z\f9\01\00\a2\f9\01\00\a5\f9\01\00\aa\f9\01\00\ae\f9\01\00\ca\f9\01\00\cd\f9\01\00S\fa\01\00`\fa\01\00m\fa\01\00p\fa\01\00s\fa\01\00x\fa\01\00z\fa\01\00\80\fa\01\00\82\fa\01\00\90\fa\01\00\95\fa\01\00\00\00\02\00\d6\a6\02\00\00\a7\02\004\b7\02\00@\b7\02\00\1d\b8\02\00 \b8\02\00\a1\ce\02\00\b0\ce\02\00\e0\eb\02\00\00\f8\02\00\1d\fa\02\00\00\01\0e\00\ef\01\0e\00\00\00\00\00\00\00\00\00\0c\00'\00;\00>\00\8f\01\9e\03\09\086\08V\08\f3\08\04\0a\14\0a\18\0a\bd\105\11\e0\11\12\12\87\12\89\12\8e\12\9e\12\04\13)\131\134\13:\13Z\14\\14\09\1c7\1c\a8\1c\07\1d\0a\1d;\1d>\1df\1di\1d\8f\1d\92\1do$_jZkbkU\d4\9d\d4\ad\d4\ba\d4\bc\d4\c4\d4\06\d5\15\d5\1d\d5:\d5?\d5E\d5Q\d5\a0\da\07\e0"\e0%\e0\04\ee \ee#\ee(\ee3\ee8\ee:\eeH\eeJ\eeL\eeP\eeS\eeX\eeZ\ee\\ee^\ee`\eec\eek\ees\eex\ee}\ee\7f\ee\8a\ee\a4\ee\aa\ee\c0\f0\d0\f0\0c\f9r\f9\00\00\00\00\00\00\00\00\00\00\00\00\9d\14\01\00\01\00\00\00\80\03\01\00\12\00\00\00\92\03\01\00\0e\00\00\00\00\00\00\00U")
 
-  (data 0 (offset (i32.const 65536)) "dummylengthlog\00\00\f0\f0\f0\f0\f0\f0\f0\f0\f0\f0\f0\f0\f0\f0\f0\f0\f0\f0\f0\f0\f0\f0\f0\f0\f0\f0\f0\f0\f0\f0\f0\f0\f0\f0\f0\f0\f0\f0\f0\f0\f0\f0\f0\f0\f0\f0\f0\f0\f0\f0\f0\f0\f0\f0\f0\f0\f0\f0\f0\f0\f0\f0\f0\f0\f0\f0\f0\f0\f0\f0\f0\f0\f0\f0\f0\f0\f0\f0\f0\f0\f0\f0\f0\f0\f0\f0\f0\f0\f0\f0\f0\f0\f0\f0\f0\f0\f0\f0\f0\f0\f0\f0\f0\f0\f0\f0\f0\f0\f0\f0\f0\f0\f0\f0\f0\f0\f0\f0\f0\f0\f0\f0\f0\f0\f0\f0\f0\f0\f1\f1\f1\f1\f1\f1\f1\f1\f1\f1\f1\f1\f1\f1\f1\f1\f1\f1\f1\f1\f1\f1\f1\f1\f1\f1\f1\f1\f1\f1\f1\f1\f1\f1\f1\f1\f1\f1\f1\f1\f1\f1\f1\f1\f1\f1\f1\f1\f1\f1\f1\f1\f1\f1\f1\f1\f1\f1\f1\f1\f1\f1\f1\f1\f1\f1\02\02\02\02\02\02\02\02\02\02\02\02\02\02\02\02\02\02\02\02\02\02\02\02\02\02\02\02\02\02\13\03\03\03\03\03\03\03\03\03\03\03\03#\03\034\04\04\04D\f1\f1\f1\f1\f1\f1\f1\f1\f1\f1\f1\80\bf\a0\bf\80\9f\90\bf\80\8f\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00unimplemented: alignment of type0\01\01\00 \00\00\00\00\00\00\00\00\00\00\00unimplemented: (reflect.Type).Elem()\00\00\00\00`\01\01\00$\00\00\00Field\00\00\00\00\00\00\00\00\00\00\00reflect: field index out of range\00\00\00\00\00\00\00\a0\01\01\00!\00\00\00<unimplemented>NumField\00\00\00\00\00\00\00\00\00unimplemented: size of type\00\00\00\00\00\f0\01\01\00\1b\00\00\00BoolComplexFloat\00\00\00\00\00\00\00\00reflect: slice index out of range\00\00\00\00\00\00\000\02\01\00!\00\00\00reflect: string index out of range\00\00\00\00\00\00`\02\01\00"\00\00\00IndexIntLen\00\00\00\00\00unimplemented: (reflect.Value).Pointer()\a0\02\01\00(\00\00\00Pointer<T>UintParseIntParseUint\a\b\f\n\r\t\v\u\U\x0123456789abcdef\00\00\00\00\00\00\00\00\00\00\00\00\00value out of rangeinvalid syntax0123456789abcdefghijklmnopqrstuvwxyz\00\00\00\00\00\00\00\00\00\00\00\0000010203040506070809101112131415161718192021222324252627282930313233343536373839404142434445464748495051525354555657585960616263646566676869707172737475767778798081828384858687888990919293949596979899|Increment...\00\00\00\00\00\00\00\00\00\00\00incrementRepeat1...\00\00\00\00\00\00\00\00\00\00\00\00\00incrementRepeatMany...counternumRepeatsLock bets...\00\00\00\00\00\00\00\00\00\00\00\00\00Doing nothing as requested. Oh, wait...Pay winners...lastWinningColorlockedBetsNobody wins!xferAddressxferAmountPay  to Remainder is Place bet...iotaEmpty bet...colorNo color...Invalid color...betsreqCodereqDelayPlay period...\00\00\00\00\00\00\00\00\00\00\00\00\00\00Cancel spoofed request\00\00\00\00\00\00\00\00\00\00Invalid play period...playPeriodtimestamperror2TestToken mint...panic: out of memory\00\00\00\00\00\00\00\00\00\00\00\00type assert failed\00\00\00\00\00\00\00\00\00\00\00\00\00\00index out of range\00\00\00\00\00\00\00\00\00\00\00\00\00\00nil pointer dereferencetruefalsei)NaN+Inf-Infnilcomparing un-comparable type\00\00\00\00panic: runtime error: \00\00\00\00\00\00\00\00\00\00slice out of range\00\00\00\00\00\00\00\00\00\00\00\00\00\00reflect: call of reflect.Type.\00\00reflect: call of reflect.Value. on invalid typesenderownerparamsstatereqBalancereqHashrequestsscAddressrandomtransfersstrconv.parsing : \00\00\00\00\00\00\00\00\00\00\00\00\01\00\00\00\0a\00\00\00\0a\00\00\00\0e\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\03\04"\00\04"\05\043\09\01\04"\0d\01\00"\14\00\00\00\00\00\00\00\00\00\00\00\00\00\00\04Func\03Num\03Err\06Method\01s")
-  (data 0 (offset (i32.const 67584)) "\07\00\00\00p\14\01\00\00\00\00\00\00\00\00\00 \00~\00\a1\00w\03z\03\7f\03\84\03V\05Y\05\8a\05\8d\05\c7\05\d0\05\ea\05\ef\05\f4\05\06\06\1b\06\1e\06\0d\07\10\07J\07M\07\b1\07\c0\07\fa\07\fd\07-\080\08[\08^\08j\08\a0\08\bd\08\d3\08\8c\09\8f\09\90\09\93\09\b2\09\b6\09\b9\09\bc\09\c4\09\c7\09\c8\09\cb\09\ce\09\d7\09\d7\09\dc\09\e3\09\e6\09\fe\09\01\0a\0a\0a\0f\0a\10\0a\13\0a9\0a<\0aB\0aG\0aH\0aK\0aM\0aQ\0aQ\0aY\0a^\0af\0av\0a\81\0a\b9\0a\bc\0a\cd\0a\d0\0a\d0\0a\e0\0a\e3\0a\e6\0a\f1\0a\f9\0a\0c\0b\0f\0b\10\0b\13\0b9\0b<\0bD\0bG\0bH\0bK\0bM\0bV\0bW\0b\\0bc\0bf\0bw\0b\82\0b\8a\0b\8e\0b\95\0b\99\0b\9f\0b\a3\0b\a4\0b\a8\0b\aa\0b\ae\0b\b9\0b\be\0b\c2\0b\c6\0b\cd\0b\d0\0b\d0\0b\d7\0b\d7\0b\e6\0b\fa\0b\00\0c9\0c=\0cM\0cU\0cZ\0c`\0cc\0cf\0co\0cw\0c\b9\0c\bc\0c\cd\0c\d5\0c\d6\0c\de\0c\e3\0c\e6\0c\f2\0c\00\0dO\0dT\0dc\0df\0d\7f\0d\82\0d\96\0d\9a\0d\bd\0d\c0\0d\c6\0d\ca\0d\ca\0d\cf\0d\df\0d\e6\0d\ef\0d\f2\0d\f4\0d\01\0e:\0e?\0e[\0e\81\0e\bd\0e\c0\0e\cd\0e\d0\0e\d9\0e\dc\0e\df\0e\00\0fl\0fq\0f\da\0f\00\10\c7\10\cd\10\cd\10\d0\10M\12P\12]\12`\12\8d\12\90\12\b5\12\b8\12\c5\12\c8\12\15\13\18\13Z\13]\13|\13\80\13\99\13\a0\13\f5\13\f8\13\fd\13\00\14\9c\16\a0\16\f8\16\00\17\14\17 \176\17@\17S\17`\17s\17\80\17\dd\17\e0\17\e9\17\f0\17\f9\17\00\18\0d\18\10\18\19\18 \18x\18\80\18\aa\18\b0\18\f5\18\00\19+\190\19;\19@\19@\19D\19m\19p\19t\19\80\19\ab\19\b0\19\c9\19\d0\19\da\19\de\19\1b\1a\1e\1a|\1a\7f\1a\89\1a\90\1a\99\1a\a0\1a\ad\1a\b0\1a\be\1a\00\1bK\1bP\1b|\1b\80\1b\f3\1b\fc\1b7\1c;\1cI\1cM\1c\88\1c\90\1c\ba\1c\bd\1c\c7\1c\d0\1c\fa\1c\00\1d\15\1f\18\1f\1d\1f \1fE\1fH\1fM\1fP\1f}\1f\80\1f\d3\1f\d6\1f\ef\1f\f2\1f\fe\1f\10 ' 0 ^ p q t \9c \a0 \bf \d0 \f0 \00!\8b!\90!&$@$J$`$s+v+\95+\98+\f3,\f9,'-----0-g-o-p-\7f-\96-\a0-O.\80.\f3.\00/\d5/\f0/\fb/\010\960\990\ff0\051\ba1\c01\e31\f01\b5M\c0M\ef\9f\00\a0\8c\a4\90\a4\c6\a4\d0\a4+\a6@\a6\f7\a6\00\a7\bf\a7\c2\a7\c6\a7\f7\a7+\a80\a89\a8@\a8w\a8\80\a8\c5\a8\ce\a8\d9\a8\e0\a8S\a9_\a9|\a9\80\a9\d9\a9\de\a96\aa@\aaM\aaP\aaY\aa\\aa\c2\aa\db\aa\f6\aa\01\ab\06\ab\09\ab\0e\ab\11\ab\16\ab \abg\abp\ab\ed\ab\f0\ab\f9\ab\00\ac\a3\d7\b0\d7\c6\d7\cb\d7\fb\d7\00\f9m\fap\fa\d9\fa\00\fb\06\fb\13\fb\17\fb\1d\fb\c1\fb\d3\fb?\fdP\fd\8f\fd\92\fd\c7\fd\f0\fd\fd\fd\00\fe\19\fe \fek\fep\fe\fc\fe\01\ff\be\ff\c2\ff\c7\ff\ca\ff\cf\ff\d2\ff\d7\ff\da\ff\dc\ff\e0\ff\ee\ff\fc\ff\fd\ff\00\00\00\00\00\00\00\00\00\00\00\00\ad\00\8b\03\8d\03\a2\030\05\90\05\dd\06?\08_\08\b5\08\e2\08\84\09\a9\09\b1\09\de\09\04\0a)\0a1\0a4\0a7\0a=\0a]\0a\84\0a\8e\0a\92\0a\a9\0a\b1\0a\b4\0a\c6\0a\ca\0a\00\0b\04\0b)\0b1\0b4\0b^\0b\84\0b\91\0b\9b\0b\9d\0b\c9\0b\0d\0c\11\0c)\0cE\0cI\0cW\0c\8d\0c\91\0c\a9\0c\b4\0c\c5\0c\c9\0c\df\0c\f0\0c\04\0d\0d\0d\11\0dE\0dI\0d\84\0d\b2\0d\bc\0d\d5\0d\d7\0d\83\0e\85\0e\8b\0e\a4\0e\a6\0e\c5\0e\c7\0eH\0f\98\0f\bd\0f\cd\0f\c6\10I\12W\12Y\12\89\12\b1\12\bf\12\c1\12\d7\12\11\13\80\16\0d\17m\17q\17\1f\19_\1a\fa\1dX\1fZ\1f\\1f^\1f\b5\1f\c5\1f\dc\1f\f5\1f\8f /,_,&-\a7-\af-\b7-\bf-\c7-\cf-\d7-\df-\9a.@001\8f1\1f2\ff2\ce\a9\ff\a9'\ab/\ab7\fb=\fb?\fbB\fbE\fbS\feg\feu\fe\e7\ff\00\00\00\00\00\00\00\00\00\00\01\00M\00\01\00P\00\01\00]\00\01\00\80\00\01\00\fa\00\01\00\00\01\01\00\02\01\01\00\07\01\01\003\01\01\007\01\01\00\9b\01\01\00\a0\01\01\00\a0\01\01\00\d0\01\01\00\fd\01\01\00\80\02\01\00\9c\02\01\00\a0\02\01\00\d0\02\01\00\e0\02\01\00\fb\02\01\00\00\03\01\00#\03\01\00-\03\01\00J\03\01\00P\03\01\00z\03\01\00\80\03\01\00\c3\03\01\00\c8\03\01\00\d5\03\01\00\00\04\01\00\9d\04\01\00\a0\04\01\00\a9\04\01\00\b0\04\01\00\d3\04\01\00\d8\04\01\00\fb\04\01\00\00\05\01\00'\05\01\000\05\01\00c\05\01\00o\05\01\00o\05\01\00\00\06\01\006\07\01\00@\07\01\00U\07\01\00`\07\01\00g\07\01\00\00\08\01\00\05\08\01\00\08\08\01\008\08\01\00<\08\01\00<\08\01\00?\08\01\00\9e\08\01\00\a7\08\01\00\af\08\01\00\e0\08\01\00\f5\08\01\00\fb\08\01\00\1b\09\01\00\1f\09\01\009\09\01\00?\09\01\00?\09\01\00\80\09\01\00\b7\09\01\00\bc\09\01\00\cf\09\01\00\d2\09\01\00\06\0a\01\00\0c\0a\01\005\0a\01\008\0a\01\00:\0a\01\00?\0a\01\00H\0a\01\00P\0a\01\00X\0a\01\00`\0a\01\00\9f\0a\01\00\c0\0a\01\00\e6\0a\01\00\eb\0a\01\00\f6\0a\01\00\00\0b\01\005\0b\01\009\0b\01\00U\0b\01\00X\0b\01\00r\0b\01\00x\0b\01\00\91\0b\01\00\99\0b\01\00\9c\0b\01\00\a9\0b\01\00\af\0b\01\00\00\0c\01\00H\0c\01\00\80\0c\01\00\b2\0c\01\00\c0\0c\01\00\f2\0c\01\00\fa\0c\01\00'\0d\01\000\0d\01\009\0d\01\00`\0e\01\00~\0e\01\00\00\0f\01\00'\0f\01\000\0f\01\00Y\0f\01\00\e0\0f\01\00\f6\0f\01\00\00\10\01\00M\10\01\00R\10\01\00o\10\01\00\7f\10\01\00\c1\10\01\00\d0\10\01\00\e8\10\01\00\f0\10\01\00\f9\10\01\00\00\11\01\00F\11\01\00P\11\01\00v\11\01\00\80\11\01\00\cd\11\01\00\d0\11\01\00\f4\11\01\00\00\12\01\00>\12\01\00\80\12\01\00\a9\12\01\00\b0\12\01\00\ea\12\01\00\f0\12\01\00\f9\12\01\00\00\13\01\00\0c\13\01\00\0f\13\01\00\10\13\01\00\13\13\01\00D\13\01\00G\13\01\00H\13\01\00K\13\01\00M\13\01\00P\13\01\00P\13\01\00W\13\01\00W\13\01\00]\13\01\00c\13\01\00f\13\01\00l\13\01\00p\13\01\00t\13\01\00\00\14\01\00_\14\01\00\80\14\01\00\c7\14\01\00\d0\14\01\00\d9\14\01\00\80\15\01\00\b5\15\01\00\b8\15\01\00\dd\15\01\00\00\16\01\00D\16\01\00P\16\01\00Y\16\01\00`\16\01\00l\16\01\00\80\16\01\00\b8\16\01\00\c0\16\01\00\c9\16\01\00\00\17\01\00\1a\17\01\00\1d\17\01\00+\17\01\000\17\01\00?\17\01\00\00\18\01\00;\18\01\00\a0\18\01\00\f2\18\01\00\ff\18\01\00\ff\18\01\00\a0\19\01\00\a7\19\01\00\aa\19\01\00\d7\19\01\00\da\19\01\00\e4\19\01\00\00\1a\01\00G\1a\01\00P\1a\01\00\a2\1a\01\00\c0\1a\01\00\f8\1a\01\00\00\1c\01\00E\1c\01\00P\1c\01\00l\1c\01\00p\1c\01\00\8f\1c\01\00\92\1c\01\00\b6\1c\01\00\00\1d\01\006\1d\01\00:\1d\01\00G\1d\01\00P\1d\01\00Y\1d\01\00`\1d\01\00\98\1d\01\00\a0\1d\01\00\a9\1d\01\00\e0\1e\01\00\f8\1e\01\00\c0\1f\01\00\f1\1f\01\00\ff\1f\01\00\99#\01\00\00$\01\00t$\01\00\80$\01\00C%\01\00\000\01\00.4\01\00\00D\01\00FF\01\00\00h\01\008j\01\00@j\01\00ij\01\00nj\01\00oj\01\00\d0j\01\00\edj\01\00\f0j\01\00\f5j\01\00\00k\01\00Ek\01\00Pk\01\00wk\01\00}k\01\00\8fk\01\00@n\01\00\9an\01\00\00o\01\00Jo\01\00Oo\01\00\87o\01\00\8fo\01\00\9fo\01\00\e0o\01\00\e3o\01\00\00p\01\00\f7\87\01\00\00\88\01\00\f2\8a\01\00\00\b0\01\00\1e\b1\01\00P\b1\01\00R\b1\01\00d\b1\01\00g\b1\01\00p\b1\01\00\fb\b2\01\00\00\bc\01\00j\bc\01\00p\bc\01\00|\bc\01\00\80\bc\01\00\88\bc\01\00\90\bc\01\00\99\bc\01\00\9c\bc\01\00\9f\bc\01\00\00\d0\01\00\f5\d0\01\00\00\d1\01\00&\d1\01\00)\d1\01\00r\d1\01\00{\d1\01\00\e8\d1\01\00\00\d2\01\00E\d2\01\00\e0\d2\01\00\f3\d2\01\00\00\d3\01\00V\d3\01\00`\d3\01\00x\d3\01\00\00\d4\01\00\9f\d4\01\00\a2\d4\01\00\a2\d4\01\00\a5\d4\01\00\a6\d4\01\00\a9\d4\01\00\0a\d5\01\00\0d\d5\01\00F\d5\01\00J\d5\01\00\a5\d6\01\00\a8\d6\01\00\cb\d7\01\00\ce\d7\01\00\8b\da\01\00\9b\da\01\00\af\da\01\00\00\e0\01\00\18\e0\01\00\1b\e0\01\00*\e0\01\00\00\e1\01\00,\e1\01\000\e1\01\00=\e1\01\00@\e1\01\00I\e1\01\00N\e1\01\00O\e1\01\00\c0\e2\01\00\f9\e2\01\00\ff\e2\01\00\ff\e2\01\00\00\e8\01\00\c4\e8\01\00\c7\e8\01\00\d6\e8\01\00\00\e9\01\00K\e9\01\00P\e9\01\00Y\e9\01\00^\e9\01\00_\e9\01\00q\ec\01\00\b4\ec\01\00\01\ed\01\00=\ed\01\00\00\ee\01\00$\ee\01\00'\ee\01\00;\ee\01\00B\ee\01\00B\ee\01\00G\ee\01\00T\ee\01\00W\ee\01\00d\ee\01\00g\ee\01\00\9b\ee\01\00\a1\ee\01\00\bb\ee\01\00\f0\ee\01\00\f1\ee\01\00\00\f0\01\00+\f0\01\000\f0\01\00\93\f0\01\00\a0\f0\01\00\ae\f0\01\00\b1\f0\01\00\f5\f0\01\00\00\f1\01\00\0c\f1\01\00\10\f1\01\00l\f1\01\00p\f1\01\00\ac\f1\01\00\e6\f1\01\00\02\f2\01\00\10\f2\01\00;\f2\01\00@\f2\01\00H\f2\01\00P\f2\01\00Q\f2\01\00`\f2\01\00e\f2\01\00\00\f3\01\00\d5\f6\01\00\e0\f6\01\00\ec\f6\01\00\f0\f6\01\00\fa\f6\01\00\00\f7\01\00s\f7\01\00\80\f7\01\00\d8\f7\01\00\e0\f7\01\00\eb\f7\01\00\00\f8\01\00\0b\f8\01\00\10\f8\01\00G\f8\01\00P\f8\01\00Y\f8\01\00`\f8\01\00\87\f8\01\00\90\f8\01\00\ad\f8\01\00\00\f9\01\00v\f9\01\00z\f9\01\00\a2\f9\01\00\a5\f9\01\00\aa\f9\01\00\ae\f9\01\00\ca\f9\01\00\cd\f9\01\00S\fa\01\00`\fa\01\00m\fa\01\00p\fa\01\00s\fa\01\00x\fa\01\00z\fa\01\00\80\fa\01\00\82\fa\01\00\90\fa\01\00\95\fa\01\00\00\00\02\00\d6\a6\02\00\00\a7\02\004\b7\02\00@\b7\02\00\1d\b8\02\00 \b8\02\00\a1\ce\02\00\b0\ce\02\00\e0\eb\02\00\00\f8\02\00\1d\fa\02\00\00\01\0e\00\ef\01\0e\00\00\00\00\00\00\00\00\00\0c\00'\00;\00>\00\8f\01\9e\03\09\086\08V\08\f3\08\04\0a\14\0a\18\0a\bd\105\11\e0\11\12\12\87\12\89\12\8e\12\9e\12\04\13)\131\134\13:\13Z\14\\14\09\1c7\1c\a8\1c\07\1d\0a\1d;\1d>\1df\1di\1d\8f\1d\92\1do$_jZkbkU\d4\9d\d4\ad\d4\ba\d4\bc\d4\c4\d4\06\d5\15\d5\1d\d5:\d5?\d5E\d5Q\d5\a0\da\07\e0"\e0%\e0\04\ee \ee#\ee(\ee3\ee8\ee:\eeH\eeJ\eeL\eeP\eeS\eeX\eeZ\ee\\ee^\ee`\eec\eek\ees\eex\ee}\ee\7f\ee\8a\ee\a4\ee\aa\ee\c0\f0\d0\f0\0c\f9r\f9\00\00\00\00\00\00\00\00\00\00\00\00\ad\14\01\00\01\00\00\00 \03\01\00\12\00\00\002\03\01\00\0e\00\00\00\00\00\00\00U")
-
-  (custom (;0;) 11 (size 27804))
-  (custom (;1;) 11 (size 1810))
-  (custom (;2;) 11 (size 9329))
-  (custom (;3;) 11 (size 1824))
+  (custom (;0;) 11 (size 28340))
+  (custom (;1;) 11 (size 2087))
+  (custom (;2;) 11 (size 9592))
+  (custom (;3;) 11 (size 2128))
   (custom (;4;) 11 (size 653))
-  (custom (;5;) 11 (size 14935))
-  (custom (;6;) 11 (size 18032))
-  (custom (;7;) 11 (size 17725))
-  (custom (;8;) 11 (size 3031))
+  (custom (;5;) 11 (size 14723))
+  (custom (;6;) 11 (size 18902))
+  (custom (;7;) 11 (size 18336))
+  (custom (;8;) 11 (size 3600))
   (custom (;9;) 11 (size 123))
 )
