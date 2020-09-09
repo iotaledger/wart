@@ -46,30 +46,30 @@ func (o ScMutableMap) Clear() {
 }
 
 func (o ScMutableMap) GetInt(key string) ScMutableInt {
-	return ScMutableInt{objId: o.objId, keyId: GetKey(key)}
+	return ScMutableInt{objId: o.objId, keyId: GetKeyId(key)}
 }
 
 func (o ScMutableMap) GetIntArray(key string) ScMutableIntArray {
-	arrId := GetObject(o.objId, GetKey(key), OBJTYPE_INT_ARRAY)
+	arrId := GetObjectId(o.objId, GetKeyId(key), OBJTYPE_INT_ARRAY)
 	return ScMutableIntArray{objId: arrId}
 }
 
 func (o ScMutableMap) GetMap(key string) ScMutableMap {
-	mapId := GetObject(o.objId, GetKey(key), OBJTYPE_MAP)
+	mapId := GetObjectId(o.objId, GetKeyId(key), OBJTYPE_MAP)
 	return ScMutableMap{objId: mapId}
 }
 
 func (o ScMutableMap) GetMapArray(key string) ScMutableMapArray {
-	arrId := GetObject(o.objId, GetKey(key), OBJTYPE_MAP_ARRAY)
+	arrId := GetObjectId(o.objId, GetKeyId(key), OBJTYPE_MAP_ARRAY)
 	return ScMutableMapArray{objId: arrId}
 }
 
 func (o ScMutableMap) GetString(key string) ScMutableString {
-	return ScMutableString{objId: o.objId, keyId: GetKey(key)}
+	return ScMutableString{objId: o.objId, keyId: GetKeyId(key)}
 }
 
 func (o ScMutableMap) GetStringArray(key string) ScMutableStringArray {
-	arrId := GetObject(o.objId, GetKey(key), OBJTYPE_STRING_ARRAY)
+	arrId := GetObjectId(o.objId, GetKeyId(key), OBJTYPE_STRING_ARRAY)
 	return ScMutableStringArray{objId: arrId}
 }
 
@@ -88,7 +88,7 @@ func (o ScMutableMapArray) Clear() {
 }
 
 func (o ScMutableMapArray) GetMap(index int32) ScMutableMap {
-	mapId := GetObject(o.objId, index, OBJTYPE_MAP)
+	mapId := GetObjectId(o.objId, index, OBJTYPE_MAP)
 	return ScMutableMap{objId: mapId}
 }
 

@@ -32,12 +32,12 @@ func main() {
 
 //export test
 func test() {
-	keyId := wasplib.GetKey("timestamp")
+	keyId := wasplib.GetKeyId("timestamp")
 	wasplib.SetInt(1, keyId, 123456789)
 	timestamp := wasplib.GetInt(1, keyId)
 	wasplib.SetInt(1, keyId, timestamp)
 
-	keyId2 := wasplib.GetKey("error2")
+	keyId2 := wasplib.GetKeyId("error2")
 	wasplib.SetString(1, keyId2, "Test")
 	error2 := wasplib.GetString(1, keyId2)
 	wasplib.SetString(1, keyId2, error2)

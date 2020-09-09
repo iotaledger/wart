@@ -25,7 +25,7 @@ type HostBase struct {
 	tracker *Tracker
 }
 
-func (h *HostBase) Init(logger LogInterface, keyMap *map[string]int32) {
+func (h *HostBase) Init(logger LogInterface, root interfaces.HostObject, keyMap *map[string]int32) {
 	if keyMap == nil {
 		keyMap = &baseKeyMap
 	}
@@ -34,6 +34,7 @@ func (h *HostBase) Init(logger LogInterface, keyMap *map[string]int32) {
 	h.logger = logger
 	h.tracker = NewTracker()
 	h.AddObject(NewNullObject(h))
+	h.AddObject(root)
 }
 
 func (h *HostBase) Log(logLevel int, text string) {
@@ -47,11 +48,13 @@ func (h *HostBase) AddObject(obj interfaces.HostObject) int32 {
 }
 
 func (h *HostBase) GetInt(objId int32, keyId int32) int64 {
-	switch keyId {
-	case interfaces.KeyError:
+	if keyId == interfaces.KeyError && objId == 1 {
 		if h.HasError() {
 			return 1
 		}
+		return 0
+	}
+	if h.HasError() {
 		return 0
 	}
 	value := h.GetObject(objId).GetInt(keyId)
@@ -64,6 +67,9 @@ func (h *HostBase) GetKey(keyId int32) string {
 }
 
 func (h *HostBase) GetKeyId(key string) int32 {
+	if h.HasError() {
+		return 0
+	}
 	keyId, ok := (*h.keyMap)[key]
 	if !ok {
 		keyId = h.tracker.GetKeyId(key)
@@ -82,15 +88,20 @@ func (h *HostBase) GetObject(objId int32) interfaces.HostObject {
 }
 
 func (h *HostBase) GetObjectId(objId int32, keyId int32, typeId int32) int32 {
+	if h.HasError() {
+		return 0
+	}
 	subId := h.GetObject(objId).GetObjectId(keyId, typeId)
 	h.Logf("GetObjectId o%d k%d t%d = o%d", objId, keyId, typeId, subId)
 	return subId
 }
 
 func (h *HostBase) GetString(objId int32, keyId int32) string {
-	switch keyId {
-	case interfaces.KeyError:
+	if keyId == interfaces.KeyError && objId == 1 {
 		return h.error
+	}
+	if h.HasError() {
+		return ""
 	}
 	value := h.GetObject(objId).GetString(keyId)
 	h.Logf("GetString o%d k%d = '%s'", objId, keyId, value)
@@ -113,27 +124,31 @@ func (h *HostBase) SetError(text string) {
 }
 
 func (h *HostBase) SetInt(objId int32, keyId int32, value int64) {
+	if h.HasError() {
+		return
+	}
 	h.GetObject(objId).SetInt(keyId, value)
 	h.Logf("SetInt o%d k%d v=%d", objId, keyId, value)
 }
 
 func (h *HostBase) SetString(objId int32, keyId int32, value string) {
-	// intercept logging keys to prevent final logging of SetString itself
-	switch keyId {
-	case interfaces.KeyError:
-		h.SetError(value)
-		return
-	case interfaces.KeyLog:
-		h.logger.Log(level.MSG, value)
-		return
-	case interfaces.KeyTrace:
-		h.logger.Log(level.TRACE, value)
-		return
-	case interfaces.KeyTraceHost:
-		h.logger.Log(level.HOST, value)
+	if objId == 1 {
+		// intercept logging keys to prevent final logging of SetString itself
+		switch keyId {
+		case interfaces.KeyError:
+			h.SetError(value)
+		case interfaces.KeyLog:
+			h.logger.Log(level.MSG, value)
+		case interfaces.KeyTrace:
+			h.logger.Log(level.TRACE, value)
+		case interfaces.KeyTraceHost:
+			h.logger.Log(level.HOST, value)
+		}
 		return
 	}
-
+	if h.HasError() {
+		return
+	}
 	h.GetObject(objId).SetString(keyId, value)
 	h.Logf("SetString o%d k%d v='%s'", objId, keyId, value)
 }

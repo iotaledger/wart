@@ -14,12 +14,12 @@ const (
 func hostGetInt(objId int32, keyId int32, value *int64)
 
 //go:wasm-module waspGo
-//export hostGetKey
-func hostGetKey(key string) int32
+//export hostGetKeyId
+func hostGetKeyId(key string) int32
 
 //go:wasm-module waspGo
-//export hostGetObject
-func hostGetObject(objId int32, keyId int32, typeId int32) int32
+//export hostGetObjectId
+func hostGetObjectId(objId int32, keyId int32, typeId int32) int32
 
 //go:wasm-module waspGo
 //export hostGetString
@@ -41,12 +41,12 @@ func GetInt(objId int32, keyId int32) int64 {
 	return value
 }
 
-func GetKey(key string) int32 {
-	return hostGetKey(key)
+func GetKeyId(key string) int32 {
+	return hostGetKeyId(key)
 }
 
-func GetObject(objId int32, keyId int32, typeId int32) int32 {
-	return hostGetObject(objId, keyId, typeId)
+func GetObjectId(objId int32, keyId int32, typeId int32) int32 {
+	return hostGetObjectId(objId, keyId, typeId)
 }
 
 func GetString(objId int32, keyId int32) string {

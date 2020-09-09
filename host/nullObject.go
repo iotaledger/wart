@@ -6,7 +6,7 @@ type nullObject struct {
 	ctx interfaces.HostInterface
 }
 
-func NewNullObject(h interfaces.HostInterface, ) interfaces.HostObject {
+func NewNullObject(h interfaces.HostInterface) interfaces.HostObject {
 	return &nullObject{ctx: h}
 }
 

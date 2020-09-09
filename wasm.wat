@@ -22,9 +22,9 @@
 
   (import "waspGo" "hostGetInt" (func (;0;) (type 1) (param i32 i32 i32)))
   (import "waspGo" "hostGetString" (func (;1;) (type 1) (param i32 i32 i32)))
-  (import "waspGo" "hostGetKey" (func (;2;) (type 2) (param i32 i32) (result i32)))
+  (import "waspGo" "hostGetKeyId" (func (;2;) (type 2) (param i32 i32) (result i32)))
   (import "waspGo" "hostSetString" (func (;3;) (type 3) (param i32 i32 i32 i32)))
-  (import "waspGo" "hostGetObject" (func (;4;) (type 4) (param i32 i32 i32) (result i32)))
+  (import "waspGo" "hostGetObjectId" (func (;4;) (type 4) (param i32 i32 i32) (result i32)))
   (import "waspGo" "hostSetInt" (func (;5;) (type 1) (param i32 i32 i32)))
   (import "wasi_unstable" "fd_write" (func (;6;) (type 5) (param i32 i32 i32 i32) (result i32)))
 
@@ -1762,7 +1762,7 @@
     (;5:1;)        i32.const 0
     (;6:2;)        i32.const 65541
     (;7:3;)        i32.const 6
-    (;8:2;)        call 2  waspGo::hostGetKey
+    (;8:2;)        call 2  waspGo::hostGetKeyId
     (;9:2;)        local.tee 0
     (;10:0;)       i32.store offset=70784
     (;11:0;)     end
@@ -1820,9 +1820,9 @@
     (;8:1;)      local.get 0
     (;9:2;)      local.get 1
     (;10:3;)     local.get 2
-    (;11:2;)     call 2  waspGo::hostGetKey
+    (;11:2;)     call 2  waspGo::hostGetKeyId
     (;12:3;)     i32.const 2
-    (;13:1;)     call 4  waspGo::hostGetObject
+    (;13:1;)     call 4  waspGo::hostGetObjectId
     (;14:0;)     local.set 0
     (;15:1;)     local.get 3
     (;16:2;)     i32.const 0
@@ -1891,9 +1891,9 @@
     (;8:1;)      local.get 0
     (;9:2;)      local.get 1
     (;10:3;)     local.get 2
-    (;11:2;)     call 2  waspGo::hostGetKey
+    (;11:2;)     call 2  waspGo::hostGetKeyId
     (;12:3;)     i32.const 3
-    (;13:1;)     call 4  waspGo::hostGetObject
+    (;13:1;)     call 4  waspGo::hostGetObjectId
     (;14:0;)     local.set 0
     (;15:1;)     local.get 3
     (;16:2;)     i32.const 0
@@ -1919,7 +1919,7 @@
     (;8:1;)      local.get 0
     (;9:2;)      local.get 1
     (;10:3;)     i32.const 2
-    (;11:1;)     call 4  waspGo::hostGetObject
+    (;11:1;)     call 4  waspGo::hostGetObjectId
     (;12:0;)     local.set 0
     (;13:1;)     local.get 2
     (;14:2;)     i32.const 0
@@ -1950,7 +1950,7 @@
     (;13:1;)       i32.const 0
     (;14:2;)       i32.const 65547
     (;15:3;)       i32.const 3
-    (;16:2;)       call 2  waspGo::hostGetKey
+    (;16:2;)       call 2  waspGo::hostGetKeyId
     (;17:2;)       local.tee 0
     (;18:0;)       i32.store offset=70788
     (;19:0;)     end
@@ -2130,7 +2130,7 @@
     (;11:1;)     local.get 0
     (;12:2;)     local.get 2
     (;13:3;)     local.get 3
-    (;14:2;)     call 2  waspGo::hostGetKey
+    (;14:2;)     call 2  waspGo::hostGetKeyId
     (;15:0;)     i32.store offset=4
     (;16:1;)     local.get 0
     (;17:2;)     local.get 1
@@ -2245,7 +2245,7 @@
     (;11:1;)     local.get 0
     (;12:2;)     local.get 2
     (;13:3;)     local.get 3
-    (;14:2;)     call 2  waspGo::hostGetKey
+    (;14:2;)     call 2  waspGo::hostGetKeyId
     (;15:0;)     i32.store offset=4
     (;16:1;)     local.get 0
     (;17:2;)     local.get 1
@@ -2345,7 +2345,7 @@
     (;11:1;)     local.get 0
     (;12:2;)     local.get 2
     (;13:3;)     local.get 3
-    (;14:2;)     call 2  waspGo::hostGetKey
+    (;14:2;)     call 2  waspGo::hostGetKeyId
     (;15:0;)     i32.store offset=4
     (;16:1;)     local.get 0
     (;17:2;)     local.get 1
@@ -2370,9 +2370,9 @@
     (;8:1;)      local.get 0
     (;9:2;)      local.get 1
     (;10:3;)     local.get 2
-    (;11:2;)     call 2  waspGo::hostGetKey
+    (;11:2;)     call 2  waspGo::hostGetKeyId
     (;12:3;)     i32.const 2
-    (;13:1;)     call 4  waspGo::hostGetObject
+    (;13:1;)     call 4  waspGo::hostGetObjectId
     (;14:0;)     local.set 0
     (;15:1;)     local.get 3
     (;16:2;)     i32.const 0
@@ -2444,9 +2444,9 @@
     (;8:1;)      local.get 0
     (;9:2;)      local.get 1
     (;10:3;)     local.get 2
-    (;11:2;)     call 2  waspGo::hostGetKey
+    (;11:2;)     call 2  waspGo::hostGetKeyId
     (;12:3;)     i32.const 5
-    (;13:1;)     call 4  waspGo::hostGetObject
+    (;13:1;)     call 4  waspGo::hostGetObjectId
     (;14:0;)     local.set 0
     (;15:1;)     local.get 3
     (;16:2;)     i32.const 0
@@ -2717,7 +2717,7 @@
     (;14:1;)     local.get 0
     (;15:2;)     i32.const 65622
     (;16:3;)     i32.const 7
-    (;17:2;)     call 2  waspGo::hostGetKey
+    (;17:2;)     call 2  waspGo::hostGetKeyId
     (;18:3;)     local.get 1
     (;19:4;)     local.get 2
     (;20:0;)     call 40  (github.com/iotaledger/wart/wasplib.ScMutableString).SetValue
@@ -10685,7 +10685,7 @@
     (;19:1;)     i32.const 1
     (;20:2;)     i32.const 67088
     (;21:3;)     i32.const 9
-    (;22:2;)     call 2  waspGo::hostGetKey
+    (;22:2;)     call 2  waspGo::hostGetKeyId
     (;23:2;)     local.tee 2
     (;24:3;)     i64.const 123456789
     (;25:0;)     call 37  github.com/iotaledger/wart/wasplib.SetInt
@@ -10698,7 +10698,7 @@
     (;32:1;)     i32.const 1
     (;33:2;)     i32.const 67097
     (;34:3;)     i32.const 6
-    (;35:2;)     call 2  waspGo::hostGetKey
+    (;35:2;)     call 2  waspGo::hostGetKeyId
     (;36:2;)     local.tee 2
     (;37:3;)     i32.const 67103
     (;38:4;)     i32.const 4
@@ -14240,8 +14240,8 @@
   (custom (;3;) 11 (size 2128))
   (custom (;4;) 11 (size 653))
   (custom (;5;) 11 (size 14723))
-  (custom (;6;) 11 (size 18902))
-  (custom (;7;) 11 (size 18336))
-  (custom (;8;) 11 (size 3600))
+  (custom (;6;) 11 (size 18906))
+  (custom (;7;) 11 (size 18340))
+  (custom (;8;) 11 (size 3604))
   (custom (;9;) 11 (size 123))
 )

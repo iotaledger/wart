@@ -9,14 +9,11 @@ var EnableImmutableChecks = true
 
 type HostImpl struct {
 	HostBase
-	root interfaces.HostObject
 }
 
 func NewHostImpl() *HostImpl {
 	h := &HostImpl{}
-	h.Init(h, nil)
-	h.root = NewHostMap(h)
-	h.AddObject(h.root)
+	h.Init(h, NewHostMap(h), nil)
 	return h
 }
 
@@ -31,7 +28,8 @@ func (h *HostImpl) AddBalance(obj interfaces.HostObject, color string, amount in
 
 func (h *HostImpl) Object(obj interfaces.HostObject, key string, typeId int32) interfaces.HostObject {
 	if obj == nil {
-		obj = h.root
+		// use root object
+		obj = h.GetObject(1)
 	}
 	return h.GetObject(obj.GetObjectId(h.GetKeyId(key), typeId))
 }
