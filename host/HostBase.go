@@ -20,7 +20,6 @@ type LogInterface interface {
 
 type HostBase struct {
 	error   string
-	keyMap  *map[string]int32
 	logger  LogInterface
 	tracker *Tracker
 }
@@ -30,9 +29,8 @@ func (h *HostBase) Init(logger LogInterface, root interfaces.HostObject, keyMap 
 		keyMap = &baseKeyMap
 	}
 	h.error = ""
-	h.keyMap = keyMap
 	h.logger = logger
-	h.tracker = NewTracker()
+	h.tracker = NewTracker(keyMap)
 	h.AddObject(NewNullObject(h))
 	h.AddObject(root)
 }
@@ -63,17 +61,13 @@ func (h *HostBase) GetInt(objId int32, keyId int32) int64 {
 }
 
 func (h *HostBase) GetKey(keyId int32) string {
-	return h.tracker.GetKey(keyId)
+	key := h.tracker.GetKey(keyId)
+	h.Logf("GetKey k%d='%s'", keyId, key)
+	return key
 }
 
 func (h *HostBase) GetKeyId(key string) int32 {
-	if h.HasError() {
-		return 0
-	}
-	keyId, ok := (*h.keyMap)[key]
-	if !ok {
-		keyId = h.tracker.GetKeyId(key)
-	}
+	keyId := h.tracker.GetKeyId(key)
 	h.Logf("GetKeyId '%s'=k%d", key, keyId)
 	return keyId
 }

@@ -17,7 +17,8 @@ import (
 
 const RUST_PATH = "D:\\Work\\Rust\\wasmtest\\pkg\\wasmtest_bg.wasm"
 const TINYGO_PATH = "D:\\Work\\Go\\src\\github.com\\iotaledger\\wart\\wasm.wasm"
-const WASP_PATH = "D:\\Work\\Go\\src\\github.com\\iotaledger\\wasp\\tools\\cluster\\tests\\wasptest\\wasmtest_bg.wasm"
+const WASP_RUST_PATH = "D:\\Work\\Go\\src\\github.com\\iotaledger\\wasp\\tools\\cluster\\tests\\wasptest\\wasmtest_rust.wasm"
+const WASP_TINYGO_PATH = "D:\\Work\\Go\\src\\github.com\\iotaledger\\wasp\\tools\\cluster\\tests\\wasptest\\wasmtest_go.wasm"
 
 var DEBUG_MODULE = "xxx.wasm"
 
@@ -25,9 +26,13 @@ func main() {
 	fmt.Println("Hello, Wart!")
 	file, err := ioutil.ReadFile(RUST_PATH)
 	if err == nil {
-		ioutil.WriteFile(WASP_PATH, file, 0644)
+		ioutil.WriteFile(WASP_RUST_PATH, file, 0644)
 	}
-	runSC()
+	file, err = ioutil.ReadFile(TINYGO_PATH)
+	if err == nil {
+		ioutil.WriteFile(WASP_TINYGO_PATH, file, 0644)
+	}
+	runSC(TINYGO_PATH)
 	fmt.Println()
 	//listInstructions()
 	//testerTests()
@@ -41,12 +46,13 @@ func main() {
 	fmt.Println("Ready!")
 }
 
-func runSC() {
+func runSC(wasmPath string) {
 	host.CreateRustAdapter()
 	host.CreateGoAdapter()
 	ctx := host.NewHostImpl()
 	runner := executors.NewWasmRunner(ctx)
-	err := runner.Load(TINYGO_PATH)
+	fmt.Printf("Loading Wasm: %s\n", wasmPath)
+	err := runner.Load(wasmPath)
 	if err != nil {
 		fmt.Printf("error loading wasm: " + err.Error())
 		return

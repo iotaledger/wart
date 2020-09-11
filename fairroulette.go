@@ -78,8 +78,8 @@ func incrementRepeatMany() {
 	counter := ctx.State().GetInt("counter")
 	value := counter.Value()
 	counter.SetValue(value + 1)
-	repeats := ctx.Request().Params().GetInt("numRepeats").Value()
-	stateRepeats := ctx.State().GetInt("numRepeats")
+	repeats := ctx.Request().Params().GetInt("numrepeats").Value()
+	stateRepeats := ctx.State().GetInt("numrepeats")
 	if repeats == 0 {
 		repeats = stateRepeats.Value()
 		if repeats == 0 {
