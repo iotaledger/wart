@@ -156,8 +156,13 @@ func (ctx ScContext) Error() ScMutableString {
 	return ctx.root.GetString("error")
 }
 
-func (ctx ScContext) Event(index int32) ScEvent {
-	return ScEvent{ctx.root.GetMapArray("events").GetMap(index)}
+func (ctx ScContext) Event(contract string, code int64, delay int64) ScMutableMap {
+	events := ctx.root.GetMapArray("events")
+	evt := ScEvent{events.GetMap(events.Length())}
+	evt.Contract(contract)
+	evt.Code(code)
+	evt.Delay(delay)
+	return evt.Params()
 }
 
 func (ctx ScContext) Log(text string) {
@@ -180,8 +185,12 @@ func (ctx ScContext) Trace(text string) {
 	SetString(1, KeyTrace(), text)
 }
 
-func (ctx ScContext) Transfer(index int32) ScTransfer {
-	return ScTransfer{ctx.root.GetMapArray("transfers").GetMap(index)}
+func (ctx ScContext) Transfer(address string, color string, amount int64) {
+	transfers := ctx.root.GetMapArray("transfers")
+	xfer := ScTransfer{transfers.GetMap(transfers.Length())}
+	xfer.Color(color)
+	xfer.Amount(amount)
+	xfer.Address(address)
 }
 
 func (ctx ScContext) Utility() ScUtility {

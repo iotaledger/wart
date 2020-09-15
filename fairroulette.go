@@ -65,9 +65,7 @@ func incrementRepeat1() {
 	value := counter.Value()
 	counter.SetValue(value + 1)
 	if value == 0 {
-		event := ctx.Event(0)
-		event.Code(RequestInc)
-		event.Delay(5)
+		ctx.Event("", RequestInc, 5)
 	}
 }
 
@@ -87,9 +85,7 @@ func incrementRepeatMany() {
 		}
 	}
 	stateRepeats.SetValue(repeats - 1)
-	event := ctx.Event(0)
-	event.Code(RequestIncMany)
-	event.Delay(3)
+	ctx.Event("", RequestIncMany,3)
 }
 
 //export placeBet
@@ -129,9 +125,7 @@ func placeBet() {
 		if playPeriod < 10 {
 			playPeriod = PLAY_PERIOD
 		}
-		event := ctx.Event(0)
-		event.Code(RequestLockBets)
-		event.Delay(playPeriod)
+		ctx.Event("", RequestLockBets, playPeriod)
 	}
 }
 
@@ -155,8 +149,7 @@ func lockBets() {
 	}
 	bets.Clear()
 
-	event := ctx.Event(0)
-	event.Code(RequestPayWinners)
+	ctx.Event("", RequestPayWinners, 0)
 }
 
 //export payWinners
@@ -193,9 +186,7 @@ func payWinners() {
 	if len(winners) == 0 {
 		ctx.Log("Nobody wins!")
 		// compact separate UTXOs into a single one
-		transfer := ctx.Transfer(0)
-		transfer.Address(scAddress)
-		transfer.Amount(totalBetAmount)
+		ctx.Transfer(scAddress, "iota", totalBetAmount)
 		return
 	}
 
@@ -205,9 +196,7 @@ func payWinners() {
 		payout := totalBetAmount * bet.amount / totalWinAmount
 		if payout != 0 {
 			totalPayout += payout
-			transfer := ctx.Transfer(int32(i))
-			transfer.Address(bet.sender)
-			transfer.Amount(payout)
+			ctx.Transfer(bet.sender, "iota", payout)
 		}
 		text := "Pay " + strconv.FormatInt(payout, 10) + " to " + bet.sender
 		ctx.Log(text)
@@ -217,6 +206,7 @@ func payWinners() {
 		remainder := totalBetAmount - totalPayout
 		text := "Remainder is " + strconv.FormatInt(remainder, 10)
 		ctx.Log(text)
+		ctx.Transfer(scAddress, "iota", remainder)
 	}
 }
 

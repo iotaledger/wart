@@ -1,5 +1,6 @@
 {
   "error": "errorTextOrEmptyStringWhenNoError",
+
   "contract": {
     "id": "smartContractId",
     "name": "smartContractName",
@@ -8,6 +9,7 @@
     "color": "smartContractColor",
     "owner": "smartContractOwnerAddress"
   },
+
   "account": {
     "colors": ["iota", "colorX"],
     "balance": {
@@ -15,6 +17,7 @@
       "colorX": 27
     }
   },
+
   "request": {
     "address": "senderAddress",
     "colors": ["iota", "colorX"],
@@ -29,6 +32,7 @@
     "timestamp": 1234567890,
     "hash": "transactionHash"
   },
+
   "state": {
     "intVar": 123,
     "stringVar": "blabla",
@@ -39,10 +43,12 @@
     "intArrayVar": [1, 2, 3],
     "stringArrayVar": ["a", "b", "c"]
   },
+
   "transfers": [
     {"color": "iota", "amount": 10, "address": "targetAddress"},
     {"color": "colorX", "amount": 1, "address": "targetAddress"}
   ],
+
   "events": [
     {
       "contract": "smartContractIdOrEmptyWhenSelf",
