@@ -188,9 +188,9 @@ func (ctx ScContext) Trace(text string) {
 func (ctx ScContext) Transfer(address string, color string, amount int64) {
 	transfers := ctx.root.GetMapArray("transfers")
 	xfer := ScTransfer{transfers.GetMap(transfers.Length())}
+	xfer.Address(address)
 	xfer.Color(color)
 	xfer.Amount(amount)
-	xfer.Address(address)
 }
 
 func (ctx ScContext) Utility() ScUtility {

@@ -3,25 +3,25 @@ package host
 import "github.com/iotaledger/wart/host/interfaces"
 
 type Tracker struct {
-	keyMap     *map[string]int32
-	keyToKeyId map[string]int32
-	keyIdToKey []string
+	keyMap        *map[string]int32
+	keyToKeyId    map[string]int32
+	keyIdToKey    []string
 	keyIdToKeyMap []string
-	objIdToObj []interfaces.HostObject
+	objIdToObj    []interfaces.HostObject
 }
 
 func NewTracker(keyMap *map[string]int32) *Tracker {
 	elements := len(*keyMap) + 1
 	keyIdToKeyMap := make([]string, elements, elements)
-	for k,v := range *keyMap {
+	for k, v := range *keyMap {
 		keyIdToKeyMap[-v] = k
 	}
 	return &Tracker{
-		keyMap:     keyMap,
-		keyToKeyId: make(map[string]int32),
-		keyIdToKey: []string{"<null>"},
+		keyMap:        keyMap,
+		keyToKeyId:    make(map[string]int32),
+		keyIdToKey:    []string{"<null>"},
 		keyIdToKeyMap: keyIdToKeyMap,
-		objIdToObj: []interfaces.HostObject{},
+		objIdToObj:    []interfaces.HostObject{},
 	}
 }
 

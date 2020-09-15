@@ -2234,15 +2234,15 @@
     (;28:2;)     i32.const 24
     (;29:1;)     i32.add
     (;30:2;)     local.get 0
-    (;31:3;)     i32.const 66972
-    (;32:4;)     i32.const 5
+    (;31:3;)     i32.const 65622
+    (;32:4;)     i32.const 7
     (;33:0;)     call 24  (github.com/iotaledger/wart/wasplib.ScMutableMap).GetString
     (;34:1;)     local.get 5
     (;35:1;)     i32.load offset=24
     (;36:2;)     local.get 5
     (;37:2;)     i32.load offset=28
-    (;38:3;)     local.get 3
-    (;39:4;)     i32.const 4
+    (;38:3;)     local.get 1
+    (;39:4;)     local.get 2
     (;40:0;)     call 25  (github.com/iotaledger/wart/wasplib.ScMutableString).SetValue
     (;41:1;)     local.get 5
     (;42:2;)     i32.const 0
@@ -2251,32 +2251,32 @@
     (;45:2;)     i32.const 16
     (;46:1;)     i32.add
     (;47:2;)     local.get 0
-    (;48:3;)     i32.const 65629
-    (;49:4;)     i32.const 6
-    (;50:0;)     call 26  (github.com/iotaledger/wart/wasplib.ScMutableMap).GetInt
+    (;48:3;)     i32.const 66972
+    (;49:4;)     i32.const 5
+    (;50:0;)     call 24  (github.com/iotaledger/wart/wasplib.ScMutableMap).GetString
     (;51:1;)     local.get 5
     (;52:1;)     i32.load offset=16
     (;53:2;)     local.get 5
     (;54:2;)     i32.load offset=20
-    (;55:3;)     local.get 4
-    (;56:0;)     call 27  (github.com/iotaledger/wart/wasplib.ScMutableInt).SetValue
-    (;57:1;)     local.get 5
-    (;58:2;)     i32.const 0
-    (;59:0;)     i32.store offset=56
-    (;60:1;)     local.get 5
-    (;61:2;)     i32.const 8
-    (;62:1;)     i32.add
-    (;63:2;)     local.get 0
-    (;64:3;)     i32.const 65622
-    (;65:4;)     i32.const 7
-    (;66:0;)     call 24  (github.com/iotaledger/wart/wasplib.ScMutableMap).GetString
-    (;67:1;)     local.get 5
-    (;68:1;)     i32.load offset=8
-    (;69:2;)     local.get 5
-    (;70:2;)     i32.load offset=12
-    (;71:3;)     local.get 1
-    (;72:4;)     local.get 2
-    (;73:0;)     call 25  (github.com/iotaledger/wart/wasplib.ScMutableString).SetValue
+    (;55:3;)     local.get 3
+    (;56:4;)     i32.const 4
+    (;57:0;)     call 25  (github.com/iotaledger/wart/wasplib.ScMutableString).SetValue
+    (;58:1;)     local.get 5
+    (;59:2;)     i32.const 0
+    (;60:0;)     i32.store offset=56
+    (;61:1;)     local.get 5
+    (;62:2;)     i32.const 8
+    (;63:1;)     i32.add
+    (;64:2;)     local.get 0
+    (;65:3;)     i32.const 65629
+    (;66:4;)     i32.const 6
+    (;67:0;)     call 26  (github.com/iotaledger/wart/wasplib.ScMutableMap).GetInt
+    (;68:1;)     local.get 5
+    (;69:1;)     i32.load offset=8
+    (;70:2;)     local.get 5
+    (;71:2;)     i32.load offset=12
+    (;72:3;)     local.get 4
+    (;73:0;)     call 27  (github.com/iotaledger/wart/wasplib.ScMutableInt).SetValue
     (;74:1;)     local.get 5
     (;75:2;)     i32.const 64
     (;76:1;)     i32.add
