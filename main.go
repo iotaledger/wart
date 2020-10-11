@@ -15,31 +15,25 @@ import (
 	"strings"
 )
 
-const RUST_PATH = "D:\\Work\\Rust\\wasmtest\\pkg\\wasmtest_bg.wasm"
-const TINYGO_PATH = "D:\\Work\\Go\\src\\github.com\\iotaledger\\wart\\wasm.wasm"
-const WASP_RUST_PATH = "D:\\Work\\Go\\src\\github.com\\iotaledger\\wasp\\tools\\cluster\\tests\\wasptest\\wasmtest_rust.wasm"
-const WASP_TINYGO_PATH = "D:\\Work\\Go\\src\\github.com\\iotaledger\\wasp\\tools\\cluster\\tests\\wasptest\\wasmtest_go.wasm"
+const WASPLIB_RUST_PATH = "D:\\Work\\go\\src\\github.com\\iotaledger\\wasplib\\rust\\"
+const WASPLIB_TINYGO_PATH = "D:\\Work\\go\\src\\github.com\\iotaledger\\wasplib\\wasm\\"
 
 var DEBUG_MODULE = "xxx.wasm"
 
 func main() {
 	fmt.Println("Hello, Wart!")
-	file, err := ioutil.ReadFile(RUST_PATH)
-	if err == nil {
-		ioutil.WriteFile(WASP_RUST_PATH, file, 0644)
-	}
-	file, err = ioutil.ReadFile(TINYGO_PATH)
-	if err == nil {
-		ioutil.WriteFile(WASP_TINYGO_PATH, file, 0644)
-	}
-	runSC(TINYGO_PATH)
+	//runSC(TINYGO_PATH)
 	fmt.Println()
 	//listInstructions()
 	//testerTests()
-	//readerTest("D:\\Work\\Rust\\wasmtest\\target\\wasm32-unknown-unknown\\debug\\wasmtest.wasm")
-	//readerTest("D:\\Work\\Rust\\wasmtest\\target\\wasm32-unknown-unknown\\release\\wasmtest.wasm")
-	readerTest(RUST_PATH)
-	readerTest(TINYGO_PATH)
+	readerTest(WASPLIB_RUST_PATH + "donatewithfeedback\\pkg\\donatewithfeedback_bg.wasm")
+	readerTest(WASPLIB_RUST_PATH + "fairroulette\\pkg\\fairroulette_bg.wasm")
+	readerTest(WASPLIB_RUST_PATH + "increment\\pkg\\increment_bg.wasm")
+	readerTest(WASPLIB_RUST_PATH + "tokenregistry\\pkg\\tokenregistry_bg.wasm")
+	readerTest(WASPLIB_TINYGO_PATH + "donatewithfeedback_go.wasm")
+	readerTest(WASPLIB_TINYGO_PATH + "fairroulette_go.wasm")
+	readerTest(WASPLIB_TINYGO_PATH + "increment_go.wasm")
+	readerTest(WASPLIB_TINYGO_PATH + "tokenregistry_go.wasm")
 	//readerTests()
 	//specTests()
 	fmt.Printf("\n%d tests executed, %d failed.\n", executors.TotalNrOfTests, executors.TotalNrFailed)
