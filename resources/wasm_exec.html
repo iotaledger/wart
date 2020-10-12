@@ -41,6 +41,7 @@ Add the following polyfill for Microsoft Edge 17/18 support:
         await go.run(inst);
         inst = await WebAssembly.instantiate(mod, go.importObject); // reset instance
     }
+
 </script>
 
 <button onClick="run();" id="runButton" disabled>Run</button>

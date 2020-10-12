@@ -13,6 +13,141 @@ import (
 
 var Modules = make(map[string]*sections.Module)
 
+var globals = []byte{
+	op.I32_CONST, op.I64_CONST, op.F32_CONST, op.F64_CONST,
+}
+
+func DefineFunction(module string, name string, params []value.DataType, results []value.DataType, f sections.HostCall) *sections.Function {
+	mod := DefineModule(module)
+	for _, export := range mod.Exports {
+		if export.ImportName == name {
+			if export.ExternalType != desc.FUNC {
+				panic("export is not a function")
+			}
+			function := mod.Functions[export.Index]
+			function.HostCall = f
+			return function
+		}
+	}
+
+	funcType := sections.NewFuncType()
+	funcType.ParamTypes = params
+	funcType.ResultTypes = results
+	funcType.Nr = mod.MaxFuncTypes()
+	mod.FuncTypes = append(mod.FuncTypes, funcType)
+	function := sections.NewFunction()
+	function.FuncType = funcType
+	function.Body = []helper.Instruction{instructions.CreateInstruction(op.END)}
+	function.HostCall = f
+	function.Nr = mod.MaxFunctions()
+	mod.Functions = append(mod.Functions, function)
+	export := sections.NewExport()
+	export.Index = function.Nr
+	export.ExternalType = desc.FUNC
+	export.ImportName = name
+	export.Nr = mod.MaxExports()
+	mod.Exports = append(mod.Exports, export)
+	return function
+}
+
+func DefineGlobal(module string, name string, dataType value.DataType, init *sections.Variable) *sections.Global {
+	mod := DefineModule(module)
+	for _, export := range mod.Exports {
+		if export.ImportName == name {
+			if export.ExternalType != desc.GLOBAL {
+				panic("export is not a global")
+			}
+			global := mod.Globals[export.Index]
+			global.DataType = dataType
+			return global
+		}
+	}
+
+	global := sections.NewGlobal()
+	global.DataType = dataType
+	global.Init = make([]helper.Instruction, 2)
+	global.Init[0] = instructions.CreateInstruction(globals[value.I32-dataType])
+	global.Init[1] = instructions.CreateInstruction(op.END)
+	if init != nil {
+		global.Init[0].(*instructions.Const).Value = *init
+	}
+	global.Nr = mod.MaxGlobals()
+	mod.Globals = append(mod.Globals, global)
+	export := sections.NewExport()
+	export.Index = global.Nr
+	export.ExternalType = desc.GLOBAL
+	export.ImportName = name
+	export.Nr = mod.MaxExports()
+	mod.Exports = append(mod.Exports, export)
+	return global
+}
+
+func DefineMemory(module string, name string, min uint32, max uint32) *sections.Memory {
+	mod := DefineModule(module)
+	for _, export := range mod.Exports {
+		if export.ImportName == name {
+			if export.ExternalType != desc.MEM {
+				panic("export is not a memory")
+			}
+			memory := mod.Memories[export.Index]
+			memory.Min = min
+			memory.Max = max
+			return memory
+		}
+	}
+
+	memory := sections.NewMemory()
+	memory.Min = min
+	memory.Max = max
+	memory.Nr = mod.MaxMemories()
+	mod.Memories = append(mod.Memories, memory)
+	export := sections.NewExport()
+	export.Index = memory.Nr
+	export.ExternalType = desc.MEM
+	export.ImportName = name
+	export.Nr = mod.MaxExports()
+	mod.Exports = append(mod.Exports, export)
+	return memory
+}
+
+func DefineModule(module string) *sections.Module {
+	mod, ok := Modules[module]
+	if !ok {
+		mod = sections.NewModule()
+		mod.ModuleName = module
+		Modules[module] = mod
+	}
+	return mod
+}
+
+func DefineTable(module string, name string, min uint32, max uint32) *sections.Table {
+	mod := DefineModule(module)
+	for _, export := range mod.Exports {
+		if export.ImportName == name {
+			if export.ExternalType != desc.TABLE {
+				panic("export is not a table")
+			}
+			table := mod.Tables[export.Index]
+			table.Min = min
+			table.Max = max
+			return table
+		}
+	}
+
+	table := sections.NewTable()
+	table.Min = min
+	table.Max = max
+	table.Nr = mod.MaxTables()
+	mod.Tables = append(mod.Tables, table)
+	export := sections.NewExport()
+	export.Index = table.Nr
+	export.ExternalType = desc.TABLE
+	export.ImportName = name
+	export.Nr = mod.MaxExports()
+	mod.Exports = append(mod.Exports, export)
+	return table
+}
+
 type WasmLinker struct {
 	m *sections.Module
 }
@@ -306,7 +441,7 @@ func (lnk *WasmLinker) runStartFunction() error {
 		return nil
 	}
 	startFunction := lnk.m.Functions[lnk.m.Start]
-	vm := context.NewRunner(lnk.m, nil)
+	vm := context.NewRunner(lnk.m)
 	vm.Frame = make([]sections.Variable, startFunction.MaxLocalIndex()+startFunction.FrameSize)
 	return instructions.RunBlock(vm, startFunction.Body)
 }

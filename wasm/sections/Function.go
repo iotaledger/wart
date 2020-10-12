@@ -1,14 +1,12 @@
 package sections
 
 import (
-	"github.com/iotaledger/wart/host/interfaces"
 	"github.com/iotaledger/wart/wasm/instructions/helper"
 )
 
 type HostContext struct {
 	Frame    []Variable
 	Function *Function
-	Host     interfaces.HostInterface
 	Module   *Module
 	SP       int
 }

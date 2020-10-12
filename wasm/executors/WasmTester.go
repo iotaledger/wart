@@ -5,13 +5,11 @@ import (
 	"fmt"
 	"github.com/iotaledger/wart/utils"
 	"github.com/iotaledger/wart/wasm/consts/desc"
-	"github.com/iotaledger/wart/wasm/consts/op"
 	"github.com/iotaledger/wart/wasm/consts/value"
 	"github.com/iotaledger/wart/wasm/executors/context"
 	"github.com/iotaledger/wart/wasm/executors/context/spec"
 	"github.com/iotaledger/wart/wasm/executors/context/test"
 	"github.com/iotaledger/wart/wasm/instructions"
-	"github.com/iotaledger/wart/wasm/instructions/helper"
 	"github.com/iotaledger/wart/wasm/sections"
 	"io/ioutil"
 	"math"
@@ -24,19 +22,6 @@ const DEBUG_MODULE = "xxx.wasm"
 
 var TotalNrOfTests int
 var TotalNrFailed int
-
-var specExports = []string{
-	"print_i32", "print_i64", "print_f32", "print_f64",
-	"print_i32_f32", "print_f64_f64",
-	"global_i32", "global_i64", "global_f32", "global_f64",
-}
-var specGlobals = []byte{
-	op.I32_CONST, op.I64_CONST, op.F32_CONST, op.F64_CONST,
-}
-var specParams = [][]value.DataType{
-	{value.I32}, {value.I64}, {value.F32}, {value.F64},
-	{value.I32, value.F32}, {value.F64, value.F64},
-}
 
 var zero sections.Variable
 var uses = map[string]string{
@@ -112,87 +97,53 @@ func (tst *WasmTester) createSpecTestModule() {
 	//  (import "spectest" "memory" (memory 1))
 	//  (import "spectest" "table" (table 10 funcref))
 
-	tst.m = sections.NewModule()
-	tst.m.ImportName = "spectest"
-
-	tst.m.Start = value.UNDEFINED
-	tst.m.Exports = make([]*sections.Export, 12)
-
-	tst.m.FuncTypes = make([]*sections.FuncType, 6)
-	tst.m.Functions = make([]*sections.Function, 6)
-	for i := 0; i < 6; i++ {
-		funcType := sections.NewFuncType()
-		funcType.ParamTypes = specParams[i]
-		tst.m.FuncTypes[i] = funcType
-		function := sections.NewFunction()
-		function.FuncType = funcType
-		function.Body = []helper.Instruction{instructions.CreateInstruction(op.END)}
-		tst.m.Functions[i] = function
-		export := sections.NewExport()
-		export.Index = uint32(i)
-		export.ExternalType = desc.FUNC
-		export.ImportName = specExports[i]
-		tst.m.Exports[i] = export
-	}
-
-	//@formatter:off
-	tst.m.Functions[0].HostCall = func(ctx *sections.HostContext) error { fmt.Printf("==>> %s: %d\n",    specExports[0], ctx.Frame[ctx.SP].I32); return nil }
-	tst.m.Functions[1].HostCall = func(ctx *sections.HostContext) error { fmt.Printf("==>> %s: %d\n",    specExports[1], ctx.Frame[ctx.SP].I64); return nil }
-	tst.m.Functions[2].HostCall = func(ctx *sections.HostContext) error { fmt.Printf("==>> %s: %f\n",    specExports[2], ctx.Frame[ctx.SP].F32); return nil }
-	tst.m.Functions[3].HostCall = func(ctx *sections.HostContext) error { fmt.Printf("==>> %s: %f\n",    specExports[3], ctx.Frame[ctx.SP].F64); return nil }
-	tst.m.Functions[4].HostCall = func(ctx *sections.HostContext) error { fmt.Printf("==>> %s: %d %f\n", specExports[4], ctx.Frame[ctx.SP].I32, ctx.Frame[ctx.SP+1].F32); return nil }
-	tst.m.Functions[5].HostCall = func(ctx *sections.HostContext) error { fmt.Printf("==>> %s: %f %f\n", specExports[5], ctx.Frame[ctx.SP].F64, ctx.Frame[ctx.SP+1].F64); return nil }
-	//@formatter:on
-
-	tst.m.Globals = make([]*sections.Global, 4)
-	for i := 0; i < 4; i++ {
-		global := sections.NewGlobal()
-		global.DataType = specParams[i][0]
-		global.Init = make([]helper.Instruction, 2)
-		global.Init[0] = instructions.CreateInstruction(specGlobals[i])
-		global.Init[1] = instructions.CreateInstruction(op.END)
-		global.Init[0].(*instructions.Const).Value.I32 = 666
-		tst.m.Globals[i] = global
-		export := sections.NewExport()
-		export.Index = uint32(i)
-		export.ExternalType = desc.GLOBAL
-		export.ImportName = specExports[i+6]
-		tst.m.Exports[i+6] = export
-	}
-
-	tst.m.Memories = make([]*sections.Memory, 1)
-	memory := sections.NewMemory()
-	memory.Min = 1
-	memory.Max = 2
-	tst.m.Memories[0] = memory
-	export := sections.NewExport()
-	export.Index = 0
-	export.ExternalType = desc.MEM
-	export.ImportName = "memory"
-	tst.m.Exports[10] = export
-
-	tst.m.Tables = make([]*sections.Table, 1)
-	table := sections.NewTable()
-	table.ElemType = 0x70
-	table.Min = 10
-	table.Max = 20
-	tst.m.Tables[0] = table
-	export = sections.NewExport()
-	export.Index = 0
-	export.ExternalType = desc.TABLE
-	export.ImportName = "table"
-	tst.m.Exports[11] = export
+	modName := "spectest"
+	tst.m = DefineModule(modName)
+	_ = DefineFunction(modName, "print_i32", []value.DataType{value.I32}, nil,
+		func(ctx *sections.HostContext) error {
+			fmt.Printf("==>> print_i32: %d\n", ctx.Frame[ctx.SP].I32)
+			return nil
+		})
+	_ = DefineFunction(modName, "print_i64", []value.DataType{value.I64}, nil,
+		func(ctx *sections.HostContext) error {
+			fmt.Printf("==>> print_i64: %d\n", ctx.Frame[ctx.SP].I64)
+			return nil
+		})
+	_ = DefineFunction(modName, "print_f32", []value.DataType{value.F32}, nil,
+		func(ctx *sections.HostContext) error {
+			fmt.Printf("==>> print_f32: %f\n", ctx.Frame[ctx.SP].F32)
+			return nil
+		})
+	_ = DefineFunction(modName, "print_f64", []value.DataType{value.F64}, nil,
+		func(ctx *sections.HostContext) error {
+			fmt.Printf("==>> print_f64: %f\n", ctx.Frame[ctx.SP].F64)
+			return nil
+		})
+	_ = DefineFunction(modName, "print_i32_f32", []value.DataType{value.I32, value.F32}, nil,
+		func(ctx *sections.HostContext) error {
+			fmt.Printf("==>> print_i32_f32: %d %f\n", ctx.Frame[ctx.SP].I32, ctx.Frame[ctx.SP+1].F32)
+			return nil
+		})
+	_ = DefineFunction(modName, "print_f64_f64", []value.DataType{value.F64, value.F64}, nil,
+		func(ctx *sections.HostContext) error {
+			fmt.Printf("==>> print_f64_f64: %f %f\n", ctx.Frame[ctx.SP].F64, ctx.Frame[ctx.SP+1].F64)
+			return nil
+		})
+	_ = DefineGlobal(modName, "global_i32", value.I32, &sections.Variable{I32: 666})
+	_ = DefineGlobal(modName, "global_i64", value.I64, nil)
+	_ = DefineGlobal(modName, "global_f32", value.F32, nil)
+	_ = DefineGlobal(modName, "global_f64", value.F64, nil)
+	_ = DefineMemory(modName, "memory", 1, 2)
+	_ = DefineTable(modName, "table", 10, 20)
 
 	tst.moduleAnalyze()
 	if tst.Error != nil {
 		panic("WTF?")
 	}
-
 	tst.moduleLink()
 	if tst.Error != nil {
 		panic("WTF?")
 	}
-
 	tst.m = nil
 }
 
@@ -621,7 +572,7 @@ func (tst *WasmTester) testFunction() {
 
 	// allocate a (reusable) stack frame for this function
 	// all tests on this function will reuse this same stack frame
-	tst.vm = context.NewRunner(tst.m, nil)
+	tst.vm = context.NewRunner(tst.m)
 	tst.vm.Frame = make([]sections.Variable, tst.function.MaxLocalIndex()+tst.function.FrameSize)
 	for _, run := range tst.testFunc.Tests {
 		tst.test = run

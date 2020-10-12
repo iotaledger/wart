@@ -170,7 +170,7 @@ func (ctx *WasmReader) entryExport() {
 		ctx.r.Error = utils.Error("Invalid export descriptor: 0x%02x", descId)
 		return
 	}
-	export.Nr = uint32(len(ctx.m.Exports))
+	export.Nr = ctx.m.MaxExports()
 	ctx.m.Exports = append(ctx.m.Exports, export)
 }
 

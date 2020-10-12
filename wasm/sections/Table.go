@@ -10,5 +10,5 @@ type Table struct {
 }
 
 func NewTable() *Table {
-	return &Table{}
+	return &Table{ElemType: 0x70}
 }

@@ -128,7 +128,7 @@ func (o *Call) runCall(vm *Runner) {
 
 func (o *Call) runCallDirect(vm *Runner, f *sections.Function) {
 	if f.HostCall != nil {
-		vm.Error = f.HostCall(&sections.HostContext{Frame: vm.Frame, Function: f, Module: vm.Module, Host: vm.Host, SP: o.SP})
+		vm.Error = f.HostCall(&sections.HostContext{Frame: vm.Frame, Function: f, Module: vm.Module, SP: o.SP})
 		return
 	}
 

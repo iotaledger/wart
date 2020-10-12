@@ -2,30 +2,23 @@ package executors
 
 import (
 	"errors"
-	"github.com/iotaledger/wart/host/interfaces"
 	"github.com/iotaledger/wart/wasm/consts/desc"
 	"github.com/iotaledger/wart/wasm/executors/context"
 	"github.com/iotaledger/wart/wasm/instructions"
 	"github.com/iotaledger/wart/wasm/sections"
-	"io/ioutil"
 )
 
 type WasmRunner struct {
 	vm *context.Runner
 }
 
-func NewWasmRunner(host interfaces.HostInterface) *WasmRunner {
-	return &WasmRunner{vm: context.NewRunner(sections.NewModule(), host)}
+func NewWasmRunner() *WasmRunner {
+	return &WasmRunner{vm: context.NewRunner(sections.NewModule())}
 }
 
-func (r *WasmRunner) Load(path string) error {
-	data, err := ioutil.ReadFile(path)
-	if err != nil {
-		return err
-	}
-
-	reader := NewWasmReader(r.Module(), data)
-	err = reader.Read()
+func (r *WasmRunner) Load(wasmData []byte) error {
+	reader := NewWasmReader(r.Module(), wasmData)
+	err := reader.Read()
 	if err != nil {
 		return err
 	}
@@ -43,6 +36,14 @@ func (r *WasmRunner) Load(path string) error {
 	}
 
 	return nil
+}
+
+func (r *WasmRunner) Memory() []byte {
+	memories := r.Module().Memories
+	if len(memories) != 1 {
+		return nil
+	}
+	return memories[0].Pool
 }
 
 func (r *WasmRunner) Module() *sections.Module {

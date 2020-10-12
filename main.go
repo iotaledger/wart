@@ -2,9 +2,6 @@ package main
 
 import (
 	"fmt"
-	"github.com/iotaledger/wart/host"
-	"github.com/iotaledger/wart/host/interfaces/objtype"
-	"github.com/iotaledger/wart/wasm/consts/desc"
 	"github.com/iotaledger/wart/wasm/executors"
 	"github.com/iotaledger/wart/wasm/instructions"
 	"github.com/iotaledger/wart/wasm/sections"
@@ -22,7 +19,6 @@ var DEBUG_MODULE = "xxx.wasm"
 
 func main() {
 	fmt.Println("Hello, Wart!")
-	//runSC(TINYGO_PATH)
 	fmt.Println()
 	//listInstructions()
 	//testerTests()
@@ -38,50 +34,6 @@ func main() {
 	//specTests()
 	fmt.Printf("\n%d tests executed, %d failed.\n", executors.TotalNrOfTests, executors.TotalNrFailed)
 	fmt.Println("Ready!")
-}
-
-func runSC(wasmPath string) {
-	host.CreateRustAdapter()
-	host.CreateGoAdapter()
-	ctx := host.NewHostImpl()
-	runner := executors.NewWasmRunner(ctx)
-	fmt.Printf("Loading Wasm: %s\n", wasmPath)
-	err := runner.Load(wasmPath)
-	if err != nil {
-		fmt.Printf("error loading wasm: " + err.Error())
-		return
-	}
-
-	// set up placeBet
-	host.EnableImmutableChecks = false
-	contract := ctx.Object(nil, "contract", objtype.OBJTYPE_MAP)
-	contract.SetString(ctx.GetKeyId("address"), "smartContractAddress")
-	request := ctx.Object(nil, "request", objtype.OBJTYPE_MAP)
-	request.SetString(ctx.GetKeyId("hash"), "requestTransactionHash")
-	request.SetString(ctx.GetKeyId("address"), "requestInitiatorAddress")
-	params := ctx.Object(request, "params", objtype.OBJTYPE_MAP)
-	params.SetInt(ctx.GetKeyId("color"), 3)
-	ctx.AddBalance(request,"iota", 500)
-	host.EnableImmutableChecks = true
-
-	scName := "placeBet"
-	module := runner.Module()
-	for _, export := range module.Exports {
-		if export.ImportName == scName {
-			if export.ExternalType != desc.FUNC {
-				fmt.Printf("error running wasm: wrong export type")
-				return
-			}
-			function := module.Functions[export.Index]
-			err = runner.RunFunction(function)
-			if err != nil {
-				fmt.Printf("error running wasm: " + err.Error())
-				return
-			}
-			break
-		}
-	}
-	fmt.Printf("Success!")
 }
 
 func listInstructions() {
