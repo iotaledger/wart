@@ -11,14 +11,32 @@ import (
 	"github.com/iotaledger/wart/wasm/sections"
 )
 
-var Modules = make(map[string]*sections.Module)
-
-var globals = []byte{
-	op.I32_CONST, op.I64_CONST, op.F32_CONST, op.F64_CONST,
+type WasmLinker struct {
+	m *sections.Module
 }
 
-func DefineFunction(module string, name string, params []value.DataType, results []value.DataType, f sections.HostCall) *sections.Function {
-	mod := DefineModule(module)
+var Modules = make(map[string]*sections.Module)
+
+func NewWasmLinker(m *sections.Module) *WasmLinker {
+	lnk := &WasmLinker{m: m}
+	if m.ImportName != "" {
+		Modules[m.ImportName] = m
+	}
+	return lnk
+}
+
+func DefineModule(module string) *sections.Module {
+	mod, ok := Modules[module]
+	if !ok {
+		mod = sections.NewModule()
+		mod.ModuleName = module
+		Modules[module] = mod
+	}
+	return mod
+}
+
+func (lnk *WasmLinker) DefineFunction(name string, params []value.DataType, results []value.DataType, f sections.HostCall) *sections.Function {
+	mod := lnk.m
 	for _, export := range mod.Exports {
 		if export.ImportName == name {
 			if export.ExternalType != desc.FUNC {
@@ -50,8 +68,12 @@ func DefineFunction(module string, name string, params []value.DataType, results
 	return function
 }
 
-func DefineGlobal(module string, name string, dataType value.DataType, init *sections.Variable) *sections.Global {
-	mod := DefineModule(module)
+var globals = []byte{
+	op.I32_CONST, op.I64_CONST, op.F32_CONST, op.F64_CONST,
+}
+
+func (lnk *WasmLinker) DefineGlobal(name string, dataType value.DataType, init *sections.Variable) *sections.Global {
+	mod := lnk.m
 	for _, export := range mod.Exports {
 		if export.ImportName == name {
 			if export.ExternalType != desc.GLOBAL {
@@ -82,8 +104,8 @@ func DefineGlobal(module string, name string, dataType value.DataType, init *sec
 	return global
 }
 
-func DefineMemory(module string, name string, min uint32, max uint32) *sections.Memory {
-	mod := DefineModule(module)
+func (lnk *WasmLinker) DefineMemory(name string, min uint32, max uint32) *sections.Memory {
+	mod := lnk.m
 	for _, export := range mod.Exports {
 		if export.ImportName == name {
 			if export.ExternalType != desc.MEM {
@@ -110,18 +132,8 @@ func DefineMemory(module string, name string, min uint32, max uint32) *sections.
 	return memory
 }
 
-func DefineModule(module string) *sections.Module {
-	mod, ok := Modules[module]
-	if !ok {
-		mod = sections.NewModule()
-		mod.ModuleName = module
-		Modules[module] = mod
-	}
-	return mod
-}
-
-func DefineTable(module string, name string, min uint32, max uint32) *sections.Table {
-	mod := DefineModule(module)
+func (lnk *WasmLinker) DefineTable(name string, min uint32, max uint32) *sections.Table {
+	mod := lnk.m
 	for _, export := range mod.Exports {
 		if export.ImportName == name {
 			if export.ExternalType != desc.TABLE {
@@ -146,18 +158,6 @@ func DefineTable(module string, name string, min uint32, max uint32) *sections.T
 	export.Nr = mod.MaxExports()
 	mod.Exports = append(mod.Exports, export)
 	return table
-}
-
-type WasmLinker struct {
-	m *sections.Module
-}
-
-func NewWasmLinker(m *sections.Module) *WasmLinker {
-	lnk := &WasmLinker{m: m}
-	if m.ImportName != "" {
-		Modules[m.ImportName] = m
-	}
-	return lnk
 }
 
 func (lnk *WasmLinker) incompatibleOverlap(min uint32, max uint32, impMin uint32, impMax uint32) bool {

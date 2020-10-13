@@ -30,12 +30,7 @@ func (r *WasmRunner) Load(wasmData []byte) error {
 	}
 
 	linker := NewWasmLinker(r.Module())
-	err = linker.Link()
-	if err != nil {
-		return err
-	}
-
-	return nil
+	return linker.Link()
 }
 
 func (r *WasmRunner) Memory() []byte {
@@ -55,18 +50,16 @@ func (r *WasmRunner) RunExport(exportName string) error {
 	for _, export := range m.Exports {
 		if export.ImportName == exportName {
 			if export.ExternalType != desc.FUNC {
-				return errors.New("Invalid export type")
+				return errors.New("invalid export type")
 			}
 			function := m.Functions[export.Index]
 			return r.RunFunction(function)
 		}
 	}
-
-	return errors.New("Invalid export name")
+	return errors.New("invalid export name")
 }
 
 func (r *WasmRunner) RunFunction(function *sections.Function) error {
 	r.vm.Frame = make([]sections.Variable, function.MaxLocalIndex()+function.FrameSize)
-	err := instructions.RunBlock(r.vm, function.Body)
-	return err
+	return instructions.RunBlock(r.vm, function.Body)
 }

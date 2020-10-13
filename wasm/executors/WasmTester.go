@@ -97,44 +97,45 @@ func (tst *WasmTester) createSpecTestModule() {
 	//  (import "spectest" "memory" (memory 1))
 	//  (import "spectest" "table" (table 10 funcref))
 
-	modName := "spectest"
-	tst.m = DefineModule(modName)
-	_ = DefineFunction(modName, "print_i32", []value.DataType{value.I32}, nil,
+	tst.m = DefineModule("spectest")
+	lnk := NewWasmLinker(tst.m)
+	_ = lnk.DefineFunction("print_i32", []value.DataType{value.I32}, nil,
 		func(ctx *sections.HostContext) error {
 			fmt.Printf("==>> print_i32: %d\n", ctx.Frame[ctx.SP].I32)
 			return nil
 		})
-	_ = DefineFunction(modName, "print_i64", []value.DataType{value.I64}, nil,
+	_ = lnk.DefineFunction("print_i64", []value.DataType{value.I64}, nil,
 		func(ctx *sections.HostContext) error {
 			fmt.Printf("==>> print_i64: %d\n", ctx.Frame[ctx.SP].I64)
 			return nil
 		})
-	_ = DefineFunction(modName, "print_f32", []value.DataType{value.F32}, nil,
+	_ = lnk.DefineFunction("print_f32", []value.DataType{value.F32}, nil,
 		func(ctx *sections.HostContext) error {
 			fmt.Printf("==>> print_f32: %f\n", ctx.Frame[ctx.SP].F32)
 			return nil
 		})
-	_ = DefineFunction(modName, "print_f64", []value.DataType{value.F64}, nil,
+	_ = lnk.DefineFunction("print_f64", []value.DataType{value.F64}, nil,
 		func(ctx *sections.HostContext) error {
 			fmt.Printf("==>> print_f64: %f\n", ctx.Frame[ctx.SP].F64)
 			return nil
 		})
-	_ = DefineFunction(modName, "print_i32_f32", []value.DataType{value.I32, value.F32}, nil,
+	_ = lnk.DefineFunction("print_i32_f32", []value.DataType{value.I32, value.F32}, nil,
 		func(ctx *sections.HostContext) error {
 			fmt.Printf("==>> print_i32_f32: %d %f\n", ctx.Frame[ctx.SP].I32, ctx.Frame[ctx.SP+1].F32)
 			return nil
 		})
-	_ = DefineFunction(modName, "print_f64_f64", []value.DataType{value.F64, value.F64}, nil,
+	_ = lnk.DefineFunction("print_f64_f64", []value.DataType{value.F64, value.F64}, nil,
 		func(ctx *sections.HostContext) error {
 			fmt.Printf("==>> print_f64_f64: %f %f\n", ctx.Frame[ctx.SP].F64, ctx.Frame[ctx.SP+1].F64)
 			return nil
 		})
-	_ = DefineGlobal(modName, "global_i32", value.I32, &sections.Variable{I32: 666})
-	_ = DefineGlobal(modName, "global_i64", value.I64, nil)
-	_ = DefineGlobal(modName, "global_f32", value.F32, nil)
-	_ = DefineGlobal(modName, "global_f64", value.F64, nil)
-	_ = DefineMemory(modName, "memory", 1, 2)
-	_ = DefineTable(modName, "table", 10, 20)
+	i32_666 := &sections.Variable{I32: 666}
+	_ = lnk.DefineGlobal("global_i32", value.I32, i32_666)
+	_ = lnk.DefineGlobal("global_i64", value.I64, nil)
+	_ = lnk.DefineGlobal("global_f32", value.F32, nil)
+	_ = lnk.DefineGlobal("global_f64", value.F64, nil)
+	_ = lnk.DefineMemory("memory", 1, 2)
+	_ = lnk.DefineTable("table", 10, 20)
 
 	tst.moduleAnalyze()
 	if tst.Error != nil {
