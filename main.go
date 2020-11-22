@@ -22,14 +22,7 @@ func main() {
 	fmt.Println()
 	//listInstructions()
 	//testerTests()
-	readerTest(WASPLIB_RUST_PATH + "donatewithfeedback\\pkg\\donatewithfeedback_bg.wasm")
-	readerTest(WASPLIB_RUST_PATH + "fairroulette\\pkg\\fairroulette_bg.wasm")
-	readerTest(WASPLIB_RUST_PATH + "increment\\pkg\\increment_bg.wasm")
-	readerTest(WASPLIB_RUST_PATH + "tokenregistry\\pkg\\tokenregistry_bg.wasm")
-	readerTest(WASPLIB_TINYGO_PATH + "donatewithfeedback_go.wasm")
-	readerTest(WASPLIB_TINYGO_PATH + "fairroulette_go.wasm")
-	readerTest(WASPLIB_TINYGO_PATH + "increment_go.wasm")
-	readerTest(WASPLIB_TINYGO_PATH + "tokenregistry_go.wasm")
+	wasm2wat()
 	//readerTests()
 	//specTests()
 	fmt.Printf("\n%d tests executed, %d failed.\n", executors.TotalNrOfTests, executors.TotalNrFailed)
@@ -108,6 +101,22 @@ func readerTest(path string) {
 
 func readerTests() {
 	err := filepath.Walk("../input",
+		func(path string, info os.FileInfo, err error) error {
+			if err != nil {
+				return err
+			}
+			if strings.HasSuffix(path, ".wasm") {
+				readerTest(path)
+			}
+			return nil
+		})
+	if err != nil {
+		log.Println(err)
+	}
+}
+
+func wasm2wat() {
+	err := filepath.Walk(WASPLIB_TINYGO_PATH,
 		func(path string, info os.FileInfo, err error) error {
 			if err != nil {
 				return err

@@ -45,7 +45,7 @@ func (r *WasmRunner) Module() *sections.Module {
 	return r.vm.Module
 }
 
-func (r *WasmRunner) RunExport(exportName string) error {
+func (r *WasmRunner) RunExport(exportName string, params []sections.Variable) error {
 	m := r.Module()
 	for _, export := range m.Exports {
 		if export.ImportName == exportName {
@@ -53,13 +53,17 @@ func (r *WasmRunner) RunExport(exportName string) error {
 				return errors.New("invalid export type")
 			}
 			function := m.Functions[export.Index]
-			return r.RunFunction(function)
+			return r.RunFunction(function, params)
 		}
 	}
 	return errors.New("invalid export name")
 }
 
-func (r *WasmRunner) RunFunction(function *sections.Function) error {
+func (r *WasmRunner) RunFunction(function *sections.Function, params []sections.Variable) error {
+	if len(params) != len(function.FuncType.ParamTypes) {
+		return errors.New("parameter count mismatch")
+	}
 	r.vm.Frame = make([]sections.Variable, function.MaxLocalIndex()+function.FrameSize)
+	copy(r.vm.Frame, params)
 	return instructions.RunBlock(r.vm, function.Body)
 }
