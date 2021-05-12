@@ -13,6 +13,7 @@ type Runner struct {
 	CallDepth int
 	Error     error
 	Frame     []sections.Variable
+	Gas       int64
 	Module    *sections.Module
 	Next      helper.Instruction
 	SP        int

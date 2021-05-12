@@ -16,6 +16,10 @@ func NewWasmRunner() *WasmRunner {
 	return &WasmRunner{vm: context.NewRunner(sections.NewModule())}
 }
 
+func (r *WasmRunner) Interrupt() {
+	r.vm.Gas = instructions.GasTimeout
+}
+
 func (r *WasmRunner) Load(wasmData []byte) error {
 	reader := NewWasmReader(r.Module(), wasmData)
 	err := reader.Read()
@@ -65,5 +69,6 @@ func (r *WasmRunner) RunFunction(function *sections.Function, params []sections.
 	}
 	r.vm.Frame = make([]sections.Variable, function.MaxLocalIndex()+function.FrameSize)
 	copy(r.vm.Frame, params)
+	r.vm.Gas = instructions.GasUnlimited
 	return instructions.RunBlock(r.vm, function.Body)
 }

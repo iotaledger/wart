@@ -1,12 +1,16 @@
 package instructions
 
 import (
+	"errors"
 	"github.com/iotaledger/wart/utils"
 	"github.com/iotaledger/wart/wasm/consts/op"
 	"github.com/iotaledger/wart/wasm/consts/value"
 	"github.com/iotaledger/wart/wasm/executors/context"
 	"github.com/iotaledger/wart/wasm/instructions/helper"
 )
+
+const GasTimeout = -1_000_000_000_000_000
+const GasUnlimited = 1_000_000_000_000_000
 
 type Runner = context.Runner
 type instructionRunner func(vm *Runner)
@@ -195,7 +199,8 @@ func RunBlock(vm *Runner, block []helper.Instruction) error {
 		return utils.Error("External function call not yet implemented")
 	}
 	instr := block[0]
-	for instr != nil {
+	for instr != nil && vm.Gas >= 0 {
+		vm.Gas--
 		ctxInstr := instr.(ctxInstruction)
 		vm.Next = ctxInstr.getNext()
 		ctxInstr.Run(vm)
@@ -205,6 +210,12 @@ func RunBlock(vm *Runner, block []helper.Instruction) error {
 			return err
 		}
 		instr = vm.Next
+	}
+	if vm.Gas < 0 {
+		if vm.Gas <= GasTimeout {
+			return errors.New("interrupt")
+		}
+		return errors.New("out of gas")
 	}
 	return nil
 }
