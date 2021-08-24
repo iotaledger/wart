@@ -8,16 +8,26 @@ import (
 	"github.com/iotaledger/wart/wasm/sections"
 )
 
+const GasUnlimited = 1_000_000_000_000_000
+
 type WasmRunner struct {
-	vm *context.Runner
+	gasInterrupted int64
+	interrupted    bool
+	vm             *context.Runner
 }
 
 func NewWasmRunner() *WasmRunner {
 	return &WasmRunner{vm: context.NewRunner(sections.NewModule())}
 }
 
+func (r *WasmRunner) GasUsed() int64 {
+	return GasUnlimited - r.vm.Gas
+}
+
 func (r *WasmRunner) Interrupt() {
-	r.vm.Gas = instructions.GasTimeout
+	r.gasInterrupted = r.vm.Gas
+	r.vm.Gas = -1
+	r.interrupted = true
 }
 
 func (r *WasmRunner) Load(wasmData []byte) error {
@@ -69,6 +79,15 @@ func (r *WasmRunner) RunFunction(function *sections.Function, params []sections.
 	}
 	r.vm.Frame = make([]sections.Variable, function.MaxLocalIndex()+function.FrameSize)
 	copy(r.vm.Frame, params)
-	r.vm.Gas = instructions.GasUnlimited
-	return instructions.RunBlock(r.vm, function.Body)
+	r.vm.Gas = GasUnlimited
+	err := instructions.RunBlock(r.vm, function.Body)
+	if r.vm.Gas < 0 {
+		if r.interrupted {
+			r.interrupted = false
+			r.vm.Gas = r.gasInterrupted
+			return errors.New("interrupted")
+		}
+		return errors.New("out of gas")
+	}
+	return err
 }

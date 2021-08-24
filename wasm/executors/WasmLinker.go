@@ -1,6 +1,8 @@
 package executors
 
 import (
+	"strings"
+
 	"github.com/iotaledger/wart/utils"
 	"github.com/iotaledger/wart/wasm/consts/desc"
 	"github.com/iotaledger/wart/wasm/consts/op"
@@ -334,8 +336,13 @@ func (lnk *WasmLinker) linkImportFunctions() error {
 		if !ok {
 			return utils.Error("unknown import")
 		}
+		importName := function.ImportName
+		dot := strings.LastIndex(importName, ".")
+		if dot >= 0 {
+			importName = importName[dot+1:]
+		}
 		for _, export := range mod.Exports {
-			if export.ImportName == function.ImportName {
+			if export.ImportName == importName {
 				if export.ExternalType != desc.FUNC {
 					return utils.Error("incompatible import type")
 				}

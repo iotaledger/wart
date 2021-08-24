@@ -9,9 +9,6 @@ import (
 	"github.com/iotaledger/wart/wasm/instructions/helper"
 )
 
-const GasTimeout = -1_000_000_000_000_000
-const GasUnlimited = 1_000_000_000_000_000
-
 type Runner = context.Runner
 type instructionRunner func(vm *Runner)
 
@@ -212,9 +209,6 @@ func RunBlock(vm *Runner, block []helper.Instruction) error {
 		instr = vm.Next
 	}
 	if vm.Gas < 0 {
-		if vm.Gas <= GasTimeout {
-			return errors.New("interrupt")
-		}
 		return errors.New("out of gas")
 	}
 	return nil
